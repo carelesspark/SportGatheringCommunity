@@ -17,4 +17,9 @@ public class ManagerController {
         return "manager/managerMain";
     }
 
+    @GetMapping("/announcement")
+    public String announcement(){
+
+        return "manager/announcement";
+    }
 }

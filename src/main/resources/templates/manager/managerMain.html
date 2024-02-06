@@ -15,7 +15,7 @@
     <div id="main_box">
         <div id="left">
             <div id="logo">
-                <a href="#"><strong><i><span>S</span>port <span>W</span>ith <span>U</span>s</i></strong></a>
+                <a th:href="@{/manager/main}"><strong><i><span>S</span>port <span>W</span>ith <span>U</span>s</i></strong></a>
             </div>
             <div id="account">
                 <div id="pic">
@@ -42,7 +42,7 @@
                 <div id="menu_title">
                     <p>커뮤니티 관리</p>
                 </div>
-                <div id="announcement"><a href="#">
+                <div id="announcement"><a th:href="@{/manager/announcement}">
                     <div id="announcement_icon">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_144_7)">
@@ -479,7 +479,6 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function(){
