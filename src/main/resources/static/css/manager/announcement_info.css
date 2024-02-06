@@ -228,7 +228,7 @@ a:hover {
     background-color: white;
     box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
     display: grid;
-    grid-template-rows: 120px 440px 70px 70px;
+    grid-template-rows: 120px 440px 140px;
     place-items: center;
 }
 
@@ -245,51 +245,80 @@ a:hover {
     font-weight: bold;
 }
 
-#table {
+#info_table{
     width: 770px;
     height: 440px;
-    padding-left: 40px
-
+    padding-left: 40px;
 }
 
-.table1 {
-    width: 690px;
-}
-
-.table_tr{
-    background-color: #D1D1D1;
+.table {
+    width: 700px;
     text-align: center;
-    height: 35px;
+    border-top: 1px solid #B0B0B0;
+    border-bottom: 1px solid #B0B0B0;
+    border-right: 1px solid #B0B0B0;
 }
 
-.table_tr_p {
-    height: 20px;
-    border-right: 1px solid #BBBBBB;
-}
-
-.table_tr2 {
-    text-align: center;
-    font-size: 10pt;
-    height: 40px;
+.table_tr1 {
+    height: 50px;
     border-bottom: 1px solid #D1D1D1;
 }
 
-.table_tr2 td a {
-    color: black;
+.table_tr2 {
+    height: 50px;
+    border-bottom: 1px solid #D1D1D1;
 }
 
-#button {
-    width: 770px;
-    height: 70px;
-    padding-left: 630px;
-    padding-top: 20px;
+.table_tr3 {
+    height: 290px;
+    border-bottom: 1px solid #D1D1D1;
 }
 
-#write_button {
-    width: 100px;
-    height: 30px;
-    font-size: 10pt;
+.table_tr4 {
+    height: 50px;
+}
+
+.table_q {
+    background-color: #D9D9D9;
+    font-size: 11pt;
     font-weight: bold;
+    font-family: 'Inter', sans-serif;
+}
+
+.table_a {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #7B7B7B;
+    text-align: left;
+}
+
+.table td {
+    vertical-align: middle;
+    border-top: 1px solid #D1D1D1;
+}
+
+#buttons {
+    width: 700px;
+    display: grid;
+    grid-template-columns: 500px 100px 100px;
+    place-items: center;
+
+}
+
+.info_btn {
+    font-size: 10pt;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    width: 80px;
+    height: 28px;
+}
+
+.btn-primary {
+    width: 100px;
+}
+
+#btn_padding {
+    padding-left: 380px;
 }
 
 .modal-dialog {
@@ -318,6 +347,10 @@ a:hover {
     width: 700px;
     display: grid;
     grid-template-rows: 100px 250px;
+}
+
+.btn {
+    font-weight: bold;
 }
 
 .anc_title {
@@ -358,6 +391,3 @@ textarea {
     border-radius: .25rem;
 }
 
-.btn {
-    font-weight: bold;
-}

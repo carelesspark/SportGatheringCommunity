@@ -7,8 +7,8 @@
     <meta name="author" content="">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <title>공지사항 관리 페이지</title>
-    <link th:href="@{/css/manager/announcement.css}" rel="stylesheet" type="text/css"/>
+    <title>공지사항 상세 페이지</title>
+    <link th:href="@{/css/manager/announcement_info.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <main>
@@ -47,7 +47,7 @@
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_144_7)">
                                 <path d="M22.6504 18.646L13.1712 9.16683C14.1087 6.771 13.5879 3.9585 11.6087 1.97933C9.52539 -0.104002 6.40039 -0.520668 3.90039 0.625165L8.37955 5.10433L5.25456 8.22933L0.671222 3.75016C-0.578778 6.25016 -0.057945 9.37517 2.02539 11.4585C4.00456 13.4377 6.81705 13.9585 9.21289 13.021L18.6921 22.5002C19.1087 22.9168 19.7337 22.9168 20.1504 22.5002L22.5462 20.1043C23.0671 19.6877 23.0671 18.9585 22.6504 18.646Z"
-                                      fill="#FFFFFF"/>
+                                      fill="#A6A6A6"/>
                             </g>
                             <defs>
                                 <clipPath id="clip0_144_7">
@@ -192,103 +192,55 @@
                 <div id="sub_title">
                     <p>◇ Managing Announcements</p>
                 </div>
-                <div id="table">
-                    <table class="table1">
-                        <tr class="table_tr">
-                            <th><p class="table_tr_p">No.</p></th>
-                            <th><p class="table_tr_p">제목</p></th>
-                            <th><p class="table_tr_p">작성 날짜</p></th>
-                            <th><p class="table_tr_p">작성자</p></th>
-                            <th><p class="table_tr_p">조회수</p></th>
+                <div id="info_table">
+                    <table class="table">
+                        <tr class="table_tr1">
+                            <td class="table_q">No.</td>
+                            <td class="table_a">100</td>
+                            <td class="table_q">조회수</td>
+                            <td class="table_a">1</td>
                         </tr>
                         <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a th:href="@{/manager/announcement_info}">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>23</td>
+                            <td class="table_q">제목</td>
+                            <td colspan="3" class="table_a">사이트 이용 공지사항</td>
                         </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>12</td>
+                        <tr class="table_tr3">
+                            <td class="table_q">내용</td>
+                            <td colspan="3" class="table_a"> 스윗어스에 방문해 주신 유저 여러분 감사드립니다:) <br>
+                                항상 즐거운 시간 되시길 바라며, 궁금한 점이 있으실 경우 언제든지 문의 주시면 감사하겠습니다!
+                            </td>
                         </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>44</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>23</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>13</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>32</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>142</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>23</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>14</td>
-                        </tr>
-                        <tr class="table_tr2">
-                            <td>100</td>
-                            <td><a href="#">사이트 이용 공지사항</a></td>
-                            <td>2024/02/04</td>
-                            <td>관리자</td>
-                            <td>32</td>
+                        <tr class="table_tr4">
+                            <td class="table_q">작성 날짜</td>
+                            <td class="table_a">2024/02/04</td>
+                            <td class="table_q">작성자</td>
+                            <td class="table_a">관리자</td>
                         </tr>
                     </table>
                 </div>
-                <div id="button">
-                    <button type="button" class="btn btn-primary" id="write_button">글 작성</button>
+                <div id="buttons">
+                    <div id="btn_padding">
+                        <button type="button" class="btn btn-primary info_btn" onclick="location.href='/manager/announcement'">돌아가기</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger info_btn">수정</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary info_btn">삭제</button>
+                    </div>
                 </div>
-                <div></div>
             </div>
         </div>
     </div>
 
     <!-- The Modal -->
-    <div class="modal fade" id="writeAncModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="ModifyAncModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <p class="modal-title">◇ Writing Announcements</p>
+                    <p class="modal-title">◇ Modifying Announcements</p>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -309,8 +261,8 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">돌아가기</button>
-                    <button type="button" class="btn btn-success">글 작성</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-success">수정하기</button>
                 </div>
             </div>
         </div>
@@ -330,11 +282,13 @@
                }
            });
 
-           var writeAncModal = $("#writeAncModal");
+           var ModifyAncModal = $("#ModifyAncModal");
 
-           $("#write_button").click(function(){
-                writeAncModal.modal('show');
+           $(".btn-danger").click(function(){
+                ModifyAncModal.modal('show');
            });
+
+
        });
     </script>
 </main>
