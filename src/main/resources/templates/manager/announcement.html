@@ -274,9 +274,44 @@
                     </table>
                 </div>
                 <div id="button">
-                    <button type="button" class="btn btn-primary" id="button_size">글 작성</button>
+                    <button type="button" class="btn btn-primary" id="write_button">글 작성</button>
                 </div>
                 <div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="writeAncModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <p class="modal-title">◇ Writing Announcements</p>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="anc_body">
+                            <div class="anc_title">
+                                <div><label>제목 : </label></div>
+                                <div><input type="text" class="form-control anc_title_input" name="anc_title" /></div>
+                            </div>
+                            <div class="anc_content">
+                                <div class="content_label_padding"><label>내용 : </label></div>
+                                <div><textarea class="anc_content_input" name="anc_content"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">돌아가기</button>
+                    <button type="button" class="btn btn-success">글 작성</button>
+                </div>
             </div>
         </div>
     </div>
@@ -295,16 +330,10 @@
                }
            });
 
-           var inquiryModal = $("#inquiryModal");
+           var writeAncModal = $("#writeAncModal");
 
-           $(".open_inquiry_modal").click(function(){
-                inquiryModal.modal('show');
-           });
-
-           var inquiryInfoModal = $("#inquiryInfoModal");
-
-           $(".inquiry_info").on("click", function(){
-                inquiryInfoModal.modal('show');
+           $("#write_button").click(function(){
+                writeAncModal.modal('show');
            });
        });
     </script>

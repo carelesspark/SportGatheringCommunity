@@ -591,3 +591,8 @@ td:nth-child(6) {
 .btn-warning {
     color: white;
 }
+
+textarea {
+    resize: none;
+    border-radius: .25rem;
+}
