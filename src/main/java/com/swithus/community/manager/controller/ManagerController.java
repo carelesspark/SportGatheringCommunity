@@ -28,4 +28,10 @@ public class ManagerController {
 
         return "manager/announcement_info";
     }
+
+    @GetMapping("/faq")
+    public String faq(){
+
+        return "manager/faq";
+    }
 }
