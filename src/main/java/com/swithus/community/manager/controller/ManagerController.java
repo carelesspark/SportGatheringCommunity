@@ -22,4 +22,16 @@ public class ManagerController {
 
         return "manager/announcement";
     }
+
+    @GetMapping("/announcement_info")
+    public String announcement_info(){
+
+        return "manager/announcement_info";
+    }
+
+    @GetMapping("/faq")
+    public String faq(){
+
+        return "manager/faq";
+    }
 }
