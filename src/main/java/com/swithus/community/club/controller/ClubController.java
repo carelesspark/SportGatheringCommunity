@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/club")
+@RequestMapping("/static/css/club")
 public class ClubController {
 }
