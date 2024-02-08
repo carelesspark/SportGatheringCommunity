@@ -94,6 +94,10 @@ p {
     place-items: center;
 }
 
+.icon1 {
+    fill: white;
+}
+
 #menu_title {
     width: 150px;
     height: 70px;

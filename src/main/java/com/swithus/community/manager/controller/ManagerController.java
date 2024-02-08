@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ManagerController {
     @GetMapping("/main")
-    public String home(){
+    public void home(){
 
-        return "manager/managerMain";
     }
 
     @GetMapping("/announcement")

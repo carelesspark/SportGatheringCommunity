@@ -63,6 +63,10 @@ p {
     place-items: center;
 }
 
+.icon1 {
+     fill: white;
+ }
+
 #pic {
 
 }
@@ -379,6 +383,8 @@ a:hover {
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
+
+
 
 .anc_content_input {
     width: 600px;
