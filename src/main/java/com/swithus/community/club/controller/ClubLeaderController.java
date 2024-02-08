@@ -9,16 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/club")
-public class ClubController {
-
-    @GetMapping("/search")
-    public void goSearch() {
-        log.info("GET /club/search");
-    }
+@RequestMapping("/club/leader")
+public class ClubLeaderController {
 
     @GetMapping("/main")
     public void goMain() {
-        log.info("GET /club/main");
+        log.info("GET /club/leader/main");
     }
 }

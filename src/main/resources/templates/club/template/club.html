@@ -17,20 +17,12 @@
   </head>
   <body>
   <th:block th:replace="~{/global/headering :: header}"></th:block>
+
   <main class="container mb-5">
-
-
-
-    <th:block th:replace="~{/club/nav :: nav}"></th:block>
-
+    <th:block th:replace="~{/club/template/nav :: nav}"></th:block>
     <th:block th:replace="${content}"></th:block>
-
-
-
-
-
-
   </main>
+  
   <th:block th:replace="~{/global/footering :: footer}"></th:block>
   </body>
 </th:block>
