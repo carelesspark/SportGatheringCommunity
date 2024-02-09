@@ -39,4 +39,10 @@ public class ManagerController {
 
         return "manager/user";
     }
+
+    @GetMapping("/gathering")
+    public String gathering(){
+
+        return "manager/gathering";
+    }
 }
