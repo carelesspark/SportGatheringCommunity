@@ -33,4 +33,10 @@ public class ManagerController {
 
         return "manager/faq";
     }
+
+    @GetMapping("/user")
+    public String user(){
+
+        return "manager/user";
+    }
 }
