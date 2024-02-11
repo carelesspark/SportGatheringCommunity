@@ -45,4 +45,10 @@ public class ManagerController {
 
         return "manager/gathering";
     }
+
+    @GetMapping("/report_comment")
+    public String report_comment(){
+
+        return "manager/report_comment";
+    }
 }
