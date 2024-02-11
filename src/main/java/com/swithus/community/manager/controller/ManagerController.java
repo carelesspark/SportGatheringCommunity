@@ -57,4 +57,16 @@ public class ManagerController {
 
         return "manager/report_comment_info";
     }
+
+    @GetMapping("/report_post")
+    public String report_post(){
+
+        return "manager/report_post";
+    }
+
+    @GetMapping("/report_post_info")
+    public String report_post_info(){
+
+        return "manager/report_post_info";
+    }
 }

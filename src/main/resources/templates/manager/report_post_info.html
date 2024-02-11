@@ -9,21 +9,21 @@
         </div>
         <div id="main_content">
             <div id="sub_title">
-                <p>◇ Reported Comment</p>
+                <p>◇ Reported Post</p>
             </div>
             <div id="info_table">
                 <table class="table">
                     <tr class="table_tr1">
                         <td class="table_q">No.</td>
-                        <td class="table_a">100</td>
+                        <td class="table_a">20</td>
                         <td class="table_q">신고자</td>
-                        <td class="table_a">sdfsadf1242</td>
+                        <td class="table_a">sdfsdfa1242</td>
                     </tr>
                     <tr class="table_tr2">
                         <td class="table_q">신고 날짜</td>
                         <td class="table_a">2024/01/31</td>
                         <td class="table_q">신고 카테고리</td>
-                        <td class="table_a">비방 댓글</td>
+                        <td class="table_a">비방 게시글</td>
                     </tr>
                     <tr class="table_tr3">
                         <td class="table_q">신고 사유</td>
@@ -32,23 +32,25 @@
                         </td>
                     </tr>
                     <tr class="table_tr4">
-                        <td class="table_q">댓글 내용</td>
-                        <td colspan="3" class="table_a">
+                        <td class="table_q">게시글 내용</td>
+                        <td class="table_a">
                             진짜 엄청 멍청하네.
                         </td>
+                        <td class="table_q">게시글 내 사진</td>
+                        <td class="table_a"></td>
                     </tr>
                     <tr class="table_tr5">
-                        <td class="table_q">댓글 작성자</td>
+                        <td class="table_q">게시글 작성자</td>
                         <td class="table_a">sdfsfsdff</td>
                         <td class="table_q">신고 카운트</td>
-                        <td class="table_a">2번</td>
+                        <td class="table_a">3번</td>
                     </tr>
                 </table>
             </div>
             <div id="buttons">
                 <div id="btn_padding">
                     <button type="button" class="btn btn-dark info_btn"
-                            onclick="location.href='/manager/report_comment'">돌아가기
+                            onclick="location.href='/manager/report_post'">돌아가기
                     </button>
                 </div>
                 <div>
@@ -58,13 +60,13 @@
                     <button type="button" class="btn btn-primary info_btn">신고 적합</button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-secondary info_btn">댓글 삭제</button>
+                    <button type="button" class="btn btn-secondary info_btn">게시글 삭제</button>
                 </div>
             </div>
         </div>
 
 
-        <link th:href="@{/css/manager/report_comment_info.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/manager/report_post_info.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script>
@@ -166,19 +168,20 @@
                     $('.icon4').css("transition", "fill 0.3s ease-in-out");
                });
 
-               $('div#report_post a').hover(function(){
+               $('div#report_comment a').hover(function(){
                     $(this).css("background-color", "#74C5FF");
                     $(this).css("transition", "background 0.3s ease-in-out");
-                    $('.icon8').css("fill", "white");
-                    $('.icon8').css("transition", "fill 0.3s ease-in-out");
+                    $('.icon7').css("fill", "white");
+                    $('.icon7').css("transition", "fill 0.3s ease-in-out");
                }, function() {
                     $(this).css("background-color", "#727272");
                     $(this).css("transition", "background 0.3s ease-in-out");
-                    $('.icon8').css("fill", "#D6D6D6");
-                    $('.icon8').css("transition", "fill 0.3s ease-in-out");
+                    $('.icon7').css("fill", "#D6D6D6");
+                    $('.icon7').css("transition", "fill 0.3s ease-in-out");
                });
            });
         </script>
+
 
     </div>
 
