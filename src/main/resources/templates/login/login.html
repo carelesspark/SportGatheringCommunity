@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/layout">
 <th:block layout:fragment="content">
-    <p>로그인페이지</p>
+        <form style="width: 1080px; margin:0 auto; padding: 90px 0px;">
+            <div style="margin: 0 auto; width: 620px; height: 520px; border: 1px solid lightgray;
+                padding: 90px 130px; border-radius: 10px;">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label" style="color: #898989">스포츠는 함께 Swith Us</label>
+                    <input style="background-color: #e2e6ea; width: 354px; height: 61px; border-radius: 3px" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="아이디를 입력해주세요.">
+
+                </div>
+
+                <div class="mb-3">
+                    <input style="background-color: #e2e6ea; width: 354px; height: 61px; border-radius: 3px" type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호를 입력해주세요">
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; padding: 0px;">
+                    <a style="color: #898989">아이디 찾기/</a>
+                    <a style="color: #898989">비밀번호 찾기</a>
+                    <p>&nbsp&nbsp&nbsp&nbsp</p>
+                    <a style="color: #898989">회원가입</a>
+                </div>
+
+                <button style="background-color: #0D6EFF; width: 354px; height: 61px; border-radius: 10px" type="submit" class="btn btn-primary">로그인</button>
+
+                <div style="display: flex; justify-content: center; margin: 45px auto">
+                    <img src="" style="width: 40px; height: 40px"><span>카카오 로그인
+                    <img src="" style="width: 40px; height: 40px"> 네이버 로그인
+                </div>
+            </div>
+
+
+        </form>
 </th:block>
 </html>
