@@ -8,47 +8,23 @@
       <a href="#">일정 추가</a>
     </div>
     <div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th class="text-center" scope="col">사진</th>
-          <th class="text-center" scope="col">이름</th>
-          <th class="text-center" scope="col">나이</th>
-          <th class="text-center" scope="col">포지션 - 존재하지 않으면 기입 안함</th>
-          <th class="text-center" scope="col">가입일</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr> th each 사용
-          <td>사진</td>
-          <td>이름</td>
-          <td>나이</td>
-          <td>포지션 - 존재하지 않으면 기입 안함</td>
-          <td>가입일</td>
-        </tr>
-        </tbody>
-      </table>
+
+      <div class="container"> th each 사용. 활성화된 일정만 보여주기
+        <div >
+          <div >모임 날짜</div>
+          <div >모임 이름</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 text-left">이미지</div>
+          <div class="col-xs-6 text-right">
+            <div>일시</div>
+            <div>위치</div>
+            <div>참석</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <ul class="pagination h-100 justify-content-center align-items-center">
-      <li class="page-item">
-        <a class="page-link">
-          ‹
-        </a>
-      </li>
-
-      <li>
-        <a class="page-link">
-          페이지 번호
-        </a>
-      </li>
-
-      <li class="page-item">
-        <a class="page-link">
-          ›
-        </a>
-      </li>
-    </ul>
 
   </div>
 </th:block>

@@ -46,9 +46,4 @@ public class ClubController {
     public void goBoard() {
         log.info("GET /club/board");
     }
-
-    @GetMapping("/gallery")
-    public void goGallery() {
-        log.info("GET /club/gallery");
-    }
 }
