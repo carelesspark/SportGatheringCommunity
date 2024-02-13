@@ -21,4 +21,29 @@ public class ClubController {
     public void goMain() {
         log.info("GET /club/main");
     }
+
+    @GetMapping("/greetings")
+    public void goGreetings() {
+        log.info("GET /club/greetings");
+    }
+
+    @GetMapping("/member")
+    public void goMember() {
+        log.info("GET /club/member");
+    }
+
+    @GetMapping("/calendar")
+    public void goCalendar() {
+        log.info("GET /club/calendar");
+    }
+
+    @GetMapping("/meeting")
+    public void goMeeting() {
+        log.info("GET /club/meeting");
+    }
+
+    @GetMapping("/board")
+    public void goBoard() {
+        log.info("GET /club/board");
+    }
 }
