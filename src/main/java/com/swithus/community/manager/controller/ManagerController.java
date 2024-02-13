@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ManagerController {
     @GetMapping("/main")
-    public String home(){
+    public void home(){
 
-        return "manager/managerMain";
     }
 
     @GetMapping("/announcement")
@@ -33,5 +32,41 @@ public class ManagerController {
     public String faq(){
 
         return "manager/faq";
+    }
+
+    @GetMapping("/user")
+    public String user(){
+
+        return "manager/user";
+    }
+
+    @GetMapping("/gathering")
+    public String gathering(){
+
+        return "manager/gathering";
+    }
+
+    @GetMapping("/report_comment")
+    public String report_comment(){
+
+        return "manager/report_comment";
+    }
+
+    @GetMapping("/report_comment_info")
+    public String report_comment_info(){
+
+        return "manager/report_comment_info";
+    }
+
+    @GetMapping("/report_post")
+    public String report_post(){
+
+        return "manager/report_post";
+    }
+
+    @GetMapping("/report_post_info")
+    public String report_post_info(){
+
+        return "manager/report_post_info";
     }
 }
