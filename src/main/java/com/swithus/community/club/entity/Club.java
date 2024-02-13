@@ -1,4 +1,6 @@
 package com.swithus.community.club.entity;
 
-public class Club {
+import com.swithus.community.global.entity.BaseEntity;
+
+public class Club extends BaseEntity {
 }
