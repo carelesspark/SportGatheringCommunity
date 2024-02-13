@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+
+    <div>
+      <h1>명단</h1>
+      <a href="#">해당 종목의 포지셔닝 명단으로 바꾸는 링크</a>
+    </div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-center" scope="col">사진</th>
+          <th class="text-center" scope="col">이름</th>
+          <th class="text-center" scope="col">나이</th>
+          <th class="text-center" scope="col">포지션 - 존재하지 않으면 기입 안함</th>
+          <th class="text-center" scope="col">가입일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr> th each 사용
+          <td>사진</td>
+          <td>이름</td>
+          <td>나이</td>
+          <td>포지션 - 존재하지 않으면 기입 안함</td>
+          <td>가입일</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="pagination h-100 justify-content-center align-items-center">
+      <li class="page-item">
+        <a class="page-link">
+          ‹
+        </a>
+      </li>
+
+      <li>
+        <a class="page-link">
+          페이지 번호
+        </a>
+      </li>
+
+      <li class="page-item">
+        <a class="page-link">
+          ›
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</th:block>
+</html>
