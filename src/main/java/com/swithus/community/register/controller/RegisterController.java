@@ -22,4 +22,10 @@ public class RegisterController {
 
         return "register/agree";
     }
+
+    @GetMapping("/registerform")
+    public String registerform() {
+
+        return "register/registerForm";
+    }
 }

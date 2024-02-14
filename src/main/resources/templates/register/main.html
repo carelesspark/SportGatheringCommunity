@@ -4,12 +4,20 @@
     <div style="margin: 90px auto; width: 620px; height: 520px; border: 1px solid lightgray;
                 padding: 90px 130px; border-radius: 10px;">
         <div class="mb-3">
-            <label class="form-label" style="color: #898989">스포츠는 함께 Swith Us</label>
-            <p>소셜계정으로 간편 가입하기</p>
-            <button></button>
+            <p class="form-label fw-bold" style="color: #898989">스포츠는 함께 Swith Us</p>
+            <div class="d-flex align-items-center my-4">
+                <span style="width: 20%; height: 1px; background-color: #898989; display: inline-block; align-items: center; opacity:50%;"></span>
+                <span style="width: 60%; font-weight: bold;" class="mx-1 text-muted">소셜계정으로 간편 가입하기</span>
+                <span style="width: 20%; height: 1px; background-color: #898989; display: inline-block; align-items: center; opacity:50%;"></span>
+            </div>
+            <div class="d-flex justify-content-center my-4">
+                <button class="w-25 mx-1 h-50 border-0 bg-transparent"><img class="w-100 h-100" src="/images/naver_icon_circle.png"></img></button>
+                <button class="w-25 mx-1 h-50 border-0 bg-transparent"><img class="w-100 h-100" src="/images/kakao-talk-logo-circle.png"></img></button>
+            </div>
         </div>
 
-        <button style="width: 354px; height: 61px;" class="btn btn-primary rounded" onclick="location.href='/register/agree'">스윗어스 회원가입 하기</button>
+        <button style="width: 354px; height: 61px;" class="btn btn-primary rounded my-4" onclick="location.href='/register/agree'">스윗어스 회원가입 하기</button>
+        <p class="float-end">이미 계정이 있으신가요? <a href="/login/main" class="text-dark">로그인</a></p>
     </div>
 </th:block>
 </html>
