@@ -254,11 +254,24 @@ a:hover {
     width: 570px;
     height: 120px;
     padding-top: 60px;
-    padding-left: 200px;
+    display: grid;
+    grid-template-columns: 400px 170px;
+    place-items: center;
 
 }
 
-.form-select {
+.form-select1 {
+    width: 200px;
+    height: 35px;
+    border: 1px solid #aaa7a7;
+    color: #767070;
+    border-radius: 5px;
+    font-size: 10pt;
+    margin-left: 285px;
+    margin-bottom: 5px;
+}
+
+.form-select2 {
     width: 200px;
     height: 35px;
     border: 1px solid #aaa7a7;
@@ -266,6 +279,8 @@ a:hover {
     border-radius: 5px;
     font-size: 10pt;
 }
+
+
 
 .search {
     height: 35px;
@@ -307,6 +322,10 @@ a:hover {
     padding-right: 340px;
     font-size: 11pt;
     font-family: 'Inter', sans-serif;
+}
+
+.faq_title_input {
+    padding: 0;
 }
 
 .modal-dialog {
