@@ -15,11 +15,11 @@ public class ReportComment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long key;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User reporter_key;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Promotion reply_key;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private User reporter_key;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Promotion reply_key;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ReportCommentCtgr ctgr_key;
