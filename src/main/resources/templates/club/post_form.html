@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
     <div>
-      <h1>가입 신청</h1>
+      <h1>게시글 작성</h1>
     </div>
+
     <div>
-      가입 양식을 적는 곳
-      그냥 가입 인사 양식으로 만들어서 통과하면 그대로 저장시키는게 좋을 거 같음
-      <form>
+      게시글 내용 넣는 곳
+      <form action="" method="post">
 
       </form>
     </div>
+
+    <div>
+      게시글 사진 넣고 확인하는 곳
+    </div>
+
+    <script th:inline="javascript">
+
+    </script>
   </div>
 </th:block>
-
 </html>
