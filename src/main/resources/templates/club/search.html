@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<h1>끄아아악</h1>
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/layout :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+    <div>
+      <h1>클럽 검색</h1>
+    </div>
+
+    <div>
+      <form action="" method="get">
+        <input name="page" type="hidden" value="1">
+
+        <select class="form-select">
+          <option value="">th each region $regions
+            th value $region.key
+            th selected $region.name eq region_like
+            th text region.name
+          </option>
+        </select>
+        <select class="form-select">
+          <option value="">th each sport $sports
+            th value $sport.key
+            th selected $sport.name eq sport_like
+            th text sport.name
+          </option>
+        </select>
+
+      </form>
+    </div>
+
+    <div>
+      클럽 리스트가 올라오는 곳
+      th for each
+    </div>
+
+    <div>
+      페이징 버튼이 들어가는 곳
+      <ul class="pagination h-100 justify-content-center align-items-center">
+        <li class="page-item">
+          <a class="page-link">
+            ‹
+          </a>
+        </li>
+
+        <li>
+          <a class="page-link">
+            페이지 번호
+          </a>
+        </li>
+
+        <li class="page-item">
+          <a class="page-link">
+            ›
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</th:block>
+
 </html>
