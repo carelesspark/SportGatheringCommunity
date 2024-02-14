@@ -1,6 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/layout">
-<th:block layout:fragment="content">
-    <p>회원가입 이용약관동의 페이지</p>
-</th:block>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/register/agree"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body style="background-image:url('/images/background.jpg'); width: 100%; height: 100%; background-size: cover; background-repeat : no-repeat;">
+    <main>
+        <form class="p-5 bg-white rounded" style="margin: 200px auto; width: 40%;">
+            <div class="w-100 mb-3">
+                <div class="d-flex mb-3">
+                    <input type="checkbox"></input><span class="d-flex align-items-end">[필수]</span>
+                    <h4>스윗어스 이용약관</h4>
+                </div>
+                <div class="border border-secondary rounded overflow-auto" style="height: 100px;">
+                    환영합니다. 스윗어스 서비스를 이용해 주셔서 감사합니다. 본 약관은 다양한 스윗어스 서비스의 이용과 관련하여 스윗어스
+                    서비스를 제공하는 스윗어스 주식회사(이하 ‘스윗어스’)와 이를 이용하는 스윗어스 서비스 회원(이하 ‘회원’) 또는 비회원과의
+                    관계를 설명하며, 아울러 여러분의 스윗어스 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                    스윗어스 서비스를 이용하시거나 스윗어스 서비스 회원으로 가입하실 경우 여러분은 본 약관 및 관련 운영 정책을
+                    확인하거나 동의하게 되므로, 잠시 시간을 내시어 주의 깊게 살펴봐 주시기 바랍니다.
+                </div>
+            </div>
+            <div class="w-100 mb-3">
+                <div class="d-flex mb-3">
+                    <input type="checkbox"></input><span class="d-flex align-items-end">[필수]</span>
+                    <h4>개인정보 수집 및 이용</h4>
+                </div>
+                <div class="border border-secondary rounded overflow-auto" style="height: 100px;">
+                    개인정보보호법에 따라 스윗어스에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적,
+                    개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후
+                    동의하여 주시기 바랍니다.1. 수집하는 개인정보
+                    이용자는 회원가입을 하지 않아도 정보 검색, 뉴스 보기 등 대부분의 스윗어스 서비스를 회원과 동일하게 이용할 수
+                    있습니다. 이용자가 메일, 캘린더, 카페, 블로그 등과 같이 개인화 혹은 회원제 서비스를 이용하기 위해 회원가입을
+                    할 경우, 스윗어스는 서비스 이용을 위해 필요한 최소한의 개인정보를 수집합니다.
+                </div>
+            </div>
+            <div class="w-100 mb-3">
+                <div class="d-flex mb-3">
+                    <input type="checkbox"></input><span class="d-flex align-items-end">[필수]</span>
+                    <h4>실명 인증된 아이디로 가입</h4>
+                </div>
+                <div class="border border-secondary rounded overflow-auto p-2" style="height: 70px;">
+                    실명 인증된 아이디로 가입하시면 본인인증이 필요한 서비스를 가입 후 바로 이용하실 수 있어요.
+                </div>
+            </div>
+            <div class="w-100 mb-3">
+                <div class="d-flex mb-3">
+                    <input type="checkbox"></input>
+                    <h4>전체 동의하기</h4>
+                </div>
+                <div class="border border-secondary rounded overflow-auto p-2" style="height: 70px;">
+                    실명 인증된 아이디로 가입, 스윗어스 이용약관, 개인정보 수집 및 이용 동의를 포함합니다.
+                </div>
+            </div>
+
+            <button class="w-100 btn btn-primary rounded" style="height: 60px;" onclick="location.href='/register/registerform'">다음</button>
+        </form>
+    </main>
+</body>
 </html>
