@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+    <div>
+      <h1>게시판</h1>
+      <a class="btn" href="">게시글 작성</a>
+    </div>
+    <div>
+      검색창
+    </div>
+    <div>
+      게시글 리스트
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="text-center" scope="col">#</th>
+          <th class="text-center" scope="col">제목</th>
+          <th class="text-center" scope="col">댓글 개수</th>
+          <th class="text-center" scope="col">좋아요</th>
+          <th class="text-center" scope="col">등록일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>th each
+          <td><a>#</a></td>
+          <td>제목</td>
+          <td>댓글 개수</td>
+          <td>좋아요</td>
+          <td>등록일</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-</body>
+    <ul class="pagination h-100 justify-content-center align-items-center">
+      <li class="page-item">
+        <a class="page-link">
+          ‹
+        </a>
+      </li>
+
+      <li>
+        <a class="page-link">
+          페이지 번호
+        </a>
+      </li>
+
+      <li class="page-item">
+        <a class="page-link">
+          ›
+        </a>
+      </li>
+    </ul>
+
+    <script th:inline="javascript">
+
+    </script>
+  </div>
+</th:block>
 </html>
