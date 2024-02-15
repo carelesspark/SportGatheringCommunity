@@ -13,7 +13,7 @@ import lombok.*;
 public class Position extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Sports sports;

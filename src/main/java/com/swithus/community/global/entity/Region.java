@@ -13,7 +13,7 @@ import lombok.*;
 public class Region extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     // 지역 이름
     private String name;

@@ -14,15 +14,15 @@ import java.util.List;
 @ToString
 public class ClubDTO {
     // 클럽 키
-    private Long key;
+    private Long clubId;
     // 클럽장 키
-    private Long leaderKey;
+    private Long leaderId;
     // 지역 키
-    private Long regionKey;
+    private Long regionId;
     // 지역 이름
     private String regionName;
     // 종목 키
-    private Long sportsKey;
+    private Long sportsId;
     // 종목 이름
     private String sportsName;
 
@@ -40,5 +40,6 @@ public class ClubDTO {
     private LocalDateTime regDate;
 
     // 클럽 메인 이미지 리스트
+    @Builder.Default
     private List<ImageDTO> imageDTOList = new ArrayList<>();
 }

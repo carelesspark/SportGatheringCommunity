@@ -3,26 +3,28 @@ package com.swithus.community.club.entity;
 import com.swithus.community.global.entity.BaseEntity;
 import com.swithus.community.global.entity.Region;
 import com.swithus.community.global.entity.Sports;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
-//@Entity
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-//@Table
+@Table
 @ToString
 public class Club extends BaseEntity {
-
-    private Long key;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     // 클럽장 키 User leader;
 
     // 지역 키
+    @ManyToOne(fetch = FetchType.LAZY)
     private Region region;
     // 종목 키
+    @ManyToOne(fetch = FetchType.LAZY)
     private Sports sports;
 
     // 클럽명

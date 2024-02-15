@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class Meeting extends BaseEntity {
 
-    private Long key;
+    private Long id;
     // 클럽 키
     private Club club;
     // 카테고리 키

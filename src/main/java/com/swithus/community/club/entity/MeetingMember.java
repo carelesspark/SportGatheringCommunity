@@ -4,7 +4,7 @@ import com.swithus.community.global.entity.BaseEntity;
 
 public class MeetingMember extends BaseEntity {
 
-    private Long key;
+    private Long id;
     // 모임 키
     private Meeting meeting;
     // 멤버 키
