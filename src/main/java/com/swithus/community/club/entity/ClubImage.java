@@ -19,10 +19,10 @@ public class ClubImage extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
 
-    // 이름
-    private String name;
     // 경로
     private String path;
+    // 이름
+    private String name;
     // uuid
     private String uuid;
 }
