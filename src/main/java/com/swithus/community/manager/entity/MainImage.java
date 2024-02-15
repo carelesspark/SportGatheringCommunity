@@ -16,7 +16,7 @@ public class MainImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     private String name;
 

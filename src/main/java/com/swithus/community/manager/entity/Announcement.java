@@ -18,7 +18,7 @@ public class Announcement extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     private String title;
 
