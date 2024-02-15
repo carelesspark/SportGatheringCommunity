@@ -1,8 +1,8 @@
 package com.swithus.community.club.service.impl;
 
 import com.swithus.community.club.dto.ClubDTO;
-import com.swithus.community.club.dto.SearchPageRequestDTO;
-import com.swithus.community.club.dto.SearchPageResultDTO;
+import com.swithus.community.club.dto.page.SearchPageRequestDTO;
+import com.swithus.community.club.dto.page.SearchPageResultDTO;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.entity.ClubImage;
 import com.swithus.community.club.repository.ClubImageRepository;
