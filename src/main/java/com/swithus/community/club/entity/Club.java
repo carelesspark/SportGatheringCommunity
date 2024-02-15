@@ -3,6 +3,7 @@ package com.swithus.community.club.entity;
 import com.swithus.community.global.entity.BaseEntity;
 import com.swithus.community.global.entity.Region;
 import com.swithus.community.global.entity.Sports;
+import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,8 +20,8 @@ public class Club extends BaseEntity {
     private Long id;
 
     // 클럽장 키
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // private User leader;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User leader;
 
     // 지역 키
     @ManyToOne(fetch = FetchType.LAZY)
