@@ -4,7 +4,7 @@ import com.swithus.community.global.entity.BaseEntity;
 
 public class ClubPost extends BaseEntity {
 
-    private Long key;
+    private Long id;
     // 작성자 키
     private ClubMember writer;
 

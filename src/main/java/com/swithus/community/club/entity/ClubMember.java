@@ -4,7 +4,7 @@ import com.swithus.community.global.entity.BaseEntity;
 
 public class ClubMember extends BaseEntity {
 
-    private Long key;
+    private Long id;
     // 클럽 키
     private Club club;
     // 회원 키
