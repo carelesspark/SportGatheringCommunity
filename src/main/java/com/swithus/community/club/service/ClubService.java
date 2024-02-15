@@ -1,13 +1,14 @@
 package com.swithus.community.club.service;
 
 import com.swithus.community.club.dto.ClubDTO;
-import com.swithus.community.club.dto.SearchPageRequestDTO;
-import com.swithus.community.club.dto.SearchPageResultDTO;
+import com.swithus.community.club.dto.page.SearchPageRequestDTO;
+import com.swithus.community.club.dto.page.SearchPageResultDTO;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.entity.ClubImage;
 import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.entity.Region;
 import com.swithus.community.global.entity.Sports;
+import com.swithus.community.user.entity.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface ClubService {
 
         Club club = Club.builder()
                 .id(clubDTO.getClubId())
-                //.leader(User.builder().key(clubDTO.getLeaderKey()).build())
+                .leader(User.builder().id(clubDTO.getLeaderId()).build())
                 .region(Region.builder().id(clubDTO.getRegionId()).build())
                 .sports(Sports.builder().id(clubDTO.getSportsId()).build())
                 .name(clubDTO.getName())
@@ -61,7 +62,7 @@ public interface ClubService {
 
         return ClubDTO.builder()
                 .clubId(club.getId())
-                //.leaderKey(club.getLeader())
+                .leaderId(club.getLeader().getId())
                 .regionId(club.getRegion().getId())
                 .regionName(club.getRegion().getName())
                 .sportsId(club.getSports().getId())

@@ -1,6 +1,7 @@
 package com.swithus.community.club.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,8 +20,8 @@ public class ClubMember extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
     // 회원 키
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // private User member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User member;
 
     // 랭크(0은 가입 신청을 넣은 유저)
     private int rank;

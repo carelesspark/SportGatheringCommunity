@@ -1,6 +1,7 @@
 package com.swithus.community.club.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,8 +22,8 @@ public class ClubInquiryHeader extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
     // 문의자 키
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     // 마지막 메시지 작성자
     private byte lastSender;

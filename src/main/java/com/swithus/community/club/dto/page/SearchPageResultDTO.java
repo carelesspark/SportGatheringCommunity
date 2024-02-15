@@ -1,4 +1,4 @@
-package com.swithus.community.club.dto;
+package com.swithus.community.club.dto.page;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;

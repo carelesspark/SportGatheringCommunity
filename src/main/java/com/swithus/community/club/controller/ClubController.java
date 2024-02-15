@@ -1,6 +1,6 @@
 package com.swithus.community.club.controller;
 
-import com.swithus.community.club.dto.SearchPageRequestDTO;
+import com.swithus.community.club.dto.page.SearchPageRequestDTO;
 import com.swithus.community.club.service.ClubService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
