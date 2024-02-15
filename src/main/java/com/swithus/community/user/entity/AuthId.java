@@ -19,13 +19,13 @@ public class AuthId extends BaseEntity {
 
     //
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_key")
+    //@JoinColumn(name = "user_key")
     private User user;
 
     //아이디
-    private String user_id;
+    private String userId;
 
     //비밀번호
-    private String user_pwd;
+    private String userPwd;
 
 }
