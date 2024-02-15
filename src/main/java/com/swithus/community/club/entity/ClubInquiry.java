@@ -4,7 +4,7 @@ import com.swithus.community.global.entity.BaseEntity;
 
 public class ClubInquiry extends BaseEntity {
 
-    private Long key;
+    private Long id;
     // 문의 헤더 키
     private ClubInquiryHeader header;
 

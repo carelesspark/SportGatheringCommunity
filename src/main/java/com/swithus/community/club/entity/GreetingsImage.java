@@ -4,7 +4,7 @@ import com.swithus.community.global.entity.BaseEntity;
 
 public class GreetingsImage extends BaseEntity {
 
-    private Long key;
+    private Long id;
     // 가입인사 키
     private Greetings greetings;
 
