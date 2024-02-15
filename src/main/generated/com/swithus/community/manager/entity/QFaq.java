@@ -26,7 +26,7 @@ public class QFaq extends EntityPathBase<Faq> {
 
     public final StringPath answer = createString("answer");
 
-    public final QFaqCtgr ctgr_id;
+    public final QFaqCtgr ctgr;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -56,7 +56,7 @@ public class QFaq extends EntityPathBase<Faq> {
 
     public QFaq(Class<? extends Faq> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.ctgr_id = inits.isInitialized("ctgr_id") ? new QFaqCtgr(forProperty("ctgr_id")) : null;
+        this.ctgr = inits.isInitialized("ctgr") ? new QFaqCtgr(forProperty("ctgr")) : null;
     }
 
 }

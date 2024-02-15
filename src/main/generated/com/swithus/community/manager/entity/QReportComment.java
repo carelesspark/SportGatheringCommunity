@@ -24,7 +24,7 @@ public class QReportComment extends EntityPathBase<ReportComment> {
 
     public final com.swithus.community.global.entity.QBaseEntity _super = new com.swithus.community.global.entity.QBaseEntity(this);
 
-    public final QReportCommentCtgr ctgr_id;
+    public final QReportCommentCtgr ctgr;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -54,7 +54,7 @@ public class QReportComment extends EntityPathBase<ReportComment> {
 
     public QReportComment(Class<? extends ReportComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.ctgr_id = inits.isInitialized("ctgr_id") ? new QReportCommentCtgr(forProperty("ctgr_id")) : null;
+        this.ctgr = inits.isInitialized("ctgr") ? new QReportCommentCtgr(forProperty("ctgr")) : null;
     }
 
 }

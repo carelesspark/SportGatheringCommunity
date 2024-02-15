@@ -17,7 +17,7 @@ public class Faq extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private FaqCtgr ctgr_id;
+    private FaqCtgr ctgr;
 
     private String question;
 

@@ -20,7 +20,7 @@ public class AnnouncementRepositoryTests {
             Announcement announcement = Announcement.builder()
                     .content("Test Content")
                     .title("Test Title")
-                    .visit_count(0)
+                    .visitCount(0)
                     .writer("Manager").build();
 
             announcementRepository.save(announcement);

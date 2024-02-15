@@ -1,4 +1,4 @@
-package com.swithus.community.manager.entity;
+package com.swithus.community.board.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,10 +12,13 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
-public class FaqCtgr {
+public class Inquiry {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ctgrType;
+    private InquiryCtgr ctgr;
+
+    private User
 }

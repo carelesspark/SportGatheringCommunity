@@ -19,7 +19,7 @@ public class QReportCommentCtgr extends EntityPathBase<ReportCommentCtgr> {
 
     public static final QReportCommentCtgr reportCommentCtgr = new QReportCommentCtgr("reportCommentCtgr");
 
-    public final StringPath ctgr_type = createString("ctgr_type");
+    public final StringPath ctgrType = createString("ctgrType");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
