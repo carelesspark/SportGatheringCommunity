@@ -1,4 +1,4 @@
-package com.swithus.community.manager.entity;
+package com.swithus.community.club.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -11,50 +11,54 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QReportComment is a Querydsl query type for ReportComment
+ * QClubImage is a Querydsl query type for ClubImage
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QReportComment extends EntityPathBase<ReportComment> {
+public class QClubImage extends EntityPathBase<ClubImage> {
 
-    private static final long serialVersionUID = 1716588778L;
+    private static final long serialVersionUID = -576111991L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QReportComment reportComment = new QReportComment("reportComment");
+    public static final QClubImage clubImage = new QClubImage("clubImage");
 
     public final com.swithus.community.global.entity.QBaseEntity _super = new com.swithus.community.global.entity.QBaseEntity(this);
 
-    public final QReportCommentCtgr ctgr;
+    public final QClub club;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
 
-    public final StringPath reason = createString("reason");
+    public final StringPath name = createString("name");
+
+    public final StringPath path = createString("path");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public QReportComment(String variable) {
-        this(ReportComment.class, forVariable(variable), INITS);
+    public final StringPath uuid = createString("uuid");
+
+    public QClubImage(String variable) {
+        this(ClubImage.class, forVariable(variable), INITS);
     }
 
-    public QReportComment(Path<? extends ReportComment> path) {
+    public QClubImage(Path<? extends ClubImage> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QReportComment(PathMetadata metadata) {
+    public QClubImage(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QReportComment(PathMetadata metadata, PathInits inits) {
-        this(ReportComment.class, metadata, inits);
+    public QClubImage(PathMetadata metadata, PathInits inits) {
+        this(ClubImage.class, metadata, inits);
     }
 
-    public QReportComment(Class<? extends ReportComment> type, PathMetadata metadata, PathInits inits) {
+    public QClubImage(Class<? extends ClubImage> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.ctgr = inits.isInitialized("ctgr") ? new QReportCommentCtgr(forProperty("ctgr")) : null;
+        this.club = inits.isInitialized("club") ? new QClub(forProperty("club"), inits.get("club")) : null;
     }
 
 }

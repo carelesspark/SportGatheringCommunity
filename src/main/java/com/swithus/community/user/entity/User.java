@@ -36,11 +36,11 @@ public class User extends BaseEntity {
     private String addr;
 
     //회원 상세주소
-    private String addr_detail;
+    private String addrDetail;
 
     //회원 우편번호
     private String post;
 
     //클럽장여부
-    private byte is_leader;
+    private byte isLeader;
 }

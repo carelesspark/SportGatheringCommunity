@@ -18,13 +18,13 @@ public class ReportPostCheck extends BaseEntity {
     private Long id;
 
 //    @OneToOne(fetch = FetchType.LAZY)
-//    private ReportPost post_id;
+//    private ReportPost post;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean is_suitabled;
+    private boolean isSuitabled;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean is_solved;
+    private boolean isSolved;
 }

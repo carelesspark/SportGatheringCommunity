@@ -17,13 +17,13 @@ public class ReportPost extends BaseEntity {
     private Long id;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private User reporter_id;
+//    private User reporter;
 //
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private Promotion post_id;
+//    private Promotion post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReportPostCtgr ctgr_id;
+    private ReportPostCtgr ctgr;
 
     private String reason;
 

@@ -21,7 +21,7 @@ public class QRegion extends EntityPathBase<Region> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final NumberPath<Long> key = createNumber("key", Long.class);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
