@@ -28,11 +28,4 @@ public class AnnouncementRepositoryTests {
     }
 
 
-    @Test
-    public void getAnnouncement(){
-        Announcement announcement = Announcement.builder().key(98L).build();
-
-
-    }
-
 }
