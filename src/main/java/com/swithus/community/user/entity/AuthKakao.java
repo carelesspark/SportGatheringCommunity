@@ -18,7 +18,6 @@ public class AuthKakao {
 
     //
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_key")
     private User user;
 
     //억세스 토큰
