@@ -31,6 +31,8 @@ public class QReportPost extends EntityPathBase<ReportPost> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
 
+    public final com.swithus.community.board.entity.QPromotion post;
+
     public final StringPath reason = createString("reason");
 
     //inherited
@@ -55,6 +57,7 @@ public class QReportPost extends EntityPathBase<ReportPost> {
     public QReportPost(Class<? extends ReportPost> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.ctgr = inits.isInitialized("ctgr") ? new QReportPostCtgr(forProperty("ctgr")) : null;
+        this.post = inits.isInitialized("post") ? new com.swithus.community.board.entity.QPromotion(forProperty("post"), inits.get("post")) : null;
     }
 
 }
