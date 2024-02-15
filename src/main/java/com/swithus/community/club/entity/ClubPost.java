@@ -1,11 +1,22 @@
 package com.swithus.community.club.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Table
+@ToString
 public class ClubPost extends BaseEntity {
-
-    private Long key;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     // 작성자 키
+    @ManyToOne(fetch = FetchType.LAZY)
     private ClubMember writer;
 
     // 제목
@@ -13,5 +24,5 @@ public class ClubPost extends BaseEntity {
     // 내용
     private String content;
     // 조회수
-    private int visit_count;
+    private int visitCount;
 }

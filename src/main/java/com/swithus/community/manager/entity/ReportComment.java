@@ -13,16 +13,16 @@ import lombok.*;
 public class ReportComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private User reporter_key;
+//    private User reporter_id;
 //
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private Promotion reply_key;
+//    private Promotion reply_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReportCommentCtgr ctgr_key;
+    private ReportCommentCtgr ctgr_id;
 
     private String reason;
 

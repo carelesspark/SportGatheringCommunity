@@ -16,7 +16,7 @@ public class ReportPostCtgr {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     private String ctgr_type;
 }

@@ -13,7 +13,7 @@ import lombok.*;
 public class Sports extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     // 종목 이름
     private String name;
