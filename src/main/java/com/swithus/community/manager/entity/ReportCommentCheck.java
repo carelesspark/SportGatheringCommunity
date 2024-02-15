@@ -18,13 +18,13 @@ public class ReportCommentCheck extends BaseEntity {
     private Long id;
 
 //    @OneToOne(fetch = FetchType.LAZY)
-//    private ReportComment comment_id;
+//    private ReportComment comment;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean is_suitabled;
+    private boolean isSuitabled;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean is_solved;
+    private boolean isSolved;
 }

@@ -18,5 +18,5 @@ public class ReportCommentCtgr {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ctgr_type;
+    private String ctgrType;
 }

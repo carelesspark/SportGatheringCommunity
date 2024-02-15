@@ -19,7 +19,7 @@ public class QReportPostCtgr extends EntityPathBase<ReportPostCtgr> {
 
     public static final QReportPostCtgr reportPostCtgr = new QReportPostCtgr("reportPostCtgr");
 
-    public final StringPath ctgr_type = createString("ctgr_type");
+    public final StringPath ctgrType = createString("ctgrType");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

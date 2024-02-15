@@ -24,7 +24,7 @@ public class QReportPost extends EntityPathBase<ReportPost> {
 
     public final com.swithus.community.global.entity.QBaseEntity _super = new com.swithus.community.global.entity.QBaseEntity(this);
 
-    public final QReportPostCtgr ctgr_id;
+    public final QReportPostCtgr ctgr;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -54,7 +54,7 @@ public class QReportPost extends EntityPathBase<ReportPost> {
 
     public QReportPost(Class<? extends ReportPost> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.ctgr_id = inits.isInitialized("ctgr_id") ? new QReportPostCtgr(forProperty("ctgr_id")) : null;
+        this.ctgr = inits.isInitialized("ctgr") ? new QReportPostCtgr(forProperty("ctgr")) : null;
     }
 
 }
