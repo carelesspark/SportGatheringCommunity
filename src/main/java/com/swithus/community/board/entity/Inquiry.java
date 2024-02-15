@@ -18,7 +18,7 @@ public class Inquiry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private InquiryCtgr ctgr;
+    //private InquiryCtgr ctgr;
 
-    private User
+    //private User
 }
