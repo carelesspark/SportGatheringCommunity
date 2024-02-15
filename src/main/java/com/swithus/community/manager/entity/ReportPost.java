@@ -14,16 +14,16 @@ public class ReportPost extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private User reporter_key;
+//    private User reporter_id;
 //
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private Promotion post_key;
+//    private Promotion post_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReportPostCtgr ctgr_key;
+    private ReportPostCtgr ctgr_id;
 
     private String reason;
 

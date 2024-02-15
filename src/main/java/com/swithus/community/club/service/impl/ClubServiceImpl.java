@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.function.Function;
-
 @Service
 @Log4j2
 @RequiredArgsConstructor
 public class ClubServiceImpl implements ClubService {
+
     private final ClubRepository clubRepository;
     private final ClubImageRepository clubImageRepository;
 

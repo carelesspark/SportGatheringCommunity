@@ -15,10 +15,10 @@ public class ReportPostCheck extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
 //    @OneToOne(fetch = FetchType.LAZY)
-//    private ReportPost post_key;
+//    private ReportPost post_id;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")

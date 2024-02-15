@@ -14,10 +14,10 @@ public class Faq extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long key;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private FaqCtgr ctgr_key;
+    private FaqCtgr ctgr_id;
 
     private String question;
 
