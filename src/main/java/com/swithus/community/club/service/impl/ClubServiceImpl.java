@@ -30,7 +30,7 @@ public class ClubServiceImpl implements ClubService {
         Pageable pageable = requestDTO.getPageable(Sort.by("key").descending());
 
         Page<Object[]> searchPage = clubRepository.clubSearchPage(pageable, requestDTO.getRegion(), requestDTO.getSports(), requestDTO.getKeyword());
-        Function<Object[], ClubDTO> func = (e -> entityToDTO(
+        Function<Object[], ClubDTO> func = (e -> entityToClubDTO(
                 (Club) e[0],
                 Collections.singletonList((ClubImage) e[1]),
                 (Long) e[2]));
