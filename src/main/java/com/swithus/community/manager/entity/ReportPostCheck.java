@@ -17,8 +17,8 @@ public class ReportPostCheck extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long key;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private ReportPost post_key;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    private ReportPost post_key;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")
