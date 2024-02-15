@@ -1,8 +1,8 @@
-package com.swithus.community.manager.entity;
+package com.swithus.community.board.entity;
 
-import com.swithus.community.board.entity.Promotion;
-import com.swithus.community.board.entity.PromotionReply;
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.global.entity.Region;
+import com.swithus.community.global.entity.Sports;
 import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,20 +13,29 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ReportComment extends BaseEntity {
+public class ProductBoard extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User reporter;
+    private ProductCtgr ctgr;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private PromotionReply reply;
+    private Sports sports;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReportCommentCtgr ctgr;
+    private User user;
 
-    private String reason;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Region region;
+
+    private String title;
+
+    private String content;
+
+    private int visitCount;
+
 
 }

@@ -36,6 +36,10 @@ public class QReportComment extends EntityPathBase<ReportComment> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
+    public final com.swithus.community.board.entity.QPromotionReply reply;
+
+    public final com.swithus.community.user.entity.QUser reporter;
+
     public QReportComment(String variable) {
         this(ReportComment.class, forVariable(variable), INITS);
     }
@@ -55,6 +59,8 @@ public class QReportComment extends EntityPathBase<ReportComment> {
     public QReportComment(Class<? extends ReportComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.ctgr = inits.isInitialized("ctgr") ? new QReportCommentCtgr(forProperty("ctgr")) : null;
+        this.reply = inits.isInitialized("reply") ? new com.swithus.community.board.entity.QPromotionReply(forProperty("reply"), inits.get("reply")) : null;
+        this.reporter = inits.isInitialized("reporter") ? new com.swithus.community.user.entity.QUser(forProperty("reporter")) : null;
     }
 
 }
