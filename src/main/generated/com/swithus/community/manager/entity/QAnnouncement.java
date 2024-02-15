@@ -33,7 +33,7 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
 
     public final StringPath title = createString("title");
 
-    public final NumberPath<Integer> visit_count = createNumber("visit_count", Integer.class);
+    public final NumberPath<Integer> visitCount = createNumber("visitCount", Integer.class);
 
     public final StringPath writer = createString("writer");
 

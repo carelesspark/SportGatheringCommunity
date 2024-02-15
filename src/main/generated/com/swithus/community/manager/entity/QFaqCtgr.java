@@ -19,7 +19,7 @@ public class QFaqCtgr extends EntityPathBase<FaqCtgr> {
 
     public static final QFaqCtgr faqCtgr = new QFaqCtgr("faqCtgr");
 
-    public final StringPath ctgr_type = createString("ctgr_type");
+    public final StringPath ctgrType = createString("ctgrType");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

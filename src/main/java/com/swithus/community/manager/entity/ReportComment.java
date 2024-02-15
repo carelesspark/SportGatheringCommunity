@@ -22,7 +22,7 @@ public class ReportComment extends BaseEntity {
 //    private Promotion reply_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReportCommentCtgr ctgr_id;
+    private ReportCommentCtgr ctgr;
 
     private String reason;
 
