@@ -18,7 +18,9 @@ public class Club extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 클럽장 키 User leader;
+    // 클럽장 키
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // private User leader;
 
     // 지역 키
     @ManyToOne(fetch = FetchType.LAZY)
