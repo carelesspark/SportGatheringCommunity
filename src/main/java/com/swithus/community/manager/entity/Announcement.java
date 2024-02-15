@@ -26,6 +26,6 @@ public class Announcement extends BaseEntity {
 
     private String writer;
 
-    private int visit_count;
+    private int visitCount;
 
 }

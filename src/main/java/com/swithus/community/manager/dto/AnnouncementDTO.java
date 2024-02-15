@@ -15,15 +15,15 @@ public class AnnouncementDTO {
 
     private Long id;
 
-    private LocalDateTime mod_date;
+    private LocalDateTime modDate;
 
-    private LocalDateTime reg_Date;
+    private LocalDateTime regDate;
 
     private String content;
 
     private String title;
 
-    private int visit_count;
+    private int visitCount;
 
     private String writer;
 }

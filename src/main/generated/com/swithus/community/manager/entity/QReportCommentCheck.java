@@ -23,9 +23,9 @@ public class QReportCommentCheck extends EntityPathBase<ReportCommentCheck> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final BooleanPath is_solved = createBoolean("is_solved");
+    public final BooleanPath isSolved = createBoolean("isSolved");
 
-    public final BooleanPath is_suitabled = createBoolean("is_suitabled");
+    public final BooleanPath isSuitabled = createBoolean("isSuitabled");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
