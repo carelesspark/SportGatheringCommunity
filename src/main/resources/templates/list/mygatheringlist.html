@@ -4,7 +4,7 @@
 
 <th:block layout:fragment="content">
     <div style="display:flex; width: 1080px; margin:0 auto; padding: 90px 0px;">
-        <nav class="nav flex-column" style="width: 25%; height: 900px; background-color: #727272;">
+        <nav class="nav flex-column" style="width: 25%; height: 500px; background-color: #727272;">
             <a style="color:white; margin: 10px auto;" class="nav-link" href="/profile">프로필 관리</a>
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -12,9 +12,9 @@
                         게시글 관리
                     </button>
                 </h2>
-                <div style="background-color: #727272; color: white" id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <a style="color:white; margin: 0 auto; text-decoration-line: none;" class="accordion-body" href="/list/myarticle">내가 작성한 게시글</a>
-                    <a style="color:white; margin: 0 auto; text-decoration-line: none;" class="accordion-body" href="/list/mycomment">내가 작성한 댓글</a>
+                <div style="background-color: #727272; color: white; margin: 0 auto; height: 40px;" id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <button style="all:unset; color: white; cursor:pointer;" type="button" onclick="location.href='/list/myarticle'">내가 작성한 게시글</button>
+                    <button style="all:unset; color: white; cursor:pointer;" type="button" onclick="location.href='/list/mycomment'">내가 작성한 댓글</button>
                 </div>
             </div>
             <a style="color:white; margin: 10px auto;" class="nav-link" href="/list/mylikelist">찜 목록</a>
