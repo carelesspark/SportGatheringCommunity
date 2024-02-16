@@ -9,6 +9,8 @@ public interface AnnouncementService {
 
     PageResultDTO<AnnouncementDTO, Announcement> getAnnouncementList(PageRequestDTO requestDTO);
 
+    Long write(AnnouncementDTO dto);
+
     default Announcement dtoTOEntity(AnnouncementDTO dto){
         Announcement entity = Announcement.builder()
                 .id(dto.getId())

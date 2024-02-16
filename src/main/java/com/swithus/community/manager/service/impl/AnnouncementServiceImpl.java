@@ -34,4 +34,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
         return new PageResultDTO(result, fn);
     }
+
+    @Override
+    public Long write(AnnouncementDTO dto) {
+
+        Announcement entity = dtoTOEntity(dto);
+        announcementRepository.save(entity);
+
+        return entity.getId();
+    }
 }
