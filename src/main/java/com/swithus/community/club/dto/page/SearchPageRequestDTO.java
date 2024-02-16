@@ -16,8 +16,8 @@ public class SearchPageRequestDTO {
     // 사용자에게 요청받은 페이지당 객체 수
     private int size;
     // 객체의 제한 범위
-    private int region;
-    private int sports;
+    private Long regionId;
+    private Long sportsId;
     private String keyword;
 
     public SearchPageRequestDTO() {
