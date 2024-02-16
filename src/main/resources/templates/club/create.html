@@ -1,19 +1,200 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/layout :: setContent(~{this :: content})}">
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
-    <div>
-      <h1>클럽 생성</h1>
-    </div>
 
-    <div>
-      클럽 생성하는 양식이 들어가는 곳
-      <form action="" method="post">
 
+    <div class="mb-3">
+      <h3 class="mb-3">클럽 생성</h3>
+
+      <form action="/club/create" method="post">
+        <input name="leaderId" required th:value="session.userId" type="hidden">
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="selectRegion">지역 선택</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="selectRegion" name="regionId" required>
+              <option th:each="region : ${regionList}"
+                      th:text="${region.name}"
+                      th:value="${region.id}">
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="selectSports">종목 선택</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="selectSports" name="regionId" required>
+              <option th:each="sports : ${sportsList}"
+                      th:text="${sports.name}"
+                      th:value="${sports.id}">
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputName">클럽명</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputName" name="name" required type="text">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputHeadline">헤드라인</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputHeadline" name="headline" required type="text">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputIntroduce">소개란</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputIntroduce" name="introduce" required type="text">
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-primary" type="submit">클럽 생성</button>
+        </div>
       </form>
     </div>
 
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+    <script>
+      CKEDITOR.ClassicEditor.create(document.getElementById("inputIntroduce"), {
+        toolbar: {
+          items: [
+            //'exportPDF', 'exportWord', '|',
+            "findAndReplace",
+            "selectAll",
+            "|",
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "strikethrough",
+            "underline",
+            "code",
+            "subscript",
+            "superscript",
+            "removeFormat",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "todoList",
+            "|",
+            "outdent",
+            "indent",
+            "|",
+            "undo",
+            "redo",
+            "|",
+            "fontSize",
+            "fontColor",
+            "fontBackgroundColor",
+            "highlight",
+            "|",
+            "specialCharacters",
+            "horizontalLine",
+            "pageBreak",
+            "|",
+            "sourceEditing",
+          ],
+          shouldNotGroupWhenFull: true,
+        },
+        list: {
+          properties: {
+            styles: true,
+            startIndex: true,
+            reversed: true,
+          },
+        },
+        heading: {
+          options: [
+            {
+              model: "paragraph",
+              title: "Paragraph",
+              class: "ck-heading_paragraph",
+            },
+            {
+              model: "heading1",
+              view: "h1",
+              title: "Heading 1",
+              class: "ck-heading_heading1",
+            },
+            {
+              model: "heading2",
+              view: "h2",
+              title: "Heading 2",
+              class: "ck-heading_heading2",
+            },
+            {
+              model: "heading3",
+              view: "h3",
+              title: "Heading 3",
+              class: "ck-heading_heading3",
+            },
+            {
+              model: "heading4",
+              view: "h4",
+              title: "Heading 4",
+              class: "ck-heading_heading4",
+            },
+            {
+              model: "heading5",
+              view: "h5",
+              title: "Heading 5",
+              class: "ck-heading_heading5",
+            },
+            {
+              model: "heading6",
+              view: "h6",
+              title: "Heading 6",
+              class: "ck-heading_heading6",
+            },
+          ],
+        },
+        placeholder: "클럽 소개를 입력하세요",
+        fontSize: {
+          options: [10, 12, 14, "default", 18, 20, 22],
+          supportAllValues: true,
+        },
+        htmlSupport: {
+          allow: [
+            {
+              name: /.*/,
+              attributes: true,
+              classes: true,
+              styles: true,
+            },
+          ],
+        },
+        htmlEmbed: {
+          showPreviews: true,
+        },
+        removePlugins: [
+          "ExportPdf",
+          "ExportWord",
+          "CKBox",
+          "CKFinder",
+          "EasyImage",
+          "RealTimeCollaborativeComments",
+          "RealTimeCollaborativeTrackChanges",
+          "RealTimeCollaborativeRevisionHistory",
+          "PresenceList",
+          "Comments",
+          "TrackChanges",
+          "TrackChangesData",
+          "RevisionHistory",
+          "Pagination",
+          "WProofreader",
+          "MathType",
+        ],
+      });
+    </script>
   </div>
 </th:block>
 
