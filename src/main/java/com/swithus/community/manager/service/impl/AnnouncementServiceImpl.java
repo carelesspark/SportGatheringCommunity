@@ -14,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.zip.DataFormatException;
 
 @Service
 @Log4j2
@@ -33,5 +35,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         Function<Announcement, AnnouncementDTO> fn = (entity -> entityToDto(entity));
 
         return new PageResultDTO(result, fn);
+    }
+
+    @Override
+    public Long write(AnnouncementDTO dto) {
+
+        Announcement entity = dtoTOEntity(dto);
+        announcementRepository.save(entity);
+
+        return entity.getId();
+    }
+
+    @Override
+    public AnnouncementDTO info(Long no) {
+        Optional<Announcement> info = announcementRepository.findById(no);
+
+        return info.isPresent()? entityToDto(info.get()) : null;
     }
 }
