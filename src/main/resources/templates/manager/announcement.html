@@ -21,7 +21,7 @@
                     </tr>
                     <tr class="table_tr2" th:each="dto : ${result.dtoList}">
                         <td>[[${dto.id}]]</td>
-                        <td><a th:href="@{/manager/announcement_info}">[[${dto.title}]]</a></td>
+                        <td><a th:href="@{/manager/announcement_info(page=${result.page}, no=${dto.id})}">[[${dto.title}]]</a></td>
                         <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
                         <td>[[${dto.writer}]]</td>
                         <td>[[${dto.visitCount}]]</td>
@@ -64,7 +64,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <div class="anc_body">
-                                    <input type="hidden" value="Manager" name="writer" />
+                                    <input type="hidden" value="관리자" name="writer" />
                                     <div class="anc_title">
                                         <div><label>제목 : </label></div>
                                         <div><input type="text" class="form-control anc_title_input" name="title"/>
@@ -207,6 +207,16 @@
                var form = $("form");
 
                $(".writeAnc").click(function(){
+                    if($(".anc_title_input").val() == ""){
+                        alert("제목을 입력하세요.");
+                        return;
+                    }
+
+                    if($(".anc_content_input").val() == ""){
+                        alert("내용을 입력하세요.");
+                        return;
+                    }
+
                     if(!confirm("작성하시겠습니까?")){
                         return;
                     }
