@@ -385,6 +385,10 @@ a:hover {
     font-weight: bold;
 }
 
+.enter{
+    white-space: pre-wrap;
+}
+
 
 
 .anc_content_input {

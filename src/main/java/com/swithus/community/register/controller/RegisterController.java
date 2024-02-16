@@ -1,9 +1,12 @@
 package com.swithus.community.register.controller;
 
+import com.swithus.community.register.service.RegisterService;
+import com.swithus.community.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequiredArgsConstructor
 public class RegisterController {
+
+    private final RegisterService registerService;
 
     @GetMapping("/main")
     public String main(){
@@ -28,4 +33,14 @@ public class RegisterController {
 
         return "register/registerForm";
     }
+
+    @PostMapping("/registerform")
+    public String join(UserDTO userDTO) {
+        Long userId = registerService.join(userDTO);
+        Long AuthId = registerService.InputId(userDTO);
+
+        return "/main/main";
+    }
+
+
 }
