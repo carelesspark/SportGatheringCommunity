@@ -11,6 +11,7 @@ public interface AnnouncementService {
 
     Long write(AnnouncementDTO dto);
 
+    AnnouncementDTO info(Long no);
     default Announcement dtoTOEntity(AnnouncementDTO dto){
         Announcement entity = Announcement.builder()
                 .id(dto.getId())
