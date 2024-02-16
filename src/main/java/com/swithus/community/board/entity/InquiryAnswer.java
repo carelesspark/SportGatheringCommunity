@@ -22,6 +22,4 @@ public class InquiryAnswer extends BaseEntity {
     private String title;
 
     private String content;
-
-
 }

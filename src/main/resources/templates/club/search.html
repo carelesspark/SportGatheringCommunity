@@ -1,62 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/layout :: setContent(~{this :: content})}">
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
-    <div>
-      <h1>클럽 검색</h1>
+
+    <div class="mb-3 border-bottom">
+      <div class="mb-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h3 class="mb-3">클럽 검색</h3>
+          </div>
+          <div>
+            <a class="btn btn-primary" href="/club/create">클럽 생성</a>
+          </div>
+        </div>
+
+        <form action="/club/search" class="rounded p-4 bg-light" method="get">
+          <input name="page" type="hidden" value="1">
+
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="inputRegion">지역</label>
+            <div class="col-sm-10">
+              <select class="form-select" id="inputRegion" name="regionId">
+                <option th:each="region : ${regionList}"
+                        th:text="${region.name}"
+                        th:value="${region.id}">
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="inputSports">종목</label>
+            <div class="col-sm-10">
+              <select class="form-select" id="inputSports" name="sportsId">
+                <option th:each="sports : ${sportsList}"
+                        th:text="${sports.name}"
+                        th:value="${sports.id}">
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="col-sm-2 col-form-label" for="inputKeyword">검색어</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="inputKeyword" name="keyword" type="text">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center justify-content-end">
+              <button class="btn btn-primary btn-block" type="submit">검색</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <div>
-      <form action="" method="get">
-        <input name="page" type="hidden" value="1">
+    <div class="mb-3" th:if="${result == null}">
+      검색 결과가 없습니다
+    </div>
+    <div class="mb-3" th:if="${result != null}">
+      <div class="row row-cols-2 mb-3">
+        <div class="col">
+          <div class="rounded border mb-3 p-3 row"
+               th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.even}">
+            <a th:href="@{'/club/main/' + ${dto.clubId}}">
+              <div>
+                <img class="img-fluid"
+                     style="object-fit: cover; width: 100%; height: 100%;"
+                     th:alt="${dto.imageDTOList[0].name}"
+                     th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
+                     th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+              </div>
+              <div class="col">
+                <div>[[${dto.name}]]</div>
+                <div>[[${dto.headline}]]</div>
+                <div class="row">
+                  <div>[[${dto.regionName}]]</div>
+                  <div>[[${dto.sportsName}]]</div>
+                  <div>[[${dto.personnel}]]</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
 
-        <select class="form-select">
-          <option value="">th each region $regions
-            th value $region.key
-            th selected $region.name eq region_like
-            th text region.name
-          </option>
-        </select>
-        <select class="form-select">
-          <option value="">th each sport $sports
-            th value $sport.key
-            th selected $sport.name eq sport_like
-            th text sport.name
-          </option>
-        </select>
+        <div class="col">
+          <div class="rounded border mb-3 p-3 row"
+               th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.odd}">
+            <a th:href="@{'/club/main/' + ${dto.clubId}}">
+              <div>
+                <img class="img-fluid"
+                     style="object-fit: cover; width: 100%; height: 100%;"
+                     th:alt="${dto.imageDTOList[0].name}"
+                     th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
+                     th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+              </div>
+              <div class="col">
+                <div>[[${dto.name}]]</div>
+                <div>[[${dto.headline}]]</div>
+                <div class="row">
+                  <div>[[${dto.regionName}]]</div>
+                  <div>[[${dto.sportsName}]]</div>
+                  <div>[[${dto.personnel}]]</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
 
-      </form>
+      <div>
+        <ul class="pagination h-100 justify-content-center align-items-center">
+          <li class="page-item" th:if="${result.prev}">
+            <a class="page-link" th:href="@{/club/search(
+            page = ${result.start - 1},
+            regionId = ${SearchPageRequestDTO.regionId},
+            sportsId = ${SearchPageRequestDTO.sportsId},
+            keyword = ${SearchPageRequestDTO.keyword}
+            )}">
+              ‹
+            </a>
+          </li>
+
+          <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}"
+              th:each="page : ${result.pageList}">
+            <a class="page-link" th:href="@{/club/search(
+            page = ${page},
+            regionId = ${SearchPageRequestDTO.regionId},
+            sportsId = ${SearchPageRequestDTO.sportsId},
+            keyword = ${SearchPageRequestDTO.keyword}
+            )}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/club/search(
+            page = ${result.end + 1},
+            regionId = ${SearchPageRequestDTO.regionId},
+            sportsId = ${SearchPageRequestDTO.sportsId},
+            keyword = ${SearchPageRequestDTO.keyword}
+            )}">
+              ›
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <div>
-      클럽 리스트가 올라오는 곳
-      th for each
-    </div>
+    <script th:inline="javascript">
 
-    <div>
-      페이징 버튼이 들어가는 곳
-      <ul class="pagination h-100 justify-content-center align-items-center">
-        <li class="page-item">
-          <a class="page-link">
-            ‹
-          </a>
-        </li>
-
-        <li>
-          <a class="page-link">
-            페이지 번호
-          </a>
-        </li>
-
-        <li class="page-item">
-          <a class="page-link">
-            ›
-          </a>
-        </li>
-      </ul>
-    </div>
-
+    </script>
   </div>
 </th:block>
 

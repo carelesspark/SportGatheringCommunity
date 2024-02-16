@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.function.Function;
+
 @Service
 @Log4j2
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class ClubServiceImpl implements ClubService {
     public SearchPageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("key").descending());
 
-        Page<Object[]> searchPage = clubRepository.clubSearchPage(pageable, requestDTO.getRegion(), requestDTO.getSports(), requestDTO.getKeyword());
+        Page<Object[]> searchPage = clubRepository.clubSearchPage(pageable, requestDTO.getRegionId(), requestDTO.getSportsId(), requestDTO.getKeyword());
         Function<Object[], ClubDTO> func = (e -> entityToClubDTO(
                 (Club) e[0],
                 Collections.singletonList((ClubImage) e[1]),
