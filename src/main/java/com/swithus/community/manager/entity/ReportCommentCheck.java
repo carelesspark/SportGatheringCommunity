@@ -17,8 +17,8 @@ public class ReportCommentCheck extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private ReportComment comment;
+    @OneToOne(fetch = FetchType.LAZY)
+    private ReportComment comment;
 
     @ColumnDefault("false")
     @Column(columnDefinition = "TINYINT(1)")
