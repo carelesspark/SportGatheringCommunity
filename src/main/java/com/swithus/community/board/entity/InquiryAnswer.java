@@ -1,10 +1,7 @@
 package com.swithus.community.board.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -23,5 +20,6 @@ public class InquiryAnswer extends BaseEntity {
 
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Inquiry inquiry;
 }
