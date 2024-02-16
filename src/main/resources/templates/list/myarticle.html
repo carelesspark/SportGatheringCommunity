@@ -4,7 +4,7 @@
 
 <th:block layout:fragment="content">
     <div style="display:flex; width: 1080px; margin:0 auto; padding: 90px 0px;">
-        <nav class="nav flex-column" style="width: 25%; height: 900px; background-color: #727272">
+        <nav class="nav flex-column" style="width: 25%; height: 500px; background-color: #727272">
             <a style="color:white; margin: 10px auto;" class="nav-link" href="/profile">프로필 관리</a>
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -12,9 +12,9 @@
                         게시글 관리
                     </button>
                 </h2>
-                <div style="background-color: #727272; color: white" id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <a style="color:white; margin: 0 auto; text-decoration-line: none;" class="accordion-body" href="/list/myarticle">내가 작성한 게시글</a>
-                    <a style="color:white; margin: 0 auto; text-decoration-line: none;" class="accordion-body" href="/list/mycomment">내가 작성한 댓글</a>
+                <div style="background-color: #727272; color: white; margin: 0 auto; height: 40px;" id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <button style="all:unset; color: white; cursor:pointer;" type="button" onclick="location.href='/list/myarticle'">내가 작성한 게시글</button>
+                    <button style="all:unset; color: white; cursor:pointer;" type="button" onclick="location.href='/list/mycomment'">내가 작성한 댓글</button>
                 </div>
             </div>
             <a style="color:white; margin: 10px auto;" class="nav-link" href="/list/mylikelist">찜 목록</a>
@@ -22,50 +22,58 @@
             <a style="color:white; margin: 10px auto;" class="nav-link" href="#">고객센터</a>
         </nav>
 
-        <div class="container">
+            <div style="display: inline-block; margin-left: 30px;">
+                <h2 style="font-weight: bold;">작성한 글</h2>
+                <div class="container" style="margin:0 auto; justify-content: center; width: 850px">
+                    <table class="table">
+                        <thead style="background-color: #828282">
+                        <tr>
+                            <th scope="col">제목</th>
+                            <th scope="col">장소</th>
+                            <th scope="col">날짜</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>6:6 풋살 하실분 저녁에 간단하게 풋살하실분~</td>
+                            <td>신촌 아트리온 CGV 옥상 풋살파크</td>
+                            <td>2024/01/31</td>
+                        </tr>
+                        <tr>
+                            <td>수영 중급반 같이 가실분 구합니다</td>
+                            <td>서울 올림픽경기장 수영장</td>
+                            <td>2024/02/21</td>
+                        </tr>
+                        <tr>
+                            <td>배드민턴 팟 구함</td>
+                            <td>인천 계양 배드민턴장</td>
+                            <td>2024/02/28</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-            <div style="width: 100%; margin-left: 2%" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div style="display:flex; justify-content:center; align-items: center; height: 50px; gap: 10px">
-                            <button type="button" style="margin: 10px;color:white; background-color: #0D6EFF;width: 150px" class="btn btn-sm btn-outline-secondary">모임 톡 바로가기</button>
-                            <small class="text-body-secondary"><img style="width: 20px; height: 20px;" src="/images/fullheart.png"></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div style="display:flex; justify-content:center; align-items: center; height: 50px; gap: 10px">
-                            <button type="button" style="margin: 10px;color:white; background-color: #0D6EFF;width: 150px" class="btn btn-sm btn-outline-secondary">모임 톡 바로가기</button>
-                            <small class="text-body-secondary"><img style="width: 20px; height: 20px;" src="/images/emptyheart.png"></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div style="display:flex; justify-content:center; align-items: center; height: 50px; gap: 10px">
-                            <button type="button" style="margin: 10px;color:white; background-color: #0D6EFF;width: 150px" class="btn btn-sm btn-outline-secondary">모임 톡 바로가기</button>
-                            <small class="text-body-secondary"><img style="width: 20px; height: 20px;" src="/images/fullheart.png"></small>
-                        </div>
-                    </div>
-                </div>
+                    <nav aria-label="...">
+                        <ul class="pagination" style="margin: 0 auto; justify-content: center">
+                            <li class="page-item disabled">
+                                <a class="page-link">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
 
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                        <div style="display:flex; justify-content:center; align-items: center; height: 50px; gap: 10px">
-                            <button type="button" style="margin: 10px;color:white; background-color: #0D6EFF;width: 150px" class="btn btn-sm btn-outline-secondary">모임 톡 바로가기</button>
-                            <small class="text-body-secondary"><img style="width: 20px; height: 20px;" src="/images/emptyheart.png"></small>
-                        </div>
-                    </div>
                 </div>
-
             </div>
         </div>
+
     </div>
 
 </th:block>
 </html>
+
