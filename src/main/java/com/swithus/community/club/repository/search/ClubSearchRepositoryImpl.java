@@ -12,7 +12,7 @@ public class ClubSearchRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<Object[]> clubSearchPage(Pageable pageable, int region, int sports, String keyword) {
+    public Page<Object[]> clubSearchPage(Pageable pageable, Long region, Long sports, String keyword) {
 
         return null;
     }

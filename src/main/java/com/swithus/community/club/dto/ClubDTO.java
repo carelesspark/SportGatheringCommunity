@@ -28,6 +28,8 @@ public class ClubDTO {
 
     // 클럽명
     private String name;
+    // 클럽 헤드라인
+    private String headline;
     // 클럽 소개
     private String introduce;
     // 클럽 인원

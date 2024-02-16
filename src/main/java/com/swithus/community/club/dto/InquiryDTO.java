@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class InquiryDTO {
-
+    private Long InquiryId;
 }

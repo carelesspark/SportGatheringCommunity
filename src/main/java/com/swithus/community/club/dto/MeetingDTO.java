@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class MeetingDTO {
-
+    private Long MeetingId;
 }

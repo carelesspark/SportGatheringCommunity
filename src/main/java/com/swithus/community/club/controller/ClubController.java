@@ -20,7 +20,7 @@ public class ClubController {
     public void goSearch(SearchPageRequestDTO pageRequestDTO, Model model) {
         log.info("GET /club/search");
 
-        model.addAttribute("list", clubService.getSearchPage(pageRequestDTO));
+        // model.addAttribute("result", clubService.getSearchPage(pageRequestDTO));
     }
 
     @GetMapping("/main")
