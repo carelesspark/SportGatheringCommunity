@@ -1,75 +1,70 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/layout :: setContent(~{this :: content})}">
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
-    <div>
-      <h1>클럽 생성</h1>
-    </div>
 
-    <div>
+
+    <div class="mb-3">
+      <h3 class="mb-3">클럽 생성</h3>
+
       <form action="/club/create" method="post">
+        <input name="leaderId" required th:value="session.userId" type="hidden">
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="selectRegion">지역 선택</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="selectRegion" name="regionId" required>
+              <option th:each="region : ${regionList}"
+                      th:text="${region.name}"
+                      th:value="${region.id}">
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="selectSports">종목 선택</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="selectSports" name="regionId" required>
+              <option th:each="sports : ${sportsList}"
+                      th:text="${sports.name}"
+                      th:value="${sports.id}">
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputName">클럽명</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputName" name="name" required type="text">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputHeadline">헤드라인</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputHeadline" name="headline" required type="text">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputIntroduce">소개란</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputIntroduce" name="introduce" required type="text">
+          </div>
+        </div>
+
         <div>
-          <input
-              name="leaderId"
-              required
-              th:value="${session.getAttribute('userId')}"
-              type="hidden"
-          />
+          <button class="btn btn-primary" type="submit">클럽 생성</button>
         </div>
-
-        <div class="form-group mb-3">
-          <label for="regionSelect">지역 선택</label>
-          <select class="form-control" id="regionSelect" name="sports">
-            <option
-                th:each="region : ${regionList}"
-                th:text="${region.name}"
-                th:value="${region.id}"
-            ></option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="sportsSelect">종목 선택</label>
-          <select class="form-control" id="sportsSelect" name="sports">
-            <option
-                th:each="sports : ${sportsList}"
-                th:text="${sports.name}"
-                th:value="${sports.id}"
-            ></option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label class="form-label" for="nameInput">클럽명</label>
-          <input
-              class="form-control"
-              id="nameInput"
-              name="name"
-              placeholder="클럽명을 입력하세요"
-              required
-              type="text"
-          />
-        </div>
-
-        <div class="form-group mb-3">
-          <label class="form-label" for="nameInput">클럽 소개</label>
-          <input
-              class="form-control"
-              id="introduceInput"
-              name="introduce"
-              required
-              type="text"
-          />
-        </div>
-
-        <button class="btn btn-primary" type="submit">클럽 생성</button>
       </form>
     </div>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
     <script>
-      CKEDITOR.ClassicEditor.create(document.getElementById("introduceInput"), {
+      CKEDITOR.ClassicEditor.create(document.getElementById("inputIntroduce"), {
         toolbar: {
           items: [
             //'exportPDF', 'exportWord', '|',

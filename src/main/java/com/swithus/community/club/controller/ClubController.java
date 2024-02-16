@@ -17,11 +17,17 @@ public class ClubController {
     private final ClubService clubService;
 
     @GetMapping("/search")
-    public void goSearch(SearchPageRequestDTO pageRequestDTO, Model model) {
+    public void search(SearchPageRequestDTO pageRequestDTO, Model model) {
         log.info("GET /club/search");
 
         // model.addAttribute("result", clubService.getSearchPage(pageRequestDTO));
     }
+
+    @GetMapping("/create")
+    public void goCreate() {
+        log.info("GET /club/create");
+    }
+
 
     @GetMapping("/main")
     public void goMain() {
