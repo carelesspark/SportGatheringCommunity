@@ -1,6 +1,8 @@
 package com.swithus.community.manager.entity;
 
+import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,14 +18,11 @@ public class ReportPost extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private User reporter_id;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Promotion post_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Promotion post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReportPostCtgr ctgr_id;
+    private ReportPostCtgr ctgr;
 
     private String reason;
 

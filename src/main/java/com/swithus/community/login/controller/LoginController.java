@@ -15,4 +15,22 @@ public class LoginController {
 
         return "login/login";
     }
+
+    @GetMapping("/findId")
+    public String findId(){
+
+        return "login/findId";
+    }
+
+    @GetMapping("/findPwd")
+    public String findPwd(){
+
+        return "login/findPwd";
+    }
+
+    @GetMapping("/changePwd")
+    public String changePwd(){
+
+        return "login/changePwd";
+    }
 }

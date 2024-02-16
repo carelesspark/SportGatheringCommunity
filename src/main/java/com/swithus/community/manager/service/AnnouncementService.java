@@ -1,31 +1,33 @@
 package com.swithus.community.manager.service;
 
 import com.swithus.community.manager.dto.AnnouncementDTO;
+import com.swithus.community.manager.dto.PageRequestDTO;
+import com.swithus.community.manager.dto.PageResultDTO;
 import com.swithus.community.manager.entity.Announcement;
 
 public interface AnnouncementService {
 
-
+    PageResultDTO<AnnouncementDTO, Announcement> getAnnouncementList(PageRequestDTO requestDTO);
 
     default Announcement dtoTOEntity(AnnouncementDTO dto){
         Announcement entity = Announcement.builder()
                 .id(dto.getId())
                 .content(dto.getContent())
                 .title(dto.getTitle())
-                .visit_count(dto.getVisit_count())
+                .visitCount(dto.getVisitCount())
                 .writer(dto.getWriter())
                 .build();
         return entity;
     }
 
-    default AnnouncementDTO entityToDto(AnnouncementDTO entity){
+    default AnnouncementDTO entityToDto(Announcement entity){
         AnnouncementDTO dto = AnnouncementDTO.builder()
                 .id(entity.getId())
-                .mod_date(entity.getMod_date())
-                .reg_Date(entity.getReg_Date())
+                .modDate(entity.getModDate())
+                .regDate(entity.getRegDate())
                 .content(entity.getContent())
                 .title(entity.getTitle())
-                .visit_count(entity.getVisit_count())
+                .visitCount(entity.getVisitCount())
                 .writer(entity.getWriter()).build();
 
         return dto;

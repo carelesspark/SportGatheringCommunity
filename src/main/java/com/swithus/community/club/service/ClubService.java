@@ -17,7 +17,7 @@ import java.util.Map;
 public interface ClubService {
     SearchPageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO);
 
-    default Map<String, Object> dtoToEntity(ClubDTO clubDTO) {
+    default Map<String, Object> clubDTOToEntity(ClubDTO clubDTO) {
         Map<String, Object> clubMap = new HashMap<>();
 
         Club club = Club.builder()
@@ -51,7 +51,7 @@ public interface ClubService {
         return clubMap;
     }
 
-    default ClubDTO entityToDTO(Club club, List<ClubImage> imageList, Long personnel) {
+    default ClubDTO entityToClubDTO(Club club, List<ClubImage> imageList, Long personnel) {
         List<ImageDTO> imageDTOList = imageList.stream()
                 .map(image -> ImageDTO.builder()
                         .path(image.getPath())
