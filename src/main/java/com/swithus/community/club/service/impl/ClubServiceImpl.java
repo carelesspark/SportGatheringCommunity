@@ -75,7 +75,7 @@ public class ClubServiceImpl implements ClubService {
                 .sportsId(club.getSports().getId())
                 .sportsName(club.getSports().getName())
                 .name(club.getName())
-                //.headline(club.getHeadline())
+                .headline(club.getHeadline())
                 .introduce(club.getIntroduce())
                 .personnel(personnel)
                 .rank(club.getRank())
