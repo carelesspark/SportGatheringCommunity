@@ -1,0 +1,25 @@
+#clubName {
+  text-decoration: none;
+  color: black;
+}
+
+#clubName:hover {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.clubNavLink {
+  font-size: 1.2em; /* 글꼴 크기 조정 */
+  color: black;
+}
+
+.clubNavLink:hover {
+  color: #007bff; /* 호버 시 색상 변경 */
+}
+
+.clubNav::after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid #333; /* 아래 라인 스타일 */
+  margin-top: 10px; /* 라인과 메뉴 간격 조정 */
+}
