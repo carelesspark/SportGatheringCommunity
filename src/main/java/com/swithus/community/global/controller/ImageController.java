@@ -36,7 +36,7 @@ public class ImageController {
     private static final String CLUB_GREETINGS = "club/greetings/";
     private static final String CLUB_POST = "club/post/";
     // ~~~/images/
-    @Value(value = "S{dir.image}")
+    @Value("${image.folder}")
     private String imageFolder;
 
     private ResponseEntity<List<UploadResultDTO>> upload(MultipartFile[] uploadFiles, String place) {
@@ -47,10 +47,11 @@ public class ImageController {
                 log.warn("This file is not an image.");
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
-            String datePath = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")).replace("/", File.separator);
+            String datePath = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             String uuid = UUID.randomUUID().toString();
             String fileName = Paths.get(Objects.requireNonNull(uploadFile.getOriginalFilename())).getFileName().toString();
 
+            log.info("현재 이미지 경로: {} + {}", place, datePath);
             Path path = Paths.get(imageFolder, place, datePath);
             try {
                 Files.createDirectories(path);
