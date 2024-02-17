@@ -45,10 +45,10 @@ public interface ClubService {
         if (imageDTOList != null && !imageDTOList.isEmpty()) {
             List<ClubImage> imageList = imageDTOList.stream()
                     .map(imageDTO -> ClubImage.builder()
+                            .club(club)
                             .path(imageDTO.getPath())
                             .name(imageDTO.getName())
                             .uuid(imageDTO.getUuid())
-                            .club(club)
                             .build())
                     .toList();
             clubMap.put("imageList", imageList);
