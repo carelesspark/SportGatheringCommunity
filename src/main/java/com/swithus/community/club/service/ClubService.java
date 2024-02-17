@@ -33,7 +33,7 @@ public interface ClubService {
                 .region(Region.builder().id(clubDTO.getRegionId()).build())
                 .sports(Sports.builder().id(clubDTO.getSportsId()).build())
                 .name(clubDTO.getName())
-                .headline(clubDTO.getHeadline())
+                //.headline(clubDTO.getHeadline())
                 .introduce(clubDTO.getIntroduce())
                 .rank(clubDTO.getRank())
                 .point(clubDTO.getPoint())
@@ -45,10 +45,10 @@ public interface ClubService {
         if (imageDTOList != null && !imageDTOList.isEmpty()) {
             List<ClubImage> imageList = imageDTOList.stream()
                     .map(imageDTO -> ClubImage.builder()
+                            .club(club)
                             .path(imageDTO.getPath())
                             .name(imageDTO.getName())
                             .uuid(imageDTO.getUuid())
-                            .club(club)
                             .build())
                     .toList();
             clubMap.put("imageList", imageList);
@@ -74,7 +74,7 @@ public interface ClubService {
                 .sportsId(club.getSports().getId())
                 .sportsName(club.getSports().getName())
                 .name(club.getName())
-                .headline(club.getHeadline())
+                //.headline(club.getHeadline())
                 .introduce(club.getIntroduce())
                 .personnel(personnel)
                 .rank(club.getRank())

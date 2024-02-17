@@ -32,14 +32,19 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public SearchPageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("key").descending());
+        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
 
-        Page<Object[]> searchPage = clubRepository.clubSearchPage(pageable, requestDTO.getRegionId(), requestDTO.getSportsId(), requestDTO.getKeyword());
-        Function<Object[], ClubDTO> func = (e -> entityToClubDTO(
-                (Club) e[0],
-                Collections.singletonList((ClubImage) e[1]),
-                (Long) e[2]));
+        // 조건에 해당하는 클럽을 검색하고 해당 결과를 Page<Object[]> 형식으로 받아오는 함수
+        Page<Object[]> searchPage = clubRepository
+                .clubSearchPage(pageable, requestDTO.getRegionId(), requestDTO.getSportsId(), requestDTO.getKeyword());
 
+        // 각 결과 항복을 ClubDTO로 변환하는 함수를 정의 → 각 요소를 entityToClubDTO method에 전달.
+        Function<Object[], ClubDTO> func = (objectList -> entityToClubDTO(
+                (Club) objectList[0],
+                Collections.singletonList((ClubImage) objectList[1]),
+                (Long) objectList[2]));
+
+        // 페이지에 대한 정보와 페이지에 포함된 결과를 저장.
         return new SearchPageResultDTO<>(searchPage, func);
     }
 
@@ -70,7 +75,7 @@ public class ClubServiceImpl implements ClubService {
                 .sportsId(club.getSports().getId())
                 .sportsName(club.getSports().getName())
                 .name(club.getName())
-                .headline(club.getHeadline())
+                //.headline(club.getHeadline())
                 .introduce(club.getIntroduce())
                 .personnel(personnel)
                 .rank(club.getRank())
