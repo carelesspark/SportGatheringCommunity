@@ -4,6 +4,7 @@
 <th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
+    <!--검색창-->
     <div class="mb-3 border-bottom">
       <div class="mb-3">
         <div class="d-flex justify-content-between">
@@ -11,7 +12,7 @@
             <h3 class="mb-3">클럽 검색</h3>
           </div>
           <div>
-            <a class="btn btn-primary" href="/club/create">클럽 생성</a>
+            <a class="btn btn-info" href="/club/create">클럽 생성</a>
           </div>
         </div>
 
@@ -55,7 +56,8 @@
       </div>
     </div>
 
-    <div class="mb-3" th:if="${result == null}">
+    <!--검색 결과-->
+    <div class="mb-5" th:if="${result == null}">
       검색 결과가 없습니다
     </div>
     <div class="mb-3" th:if="${result != null}">

@@ -23,7 +23,7 @@ public class ClubController {
     public void search(SearchPageRequestDTO pageRequestDTO, Model model) {
         log.info("GET /club/search");
 
-        // model.addAttribute("result", clubService.getSearchPage(pageRequestDTO));
+        model.addAttribute("result", clubService.getSearchPage(pageRequestDTO));
     }
 
     @GetMapping("/create")
@@ -48,7 +48,7 @@ public class ClubController {
         ClubDTO clubDTO = clubService.getClub(clubId);
         model.addAttribute("dto", clubDTO);
     }
-    
+
     /////////////////////////////////////////////////////////////////////// 공사중
 
     @GetMapping("/greetings")
