@@ -8,14 +8,18 @@ import com.swithus.community.club.entity.ClubImage;
 import com.swithus.community.club.repository.ClubImageRepository;
 import com.swithus.community.club.repository.ClubRepository;
 import com.swithus.community.club.service.ClubService;
+import com.swithus.community.global.dto.ImageDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -37,5 +41,53 @@ public class ClubServiceImpl implements ClubService {
                 (Long) e[2]));
 
         return new SearchPageResultDTO<>(searchPage, func);
+    }
+
+    @Override
+    @Transactional
+    public Long create(ClubDTO clubDTO) {
+        Map<String, Object> clubMap = clubDTOToEntity(clubDTO);
+        Club club = (Club) clubMap.get("club");
+        clubRepository.save(club);
+
+        @SuppressWarnings("unchecked")
+        List<ClubImage> imageList = (List<ClubImage>) clubMap.get("imageList");
+        for (ClubImage clubImage : imageList) clubImageRepository.save(clubImage);
+
+        return club.getId();
+    }
+
+    @Override
+    public ClubDTO getClub(Long clubId) {
+        List<Object[]> result = clubRepository.getClubWithEveryImage(clubId);
+        Club club = (Club) result.get(0)[0];
+        Long personnel = (Long) result.get(0)[1];
+        ClubDTO clubDTO=ClubDTO.builder()
+                .clubId(club.getId())
+                .leaderId(club.getLeader().getId())
+                .regionId(club.getRegion().getId())
+                .regionName(club.getRegion().getName())
+                .sportsId(club.getSports().getId())
+                .sportsName(club.getSports().getName())
+                .name(club.getName())
+                .headline(club.getHeadline())
+                .introduce(club.getIntroduce())
+                .personnel(personnel)
+                .rank(club.getRank())
+                .point(club.getPoint())
+                .regDate(club.getRegDate())
+                .build();
+
+        result.forEach(objects -> {
+            ClubImage clubImage = (ClubImage) objects[1];
+            ImageDTO imageDTO = ImageDTO.builder()
+                    .path(clubImage.getPath())
+                    .name(clubImage.getName())
+                    .uuid(clubImage.getUuid())
+                    .build();
+            clubDTO.getImageDTOList().add(imageDTO);
+        });
+
+        return clubDTO;
     }
 }
