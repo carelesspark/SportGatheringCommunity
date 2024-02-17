@@ -52,4 +52,22 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
         return info.isPresent()? entityToDto(info.get()) : null;
     }
+
+    @Override
+    public void modify(AnnouncementDTO dto) {
+        Optional<Announcement> before_modify = announcementRepository.findById(dto.getId());
+
+        if(before_modify.isPresent()){
+            Announcement entity = before_modify.get();
+            entity.changeTitle(dto.getTitle());
+            entity.changeContent(dto.getContent());
+
+            announcementRepository.save(entity);
+        }
+    }
+
+    @Override
+    public void delete(Long no) {
+        announcementRepository.deleteById(no);
+    }
 }

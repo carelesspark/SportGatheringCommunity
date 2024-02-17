@@ -47,4 +47,30 @@ public class AnnouncementController {
         model.addAttribute("dto", dto);
     }
 
+    @PostMapping("/announcement_modify")
+    public String modify(AnnouncementDTO dto, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+
+        log.info("공지사항 수정");
+
+        service.modify(dto);
+
+        redirectAttributes.addAttribute("no", dto.getId());
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+
+        return "redirect:/manager/announcement_info";
+    }
+
+    @PostMapping("/announcement_delete")
+    public String delete(long id, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+        log.info("공지사항 삭제");
+
+        service.delete(id);
+
+        redirectAttributes.addFlashAttribute("no", id);
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+
+
+        return "redirect:/manager/announcement";
+    }
+
 }

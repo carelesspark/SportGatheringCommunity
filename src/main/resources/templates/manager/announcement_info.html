@@ -45,13 +45,14 @@
                     <button type="button" class="btn btn-danger info_btn">수정</button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-secondary info_btn">삭제</button>
+                    <button type="button" class="btn btn-secondary info_btn ancDelete">삭제</button>
                 </div>
             </div>
         </div>
 
 
         <!-- 공지사항 수정 모달 -->
+        <form action="/manager/announcement_modify" method="post">
         <div class="modal fade" id="ModifyAncModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -66,26 +67,28 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="anc_body">
+                                <input type="hidden" th:value="${dto.id}" name="id" />
                                 <div class="anc_title">
                                     <div><label>제목 : </label></div>
-                                    <div><input type="text" class="form-control anc_title_input" name="title"/>
+                                    <div><input type="text" class="form-control anc_title_input" th:value="${dto.title}" name="title"/>
                                     </div>
                                 </div>
                                 <div class="anc_content">
                                     <div class="content_label_padding"><label>내용 : </label></div>
-                                    <div><textarea class="anc_content_input" name="content"></textarea></div>
+                                    <div><textarea class="anc_content_input" name="content">[[${dto.content}]]</textarea></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-success">수정하기</button>
+                        <button type="button" class="btn btn-primary cancel" data-bs-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-success ancModify">수정하기</button>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
 
         <link th:href="@{/css/manager/announcement_info.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -204,6 +207,36 @@
                     $(this).css("transition", "background 0.3s ease-in-out");
                     $('.icon8').css("fill", "#D6D6D6");
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
+               });
+
+               var form = $("form");
+
+
+               $(".ancModify").click(function(){
+
+                    if(!confirm("수정하시겠습니까?")){
+                        return;
+                    }
+
+                    form.attr("action", "/manager/announcement_modify").attr("method", "post");
+                    form.submit();
+               });
+
+               var no = [[${dto.id}]];
+               var page = [[${pageRequestDTO.page}]];
+
+               $(".cancel").click(function(){
+                    if(confirm("수정을 취소하시겠습니까?")){
+                        window.location.href = 'http://localhost:3306/manager/announcement_info?page=' + page  + '&no=' + no;
+                    }
+               });
+
+               $(".ancDelete").click(function(){
+                if(!confirm("삭제하시겠습니까?")){
+                    return;
+                }
+                   form.attr("action", "/manager/announcement_delete").attr("method", "post");
+                   form.submit();
                });
            });
         </script>
