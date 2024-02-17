@@ -15,7 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface ClubService {
+    // 클럽 검색 페이지 리스트 반환
     SearchPageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO);
+
+    // 새 클럽 생성
+    Long create(ClubDTO clubDTO);
+
+    // ClubDTO 반환
+    ClubDTO getClub(Long clubId);
 
     default Map<String, Object> clubDTOToEntity(ClubDTO clubDTO) {
         Map<String, Object> clubMap = new HashMap<>();
@@ -31,7 +38,6 @@ public interface ClubService {
                 .rank(clubDTO.getRank())
                 .point(clubDTO.getPoint())
                 .build();
-
         clubMap.put("club", club);
 
         List<ImageDTO> imageDTOList = clubDTO.getImageDTOList();
@@ -39,13 +45,12 @@ public interface ClubService {
         if (imageDTOList != null && !imageDTOList.isEmpty()) {
             List<ClubImage> imageList = imageDTOList.stream()
                     .map(imageDTO -> ClubImage.builder()
+                            .club(club)
                             .path(imageDTO.getPath())
                             .name(imageDTO.getName())
                             .uuid(imageDTO.getUuid())
-                            .club(club)
                             .build())
                     .toList();
-
             clubMap.put("imageList", imageList);
         }
 
