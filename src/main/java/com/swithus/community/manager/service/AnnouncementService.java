@@ -1,13 +1,13 @@
 package com.swithus.community.manager.service;
 
 import com.swithus.community.manager.dto.AnnouncementDTO;
-import com.swithus.community.manager.dto.PageRequestDTO;
-import com.swithus.community.manager.dto.PageResultDTO;
+import com.swithus.community.manager.dto.page.AncPageRequestDTO;
+import com.swithus.community.manager.dto.page.AncPageResultDTO;
 import com.swithus.community.manager.entity.Announcement;
 
 public interface AnnouncementService {
 
-    PageResultDTO<AnnouncementDTO, Announcement> getAnnouncementList(PageRequestDTO requestDTO);
+    AncPageResultDTO<AnnouncementDTO, Announcement> getAnnouncementList(AncPageRequestDTO requestDTO);
 
     Long write(AnnouncementDTO dto);
 

@@ -319,7 +319,7 @@ a:hover {
 }
 
 .faq_title {
-    padding-right: 340px;
+    width: 600px;
     font-size: 11pt;
     font-family: 'Inter', sans-serif;
 }

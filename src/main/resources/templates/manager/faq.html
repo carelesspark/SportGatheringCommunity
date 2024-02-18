@@ -8,121 +8,35 @@
             <p>○ FAQ 관리</p>
         </div>
         <div id="main_content">
-            <div id="top">
-                <div id="sub_title"><p>◇ Managing FAQ</p></div>
-                <div id="select">
-                    <select class="form-select form-select1" aria-label="Default select example">
-                        <option selected>--- 세부 카테고리 ---</option>
-                        <option value="1">사이트 이용</option>
-                        <option value="2">물품 나눔</option>
-                        <option value="3">소모임</option>
-                        <option value="4">대회</option>
-                        <option value="5">기타</option>
-                    </select>
-                    <button type="button" class="btn btn-secondary search">검색</button>
+            <form action="/manager/faq" method="get" class="searchForm">
+                <div id="top">
+                    <div id="sub_title"><p>◇ Managing FAQ</p></div>
+                    <div id="select">
+                        <select class="form-select form-select1" aria-label="Default select example">
+                            <option selected>--- 세부 카테고리 ---</option>
+                            <option value="사이트 이용">사이트 이용</option>
+                            <option value="물품 나눔">물품 나눔</option>
+                            <option value="소모임">소모임</option>
+                            <option value="대회">대회</option>
+                            <option value="기타">기타</option>
+                        </select>
+                        <button type="button" class="btn btn-secondary search">검색</button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div id="middle">
                 <table id="table">
-                    <tr>
-                        <th><a class="faq_info_modal">
+                    <tr th:each="dto : ${result.dtoList}">
+                        <th><a href="javascript:void(0);" th:onclick="onFAQClick([[${dto.id}]])" class="faq_info_modal">
                             <div>
                                 <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
                                 </svg>
                             </div>
-                            <div class="faq_title"><p>간단한 이용 방법에 대해 알려주세요</p></div>
-                            <div>
-                                <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0.312348" y1="3.60957" x2="10.3123" y2="11.6096" stroke="#C9C9C9"/>
-                                    <line x1="9.57817" y1="11.7316" x2="16.5782" y2="0.731563" stroke="#C9C9C9"/>
-                                </svg>
+                            <div class="faq_title">
+                                <p>[[${dto.question}]]</p>
                             </div>
-                        </a></th>
-                    </tr>
-                    <tr>
-                        <th><a>
-                            <div>
-                                <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
-                                </svg>
-                            </div>
-                            <div class="faq_title"><p>간단한 이용 방법에 대해 알려주세요</p></div>
-                            <div>
-                                <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0.312348" y1="3.60957" x2="10.3123" y2="11.6096" stroke="#C9C9C9"/>
-                                    <line x1="9.57817" y1="11.7316" x2="16.5782" y2="0.731563" stroke="#C9C9C9"/>
-                                </svg>
-                            </div>
-                        </a></th>
-                    </tr>
-                    <tr>
-                        <th><a>
-                            <div>
-                                <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
-                                </svg>
-                            </div>
-                            <div class="faq_title"><p>간단한 이용 방법에 대해 알려주세요</p></div>
-                            <div>
-                                <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0.312348" y1="3.60957" x2="10.3123" y2="11.6096" stroke="#C9C9C9"/>
-                                    <line x1="9.57817" y1="11.7316" x2="16.5782" y2="0.731563" stroke="#C9C9C9"/>
-                                </svg>
-                            </div>
-                        </a></th>
-                    </tr>
-                    <tr>
-                        <th><a>
-                            <div>
-                                <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
-                                </svg>
-                            </div>
-                            <div class="faq_title"><p>간단한 이용 방법에 대해 알려주세요</p></div>
-                            <div>
-                                <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0.312348" y1="3.60957" x2="10.3123" y2="11.6096" stroke="#C9C9C9"/>
-                                    <line x1="9.57817" y1="11.7316" x2="16.5782" y2="0.731563" stroke="#C9C9C9"/>
-                                </svg>
-                            </div>
-                        </a></th>
-                    </tr>
-                    <tr>
-                        <th><a>
-                            <div>
-                                <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
-                                </svg>
-                            </div>
-                            <div class="faq_title"><p>간단한 이용 방법에 대해 알려주세요</p></div>
-                            <div>
-                                <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0.312348" y1="3.60957" x2="10.3123" y2="11.6096" stroke="#C9C9C9"/>
-                                    <line x1="9.57817" y1="11.7316" x2="16.5782" y2="0.731563" stroke="#C9C9C9"/>
-                                </svg>
-                            </div>
-                        </a></th>
-                    </tr>
-                    <tr>
-                        <th><a>
-                            <div>
-                                <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
-                                </svg>
-                            </div>
-                            <div class="faq_title"><p>간단한 이용 방법에 대해 알려주세요</p></div>
                             <div>
                                 <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -137,56 +51,71 @@
             <div id="button">
                 <button type="button" class="btn btn-primary" id="write_button">FAQ 작성</button>
             </div>
-            <div id="paging"></div>
+            <div id="paging">
+                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link" th:href="@{/manager/faq(page=${result.start - 1})}">Prev</a>
+                    </li>
+                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link" th:href="@{/manager/faq(page=${page})}">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link" th:href="@{/manager/faq(page=${result.end + 1})}">Next</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-
-        <!-- FAQ 작성 모달 -->
-        <div class="modal fade" id="WriteFAQModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <p class="modal-title">◇ Writing FAQ</p>
-
-                    </div>
+        <form action="/manager/faq_write" method="post" class="writeForm">
+            <!-- FAQ 작성 모달 -->
+            <div class="modal fade" id="WriteFAQModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
 
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="faq_body">
-                                <div class="faq_ctgr">
-                                    <div><label>카테고리 : </label></div>
-                                    <div><select class="form-select form-select2" aria-label="Default select example">
-                                        <option selected>--- 세부 카테고리 ---</option>
-                                        <option value="1">사이트 이용</option>
-                                        <option value="2">물품 나눔</option>
-                                        <option value="3">소모임</option>
-                                        <option value="4">대회</option>
-                                        <option value="5">기타</option>
-                                    </select></div>
-                                </div>
-                                <div class="faq_write_title">
-                                    <div class="modal_padding"><label>제목 : </label></div>
-                                    <div><input type="text" class="form-control faq_title_input" name="faq_title"/>
+                        <div class="modal-header">
+                            <p class="modal-title">◇ Writing FAQ</p>
+
+                        </div>
+
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="faq_body">
+                                    <div class="faq_ctgr">
+                                        <div><label>카테고리 : </label></div>
+                                        <div><select class="form-select form-select2"
+                                                     aria-label="Default select example" name="ctgrId">
+                                            <option selected>--- 세부 카테고리 ---</option>
+                                            <option value="1" name="사이트 이용">사이트 이용</option>
+                                            <option value="2" name="물품 나눔">물품 나눔</option>
+                                            <option value="3" name="소모임">소모임</option>
+                                            <option value="4" name="대회">대회</option>
+                                            <option value="5" name="기타">기타</option>
+                                        </select></div>
                                     </div>
-                                </div>
-                                <div class="faq_write_content">
-                                    <div class="modal_padding"><label>내용 : </label></div>
-                                    <div><textarea class="faq_content_input" name="faq_content"></textarea></div>
+                                    <div class="faq_write_title">
+                                        <div class="modal_padding"><label>질문 : </label></div>
+                                        <div><input type="text" class="form-control faq_title_input" name="question"/>
+                                        </div>
+                                    </div>
+                                    <div class="faq_write_content">
+                                        <div class="modal_padding"><label>응답 : </label></div>
+                                        <div><textarea class="faq_content_input" name="answer"></textarea></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-success">작성하기</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-success faqWrite">작성하기</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
         <!-- FAQ 관리 모달 -->
         <div class="modal fade" id="FAQInfoModal" tabindex="-1" role="dialog">
@@ -205,7 +134,8 @@
                             <div class="faq_body">
                                 <div class="faq_ctgr">
                                     <div><label>카테고리 : </label></div>
-                                    <div><select class="form-select form-select2" aria-label="Default select example"
+                                    <div><select class="form-select form-select2"
+                                                 aria-label="Default select example"
                                                  disabled>
                                         <option>--- 세부 카테고리 ---</option>
                                         <option value="1" selected>사이트 이용</option>
@@ -216,13 +146,13 @@
                                     </select></div>
                                 </div>
                                 <div class="faq_write_title">
-                                    <div class="modal_padding"><label>제목 : </label></div>
-                                    <div><input type="text" class="form-control faq_title_input" name="faq_title"
+                                    <div class="modal_padding"><label>질문 : </label></div>
+                                    <div><input type="text" class="form-control faq_title_input"  name="question"
                                                 disabled/></div>
                                 </div>
                                 <div class="faq_write_content">
-                                    <div class="modal_padding"><label>내용 : </label></div>
-                                    <div><textarea class="faq_content_input" name="faq_content" disabled></textarea>
+                                    <div class="modal_padding"><label>응답 : </label></div>
+                                    <div><textarea class="faq_content_input" name="answer" disabled></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +160,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary modal_return"  data-bs-dismiss="modal">돌아가기</button>
+                        <button type="button" class="btn btn-primary modal_return" data-bs-dismiss="modal">돌아가기
+                        </button>
                         <button type="button" class="btn btn-success FAQModify">수정</button>
                         <button type="button" class="btn btn-secondary modal_delete">삭제</button>
                     </div>
@@ -265,12 +196,12 @@
                                     </select></div>
                                 </div>
                                 <div class="faq_write_title">
-                                    <div class="modal_padding"><label>제목 : </label></div>
+                                    <div class="modal_padding"><label>질문 : </label></div>
                                     <div><input type="text" class="form-control faq_title_input" name="faq_title"/>
                                     </div>
                                 </div>
                                 <div class="faq_write_content">
-                                    <div class="modal_padding"><label>내용 : </label></div>
+                                    <div class="modal_padding"><label>응답 : </label></div>
                                     <div><textarea class="faq_content_input" name="faq_content"></textarea></div>
                                 </div>
                             </div>
@@ -278,7 +209,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary FAQModify_return"  data-bs-dismiss="modal">돌아가기
+                        <button type="button" class="btn btn-primary FAQModify_return" data-bs-dismiss="modal">돌아가기
                         </button>
                         <button type="button" class="btn btn-success FAQModify_modify">수정하기</button>
                     </div>
@@ -345,8 +276,48 @@
                var FAQInfoModal = $("#FAQInfoModal");
                var FAQModifyModal = $("#FAQModifyModal");
 
+               var infoForm = $(".infoForm");
                $(".faq_info_modal").on("click", function(){
-                    FAQInfoModal.modal('show');
+
+                  function getFAQInfo(faqId) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/manager/faq_info",
+                            data: { no: faqId },
+                            success: function(response) {
+
+                                displayFAQInfo(response);
+                            },
+                            error: function(error) {
+
+                                console.error("Error fetching FAQ info:", error);
+                            }
+                        });
+                    }
+
+
+                    function displayFAQInfo(faqInfo) {
+
+                        var question = faqInfo.question;
+                        var answer = faqInfo.answer;
+
+                        $('#FAQInfoModal input[name="question"]').val(question);
+                        $('#FAQInfoModal textarea[name="answer"]').val(answer);
+
+                        FAQInfoModal.modal('show');
+                    }
+
+
+                    function onFAQClick(faqId) {
+
+                        getFAQInfo(faqId);
+                    }
+
+                    $(".faq_info_modal").on("click", function(){
+                        onFAQClick($(this).data("faq-id"));
+                    });
+        });
+
                });
 
                $(".FAQModify").click(function(){
@@ -412,6 +383,34 @@
                     $(this).css("transition", "background 0.3s ease-in-out");
                     $('.icon8').css("fill", "#D6D6D6");
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
+               });
+
+
+               var writeForm = $(".writeForm");
+
+               $(".faqWrite").click(function(){
+                    if($(".faq_title_input").val() == ""){
+                        alert("질문을 입력하세요.");
+                        return;
+                    }
+
+                    if($(".faq_content_input").val() == ""){
+                        alert("답변을 입력하세요.");
+                        return;
+                    }
+
+                    if(!confirm("작성하시겠습니까?")){
+                        return;
+                    }
+
+                    writeForm.attr("action", "/manager/faq_write").attr("method", "post");
+                    writeForm.submit();
+               });
+
+               var searchForm = $(".searchForm");
+
+               $(".search").click(function(){
+                    searchForm.submit();
                });
            });
         </script>

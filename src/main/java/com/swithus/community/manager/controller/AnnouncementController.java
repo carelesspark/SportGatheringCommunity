@@ -1,7 +1,7 @@
 package com.swithus.community.manager.controller;
 
 import com.swithus.community.manager.dto.AnnouncementDTO;
-import com.swithus.community.manager.dto.PageRequestDTO;
+import com.swithus.community.manager.dto.page.AncPageRequestDTO;
 import com.swithus.community.manager.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +22,7 @@ public class AnnouncementController {
     private final AnnouncementService service;
 
     @GetMapping("/announcement")
-    public void announcement(PageRequestDTO pageRequestDTO, Model model){
+    public void announcement(AncPageRequestDTO pageRequestDTO, Model model){
         log.info("공지사항 페이지");
 
         model.addAttribute("result", service.getAnnouncementList(pageRequestDTO));
@@ -40,7 +40,7 @@ public class AnnouncementController {
     }
 
     @GetMapping("/announcement_info")
-    public void info(long no, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, Model model){
+    public void info(long no, @ModelAttribute("pageRequestDTO") AncPageRequestDTO pageRequestDTO, Model model){
         log.info("공지사항 상세");
 
         AnnouncementDTO dto = service.info(no);
@@ -48,7 +48,7 @@ public class AnnouncementController {
     }
 
     @PostMapping("/announcement_modify")
-    public String modify(AnnouncementDTO dto, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+    public String modify(AnnouncementDTO dto, @ModelAttribute("pageRequestDTO") AncPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
 
         log.info("공지사항 수정");
 
@@ -61,7 +61,7 @@ public class AnnouncementController {
     }
 
     @PostMapping("/announcement_delete")
-    public String delete(long id, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+    public String delete(long id, @ModelAttribute("pageRequestDTO") AncPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
         log.info("공지사항 삭제");
 
         service.delete(id);

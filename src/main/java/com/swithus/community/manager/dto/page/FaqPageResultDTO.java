@@ -1,4 +1,4 @@
-package com.swithus.community.manager.dto;
+package com.swithus.community.manager.dto.page;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class PageResultDTO<DTO, EN> {
+public class FaqPageResultDTO<DTO, EN> {
 
     private List<DTO> dtoList;
 
@@ -26,7 +26,7 @@ public class PageResultDTO<DTO, EN> {
 
     private List<Integer> pageList;
 
-    public PageResultDTO(Page<EN> result, Function<EN, DTO> fn){
+    public FaqPageResultDTO(Page<EN> result, Function<EN, DTO> fn){
         dtoList = result.stream().map(fn).collect(Collectors.toList());
         totalPage = result.getTotalPages();
         makePageList(result.getPageable());
