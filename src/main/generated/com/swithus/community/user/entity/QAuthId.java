@@ -34,9 +34,9 @@ public class QAuthId extends EntityPathBase<AuthId> {
 
     public final QUser user;
 
-    public final StringPath userId = createString("userId");
+    public final StringPath userid = createString("userid");
 
-    public final StringPath userPwd = createString("userPwd");
+    public final StringPath userpwd = createString("userpwd");
 
     public QAuthId(String variable) {
         this(AuthId.class, forVariable(variable), INITS);

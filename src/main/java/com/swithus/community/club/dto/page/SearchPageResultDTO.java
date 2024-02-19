@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 @Data
 public class SearchPageResultDTO<DTO, T> {
     // 현재 페이지의 객체들을 담은 리스트
-    private List<DTO> clubDTOList;
+    private List<DTO> dtoList;
     // 전체 데이터 수
     private int totalPage;
     // 현재 페이지 번호
@@ -32,7 +32,7 @@ public class SearchPageResultDTO<DTO, T> {
 
     // Page<T>, Function<T, R> → T 타입을 R 타입으로 바꿔주는 함수
     public SearchPageResultDTO(Page<T> result, Function<T, DTO> func) {
-        clubDTOList = result.stream().map(func).toList();
+        dtoList = result.stream().map(func).toList();
         totalPage = result.getTotalPages();
 
         Pageable pageable = result.getPageable();
