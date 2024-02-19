@@ -1,4 +1,4 @@
-package com.swithus.community.manager.dto;
+package com.swithus.community.manager.dto.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,16 +10,13 @@ import org.springframework.data.domain.Sort;
 @Builder
 @AllArgsConstructor
 @Data
-public class PageRequestDTO {
+public class AncPageRequestDTO {
     private int page;
 
     private int size;
 
-    private String type;
 
-    private String keyword;
-
-    public PageRequestDTO(){
+    public AncPageRequestDTO(){
         this.page = 1;
         this.size = 10;
     }
