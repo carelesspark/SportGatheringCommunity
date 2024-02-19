@@ -32,7 +32,7 @@
             </div>
             <div id="button">
                 <button type="button" class="btn btn-primary modal_return" data-bs-dismiss="modal"
-                        th:onclick="|location.href='@{/manager/faq(page=${pageRequestDTO.page})}'|">돌아가기
+                        th:onclick="|location.href='@{/manager/faq(page=${pageRequestDTO.page}, type=${pageRequestDTO.type})}'|">돌아가기
                 </button>
                 <button type="button" class="btn btn-success FAQModify">수정</button>
                 <button type="button" class="btn btn-secondary modal_delete">삭제</button>
@@ -132,7 +132,7 @@
         <link th:href="@{/css/manager/faq_info.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
+        <script th:inline="javascript">
             $(document).ready(function(){
                 var isClicked = false;
 
@@ -270,10 +270,11 @@
 
                var no = [[${info.id}]];
                var page = [[${pageRequestDTO.page}]];
+               var type = [[${pageRequestDTO.type}]];
 
                $(".FAQModify_return").click(function(){
                     if(confirm("수정을 취소하시겠습니까?")){
-                        window.location.href = 'http://localhost:3306/manager/faq_info?page=' + page  + '&no=' + no;
+                        window.location.href = 'http://localhost:3306/manager/faq_info?page=' + page  + '&no=' + no + '&type=' + type;
                     }
                });
 

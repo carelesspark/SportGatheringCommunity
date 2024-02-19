@@ -22,10 +22,16 @@ public class FaqController {
 
     private final FaqService service;
 
-    @GetMapping("/faq")
-    public void faq(FaqPageRequestDTO pageRequestDTO, Model model){
-        log.info("faq 페이지");
+    @GetMapping("/")
+    public String faq(){
+        return "redirect:/manager/faq";
+    }
 
+    @GetMapping("/faq")
+    public void faq_list(FaqPageRequestDTO pageRequestDTO, Model model){
+        log.info("faq 페이지" + pageRequestDTO);
+
+        model.addAttribute("pageRequestDTO", pageRequestDTO);
         model.addAttribute("result", service.getFaqList(pageRequestDTO));
     }
 
