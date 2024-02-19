@@ -48,6 +48,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public AnnouncementDTO info(Long no) {
         Optional<Announcement> info = announcementRepository.findById(no);
 
+        if(info.isPresent()){
+            Announcement entity = info.get();
+            entity.plusVisitCount(entity.getVisitCount());
+
+            announcementRepository.save(entity);
+        }
+
         return info.isPresent()? entityToDto(info.get()) : null;
     }
 
