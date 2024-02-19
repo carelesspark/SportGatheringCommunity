@@ -17,8 +17,9 @@ public class AuthId extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //
+    // User 엔티티와의 다대일 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id") // 외래키 컬럼명 지정
     private User user;
 
     //아이디
