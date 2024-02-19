@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>잇템 페이지</title>
+    <style>
+        
+        *{ 
+            /* 가장먼저 해야되는 부분 (초기화) */
+            padding: 0;
+            margin: 0;
+            
+            box-sizing: border-box;
+        }
+        
+        .top__title {
+            margin: 50px auto;
+            padding: 50px;
+            border: 1px solid #ccc;
+            background-color: #f2f2f2;
+            text-align: center;
+            font-size: 15px;
+
+        }
+
+        .ittem__issue {
+            display: grid;                                   
+            grid-template-columns: 5fr 2fr 5fr 2fr 5fr; 
+            gap: 20px;
+            justify-content: center;
+            margin: 10px auto;
+            padding: 0 auto;    
+        }
+
+        #ittem1 {
+            position: relative;
+            margin: 0;
+            padding: 10px;
+            display: grid;
+            grid-template-rows: auto auto;
+            background-color: #f2f2f2;
+            box-sizing: border-box;
+        }
+
+        #ittem1 img {
+            width: 100%;
+            height: auto;
+            max-width: 100%; /* 이미지가 원래 크기보다 작을 경우에는 원래 크기로 유지 */
+            max-height: 100%                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+        }
+
+        .heart-icon {
+            position: absolute;
+            bottom: 70px;
+            left: 110px;
+            width: 20px; /* 아이콘의 너비 설정 */
+            height: auto; /* 높이 자동 조절 */
+        }
+
+        p1 {
+            font-size: 11px;
+        }
+
+        p2 {
+            font-size: 8px;
+        }
+
+        p3 {
+            font-size: 10px;
+        }
+
+        .search__box {
+            position: absolute;
+            margin-top: 30px;
+            right: 10px;
+            bottom: -20px;
+            
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top__title">
+        <h2>지금 뜨는 잇템들</h2>
+    </div>
+
+    <div class="ittem__issue">
+        <div id="ittem1">
+            <div class="ittem1__1">
+                <img src="img/스포츠안경.webp" alt="등산스틱">
+                <div class="heart-icon">
+                    <img src="img/heart.png">
+                </div>
+            </div>
+            <div class="ittem1__2">
+                <p1>스포츠안경 나눔합니다.</p1><br>
+                <p2>세부지역</p2><br>
+                <p3>관심 32 · 채팅 5 </p3>
+            </div>
+        </div>
+
+        <div></div>
+
+        <div id="ittem1">
+            <div class="ittem1__1">
+                <img src="img/ball1.png" alt="등산스틱">
+                <div class="heart-icon">
+                    <img src="img/pinkHeart.png">
+                </div>
+            </div>
+            <div class="ittem1__2">
+                <p1>한정판 공 가져갈분</p1><br>
+                <p2>세부지역</p2><br>
+                <p3>관심 32 · 채팅 5 </p3>
+            </div>
+        </div>
+
+        <div></div>
+
+        <div id="ittem1">
+            <div class="ittem1__1">
+                <img src="img/스포츠집업.webp" alt="등산스틱">
+                <div class="heart-icon">
+                    <img src="img/pinkHeart.png">
+                </div>
+            </div>
+            <div class="ittem1__2">
+                <p1>등산용집업 </p1><br>
+                <p2>세부지역</p2><br>
+                <p3>관심 32 · 채팅 5 </p3><br>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br><br>
+
+    <div class="top__title">
+        <h2>우리 동네 나눔잇템 </h2>
+        <div class="search__box">
+            <input type="text" placeholder="찾고있는 물품을 검색해보세요" name="search">
+        </div>
+    </div>
+
+</body>
+</html>
