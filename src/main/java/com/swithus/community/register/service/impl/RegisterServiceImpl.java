@@ -28,17 +28,15 @@ public class RegisterServiceImpl implements RegisterService {
                 .gender(userDTO.getGender())
                 .build();
 
-        return registerRepository.save(user).getId();
-    }
+        registerRepository.save(user);
 
-    @Override
-    public Long InputId(UserDTO userDTO) {
-        AuthId authid = AuthId.builder()
-                .id(userDTO.getId())
+        AuthId authId = AuthId.builder()
                 .userid(userDTO.getUserid())
                 .userpwd(userDTO.getUserpwd())
+                .user(user)
                 .build();
 
-        return inputidRepository.save(authid).getId();
+        return inputidRepository.save(authId).getId();
+
     }
 }
