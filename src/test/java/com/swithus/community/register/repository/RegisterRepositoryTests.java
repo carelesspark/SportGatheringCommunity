@@ -1,6 +1,7 @@
 package com.swithus.community.register.repository;
 
 import com.swithus.community.user.dto.UserDTO;
+import com.swithus.community.user.entity.AuthId;
 import com.swithus.community.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,9 @@ public class RegisterRepositoryTests {
 
     @Autowired
     RegisterRepository registerRepository;
+    @Autowired
+    InputidRepository inputidRepository;
+
     @Test
     void join(@Autowired UserDTO userDTO){
         User user = User.builder()
@@ -26,5 +30,13 @@ public class RegisterRepositoryTests {
                 .build();
 
         registerRepository.save(user);
+
+        AuthId authId = AuthId.builder()
+                .userid("test1")
+                .userpwd("1234")
+                .user(user)
+                .build();
+
+        inputidRepository.save(authId);
     }
 }
