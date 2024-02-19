@@ -25,4 +25,6 @@ public class FaqDTO {
     private String question;
 
     private Long ctgrId;
+
+    private String ctgrType;
 }

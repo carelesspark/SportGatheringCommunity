@@ -16,6 +16,10 @@ public interface FaqService {
 
     FaqDTO info(Long id);
 
+    void modify(FaqDTO dto);
+
+    void delete(Long id);
+
 
     default Faq dtoToEntity(FaqDTO faqDTO){
 
@@ -23,19 +27,22 @@ public interface FaqService {
                 .id(faqDTO.getId())
                 .answer(faqDTO.getAnswer())
                 .question(faqDTO.getQuestion())
+                .ctgr(FaqCtgr.builder().id(faqDTO.getCtgrId()).build())
                 .build();
         return faq;
     }
 
-    default FaqDTO entityToDto(Faq faq){
+    default FaqDTO entityToDto(Faq faq) {
         FaqDTO dto = FaqDTO.builder()
                 .id(faq.getId())
                 .modDate(faq.getModDate())
                 .regDate(faq.getRegDate())
                 .answer(faq.getAnswer())
                 .question(faq.getQuestion())
+                .ctgrId(faq.getCtgr().getId())
+                .ctgrType(faq.getCtgr().getCtgrType())
                 .build();
 
-        return dto;
+            return dto;
     }
 }

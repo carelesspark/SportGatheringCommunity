@@ -228,16 +228,20 @@ a:hover {
     background-color: white;
     box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
     display: grid;
-    grid-template-rows: 120px 480px 40px 60px;
+    grid-template-rows: 120px 520px 60px;
     place-items: center;
 }
 
 
 
 #top {
-    width: 770px;
-    display: grid;
-    grid-template-columns: 200px 570px;
+    width: 670px;
+        height: 120px;
+        padding-top: 60px;
+        font-size: 15pt;
+        font-family: bold;
+        font-family: 'Inter', sans-serif;
+        border-bottom: 1px solid #e9ecef;
 }
 
 #sub_title {
@@ -251,9 +255,6 @@ a:hover {
 }
 
 #select {
-    width: 570px;
-    height: 120px;
-    padding-top: 60px;
     display: grid;
     grid-template-columns: 400px 170px;
     place-items: center;
@@ -267,7 +268,6 @@ a:hover {
     color: #767070;
     border-radius: 5px;
     font-size: 10pt;
-    margin-left: 285px;
     margin-bottom: 5px;
 }
 
@@ -357,8 +357,7 @@ a:hover {
 #button {
     width: 770px;
     height: 40px;
-    padding-left: 630px;
-    padding-top: 10px;
+    padding-left: 540px;
 }
 
 #write_button {
@@ -383,6 +382,16 @@ a:hover {
     height: 100px;
     display: grid;
     grid-template-columns: 80px 620px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+.faq_select {
+    width: 700px;
+    height: 60px;
+    display: grid;
+    grid-template-columns: 80px 620px;
+    margin-bottom: 20px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
@@ -434,4 +443,8 @@ a:hover {
 
 .faq_info_modal:hover {
     color: black;
+}
+
+.enter{
+    white-space: pre-wrap;
 }

@@ -5,77 +5,50 @@
 
     <div id="right" th:fragment="content">
         <div id="main_title">
-            <p>○ FAQ 관리</p>
+            <p>○ FAQ Info</p>
         </div>
         <div id="main_content">
-            <form action="/manager/faq" method="get" class="searchForm">
-                <div id="top">
-                    <div id="sub_title"><p>◇ Managing FAQ</p></div>
-                    <div id="select">
-                        <select class="form-select form-select1" aria-label="Default select example">
-                            <option selected>--- 세부 카테고리 ---</option>
-                            <option value="사이트 이용">사이트 이용</option>
-                            <option value="물품 나눔">물품 나눔</option>
-                            <option value="소모임">소모임</option>
-                            <option value="대회">대회</option>
-                            <option value="기타">기타</option>
-                        </select>
-                        <button type="button" class="btn btn-secondary search">검색</button>
+            <div id="top">
+                <p>□ [[${info.id}]]번 FAQ 게시글</p>
+            </div>
+            <div id="middle">
+                <div class="faq_select">
+                    <div><label>카테고리 : </label></div>
+                    <select class="form-select form-select1" aria-label="Default select example" disabled>
+                        <option selected>[[${info.ctgrType}]]</option>
+                    </select>
+                </div>
+                <div class="faq_write_title">
+                    <div class="modal_padding"><label>질문 : </label></div>
+                    <div><input type="text" class="form-control faq_title_input" th:value="${info.question}"
+                                name="question"
+                                disabled/></div>
+                </div>
+                <div class="faq_write_content">
+                    <div class="modal_padding"><label>답변 : </label></div>
+                    <div><textarea class="faq_content_input enter" name="answer" disabled>[[${info.answer}]]</textarea>
                     </div>
                 </div>
-            </form>
-            <div id="middle">
-                <table id="table">
-                    <tr th:each="dto : ${result.dtoList}">
-                        <th><a th:href="@{/manager/faq_info(page=${result.page}, no=${dto.id})}" class="faq_info_modal">
-                            <div>
-                                <svg width="5" height="5" viewBox="0 0 5 5" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#C9C9C9"/>
-                                </svg>
-                            </div>
-                            <div class="faq_title">
-                                <p>[[${dto.question}]]</p>
-                            </div>
-                            <div>
-                                <svg width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="0.312348" y1="3.60957" x2="10.3123" y2="11.6096" stroke="#C9C9C9"/>
-                                    <line x1="9.57817" y1="11.7316" x2="16.5782" y2="0.731563" stroke="#C9C9C9"/>
-                                </svg>
-                            </div>
-                        </a></th>
-                    </tr>
-                </table>
             </div>
             <div id="button">
-                <button type="button" class="btn btn-primary" id="write_button">FAQ 작성</button>
+                <button type="button" class="btn btn-primary modal_return" data-bs-dismiss="modal"
+                        th:onclick="|location.href='@{/manager/faq(page=${pageRequestDTO.page})}'|">돌아가기
+                </button>
+                <button type="button" class="btn btn-success FAQModify">수정</button>
+                <button type="button" class="btn btn-secondary modal_delete">삭제</button>
             </div>
-            <div id="paging">
-                <ul class="pagination h-100 justify-content-center align-items-center">
-                    <li class="page-item" th:if="${result.prev}">
-                        <a class="page-link" th:href="@{/manager/faq(page=${result.start - 1})}">Prev</a>
-                    </li>
-                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
-                        th:each="page: ${result.pageList}">
-                        <a class="page-link" th:href="@{/manager/faq(page=${page})}">[[${page}]]</a>
-                    </li>
-                    <li class="page-item" th:if="${result.next}">
-                        <a class="page-link" th:href="@{/manager/faq(page=${result.end + 1})}">Next</a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
 
-        <form action="/manager/faq_write" method="post" class="writeForm">
-            <!-- FAQ 작성 모달 -->
-            <div class="modal fade" id="WriteFAQModal" tabindex="-1" role="dialog">
+        <!-- FAQ 수정 모달 -->
+        <form action="/manager/faq_modify" method="post" class="modifyForm">
+            <div class="modal fade" id="FAQModifyModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
 
                         <div class="modal-header">
-                            <p class="modal-title">◇ Writing FAQ</p>
+                            <p class="modal-title">◇ Managing FAQ</p>
 
                         </div>
 
@@ -84,40 +57,79 @@
                             <div class="form-group">
                                 <div class="faq_body">
                                     <div class="faq_ctgr">
+                                        <input type="hidden" th:value="${info.id}" name="id"/>
                                         <div><label>카테고리 : </label></div>
-                                        <div><select class="form-select form-select2"
-                                                     aria-label="Default select example" name="ctgrId">
-                                            <option value="0" selected>--- 세부 카테고리 ---</option>
-                                            <option value="1" name="사이트 이용">사이트 이용</option>
+                                        <div th:if="${info.ctgrType} == '사이트 이용'"><select
+                                                class="form-select form-select2" aria-label="Default select example"
+                                                name="ctgrId">
+                                            <option value="1" name="사이트 이용" selected>사이트 이용</option>
                                             <option value="2" name="물품 나눔">물품 나눔</option>
                                             <option value="3" name="소모임">소모임</option>
                                             <option value="4" name="대회">대회</option>
                                             <option value="5" name="기타">기타</option>
                                         </select></div>
+                                        <div th:if="${info.ctgrType} == '물품 나눔'"><select
+                                                class="form-select form-select2" aria-label="Default select example"
+                                                name="ctgrId">
+                                            <option value="1" name="사이트 이용">사이트 이용</option>
+                                            <option value="2" name="물품 나눔" selected>물품 나눔</option>
+                                            <option value="3" name="소모임">소모임</option>
+                                            <option value="4" name="대회">대회</option>
+                                            <option value="5" name="기타">기타</option>
+                                        </select></div>
+                                        <div th:if="${info.ctgrType} == '소모임'"><select class="form-select form-select2"
+                                                                                       aria-label="Default select example"
+                                                                                       name="ctgrId">
+                                            <option value="1" name="사이트 이용">사이트 이용</option>
+                                            <option value="2" name="물품 나눔">물품 나눔</option>
+                                            <option value="3" name="소모임" selected>소모임</option>
+                                            <option value="4" name="대회">대회</option>
+                                            <option value="5" name="기타">기타</option>
+                                        </select></div>
+                                        <div th:if="${info.ctgrType} == '대회'"><select class="form-select form-select2"
+                                                                                      aria-label="Default select example"
+                                                                                      name="ctgrId">
+                                            <option value="1" name="사이트 이용">사이트 이용</option>
+                                            <option value="2" name="물품 나눔">물품 나눔</option>
+                                            <option value="3" name="소모임">소모임</option>
+                                            <option value="4" name="대회" selected>대회</option>
+                                            <option value="5" name="기타">기타</option>
+                                        </select></div>
+                                        <div th:if="${info.ctgrType} == '기타'"><select class="form-select form-select2"
+                                                                                      aria-label="Default select example"
+                                                                                      name="ctgrId">
+                                            <option value="1" name="사이트 이용">사이트 이용</option>
+                                            <option value="2" name="물품 나눔">물품 나눔</option>
+                                            <option value="3" name="소모임">소모임</option>
+                                            <option value="4" name="대회">대회</option>
+                                            <option value="5" name="기타" selected>기타</option>
+                                        </select></div>
                                     </div>
                                     <div class="faq_write_title">
                                         <div class="modal_padding"><label>질문 : </label></div>
-                                        <div><input type="text" class="form-control faq_title_input" name="question"/>
+                                        <div><input type="text" class="form-control faq_title_input"
+                                                    th:value="${info.question}" name="question"/>
                                         </div>
                                     </div>
                                     <div class="faq_write_content">
                                         <div class="modal_padding"><label>답변 : </label></div>
-                                        <div><textarea class="faq_content_input" name="answer"></textarea></div>
+                                        <div><textarea class="faq_content_input"
+                                                       name="answer">[[${info.answer}]]</textarea></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
-                            <button type="button" class="btn btn-success faqWrite">작성하기</button>
+                            <button type="button" class="btn btn-primary FAQModify_return" data-bs-dismiss="modal">돌아가기
+                            </button>
+                            <button type="button" class="btn btn-success FAQModify_modify">수정하기</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
-
-        <link th:href="@{/css/manager/faq.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/manager/faq_info.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script>
@@ -167,12 +179,6 @@
                         $('.icon6').css("transition", "fill 0.3s ease-in-out");
                     }
                 });
-
-               var writeFAQModal = $("#WriteFAQModal");
-
-               $("#write_button").click(function(){
-                    writeFAQModal.modal('show');
-               });
 
 
                $('div#announcement a').hover(function(){
@@ -236,14 +242,13 @@
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
 
+               var FAQModifyModal = $("#FAQModifyModal");
+               $(".FAQModify").click(function(){
+                    FAQModifyModal.modal('show');
+               });
 
-               var writeForm = $(".writeForm");
-
-               $(".faqWrite").click(function(){
-                    if($("select[name=ctgrId] option:selected").val() == "0"){
-                        alert("카테고리를 설정해주세요");
-                        return;
-                    }
+               var form = $("form")
+               $(".FAQModify_modify").click(function(){
 
                     if($(".faq_title_input").val() == ""){
                         alert("질문을 입력하세요.");
@@ -255,18 +260,32 @@
                         return;
                     }
 
-                    if(!confirm("작성하시겠습니까?")){
+                    if(!confirm("수정하시겠습니까?")){
                         return;
                     }
 
-                    writeForm.attr("action", "/manager/faq_write").attr("method", "post");
-                    writeForm.submit();
+                    form.attr("action", "/manager/faq_modify").attr("method", "post");
+                    form.submit();
                });
 
-               var searchForm = $(".searchForm");
+               var no = [[${info.id}]];
+               var page = [[${pageRequestDTO.page}]];
 
-               $(".search").click(function(){
-                    searchForm.submit();
+               $(".FAQModify_return").click(function(){
+                    if(confirm("수정을 취소하시겠습니까?")){
+                        window.location.href = 'http://localhost:3306/manager/faq_info?page=' + page  + '&no=' + no;
+                    }
+               });
+
+               $(".modal_delete").click(function(){
+                    if(!confirm("삭제하시겠습니까?")){
+                        return;
+                    }
+
+                    form.attr("action", "/manager/faq_delete").attr("method", "post");
+                    form.submit();
+
+
                });
            });
         </script>

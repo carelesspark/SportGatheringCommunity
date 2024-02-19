@@ -67,5 +67,29 @@ public class FaqServiceImpl implements FaqService {
         return result.isPresent()? entityToDto(result.get()) : null;
     }
 
+    @Override
+    @Transactional
+    public void modify(FaqDTO dto) {
+        Optional<Faq> before_modify = faqRepository.findById(dto.getId());
+
+        if(before_modify.isPresent()){
+            Faq entity = before_modify.get();
+            entity.change_question(dto.getQuestion());
+            entity.change_answer(dto.getAnswer());
+
+            FaqCtgr faqCtgr = faqCtgrRepository.getOne(dto.getCtgrId());
+            entity.change_ctgr(faqCtgr);
+
+            faqRepository.save(entity);
+        }
+
+
+    }
+
+    @Override
+    public void delete(Long id) {
+        faqRepository.deleteById(id);
+    }
+
 
 }

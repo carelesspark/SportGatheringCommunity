@@ -23,4 +23,8 @@ public class Faq extends BaseEntity {
 
     private String answer;
 
+    public void change_question(String question){this.question = question;}
+    public void change_answer(String answer){this.answer = answer;}
+    public void change_ctgr(FaqCtgr ctgr) {this.ctgr = ctgr;}
+
 }

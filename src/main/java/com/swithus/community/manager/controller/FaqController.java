@@ -1,6 +1,8 @@
 package com.swithus.community.manager.controller;
 
+import com.swithus.community.manager.dto.AnnouncementDTO;
 import com.swithus.community.manager.dto.FaqDTO;
+import com.swithus.community.manager.dto.page.AncPageRequestDTO;
 import com.swithus.community.manager.dto.page.FaqPageRequestDTO;
 import com.swithus.community.manager.service.FaqService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,7 @@ public class FaqController {
     @PostMapping("/faq_write")
     public String write(FaqDTO dto, RedirectAttributes redirectAttributes){
 
-        log.info("공지사항 작성");
+        log.info("faq 작성");
         Long id = service.write(dto);
 
         redirectAttributes.addFlashAttribute("id", id);
@@ -39,11 +41,34 @@ public class FaqController {
     }
 
     @GetMapping("/faq_info")
-    @ResponseBody
-    public ResponseEntity<FaqDTO> getFAQInfo(@RequestParam long no) {
-        FaqDTO faqInfo = service.info(no);
-        return new ResponseEntity<>(faqInfo, HttpStatus.OK);
+    public void info(long no, @ModelAttribute("pageRequestDTO") FaqPageRequestDTO pageRequestDTO, Model model) {
+        FaqDTO dto = service.info(no);
+        model.addAttribute("info", dto);
     }
 
+    @PostMapping("/faq_modify")
+    public String modify(FaqDTO dto, @ModelAttribute("pageRequestDTO") FaqPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
 
+        log.info("faq 수정");
+
+        service.modify(dto);
+
+        redirectAttributes.addAttribute("no", dto.getId());
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+
+        return "redirect:/manager/faq_info";
+    }
+
+    @PostMapping("/faq_delete")
+    public String delete(long id, @ModelAttribute("pageRequestDTO") AncPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+        log.info("faq 삭제");
+
+        service.delete(id);
+
+        redirectAttributes.addFlashAttribute("no", id);
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+
+
+        return "redirect:/manager/faq";
+    }
 }
