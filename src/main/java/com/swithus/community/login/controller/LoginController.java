@@ -1,5 +1,8 @@
 package com.swithus.community.login.controller;
 
+import com.swithus.community.login.dto.LoginDTO;
+import com.swithus.community.login.service.LoginService;
+import com.swithus.community.register.service.RegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -13,18 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Log4j2
 @RequiredArgsConstructor
 public class LoginController {
-    @GetMapping("/login")
+
+    private final LoginService loginService;
+
+    @GetMapping("/main")
     public String login(){
 
         return "login/login";
     }
 
     @PostMapping("/main")
-    public String login(@RequestParam String email, @RequestParam String password) {
-        // 여기에 Spring Security를 사용한 로그인 처리 로직 추가
-        // 예: AuthenticationManager를 사용하여 로그인 시도
+    public String login(LoginDTO loginDTO) {
+        Long loginId = loginService.check(loginDTO);//로그인 확인 함수
 
-        return "/main/main"; // 로그인 후 리다이렉트할 경로
+        return "/swithus/main"; // 로그인 후 리다이렉트할 경로
     }
 
 
