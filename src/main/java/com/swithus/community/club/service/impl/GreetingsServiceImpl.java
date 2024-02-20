@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -39,9 +40,8 @@ public class GreetingsServiceImpl implements GreetingsService {
 
         Function<Object[], GreetingsDTO> func = (objects -> entityToGreetingsDTO(
                 (Greetings) objects[0],
-                (GreetingsImage) objects[1],
-                (User) objects[2],
-                (Long) objects[3]
+                (User) objects[1],
+                (Long) objects[2]
         ));
 
         return new PageResultDTO<>(greetingsPage, func);
@@ -49,7 +49,8 @@ public class GreetingsServiceImpl implements GreetingsService {
 
     @Override
     public GreetingsDTO getGreetings(Long clubId, Long userId) {
-        Object[] result = greetingsRepository.getGreetingsByClubAndUser(clubId, userId);
+        List<Object[]> resultList = greetingsRepository.getGreetingsByClubAndUser(clubId, userId);
+        Object[] result = resultList.get(0);
         Greetings greetings = (Greetings) result[0];
         GreetingsImage greetingsImage = (GreetingsImage) result[1];
 

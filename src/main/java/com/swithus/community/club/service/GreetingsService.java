@@ -13,16 +13,11 @@ public interface GreetingsService {
 
     GreetingsDTO getGreetings(Long clubId, Long userId);
 
-    default GreetingsDTO entityToGreetingsDTO(Greetings greetings, GreetingsImage greetingsImage, User user, Long likeCount) {
+    default GreetingsDTO entityToGreetingsDTO(Greetings greetings, User user, Long likeCount) {
         return GreetingsDTO.builder()
                 .greetingsId(greetings.getId())
                 .memberName(user.getName())
                 .content(greetings.getContent())
-                .imageDTO(ImageDTO.builder()
-                        .name(greetingsImage.getName())
-                        .uuid(greetingsImage.getUuid())
-                        .path(greetingsImage.getPath())
-                        .build())
                 .likeCount(likeCount)
                 .build();
     }

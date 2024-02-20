@@ -118,7 +118,7 @@ public class ClubServiceImpl implements ClubService {
                 .build();
 
         result.forEach(objects -> {
-            ClubImage clubImage = (ClubImage) objects[1];
+            ClubImage clubImage = (ClubImage) objects[2];
             ImageDTO imageDTO = ImageDTO.builder()
                     .path(clubImage.getPath())
                     .name(clubImage.getName())
@@ -132,12 +132,13 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public NavDTO getNav(Long clubId, Long userId) {
-        Object[] result = clubRepository.getClubAndClubMemberByClubAndUser(clubId, userId);
-        if (ObjectUtils.isEmpty(result)) {
+        List<Object[]> resultList = clubRepository.getClubAndClubMemberByClubAndUser(clubId, userId);
+        if (ObjectUtils.isEmpty(resultList)) {
             log.warn("nav를 만들기 위한 정보가 비어있습니다.");
 
             return NavDTO.builder().clubName("Club Name").clubHeadline("Club Headline").isGuest(true).build();
         } else {
+            Object[] result = resultList.get(0);
             Club club = (Club) result[0];
             ClubMember clubMember = (ClubMember) result[1];
 

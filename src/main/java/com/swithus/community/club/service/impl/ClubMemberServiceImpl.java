@@ -22,7 +22,6 @@ import java.util.function.Function;
 public class ClubMemberServiceImpl implements ClubMemberService {
     private final ClubMemberRepository clubMemberRepository;
 
-
     @Override
     public PageResultDTO<ClubMemberDTO, Object[]> getMemberPage(MemberPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
