@@ -37,7 +37,6 @@ public class RegisterController {
     @PostMapping("/registerform")
     public String join(UserDTO userDTO) {
         Long userId = registerService.join(userDTO);
-        Long AuthId = registerService.InputId(userDTO);
 
         return "/main/main";
     }

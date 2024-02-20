@@ -319,13 +319,14 @@ a:hover {
 }
 
 .faq_title {
-    padding-right: 340px;
+    width: 600px;
     font-size: 11pt;
     font-family: 'Inter', sans-serif;
 }
 
 .faq_title_input {
     padding: 0;
+    padding-left: 10px;
 }
 
 .modal-dialog {
@@ -414,6 +415,7 @@ a:hover {
     resize: none;
     border-radius: .25rem;
     border: 1px solid #ced4da;
+    padding-left: 10px;
 }
 
 .faq_content_input:disabled {

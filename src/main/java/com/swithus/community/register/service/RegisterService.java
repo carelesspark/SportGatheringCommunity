@@ -6,7 +6,6 @@ import com.swithus.community.user.entity.User;
 
 public interface RegisterService {
     Long join(UserDTO userDTO);
-    Long InputId(UserDTO userDTO);
     default User dtoToEntity (UserDTO dto){
         User entity = User.builder()
                 .name(dto.getName())
