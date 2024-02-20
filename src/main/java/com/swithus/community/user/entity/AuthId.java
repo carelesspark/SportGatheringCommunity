@@ -28,4 +28,14 @@ public class AuthId extends BaseEntity {
     //비밀번호
     private String userpwd;
 
+    @Override
+    public String toString() {
+        return "AuthId{" +
+                "id=" + id +
+                ", user=" + user +
+                ", userid='" + userid + '\'' +
+                ", userpwd='" + userpwd + '\'' +
+                '}';
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.swithus.community.list;
+package com.swithus.community.list.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
