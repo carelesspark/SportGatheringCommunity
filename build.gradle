@@ -59,6 +59,11 @@ dependencies {
 	//이메일 전송 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+	//로그인 기능에 필요
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
 }
 
 tasks.named('bootBuildImage') {
