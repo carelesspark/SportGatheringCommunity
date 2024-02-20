@@ -9,6 +9,9 @@ import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.DuplicateFormatFlagsException;
 
 @Service
 @Log4j2
@@ -19,7 +22,12 @@ public class RegisterServiceImpl implements RegisterService {
     private final InputidRepository inputidRepository;
 
     @Override
-    public Long join(UserDTO userDTO) {
+    public void join(UserDTO userDTO){
+
+        if(isUserIdExists(userDTO.getUserid())) {
+            throw new DuplicateFormatFlagsException("중복된 아이디입니다.");
+        }
+
         User user = User.builder()
                 .name(userDTO.getName())
                 .nickname(userDTO.getNickname())
@@ -36,7 +44,13 @@ public class RegisterServiceImpl implements RegisterService {
                 .user(user)
                 .build();
 
-        return inputidRepository.save(authId).getId();
+        inputidRepository.save(authId);
 
     }
+
+    @Override
+    public boolean isUserIdExists(String userId) {
+        return inputidRepository.existsByUserid(userId);
+    }
+
 }
