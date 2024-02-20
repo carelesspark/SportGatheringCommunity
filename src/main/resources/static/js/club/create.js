@@ -116,7 +116,6 @@ $(function () {
     var str = "";
     $(".uploadResult li").each(function (idx, obj) {
       var target = $(obj);
-
       str += "<input type='hidden' ";
       str += "name='imageDTOList[" + idx + "].path' ";
       str += "value='" + target.data("path") + "'>";
@@ -130,8 +129,6 @@ $(function () {
       str += "value='" + target.data("name") + "'>";
     });
     $(".box").html(str);
-
     $("form").submit();
-    $("form").reset();
   });
 });

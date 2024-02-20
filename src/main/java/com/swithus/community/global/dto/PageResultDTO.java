@@ -1,4 +1,4 @@
-package com.swithus.community.club.dto.page;
+package com.swithus.community.global.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-// 여기서 R은 DTO, T는 Entity 타입을 말함
 @Data
-public class SearchPageResultDTO<V, T> {
+public class PageResultDTO<V, T> {
     // 현재 페이지의 객체들을 담은 리스트
     private List<V> dtoList;
     // 전체 데이터 수
@@ -30,8 +29,8 @@ public class SearchPageResultDTO<V, T> {
     // 페이지간 이동을 도와주는 네비게이션 바를 만들기 위한 페이지 번호 리스트
     private List<Integer> pageList;
 
-    // Page<T>, Function<T, R> → T 타입을 R 타입으로 바꿔주는 함수
-    public SearchPageResultDTO(Page<T> result, Function<T, V> func) {
+    // Page<T>, Function<T, V> → T 타입을 V 타입으로 바꿔주는 함수
+    public PageResultDTO(Page<T> result, Function<T, V> func) {
         dtoList = result.stream().map(func).toList();
         totalPage = result.getTotalPages();
 

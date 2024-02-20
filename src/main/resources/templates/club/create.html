@@ -7,8 +7,11 @@
     <div class="mb-5 rounded p-4 shadow">
       <h3 class="mb-4">클럽 생성</h3>
 
-      <form action="/club/create" method="post">
-        <input name="leaderId" required th:value="session.userId" type="hidden">
+      <form enctype="multipart/form-data" th:action="@{/club/createClub}" th:method="post">
+        <input name="leaderId" required th:value="${session.userId}" type="hidden">
+        <input name="rank" required th:value="0" type="hidden">
+        <input name="point" required th:value="0" type="hidden">
+        <div class="box"></div>
 
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label" for="selectRegion">지역 선택</label>
@@ -25,7 +28,7 @@
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label" for="selectSports">종목 선택</label>
           <div class="col-sm-10">
-            <select class="form-select" id="selectSports" name="regionId" required>
+            <select class="form-select" id="selectSports" name="sportsId" required>
               <option th:each="sports : ${sportsList}"
                       th:text="${sports.name}"
                       th:value="${sports.id}">
@@ -55,9 +58,7 @@
           </div>
         </div>
 
-        <div class="box">
 
-        </div>
 
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label" for="inputImage">이미지</label>
