@@ -27,7 +27,7 @@ public class LoginController {
 
     @PostMapping("/main")
     public String login(LoginDTO loginDTO) {
-        Long loginId = loginService.check(loginDTO);//로그인 확인 함수
+        String userId = String.valueOf(loginService.check(loginDTO));//로그인 확인 함수
 
         return "/swithus/main"; // 로그인 후 리다이렉트할 경로
     }
@@ -54,3 +54,5 @@ public class LoginController {
 
 
 }
+
+
