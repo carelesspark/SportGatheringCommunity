@@ -26,23 +26,24 @@ public class LoginServiceImpl implements LoginService {
                 .build();
 
         // 사용자 아이디로 저장된 AuthId를 찾기
-        Optional<AuthId> optionalAuthId = loginRepository.findByUseridAndUserpwd(authId.getUserid(),authId.getUserpwd());
+        Optional<AuthId> result = loginRepository.findByUseridAndUserpwd(authId.getUserid(),authId.getUserpwd());
 
         // 저장된 AuthId가 없으면 로그인 실패
-        if (optionalAuthId.isEmpty()) {
+        if (result.isEmpty()) {
             log.info("로그인 실패: 사용자 아이디가 존재하지 않습니다.");
             return Optional.empty();
         }
 
         // 저장된 AuthId의 비밀번호와 입력된 비밀번호가 일치하는지 확인
-        AuthId storedAuthId = optionalAuthId.get();
-        if (!storedAuthId.getUserpwd().equals(authId.getUserpwd())) {
+        AuthId value = result.get();
+        if (!value.getUserpwd().equals(authId.getUserpwd())) {
             log.info("로그인 실패: 비밀번호가 일치하지 않습니다.");
             return Optional.empty();
         }
 
         // 모든 검증을 통과하면 로그인 성공
-        log.info("로그인 성공");
-        return Optional.of(storedAuthId);
+        log.info("로그인 성공 id: "+value.getUserid()+" pwd:"+value.getUserpwd());
+        log.info(Optional.of(value));
+        return Optional.of(value);
     }
 }
