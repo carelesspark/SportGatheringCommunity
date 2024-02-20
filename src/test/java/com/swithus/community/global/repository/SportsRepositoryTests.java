@@ -16,6 +16,7 @@ class SportsRepositoryTests {
 
     @Test
     void insertSportsTest() {
+        // 수행 완료하였습니다.
         List<String> sportsList = new ArrayList<String>();
         sportsList.add("축구");
         sportsList.add("농구");

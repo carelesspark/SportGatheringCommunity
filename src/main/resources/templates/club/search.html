@@ -24,6 +24,7 @@
             <div class="col-sm-10">
               <select class="form-select" id="inputRegion" name="regionId">
                 <option th:each="region : ${regionList}"
+                        th:selected="${region.id == selectedRegionId}"
                         th:text="${region.name}"
                         th:value="${region.id}">
                 </option>
@@ -36,6 +37,7 @@
             <div class="col-sm-10">
               <select class="form-select" id="inputSports" name="sportsId">
                 <option th:each="sports : ${sportsList}"
+                        th:selected="${sports.id == selectedSportsId}"
                         th:text="${sports.name}"
                         th:value="${sports.id}">
                 </option>
@@ -57,9 +59,6 @@
     </div>
 
     <!--검색 결과-->
-    <div class="mb-5" th:if="${result == null}">
-      검색 결과가 없습니다
-    </div>
     <div class="mb-3" th:if="${result != null}">
       <div class="row row-cols-2 mb-3">
         <div class="col">

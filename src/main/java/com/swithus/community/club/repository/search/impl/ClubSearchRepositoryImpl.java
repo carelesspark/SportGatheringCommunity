@@ -1,4 +1,4 @@
-package com.swithus.community.club.repository.search;
+package com.swithus.community.club.repository.search.impl;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -10,6 +10,7 @@ import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.entity.QClub;
 import com.swithus.community.club.entity.QClubImage;
 import com.swithus.community.club.entity.QClubMember;
+import com.swithus.community.club.repository.search.ClubSearchRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,8 +28,8 @@ public class ClubSearchRepositoryImpl extends QuerydslRepositorySupport implemen
     }
 
     @Override
-    public Page<Object[]> clubSearchPage(Pageable pageable, Long region, Long sports, String keyword) {
-        log.info("RegionId: {}, SportsId: {}, Keyword: {}", region, sports, keyword);
+    public Page<Object[]> clubSearchPage(Pageable pageable, Long regionId, Long sportsId, String keyword) {
+        log.info("RegionId: {}, SportsId: {}, Keyword: {}", regionId, sportsId, keyword);
 
         QClub club = QClub.club;
         QClubImage clubImage = QClubImage.clubImage;
@@ -45,11 +46,11 @@ public class ClubSearchRepositoryImpl extends QuerydslRepositorySupport implemen
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(club.id.gt(0L));
         // 지역, 종목, 글을 전달 받았을 때
-        if (region != null) {
-            booleanBuilder.and(club.region.id.eq(region));
+        if (regionId != null) {
+            booleanBuilder.and(club.region.id.eq(regionId));
         }
-        if (sports != null) {
-            booleanBuilder.and(club.sports.id.eq(sports));
+        if (sportsId != null) {
+            booleanBuilder.and(club.sports.id.eq(sportsId));
         }
         if (keyword != null && !keyword.isEmpty()) {
             booleanBuilder.and(club.name.contains(keyword));

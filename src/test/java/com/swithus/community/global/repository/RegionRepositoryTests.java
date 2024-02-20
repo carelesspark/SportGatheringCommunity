@@ -16,6 +16,7 @@ class RegionRepositoryTests {
 
     @Test
     void insertRegionTest() {
+        // 수행 완료하였습니다.
         List<String> regionList = new ArrayList<String>();
         regionList.add("서울");
         regionList.add("경기");
