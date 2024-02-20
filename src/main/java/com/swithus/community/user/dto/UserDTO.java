@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @ToString
 @Component
+@Getter
+@Setter
 public class UserDTO {
     //User Entity KEY
     private Long id;
