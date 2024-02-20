@@ -17,12 +17,6 @@ public class ManagerController {
 
     }
 
-    @GetMapping("/user")
-    public String user(){
-
-        return "manager/user";
-    }
-
     @GetMapping("/gathering")
     public String gathering(){
 
