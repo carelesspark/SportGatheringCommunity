@@ -10,6 +10,8 @@ import com.swithus.community.user.entity.User;
 public interface ClubMemberService {
     PageResultDTO<ClubMemberDTO, Object[]> getMemberPage(MemberPageRequestDTO requestDTO);
 
+    Long getClubMemberId(Long clubId, Long userId);
+
     // 이거 UserImage도 넣어서 완성시켜야함
     default ClubMemberDTO entityToClubMemberDTO(ClubMember clubMember, User user) {
         String temp = "";

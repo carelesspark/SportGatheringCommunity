@@ -7,7 +7,7 @@
     <div class="mb-5 rounded p-4 shadow">
       <h3 class="mb-4">클럽 생성</h3>
 
-      <form enctype="multipart/form-data" th:action="@{/club/createClub}" th:method="post">
+      <form enctype="multipart/form-data" action="/club/createClub" method="post">
         <input name="leaderId" required th:value="${session.userId}" type="hidden">
         <input name="rank" required th:value="0" type="hidden">
         <input name="point" required th:value="0" type="hidden">

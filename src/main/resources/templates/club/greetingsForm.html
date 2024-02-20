@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+
+    <div class="mb-5 rounded p-4 shadow">
+      <h3 class="mb-4">가입인사 작성</h3>
+
+      <form action="/club/createGreetings" method="post">
+        <input type="hidden" name="clubId" th:value="${navDTO.clubId}">
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="inputContent">가입인사</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="inputContent" name="content" required type="text">
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-primary" type="submit">완료</button>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+</th:block>
+
+</html>

@@ -7,12 +7,13 @@
       <div>
         <h3>가입인사</h3>
       </div>
-      <div>
-        <a class="btn btn-primary" th:href="@{/club/greetingsForm(clubId=${navDTO.clubId})}"
-           th:if="${myGreetingsId == null}">
+      <div th:if="${myGreetingsId == null}">
+        <a class="btn btn-primary" th:href="@{/club/greetingsForm(clubId=${navDTO.clubId})}">
           가입인사 작성
         </a>
-        <form action="/club/greetings" method="get">
+      </div>
+      <div th:if="${myGreetingsId != null}">
+        <form action="/club/greetings" method="get" >
           <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
           <input name="userId" th:value="${session.userId}" type="hidden">
           <button class="btn btn-info" type="submit">
@@ -65,7 +66,7 @@
           </li>
 
           <li class="page-item" th:if="${result.next}">
-            <a class="page-link" th:href="@{/club/search(
+            <a class="page-link" th:href="@{/club/greetings(
             page = ${result.end + 1},
             clubId = ${navDTO.clubId}
             )}">

@@ -2,6 +2,7 @@ package com.swithus.community.club.service.impl;
 
 import com.swithus.community.club.dto.GreetingsDTO;
 import com.swithus.community.club.dto.page.GreetingsPageRequestDTO;
+import com.swithus.community.club.entity.ClubMember;
 import com.swithus.community.club.entity.Greetings;
 import com.swithus.community.club.entity.GreetingsImage;
 import com.swithus.community.club.repository.GreetingsImageRepository;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.function.Function;
@@ -50,19 +52,41 @@ public class GreetingsServiceImpl implements GreetingsService {
     @Override
     public GreetingsDTO getGreetings(Long clubId, Long userId) {
         List<Object[]> resultList = greetingsRepository.getGreetingsByClubAndUser(clubId, userId);
+        if (ObjectUtils.isEmpty(resultList)) {
+
+            return GreetingsDTO.builder().build();
+        }
         Object[] result = resultList.get(0);
         Greetings greetings = (Greetings) result[0];
         GreetingsImage greetingsImage = (GreetingsImage) result[1];
+        ImageDTO imageDTO = null;
+        if (greetingsImage != null) {
+            imageDTO = ImageDTO.builder()
+                    .uuid(greetingsImage.getUuid())
+                    .path(greetingsImage.getPath())
+                    .name(greetingsImage.getName())
+                    .build();
+        }
 
         return GreetingsDTO.builder()
                 .greetingsId(greetings.getId())
                 .memberName(null) // 필요 없음 → 이건 가입인사 생성 및 수정일 때는 세션에서 가져와서 사용할 거임
                 .content(greetings.getContent())
-                .imageDTO(ImageDTO.builder()
-                        .uuid(greetingsImage.getUuid())
-                        .path(greetingsImage.getPath())
-                        .name(greetingsImage.getName())
-                        .build())
+                .imageDTO(imageDTO)
                 .build();
+    }
+
+    @Override
+    public Long createGreetings(Long clubMemberId, String content) {
+        Greetings greetings = Greetings.builder()
+                .member(ClubMember.builder()
+                        .id(clubMemberId)
+                        .build())
+                .content(content)
+                .build();
+
+        greetingsRepository.save(greetings);
+
+        return greetings.getId();
     }
 }

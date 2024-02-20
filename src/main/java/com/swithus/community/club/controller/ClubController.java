@@ -35,11 +35,13 @@ public class ClubController {
     private final String USER_ID = "userId";
     private final String NAV_DTO = "navDTO";
     private final String CLUB_DTO = "clubDTO";
+    private final String RESULT = "result";
 
+    // 임시 함수
     private void putSession(HttpSession session) {
         if (session.getAttribute("userId") == null) {
-            session.setAttribute("userId", 2L);
-            session.setAttribute("userName", "a");
+            session.setAttribute("userId", 3L);
+            session.setAttribute("userName", "b");
         }
     }
 
@@ -62,7 +64,7 @@ public class ClubController {
         model.addAttribute("searchKeyword", keyword);
         model.addAttribute("regionList", regionService.getRegionList());
         model.addAttribute("sportsList", sportsService.getSportsList());
-        model.addAttribute("result", clubService.getSearchPage(pageRequestDTO));
+        model.addAttribute(RESULT, clubService.getSearchPage(pageRequestDTO));
     }
 
     // 클럽 생성 페이지로 이동
@@ -84,40 +86,29 @@ public class ClubController {
         clubDTO.setPoint(point);
 
         Long clubId = clubService.create(clubDTO);
-        log.info("Club ID is " + clubId);
+        log.info("Club ID: {}", clubId);
 
-        return "redirect:/club/main/" + clubId;
+        return "redirect:/club/main?clubId=" + clubId;
     }
 
     // 클럽 메인 페이지 이동
     @GetMapping("/main")
     public void goMain(@RequestParam Long clubId, Model model, HttpSession session) {
-        log.info("GET /club/main/{}", clubId);
-        Long userId = (Long) session.getAttribute(USER_ID);
+        log.info("GET /club/main?clubId={}", clubId);
 
-        model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
         model.addAttribute(CLUB_DTO, clubService.getClub(clubId));
-    }
-
-    // 1대1 문의 페이지로 이동
-    @GetMapping("/inquiry")
-    public void goInquiry(@RequestParam Long clubId, Model model, HttpSession session) {
-        log.info("GET /club/inquiry/{}", clubId);
-        Long userId = (Long) session.getAttribute(USER_ID);
-
-        // 무언가를 해야함
-        model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
     }
 
     // 가입 요청 기능 구현
     @GetMapping("/register")
     public String doRegister(@RequestParam Long clubId, Model model, HttpSession session) {
-        log.info("GET /club/register/{}", clubId);
+        log.info("GET /club/register?clubId={}", clubId);
 
         Long clubMemberId = clubService.registerClub(clubId, (Long) session.getAttribute(USER_ID));
         log.info("ClubMemberId: {}", clubMemberId);
 
-        return "redirect:/club/main/" + clubId;
+        return "redirect:/club/main?clubId=" + clubId;
     }
 
     @GetMapping("/member")
@@ -125,11 +116,10 @@ public class ClubController {
                          MemberPageRequestDTO requestDTO,
                          Model model,
                          HttpSession session) {
-        log.info("GET /club/member/{}", clubId);
-
+        log.info("GET /club/member?clubId={}", clubId);
 
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
-        model.addAttribute("result", clubMemberService.getMemberPage(requestDTO));
+        model.addAttribute(RESULT, clubMemberService.getMemberPage(requestDTO));
     }
 
 
@@ -151,27 +141,41 @@ public class ClubController {
 
         model.addAttribute("myGreetingsId", myGreetingsId);
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, myUserId));
-        model.addAttribute("result", greetingsService.getGreetingsPage(requestDTO));
+        model.addAttribute(RESULT, greetingsService.getGreetingsPage(requestDTO));
     }
 
     @GetMapping("/greetingsForm")
-    public void goGreetingsForm(@RequestParam Long clubId, Model model, HttpSession session) {
-        log.info("GET /club/greetingsForm/{}", clubId);
-        Long userId = (Long) session.getAttribute(USER_ID);
+    public void goGreetingsForm(@RequestParam Long clubId,
+                                Model model,
+                                HttpSession session) {
+        log.info("GET /club/greetingsForm?clubId={}", clubId);
 
-        model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
         model.addAttribute("greetingsDTO", GreetingsDTO.builder().build());
     }
 
+    @PostMapping("/createGreetings")
+    public String createGreetings(@RequestParam Long clubId,
+                                  @RequestParam String content,
+                                  HttpSession session) {
+        log.info("POST /club/createGreetings");
+
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, (Long) session.getAttribute(USER_ID));
+        Long greetingsId = greetingsService.createGreetings(clubMemberId, content);
+
+        return "redirect:/club/greetings?clubId=" + clubId;
+    }
+
     @GetMapping("/greetingsDetail")
-    public void goGreetingsDetail(@RequestParam Long clubId, Model model, HttpSession session) {
-        log.info("GET /club/goGreetingsDetail/{}", clubId);
+    public void goGreetingsDetail(@RequestParam Long clubId,
+                                  Model model,
+                                  HttpSession session) {
+        log.info("GET /club/goGreetingsDetail?clubId={}", clubId);
         Long userId = (Long) session.getAttribute(USER_ID);
 
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
         model.addAttribute("greetingsDTO", greetingsService.getGreetings(clubId, userId));
     }
-
 
     @GetMapping("/meeting")
     public void goMeeting(@RequestParam Long clubId, Model model) {
@@ -188,16 +192,22 @@ public class ClubController {
         model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////// 보류 라인
 
-    /////////////////////////////////////////////////////////////////////// 공사중
+    // 1대1 문의 페이지로 이동
+    @GetMapping("/inquiry")
+    public void goInquiry(@RequestParam Long clubId, Model model, HttpSession session) {
+        log.info("GET /club/inquiry/{}", clubId);
 
-
-    @GetMapping("/calendar")
-    public void goCalendar(Model model) {
-        log.info("GET /club/calendar");
-
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
     }
 
+    @GetMapping("/calendar")
+    public void goCalendar(@RequestParam Long clubId,
+                           Model model,
+                           HttpSession session) {
+        log.info("GET /club/calendar");
 
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
+    }
 }

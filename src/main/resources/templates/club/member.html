@@ -3,54 +3,83 @@
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div>
-      <h1>명단</h1>
-      <a href="#">해당 종목의 포지셔닝 명단으로 바꾸는 링크</a>
+    <div class="mb-3 border-bottom">
+      <div class="mb-4">
+        <h3>클럽 회원</h3>
+      </div>
     </div>
 
-    <div>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th class="text-center" scope="col">사진</th>
-          <th class="text-center" scope="col">이름</th>
-          <th class="text-center" scope="col">나이</th>
-          <th class="text-center" scope="col">포지션 - 존재하지 않으면 기입 안함</th>
-          <th class="text-center" scope="col">가입일</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr> th each 사용
-          <td>사진</td>
-          <td>이름</td>
-          <td>나이</td>
-          <td>포지션 - 존재하지 않으면 기입 안함</td>
-          <td>가입일</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="mb-3" th:if="${result != null}">
+      <div class="mb-3">
+        <div class="p-1" th:each="dto, dtoStat : ${result.dtoList}">
+          <div class="d-flex flex-row align-items-center rounded border shadow-sm p-3">
+            <div>
+              <div class="d-flex justify-content-center align-items-center rounded-circle overflow-hidden border me-3"
+                   style="width: 100px; height: 100px;">
+                유저 이미지
+              </div>
+            </div>
 
-    <div>
-      <ul class="pagination h-100 justify-content-center align-items-center">
-        <li class="page-item">
-          <a class="page-link">
-            ‹
-          </a>
-        </li>
+            <div class="d-flex flex-column">
+              <div class="fw-bold mb-2">
+                이름: [[${dto.memberName}]]
+              </div>
 
-        <li>
-          <a class="page-link">
-            페이지 번호
-          </a>
-        </li>
+              <div class="d-flex flex-row">
+                <div>
+                  <div class="me-3">
+                    <span th:if="${dto.rank == 0}">가입대기</span>
+                    <span th:if="${dto.rank == 1}">정회원</span>
+                    <span th:if="${dto.rank == 100}">클럽장</span>
+                  </div>
+                </div>
 
-        <li class="page-item">
-          <a class="page-link">
-            ›
-          </a>
-        </li>
-      </ul>
+                <div>
+                  <div>
+                    가입일:
+                    <span th:text="${#temporals.format(dto.regDate, 'yy/M/d')}"></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+          <li class="page-item" th:if="${result.prev}">
+            <a class="page-link" th:href="@{/club/member(
+            page = ${result.start - 1},
+            clubId = ${navDTO.clubId}
+            )}">
+              ‹
+            </a>
+          </li>
+
+          <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}"
+              th:each="page : ${result.pageList}">
+            <a class="page-link" th:href="@{/club/member(
+            page = ${page},
+            clubId = ${navDTO.clubId}
+            )}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/club/member(
+            page = ${result.end + 1},
+            clubId = ${navDTO.clubId}
+            )}">
+              ›
+            </a>
+          </li>
+
+        </ul>
+      </div>
     </div>
 
   </div>
