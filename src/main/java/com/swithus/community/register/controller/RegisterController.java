@@ -4,10 +4,13 @@ import com.swithus.community.register.service.RegisterService;
 import com.swithus.community.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.DuplicateFormatFlagsException;
 
 @Controller
 @RequestMapping("/register")
@@ -35,11 +38,20 @@ public class RegisterController {
     }
 
     @PostMapping("/registerform")
-    public String join(UserDTO userDTO) {
-        Long userId = registerService.join(userDTO);
-
-        return "/main/main";
+    public ResponseEntity<String> join(UserDTO userDTO) {
+        try {
+            registerService.join(userDTO);
+            return ResponseEntity.ok("회원가입이 완료되었습니다.");
+        } catch (DuplicateFormatFlagsException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 아이디입니다.");
+        }
     }
 
+    @GetMapping("/checkUserId/{userId}")
+    @ResponseBody
+    public ResponseEntity<String> checkUserId(@PathVariable String userId) {
+        boolean isUserIdExists = registerService.isUserIdExists(userId);
+        return ResponseEntity.ok(isUserIdExists ? "EXIST" : "AVAILABLE");
+    }
 
 }

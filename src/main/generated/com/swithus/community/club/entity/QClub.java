@@ -24,6 +24,8 @@ public class QClub extends EntityPathBase<Club> {
 
     public final com.swithus.community.global.entity.QBaseEntity _super = new com.swithus.community.global.entity.QBaseEntity(this);
 
+    public final StringPath headline = createString("headline");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath introduce = createString("introduce");

@@ -3,9 +3,17 @@ package com.swithus.community.register.service;
 import com.swithus.community.user.dto.UserDTO;
 import com.swithus.community.user.entity.AuthId;
 import com.swithus.community.user.entity.User;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
+import java.util.DuplicateFormatFlagsException;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface RegisterService {
-    Long join(UserDTO userDTO);
+    void join(UserDTO userDTO);
+    boolean isUserIdExists(String userId);
     default User dtoToEntity (UserDTO dto){
         User entity = User.builder()
                 .name(dto.getName())
