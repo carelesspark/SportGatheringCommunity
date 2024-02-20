@@ -8,6 +8,7 @@ import com.swithus.community.club.repository.GreetingsImageRepository;
 import com.swithus.community.club.repository.GreetingsLikeRepository;
 import com.swithus.community.club.repository.GreetingsRepository;
 import com.swithus.community.club.service.GreetingsService;
+import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
 import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,18 @@ public class GreetingsServiceImpl implements GreetingsService {
     @Override
     public GreetingsDTO getGreetings(Long clubId, Long userId) {
         Object[] result = greetingsRepository.getGreetingsByClubAndUser(clubId, userId);
+        Greetings greetings = (Greetings) result[0];
+        GreetingsImage greetingsImage = (GreetingsImage) result[1];
+
+        return GreetingsDTO.builder()
+                .greetingsId(greetings.getId())
+                .memberName(null) // 필요 없음 → 이건 가입인사 생성 및 수정일 때는 세션에서 가져와서 사용할 거임
+                .content(greetings.getContent())
+                .imageDTO(ImageDTO.builder()
+                        .uuid(greetingsImage.getUuid())
+                        .path(greetingsImage.getPath())
+                        .name(greetingsImage.getName())
+                        .build())
+                .build();
     }
 }

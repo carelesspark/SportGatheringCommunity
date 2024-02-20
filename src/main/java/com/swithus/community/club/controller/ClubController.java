@@ -3,7 +3,9 @@ package com.swithus.community.club.controller;
 import com.swithus.community.club.dto.ClubDTO;
 import com.swithus.community.club.dto.GreetingsDTO;
 import com.swithus.community.club.dto.page.GreetingsPageRequestDTO;
+import com.swithus.community.club.dto.page.MemberPageRequestDTO;
 import com.swithus.community.club.dto.page.SearchPageRequestDTO;
+import com.swithus.community.club.service.ClubMemberService;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.club.service.GreetingsService;
 import com.swithus.community.global.service.RegionService;
@@ -24,6 +26,7 @@ public class ClubController {
     private final RegionService regionService;
     private final SportsService sportsService;
     private final ClubService clubService;
+    private final ClubMemberService clubMemberService;
     private final GreetingsService greetingsService;
 
     private final String USER_ID = "userId";
@@ -101,6 +104,16 @@ public class ClubController {
         return "redirect:/club/main/" + clubId;
     }
 
+    @GetMapping("/member/{clubId}")
+    public void goMember(@PathVariable Long clubId, MemberPageRequestDTO requestDTO, Model model, HttpSession session) {
+        log.info("GET /club/member/{}", clubId);
+
+
+        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+        model.addAttribute("result", clubMemberService.getMemberPage(requestDTO));
+    }
+
+
     // 가입 인사 페이지로 이동
     @GetMapping("/greetings/{clubId}")
     public void goGreetings(@PathVariable Long clubId, GreetingsPageRequestDTO requestDTO, Model model, HttpSession session) {
@@ -133,29 +146,16 @@ public class ClubController {
     }
 
 
+    @GetMapping("/meeting")
+    public void goMeeting(Model model) {
+        log.info("GET /club/meeting");
+
+        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+    }
+
+
     /////////////////////////////////////////////////////////////////////// 공사중
 
-    @GetMapping("/main")
-    public void goMainTemp(Model model, HttpSession session) {
-        log.info("GET /club/main");
-
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
-        model.addAttribute(CLUB_DTO, clubService.getClub(0L));
-    }
-
-    @GetMapping("/greetings")
-    public void goGreetingsTemp(Model model) {
-        log.info("GET /club/greetings");
-
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
-    }
-
-    @GetMapping("/member")
-    public void goMember(Model model) {
-        log.info("GET /club/member");
-
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
-    }
 
     @GetMapping("/calendar")
     public void goCalendar(Model model) {
@@ -164,12 +164,6 @@ public class ClubController {
         model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
     }
 
-    @GetMapping("/meeting")
-    public void goMeeting(Model model) {
-        log.info("GET /club/meeting");
-
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
-    }
 
     @GetMapping("/board")
     public void goBoard(Model model) {
