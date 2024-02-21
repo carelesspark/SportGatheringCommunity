@@ -28,12 +28,22 @@ public class GreetingsRestController {
         Long userId = (Long) session.getAttribute(USER_ID);
 
         Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
-        Long greetingsLikeId = greetingsService.createGreetingsLike(greetingsId, clubMemberId);
-        log.info("GreetingsLike ID: {}", greetingsLikeId);
 
-        GreetingsDTO greetingsDTO = greetingsService.getGreetingsIdAndLikeCountByGreetingsId(greetingsId);
+        boolean checkExist = greetingsService.checkGreetingsLike(greetingsId, clubMemberId);
+        if (checkExist) {
+            greetingsService.deleteGreetingsLike(greetingsId, clubMemberId);
 
-        return new ResponseEntity<>(greetingsDTO, HttpStatus.OK);
+            GreetingsDTO greetingsDTO = greetingsService.getGreetingsIdAndLikeCountByGreetingsId(greetingsId);
+
+            return new ResponseEntity<>(greetingsDTO, HttpStatus.CREATED);
+        } else {
+            Long greetingsLikeId = greetingsService.createGreetingsLike(greetingsId, clubMemberId);
+            log.info("GreetingsLike ID: {}", greetingsLikeId);
+
+            GreetingsDTO greetingsDTO = greetingsService.getGreetingsIdAndLikeCountByGreetingsId(greetingsId);
+
+            return new ResponseEntity<>(greetingsDTO, HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/decreaseLike")

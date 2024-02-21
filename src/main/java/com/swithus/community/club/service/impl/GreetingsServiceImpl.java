@@ -125,6 +125,11 @@ public class GreetingsServiceImpl implements GreetingsService {
     }
 
     @Override
+    public boolean checkGreetingsLike(Long greetingsId, Long clubMemberId) {
+        return greetingsLikeRepository.existsByGreetingsIdAndClubMemberId(greetingsId, clubMemberId);
+    }
+
+    @Override
     public Long createGreetingsLike(Long greetingsId, Long clubMemberId) {
         GreetingsLike greetingsLike = GreetingsLike.builder()
                 .greetings(Greetings.builder().id(greetingsId).build())

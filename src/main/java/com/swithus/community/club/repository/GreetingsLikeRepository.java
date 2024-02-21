@@ -11,4 +11,9 @@ public interface GreetingsLikeRepository extends JpaRepository<GreetingsLike, Lo
     @Transactional
     @Query("delete from GreetingsLike gl where gl.greetings.id = :greetingsId and gl.member.id = :clubMemberId")
     void deleteByGreetingsIdAndClubMemberId(Long greetingsId, Long clubMemberId);
+
+    @Query("select count(gl) > 0 " +
+            "from GreetingsLike gl " +
+            "where gl.greetings.id = :greetingsId and gl.member.id = :clubMemberId")
+    boolean existsByGreetingsIdAndClubMemberId(Long greetingsId, Long clubMemberId);
 }
