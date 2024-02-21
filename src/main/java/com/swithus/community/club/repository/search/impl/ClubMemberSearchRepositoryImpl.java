@@ -45,7 +45,7 @@ public class ClubMemberSearchRepositoryImpl extends QuerydslRepositorySupport im
         sort.forEach(order -> {
             Order direction = order.isAscending() ? Order.ASC : Order.DESC;
             String property = order.getProperty();
-            String tableName = "club_member";
+            String tableName = "member";
             PathBuilder<ClubMember> pathBuilder = new PathBuilder<>(ClubMember.class, tableName);
             tupleJPQLQuery.orderBy(new OrderSpecifier(direction, pathBuilder.get(property)));
         });

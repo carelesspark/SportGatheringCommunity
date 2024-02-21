@@ -11,11 +11,9 @@ import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.entity.Region;
 import com.swithus.community.global.entity.Sports;
 import com.swithus.community.user.entity.User;
+import org.springframework.util.ObjectUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public interface ClubService {
     // 클럽 검색 페이지 리스트 반환
@@ -50,8 +48,9 @@ public interface ClubService {
 
         List<ImageDTO> imageDTOList = clubDTO.getImageDTOList();
 
+        List<ClubImage> imageList;
         if (imageDTOList != null && !imageDTOList.isEmpty()) {
-            List<ClubImage> imageList = imageDTOList.stream()
+            imageList = imageDTOList.stream()
                     .map(imageDTO -> ClubImage.builder()
                             .club(club)
                             .path(imageDTO.getPath())
@@ -59,20 +58,34 @@ public interface ClubService {
                             .uuid(imageDTO.getUuid())
                             .build())
                     .toList();
-            clubMap.put("imageList", imageList);
+        } else {
+            imageList = new ArrayList<>();
         }
+        clubMap.put("imageList", imageList);
 
         return clubMap;
     }
 
     default ClubDTO entityToClubDTO(Club club, List<ClubImage> imageList, Long personnel) {
-        List<ImageDTO> imageDTOList = imageList.stream()
-                .map(image -> ImageDTO.builder()
-                        .path(image.getPath())
-                        .name(image.getName())
-                        .uuid(image.getUuid())
-                        .build())
-                .toList();
+        List<ImageDTO> imageDTOList = new ArrayList<>();
+
+        if (ObjectUtils.isEmpty(imageList)) {
+            ImageDTO imageDTO = ImageDTO.builder()
+                    .uuid("uuid")
+                    .name(club.getSports().getName() + ".jpg")
+                    .path("club/main")
+                    .build();
+
+            imageDTOList.add(imageDTO);
+        } else {
+            imageDTOList = imageList.stream()
+                    .map(image -> ImageDTO.builder()
+                            .path(image.getPath())
+                            .name(image.getName())
+                            .uuid(image.getUuid())
+                            .build())
+                    .toList();
+        }
 
         return ClubDTO.builder()
                 .clubId(club.getId())
@@ -99,7 +112,7 @@ public interface ClubService {
         boolean isMember = false;
         boolean isLeader = false;
 
-        if (clubMember == null || clubMember.getIsActive() == 0) isGuest = true;
+        if (clubMember == null) isGuest = true;
         else {
             if (clubMember.getIsBlacklist() == 1) isBlacklist = true;
             else {

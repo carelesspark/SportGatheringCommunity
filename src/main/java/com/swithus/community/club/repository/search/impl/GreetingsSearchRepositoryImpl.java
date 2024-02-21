@@ -6,7 +6,10 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPQLQuery;
-import com.swithus.community.club.entity.*;
+import com.swithus.community.club.entity.Greetings;
+import com.swithus.community.club.entity.QClubMember;
+import com.swithus.community.club.entity.QGreetings;
+import com.swithus.community.club.entity.QGreetingsLike;
 import com.swithus.community.club.repository.search.GreetingsSearchRepository;
 import com.swithus.community.user.entity.QUser;
 import lombok.extern.log4j.Log4j2;
@@ -32,7 +35,6 @@ public class GreetingsSearchRepositoryImpl extends QuerydslRepositorySupport imp
         QGreetings qGreetings = QGreetings.greetings;
         QClubMember qClubMember = QClubMember.clubMember;
         QUser qUser = QUser.user;
-        QGreetingsImage qGreetingsImage = QGreetingsImage.greetingsImage;
         QGreetingsLike qGreetingsLike = QGreetingsLike.greetingsLike;
 
         // from
@@ -40,10 +42,9 @@ public class GreetingsSearchRepositoryImpl extends QuerydslRepositorySupport imp
         // join
         jpqlQuery.leftJoin(qClubMember).on(qGreetings.member.eq(qClubMember));
         jpqlQuery.leftJoin(qUser).on(qClubMember.member.eq(qUser));
-        jpqlQuery.leftJoin(qGreetingsImage).on(qGreetingsImage.greetings.eq(qGreetings));
         jpqlQuery.leftJoin(qGreetingsLike).on(qGreetingsLike.greetings.eq(qGreetings));
         // select
-        JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery.select(qGreetings, qGreetingsImage, qUser, qGreetingsLike.countDistinct());
+        JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery.select(qGreetings, qUser, qGreetingsLike.countDistinct());
         // where
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qClubMember.club.id.eq(clubId));
@@ -52,10 +53,10 @@ public class GreetingsSearchRepositoryImpl extends QuerydslRepositorySupport imp
         }
         tupleJPQLQuery.where(booleanBuilder);
         // group by
-        tupleJPQLQuery.groupBy(qGreetings, qGreetingsImage, qUser);
+        tupleJPQLQuery.groupBy(qGreetings, qUser);
         // order by
         Sort sort = pageable.getSort();
-        sort.forEach(order -> {
+        sort.stream().forEach(order -> {
             Order direction = order.isAscending() ? Order.ASC : Order.DESC;
             String property = order.getProperty();
             String tableName = "greetings";

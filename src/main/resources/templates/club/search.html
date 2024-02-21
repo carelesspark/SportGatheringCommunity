@@ -61,53 +61,73 @@
     <!--검색 결과-->
     <div class="mb-3" th:if="${result != null}">
       <div class="row row-cols-2 mb-3">
+
         <div class="col">
-          <div class="rounded border mb-3 p-3 row"
-               th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.even}">
-            <a th:href="@{'/club/main/' + ${dto.clubId}}">
-              <div>
-                <img class="img-fluid"
-                     style="object-fit: cover; width: 100%; height: 100%;"
-                     th:alt="${dto.imageDTOList[0].name}"
-                     th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
-                     th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
-              </div>
-              <div class="col">
-                <div>[[${dto.name}]]</div>
-                <div>[[${dto.headline}]]</div>
-                <div class="row">
-                  <div>[[${dto.regionName}]]</div>
-                  <div>[[${dto.sportsName}]]</div>
-                  <div>[[${dto.personnel}]]</div>
+          <div class="p-1" th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.odd}">
+            <div class="card mb-3 row">
+              <a th:href="@{/club/main(clubId=${dto.clubId})}" style="text-decoration: none; color: inherit;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img class="card-img" th:alt="${dto.imageDTOList[0].name}"
+                         th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
+                         th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title" th:text="${dto.name}"></h5>
+                      <p class="card-text" th:text="${dto.headline}"></p>
+                      <div class="row">
+                        <div class="col">
+                          <p class="card-text" th:text="${dto.regionName}"></p>
+                        </div>
+                        <div class="col">
+                          <p class="card-text" th:text="${dto.sportsName}"></p>
+                        </div>
+                        <div class="col">
+                          <p class="card-text" th:text="${dto.personnel}"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
         </div>
 
         <div class="col">
-          <div class="rounded border mb-3 p-3 row"
-               th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.odd}">
-            <a th:href="@{'/club/main/' + ${dto.clubId}}">
-              <div>
-                <img class="img-fluid"
-                     style="object-fit: cover; width: 100%; height: 100%;"
-                     th:alt="${dto.imageDTOList[0].name}"
-                     th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
-                     th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
-              </div>
-              <div class="col">
-                <div>[[${dto.name}]]</div>
-                <div>[[${dto.headline}]]</div>
-                <div class="row">
-                  <div>[[${dto.regionName}]]</div>
-                  <div>[[${dto.sportsName}]]</div>
-                  <div>[[${dto.personnel}]]</div>
+          <div class="p-1" th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.even}">
+            <div class="card mb-3 row">
+              <a th:href="@{/club/main(clubId=${dto.clubId})}" style="text-decoration: none; color: inherit;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img class="card-img" th:alt="${dto.imageDTOList[0].name}"
+                         th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
+                         th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title" th:text="${dto.name}"></h5>
+                      <p class="card-text" th:text="${dto.headline}"></p>
+                      <div class="row">
+                        <div class="col">
+                          <p class="card-text" th:text="${dto.regionName}"></p>
+                        </div>
+                        <div class="col">
+                          <p class="card-text" th:text="${dto.sportsName}"></p>
+                        </div>
+                        <div class="col">
+                          <p class="card-text" th:text="${dto.personnel}"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
         </div>
+
       </div>
 
       <div>
@@ -115,9 +135,9 @@
           <li class="page-item" th:if="${result.prev}">
             <a class="page-link" th:href="@{/club/search(
             page = ${result.start - 1},
-            regionId = ${SearchPageRequestDTO.regionId},
-            sportsId = ${SearchPageRequestDTO.sportsId},
-            keyword = ${SearchPageRequestDTO.keyword}
+            regionId = ${selectedRegionId},
+            sportsId = ${selectedSportsId},
+            keyword = ${searchKeyword}
             )}">
               ‹
             </a>
@@ -127,9 +147,9 @@
               th:each="page : ${result.pageList}">
             <a class="page-link" th:href="@{/club/search(
             page = ${page},
-            regionId = ${SearchPageRequestDTO.regionId},
-            sportsId = ${SearchPageRequestDTO.sportsId},
-            keyword = ${SearchPageRequestDTO.keyword}
+            regionId = ${selectedRegionId},
+            sportsId = ${selectedSportsId},
+            keyword = ${searchKeyword}
             )}">
               [[${page}]]
             </a>
@@ -138,9 +158,9 @@
           <li class="page-item" th:if="${result.next}">
             <a class="page-link" th:href="@{/club/search(
             page = ${result.end + 1},
-            regionId = ${SearchPageRequestDTO.regionId},
-            sportsId = ${SearchPageRequestDTO.sportsId},
-            keyword = ${SearchPageRequestDTO.keyword}
+            regionId = ${selectedRegionId},
+            sportsId = ${selectedSportsId},
+            keyword = ${searchKeyword}
             )}">
               ›
             </a>

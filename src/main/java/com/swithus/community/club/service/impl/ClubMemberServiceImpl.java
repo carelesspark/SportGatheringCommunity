@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -21,7 +22,6 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ClubMemberServiceImpl implements ClubMemberService {
     private final ClubMemberRepository clubMemberRepository;
-
 
     @Override
     public PageResultDTO<ClubMemberDTO, Object[]> getMemberPage(MemberPageRequestDTO requestDTO) {
@@ -36,5 +36,12 @@ public class ClubMemberServiceImpl implements ClubMemberService {
         ));
 
         return new PageResultDTO<>(memberPage, func);
+    }
+
+    @Override
+    public Long getClubMemberId(Long clubId, Long userId) {
+        ClubMember clubMember = clubMemberRepository.getClubMemberIdByClubAndUser(clubId, userId);
+
+        return clubMember.getId();
     }
 }
