@@ -146,10 +146,16 @@ public class ClubController {
 
     @GetMapping("/greetingsForm")
     public void goGreetingsForm(@RequestParam Long clubId,
+                                @RequestParam(required = false) Long greetingsId,
                                 Model model,
                                 HttpSession session) {
-        log.info("GET /club/greetingsForm?clubId={}", clubId);
+        log.info("GET /club/greetingsForm?clubId={}&greetingsId={}", clubId, greetingsId);
 
+        if (greetingsId != null) {
+            String content = greetingsService.getGreetingsById(greetingsId).getContent();
+            model.addAttribute("myContent", content);
+            model.addAttribute("greetingsId", greetingsId);
+        }
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
         model.addAttribute("greetingsDTO", GreetingsDTO.builder().build());
     }
@@ -162,20 +168,24 @@ public class ClubController {
 
         Long clubMemberId = clubMemberService.getClubMemberId(clubId, (Long) session.getAttribute(USER_ID));
         Long greetingsId = greetingsService.createGreetings(clubMemberId, content);
+        log.info("Greetings ID: {}", greetingsId);
 
         return "redirect:/club/greetings?clubId=" + clubId;
     }
 
-    @GetMapping("/greetingsDetail")
-    public void goGreetingsDetail(@RequestParam Long clubId,
+    @PostMapping("/updateGreetings")
+    public String updateGreetings(@RequestParam Long clubId,
+                                  @RequestParam Long greetingsId,
+                                  @RequestParam String content,
                                   Model model,
                                   HttpSession session) {
-        log.info("GET /club/goGreetingsDetail?clubId={}", clubId);
-        Long userId = (Long) session.getAttribute(USER_ID);
+        log.info("POST /club/updateGreetings");
+        greetingsService.updateGreetings(greetingsId, content);
 
-        model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
-        model.addAttribute("greetingsDTO", greetingsService.getGreetings(clubId, userId));
+        return "redirect:/club/greetings?clubId=" + clubId;
     }
+
+
 
     @GetMapping("/meeting")
     public void goMeeting(@RequestParam Long clubId, Model model) {

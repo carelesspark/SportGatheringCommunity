@@ -63,68 +63,108 @@
       <div class="row row-cols-2 mb-3">
 
         <div class="col">
-          <div class="p-1" th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.odd}">
-            <div class="card mb-3 row">
-              <a th:href="@{/club/main(clubId=${dto.clubId})}" style="text-decoration: none; color: inherit;">
-                <div class="row no-gutters">
+          <div class="p-1"
+               th:each="dto, dtoStat : ${result.dtoList}"
+               th:if="${dtoStat.odd}">
+
+            <div class="row border shadow-sm">
+              <a style="text-decoration: none; color: inherit;"
+                 th:href="@{/club/main(clubId=${dto.clubId})}">
+
+                <div class="row no-gutters p-3">
                   <div class="col-md-4">
-                    <img class="card-img" th:alt="${dto.imageDTOList[0].name}"
-                         th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
-                         th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+                    <div class="d-flex align-items-center">
+                      <img class="rounded"
+                           style="width: 120px; height: 120px; object-fit: cover;"
+                           th:alt="${dto.imageDTOList[0].name}"
+                           th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
+                           th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+                    </div>
                   </div>
+
                   <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title" th:text="${dto.name}"></h5>
-                      <p class="card-text" th:text="${dto.headline}"></p>
-                      <div class="row">
-                        <div class="col">
-                          <p class="card-text" th:text="${dto.regionName}"></p>
+                    <div>
+                      <h4 th:text="${dto.name}"></h4>
+                      <p th:text="${dto.headline}"></p>
+                      <div class="d-flex flex-row align-items-center">
+                        <div class="p-1">
+                          <div class="bg-light border rounded p-1">
+                            [[${dto.regionName}]]
+                          </div>
                         </div>
-                        <div class="col">
-                          <p class="card-text" th:text="${dto.sportsName}"></p>
+
+                        <div class="p-1">
+                          <div class="bg-light border rounded p-1">
+                            [[${dto.sportsName}]]
+                          </div>
                         </div>
-                        <div class="col">
-                          <p class="card-text" th:text="${dto.personnel}"></p>
+
+                        <div class="p-1">
+                          <div class="bg-light border rounded p-1">
+                            [[${dto.personnel}]]명
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </a>
             </div>
+
           </div>
         </div>
 
         <div class="col">
-          <div class="p-1" th:each="dto, dtoStat : ${result.dtoList}" th:if="${dtoStat.even}">
-            <div class="card mb-3 row">
-              <a th:href="@{/club/main(clubId=${dto.clubId})}" style="text-decoration: none; color: inherit;">
-                <div class="row no-gutters">
+          <div class="p-1"
+               th:each="dto, dtoStat : ${result.dtoList}"
+               th:if="${dtoStat.even}">
+
+            <div class="row border shadow-sm">
+              <a style="text-decoration: none; color: inherit;"
+                 th:href="@{/club/main(clubId=${dto.clubId})}">
+
+                <div class="row no-gutters p-3">
                   <div class="col-md-4">
-                    <img class="card-img" th:alt="${dto.imageDTOList[0].name}"
-                         th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
-                         th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+                    <div class="d-flex align-items-center">
+                      <img class="rounded"
+                           style="width: 120px; height: 120px; object-fit: cover;"
+                           th:alt="${dto.imageDTOList[0].name}"
+                           th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null}"
+                           th:src="@{/image/display(fileName=${dto.imageDTOList[0].getThumbnailURL()})}">
+                    </div>
                   </div>
+
                   <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title" th:text="${dto.name}"></h5>
-                      <p class="card-text" th:text="${dto.headline}"></p>
-                      <div class="row">
-                        <div class="col">
-                          <p class="card-text" th:text="${dto.regionName}"></p>
+                    <div>
+                      <h4 th:text="${dto.name}"></h4>
+                      <p th:text="${dto.headline}"></p>
+                      <div class="d-flex flex-row align-items-center">
+                        <div class="p-1">
+                          <div class="bg-light border rounded p-1">
+                            [[${dto.regionName}]]
+                          </div>
                         </div>
-                        <div class="col">
-                          <p class="card-text" th:text="${dto.sportsName}"></p>
+
+                        <div class="p-1">
+                          <div class="bg-light border rounded p-1">
+                            [[${dto.sportsName}]]
+                          </div>
                         </div>
-                        <div class="col">
-                          <p class="card-text" th:text="${dto.personnel}"></p>
+
+                        <div class="p-1">
+                          <div class="bg-light border rounded p-1">
+                            [[${dto.personnel}]]명
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </a>
             </div>
+
           </div>
         </div>
 

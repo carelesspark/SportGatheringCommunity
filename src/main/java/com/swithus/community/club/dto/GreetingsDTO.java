@@ -19,4 +19,6 @@ public class GreetingsDTO {
     private ImageDTO imageDTO;
     // 좋아요 개수
     private Long likeCount;
+    // 본 유저가 하트를 눌렀나?
+    private boolean clicked;
 }

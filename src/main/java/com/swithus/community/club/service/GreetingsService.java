@@ -11,14 +11,28 @@ public interface GreetingsService {
 
     GreetingsDTO getGreetings(Long clubId, Long userId);
 
+    GreetingsDTO getGreetingsIdAndLikeCountByGreetingsId(Long greetingsId);
+
+    Greetings getGreetingsById(Long greetingsId);
+
     Long createGreetings(Long clubMemberId, String content);
 
-    default GreetingsDTO entityToGreetingsDTO(Greetings greetings, User user, Long likeCount) {
+    void updateGreetings(Long greetingsId, String content);
+
+    Long createGreetingsLike(Long greetingsId, Long clubMemberId);
+
+    void deleteGreetingsLike(Long greetingsId, Long clubMemberId);
+
+    default GreetingsDTO entityToGreetingsDTO(Greetings greetings, User user, Long likeCount, Long clicked) {
+        boolean isClicked;
+        isClicked = clicked > 0;
+
         return GreetingsDTO.builder()
                 .greetingsId(greetings.getId())
                 .memberName(user.getName())
                 .content(greetings.getContent())
                 .likeCount(likeCount)
+                .clicked(isClicked)
                 .build();
     }
 }

@@ -42,13 +42,24 @@
         <a class="nav-link clubNavLink" th:href="@{/club/member(clubId=${navDTO.clubId})}">명단</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/greetings(clubId=${navDTO.clubId})}">가입인사</a>
+        <a class="nav-link clubNavLink"
+           th:href="@{/club/greetings(clubId=${navDTO.clubId})}"
+           th:if="${navDTO.isMember}">
+          가입인사
+        </a>
+        <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">가입인사</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/meeting(clubId=${navDTO.clubId})}">일정</a>
+        <a class="nav-link clubNavLink" th:href="@{/club/meeting(clubId=${navDTO.clubId})}" th:if="${navDTO.isMember}">일정</a>
+        <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">일정</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/board(clubId=${navDTO.clubId})}">게시글</a>
+        <a class="nav-link clubNavLink"
+           th:href="@{/club/board(clubId=${navDTO.clubId})}"
+           th:if="${navDTO.isMember}">
+          게시글
+        </a>
+        <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">게시글</a>
       </li>
     </ul>
   </div>
