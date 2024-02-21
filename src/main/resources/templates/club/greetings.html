@@ -13,7 +13,7 @@
         </a>
       </div>
       <div th:if="${myGreetingsId != null}">
-        <form action="/club/greetings" method="get" >
+        <form action="/club/greetings" method="get">
           <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
           <input name="userId" th:value="${session.userId}" type="hidden">
           <button class="btn btn-info" type="submit">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="mb-3" th:if="${result != null}">
-      <div class="card mb-2" th:each="dto, dtoStat : ${result.dtoList}">
+      <div class="card mb-2" th:each="dto : ${result.dtoList}">
         <div class="card-body">
           <div class="d-flex flex-column mb-3">
             <div>
@@ -33,12 +33,16 @@
             </div>
           </div>
           <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center ">
-              <a>❤</a>
-              <div>좋아요 [[${dto.likeCount}]]개</div>
+            <div class="d-flex align-items-center" th:id="'likeDiv'+${dtoStat.index}">
+              <a th:onclick="increaseLike([[${dto.greetingsId}]], [[${dtoStat.index}]])"
+                 th:style="${dto.clicked} ? 'display: none;' : ''">🤍</a>
+              <a th:onclick="decreaseLike([[${dto.greetingsId}]], [[${dtoStat.index}]])"
+                 th:style="${!dto.clicked} ? 'display: none;' : ''">❤</a>
+              <div th:id="'likeCount'+${dtoStat.index}">좋아요 [[${dto.likeCount}]]개</div>
             </div>
             <div th:if="${dto.greetingsId == myGreetingsId}">
-              <a class="btn btn-secondary" th:href="@{/club/greetingsDetail(clubId=${navDTO.clubId})}">수정하기</a>
+              <a class="btn btn-secondary"
+                 th:href="@{/club/greetingsForm(clubId=${navDTO.clubId}, greetingsId=${dto.greetingsId})}">수정하기</a>
             </div>
           </div>
         </div>
@@ -78,7 +82,61 @@
     </div>
 
     <script th:inline="javascript">
+      $(function () {
 
+        // 좋아요 증가
+        increaseLike = function (greetingsId, index) {
+          $.ajax({
+            type: "POST",
+            url: "/greetings/increaseLike",
+            data: {
+              greetingsId: greetingsId,
+              clubId: [[${navDTO.clubId}]],
+            },
+            success: function (response) {
+              alert("좋아요를 눌렀습니다. GreetingsId: " + greetingsId);
+              // increaseLike가 성공했으므로 '❤' 버튼을 보이도록 함
+              $("#likeDiv" + index + " a:nth-child(2)").show();
+              // decreaseLike는 성공하면 '🤍' 버튼을 숨김
+              $("#likeDiv" + index + " a:nth-child(1)").hide();
+              // 클라이언트에서 likeCount 값으로 업데이트
+              var likeCount = response.likeCount;
+              // 좋아요 버튼을 빨간색으로 변경하는 등의 추가 작업 수행
+              $("#likeCount" + index).text("좋아요 " + likeCount + "개");
+            },
+            error: function (xhr, status, error) {
+              console.error("좋아요 증가 실패: ", error);
+            },
+          });
+        }
+
+        // 좋아요 감소
+        decreaseLike = function (greetingsId, index) {
+          $.ajax({
+            type: "DELETE",
+            url: "/greetings/decreaseLike",
+            data: {
+              greetingsId: greetingsId,
+              clubId: [[${navDTO.clubId}]],
+            },
+            success: function (response) {
+              alert("좋아요를 취소했습니다. GreetingsId: " + greetingsId);
+              // decreaseLike가 성공했으므로 '🤍' 버튼을 보이도록 함
+              $("#likeDiv" + index + " a:nth-child(1)").show();
+              // increaseLike는 성공하면 '❤' 버튼을 숨김
+              $("#likeDiv" + index + " a:nth-child(2)").hide();
+              // 클라이언트에서 likeCount 값으로 업데이트
+              var likeCount = response.likeCount;
+              // 좋아요 버튼을 빨간색으로 변경하는 등의 추가 작업 수행
+              $("#likeCount" + index).text("좋아요 " + likeCount + "개");
+            },
+            error: function (xhr, status, error) {
+              console.error("좋아요 감소 실패  : ", error);
+            },
+          });
+        }
+
+      });
     </script>
   </div>
 </th:block>

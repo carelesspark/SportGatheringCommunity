@@ -5,15 +5,23 @@
   <div class="container" th:fragment="content">
 
     <div class="mb-5 rounded p-4 shadow">
-      <h3 class="mb-4">가입인사 작성</h3>
+      <h3 class="mb-4"
+          th:text="${myContent == null ? '가입인사 작성' : '가입인사 수정'}"></h3>
 
-      <form action="/club/createGreetings" method="post">
-        <input type="hidden" name="clubId" th:value="${navDTO.clubId}">
+      <form method="post"
+            th:action="${myContent == null ? '/club/createGreetings' : '/club/updateGreetings'}">
+        <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
+        <input name="greetingsId" th:if="${greetingsId != null}" th:value="${greetingsId}" type="hidden">
 
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label" for="inputContent">가입인사</label>
           <div class="col-sm-10">
-            <input class="form-control" id="inputContent" name="content" required type="text">
+            <input class="form-control"
+                   id="inputContent"
+                   name="content"
+                   required
+                   th:value="${myContent != null ? myContent : ''}"
+                   type="text">
           </div>
         </div>
 
@@ -22,7 +30,6 @@
         </div>
       </form>
     </div>
-
 
   </div>
 </th:block>

@@ -5,6 +5,7 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.swithus.community.club.entity.Greetings;
 import com.swithus.community.club.entity.QClubMember;
@@ -44,7 +45,13 @@ public class GreetingsSearchRepositoryImpl extends QuerydslRepositorySupport imp
         jpqlQuery.leftJoin(qUser).on(qClubMember.member.eq(qUser));
         jpqlQuery.leftJoin(qGreetingsLike).on(qGreetingsLike.greetings.eq(qGreetings));
         // select
-        JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery.select(qGreetings, qUser, qGreetingsLike.countDistinct());
+        JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery
+                .select(qGreetings,
+                        qUser,
+                        qGreetingsLike.countDistinct()
+                        , JPAExpressions.select(qGreetingsLike.id.count())
+                                .from(qGreetingsLike)
+                                .where(qGreetingsLike.member.member.id.eq(userId == null ? 0L : userId)));
         // where
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qClubMember.club.id.eq(clubId));
