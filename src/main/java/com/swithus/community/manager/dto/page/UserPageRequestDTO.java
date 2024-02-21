@@ -15,6 +15,7 @@ public class UserPageRequestDTO {
 
     private int size;
 
+    private String search;
 
     public UserPageRequestDTO(){
         this.page = 1;

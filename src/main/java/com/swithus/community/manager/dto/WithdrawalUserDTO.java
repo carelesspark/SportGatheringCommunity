@@ -1,6 +1,5 @@
 package com.swithus.community.manager.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,24 +11,21 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class WithdrawalUserDTO {
 
     private Long id;
 
-    private LocalDateTime modDate;
-
-    private LocalDateTime regDate;
-
-    private String userid;
-
-    private String userpwd;
-
-    private Long userDetailId;
+    private String userId;
 
     private String email;
 
-    private String gender;
+    private String deleteReason;
 
-    private String name;
+    private LocalDateTime regDate;
 
+    private LocalDateTime modDate;
+
+    private Long authUserId;
+
+    private Long authUserDetailId;
 }

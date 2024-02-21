@@ -19,11 +19,19 @@ public class QWithdrawalUser extends EntityPathBase<WithdrawalUser> {
 
     public static final QWithdrawalUser withdrawalUser = new QWithdrawalUser("withdrawalUser");
 
+    public final com.swithus.community.global.entity.QBaseEntity _super = new com.swithus.community.global.entity.QBaseEntity(this);
+
     public final StringPath deleteReason = createString("deleteReason");
 
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath userId = createString("userId");
 

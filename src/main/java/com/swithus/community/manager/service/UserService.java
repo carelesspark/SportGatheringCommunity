@@ -1,13 +1,20 @@
 package com.swithus.community.manager.service;
 
 import com.swithus.community.manager.dto.UserDTO;
+import com.swithus.community.manager.dto.WithdrawalUserDTO;
 import com.swithus.community.manager.dto.page.UserPageRequestDTO;
 import com.swithus.community.manager.dto.page.UserPageResultDTO;
+import com.swithus.community.manager.entity.WithdrawalUser;
 import com.swithus.community.user.entity.AuthId;
+import lombok.extern.log4j.Log4j2;
 
 public interface UserService {
 
     UserPageResultDTO<UserDTO, AuthId> getUserList(UserPageRequestDTO requestDTO);
+
+    UserDTO info(long no);
+
+    void withdrawalUser(WithdrawalUserDTO withdrawalUserDTO);
 
     default UserDTO entityToDto(AuthId authId){
         UserDTO dto = UserDTO.builder()
@@ -15,12 +22,23 @@ public interface UserService {
                 .userid(authId.getUserid())
                 .userpwd(authId.getUserpwd())
                 .regDate(authId.getRegDate())
-                .userId(authId.getUser().getId())
+                .userDetailId(authId.getUser().getId())
                 .email(authId.getUser().getEmail())
                 .gender(authId.getUser().getGender())
                 .name(authId.getUser().getName())
                 .build();
 
         return dto;
+    }
+
+    default WithdrawalUser dtoToEntity(WithdrawalUserDTO withdrawalUserDTO){
+        WithdrawalUser entity = WithdrawalUser.builder()
+                .id(withdrawalUserDTO.getId())
+                .deleteReason(withdrawalUserDTO.getDeleteReason())
+                .email(withdrawalUserDTO.getEmail())
+                .userId(withdrawalUserDTO.getUserId())
+                .build();
+
+        return entity;
     }
 }
