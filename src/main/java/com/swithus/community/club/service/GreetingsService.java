@@ -19,6 +19,8 @@ public interface GreetingsService {
 
     void updateGreetings(Long greetingsId, String content);
 
+    boolean checkGreetingsLike(Long greetingsId, Long clubMemberId);
+
     Long createGreetingsLike(Long greetingsId, Long clubMemberId);
 
     void deleteGreetingsLike(Long greetingsId, Long clubMemberId);

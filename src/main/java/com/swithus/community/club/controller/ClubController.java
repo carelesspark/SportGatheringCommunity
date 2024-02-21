@@ -139,6 +139,7 @@ public class ClubController {
         requestDTO.setClubId(clubId);
         requestDTO.setUserId(userId);
 
+        model.addAttribute("checkUserId",userId);
         model.addAttribute("myGreetingsId", myGreetingsId);
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, myUserId));
         model.addAttribute(RESULT, greetingsService.getGreetingsPage(requestDTO));
