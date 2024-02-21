@@ -17,11 +17,6 @@ public class ManagerController {
 
     }
 
-    @GetMapping("/gathering")
-    public String gathering(){
-
-        return "manager/gathering";
-    }
 
     @GetMapping("/report_comment")
     public String report_comment(){
