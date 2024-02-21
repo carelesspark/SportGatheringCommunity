@@ -37,22 +37,12 @@ public class ClubController {
     private final String CLUB_DTO = "clubDTO";
     private final String RESULT = "result";
 
-    // 임시 함수
-    private void putSession(HttpSession session) {
-        if (session.getAttribute("userId") == null) {
-            session.setAttribute("userId", 3L);
-            session.setAttribute("userName", "b");
-        }
-    }
-
     // 클럽 서칭 페이지로 이동
     @GetMapping("/search")
     public void search(SearchPageRequestDTO pageRequestDTO,
                        Model model,
                        HttpSession session) {
         log.info("GET /club/search");
-
-        putSession(session);
 
         Long regionId = pageRequestDTO.getRegionId();
         Long sportsId = pageRequestDTO.getSportsId();
