@@ -1,5 +1,7 @@
 package com.swithus.community.board.entity;
 
+import com.swithus.community.global.entity.Sports;
+import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,11 +17,21 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private ProductBoard board;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ProductCtgr ctgr;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Sports sports;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     private String name;
 
-    private boolean isDone;
+    private String content;
+    // 방문객
+    private int visitCount;
+    // 팔렸냐
+    private byte isDone;
 
 }
