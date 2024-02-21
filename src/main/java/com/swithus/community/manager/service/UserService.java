@@ -16,6 +16,10 @@ public interface UserService {
 
     void withdrawalUser(WithdrawalUserDTO withdrawalUserDTO);
 
+    UserPageResultDTO<WithdrawalUserDTO, WithdrawalUser> getDeletedUserList(UserPageRequestDTO requestDTO);
+
+    WithdrawalUserDTO infoDeletedUser(long no);
+
     default UserDTO entityToDto(AuthId authId){
         UserDTO dto = UserDTO.builder()
                 .id(authId.getId())
@@ -40,5 +44,17 @@ public interface UserService {
                 .build();
 
         return entity;
+    }
+
+    default WithdrawalUserDTO entityToWithdrawalUserDTO(WithdrawalUser withdrawalUser){
+        WithdrawalUserDTO dto = WithdrawalUserDTO.builder()
+                .id(withdrawalUser.getId())
+                .regDate(withdrawalUser.getRegDate())
+                .deleteReason(withdrawalUser.getDeleteReason())
+                .email(withdrawalUser.getEmail())
+                .userId(withdrawalUser.getUserId())
+                .build();
+
+        return dto;
     }
 }

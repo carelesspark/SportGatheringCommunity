@@ -8,6 +8,7 @@ import com.swithus.community.manager.dto.page.UserPageRequestDTO;
 import com.swithus.community.manager.dto.page.UserPageResultDTO;
 import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.entity.Faq;
+import com.swithus.community.manager.entity.QWithdrawalUser;
 import com.swithus.community.manager.entity.WithdrawalUser;
 import com.swithus.community.manager.repository.UserDetailRepository;
 import com.swithus.community.manager.repository.UserRepository;
@@ -86,5 +87,48 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(withdrawalUserDTO.getAuthUserId());
         userDetailRepository.deleteById(withdrawalUserDTO.getAuthUserDetailId());
 
+    }
+
+    @Override
+    public UserPageResultDTO<WithdrawalUserDTO, WithdrawalUser> getDeletedUserList(UserPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
+
+        BooleanBuilder booleanBuilder = getSearchDeletedUser(requestDTO);
+
+        Page<WithdrawalUser> result = withdrawalUserRepository.findAll(booleanBuilder, pageable);
+
+        Function<WithdrawalUser, WithdrawalUserDTO> fn = (entity -> entityToWithdrawalUserDTO(entity));
+
+        return new UserPageResultDTO(result, fn);
+    }
+
+
+    private BooleanBuilder getSearchDeletedUser(UserPageRequestDTO requestDTO) {
+        String search = requestDTO.getSearch();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QWithdrawalUser qWithdrawalUser = QWithdrawalUser.withdrawalUser;
+
+        BooleanExpression express = qWithdrawalUser.id.gt(0L);
+
+        booleanBuilder.and(express);
+
+        if (search == null || search.trim().length() == 0) {
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+        conditionBuilder.or(qWithdrawalUser.userId.contains(search));
+
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
+    }
+
+    @Override
+    public WithdrawalUserDTO infoDeletedUser(long no) {
+
+        Optional<WithdrawalUser> result = withdrawalUserRepository.findById(no);
+
+        return result.isPresent()? entityToWithdrawalUserDTO(result.get()) : null;
     }
 }
