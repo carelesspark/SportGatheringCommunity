@@ -2,6 +2,8 @@ package com.swithus.community.board.entity;
 
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.global.entity.Sports;
+import com.swithus.community.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +21,9 @@ public class Promotion extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User writer;
 
     private String title;
 
