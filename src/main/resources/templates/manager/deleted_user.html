@@ -2,95 +2,86 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/manager/managerMain :: setContent(~{this::content} )}">
-
     <div id="right" th:fragment="content">
         <div id="main_title">
-            <p>○ User Info</p>
+            <p>○ 삭제된 유저 정보</p>
         </div>
         <div id="main_content">
-            <div id="top">
-                <p>□ [[${dto.name}]]님의 유저 정보</p>
+            <div id="sub_title">
+                <p>◇ Managing Deleted User</p>
             </div>
-            <div id="middle">
-                <div class="user_body">
-                    <div class="modal_user_info">
-                        <div class="modal_padding1"><label>아이디 : </label></div>
-                        <div><input type="text" class="form-control user_info_id" th:value="${dto.userid}" name="id"
-                                    disabled/></div>
-                    </div>
-                    <div class="modal_user_info">
-                        <div class="modal_padding2"><label>이름 : </label></div>
-                        <div><input type="text" class="form-control user_info_name" th:value="${dto.name}" name="name"
-                                    disabled/></div>
-                    </div>
-                    <div class="modal_user_info">
-                        <div class="modal_padding1"><label>이메일 : </label></div>
-                        <div><input type="text" class="form-control user_info_email" th:value="${dto.email}"
-                                    name="email" disabled/></div>
-                    </div>
-                    <div class="modal_user_info">
-                        <div class="modal_padding2"><label>성별 : </label></div>
-                        <div><input type="text" class="form-control user_info_gender" th:value="${dto.gender}"
-                                    name="gender" disabled/></div>
-                    </div>
-                </div>
-            </div>
-            <div id="button">
-                <button type="button" class="btn btn-primary user_return" data-bs-dismiss="modal"
-                        th:onclick="|location.href='@{/manager/user(page=${pageRequestDTO.page}, search=${pageRequestDTO.search})}'|">돌아가기
-                </button>
-                <button type="button" class="btn btn-outline-danger reason_kick">탈퇴 사유 등록</button>
-            </div>
-
-        </div>
-        <form action="/manager/withdrawal_user" method="post" class="withdrawalForm">
-            <!-- 유저 탈퇴 모달 -->
-            <div class="modal fade" id="KickUserModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-
-
-                        <div class="modal-header">
-                            <p class="modal-title">◇ Withdrawal User</p>
-
-                        </div>
-
-
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="user_withdrawal_body">
-                                    <div class="modal_user_info2">
-                                        <input type="hidden" th:value="${dto.email}" name="email"/>
-                                        <input type="hidden" th:value="${dto.id}" name="authUserId"/>
-                                        <input type="hidden" th:value="${dto.userid}" name="userId"/>
-                                        <input type="hidden" th:value="${dto.userDetailId}" name="authUserDetailId" />
-                                        <div class="modal_padding3"><label>아이디 : </label></div>
-                                        <div><input type="text" class="form-control user_info_id" th:value="${dto.userid}"
-                                                    name="userId" disabled/></div>
-                                    </div>
-                                    <div class="modal_user_info3">
-                                        <div class="modal_padding4"><label>강제 탈퇴 사유 : </label></div>
-                                        <div><textarea id="withdrawal_reason" name="deleteReason"></textarea></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary modal_return" data-bs-dismiss="modal">돌아가기
+            <div id="table">
+                <table class="table1">
+                    <tr class="table_tr">
+                        <th><p class="table_tr_p">No.</p></th>
+                        <th><p class="table_tr_p">유저 아이디</p></th>
+                        <th><p class="table_tr_p">이메일</p></th>
+                        <th><p class="table_tr_p">삭제 날짜</p></th>
+                        <th><p class="table_tr_p">사유</p></th>
+                    </tr>
+                    <tr class="table_tr2" th:each="dto : ${result.dtoList}">
+                        <td>[[${dto.id}]]</td>
+                        <td>[[${dto.userId}]]</td>
+                        <td>[[${dto.email}]]</td>
+                        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-secondary user_info"
+                            th:onclick="|location.href='@{/manager/deleted_user_reason(no=${dto.id}, page=${pageRequestDTO.page}, search=${pageRequestDTO.search})}'|">
+                                삭제 사유
                             </button>
-                            <button type="button" class="btn btn-danger withdrawalApply">탈퇴 적용</button>
-                        </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <form action="/manager/deleted_user" method="get" class="searchForm">
+                <div id="search">
+                    <div id="search_border">
+                        <input type="text" id="user_search" name="search" th:value="${pageRequestDTO.search}"
+                               placeholder="삭제된 유저 아이디를 검색해주세요."/>
+                        <a class="search_a">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_49_250)">
+                                    <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z"
+                                          fill="black"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_49_250">
+                                        <rect width="20" height="20" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </a>
                     </div>
                 </div>
+            </form>
+            <div class="paging">
+                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link"
+                           th:href="@{/manager/deleted_user(page=${result.start - 1}, search=${pageRequestDTO.search})}">Prev</a>
+                    </li>
+                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link"
+                           th:href="@{/manager/deleted_user(page=${page}, search=${pageRequestDTO.search})}">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link"
+                           th:href="@{/manager/deleted_user(page=${result.end + 1}, search=${pageRequestDTO.search})}">Next</a>
+                    </li>
+                </ul>
             </div>
-        </form>
-        <link th:href="@{/css/manager/user_info.css}" rel="stylesheet" type="text/css"/>
+        </div>
+
+
+
+        <link th:href="@{/css/manager/deletedUser.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script th:inline="javascript">
+        <script>
             $(document).ready(function(){
-                var isClicked = false;
+               var isClicked = false;
 
                 $('div#report a').hover(function () {
                     if (!isClicked) {
@@ -137,6 +128,9 @@
                 });
 
 
+
+
+
                $('div#announcement a').hover(function(){
                     $(this).css("background-color", "#277DFF");
                     $(this).css("transition", "background 0.3s ease-in-out");
@@ -150,17 +144,19 @@
                });
 
 
-               $('div#user a').hover(function(){
+               $('div#faq a').hover(function(){
                     $(this).css("background-color", "#277DFF");
                     $(this).css("transition", "background 0.3s ease-in-out");
-                    $('.icon3').css("fill", "white");
-                    $('.icon3').css("transition", "fill 0.3s ease-in-out");
+                    $('.icon2').css("fill", "white");
+                    $('.icon2').css("transition", "fill 0.3s ease-in-out");
                }, function() {
                     $(this).css("background-color", "#4A4A4A");
                     $(this).css("transition", "background 0.3s ease-in-out");
-                    $('.icon3').css("fill", "#A6A6A6");
-                    $('.icon3').css("transition", "fill 0.3s ease-in-out");
+                    $('.icon2').css("fill", "#A6A6A6");
+                    $('.icon2').css("transition", "fill 0.3s ease-in-out");
                });
+
+
 
                $('div#gathering a').hover(function(){
                     $(this).css("background-color", "#277DFF");
@@ -198,41 +194,10 @@
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
 
-               var KickUserModal = $("#KickUserModal");
-               $(".reason_kick").click(function(){
-                    KickUserModal.modal('show');
-               });
-
-               var no = [[${dto.id}]]
-               var page = [[${pageRequestDTO.page}]]
-               var search = [[${pageRequestDTO.search}]]
-
-
-               $(".modal_return").click(function(){
-                    window.location.href = 'http://localhost:3306/manager/user_info?no=' + no  + '&page=' + page + '&search=' + search;
-               });
-
-
-                var form = $(".withdrawalForm");
-
-                $(".withdrawalApply").click(function(){
-                    if($("#withdrawal_reason").val() == ""){
-                        alert("탈퇴 적용 사유를 입력하세요.");
-                        return;
-                    }
-
-                    if(!confirm("탈퇴 적용하시겠습니까?")){
-                        return;
-                    }
-
-                    form.attr("action", "/manager/withdrawal_user").attr("method", "post");
-                    form.submit();
-                });
-
            });
         </script>
 
-    </div>
 
+    </div>
 </th:block>
 </html>
