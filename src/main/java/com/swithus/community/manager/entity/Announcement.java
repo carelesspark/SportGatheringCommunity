@@ -35,4 +35,6 @@ public class Announcement extends BaseEntity {
     public void changeContent(String content){
         this.content = content;
     }
+
+    public void plusVisitCount(int visitCount){ this.visitCount = ++visitCount;}
 }

@@ -1,12 +1,14 @@
 package com.swithus.community.manager.service.impl;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.swithus.community.manager.dto.FaqDTO;
 import com.swithus.community.manager.dto.page.FaqPageRequestDTO;
 import com.swithus.community.manager.dto.page.FaqPageResultDTO;
 import com.swithus.community.manager.entity.Faq;
 import com.swithus.community.manager.entity.FaqCtgr;
 import com.swithus.community.manager.entity.QFaq;
+import com.swithus.community.manager.entity.QFaqCtgr;
 import com.swithus.community.manager.repository.FaqCtgrRepository;
 import com.swithus.community.manager.repository.FaqRepository;
 import com.swithus.community.manager.service.FaqService;
@@ -53,11 +55,51 @@ public class FaqServiceImpl implements FaqService {
     public FaqPageResultDTO<FaqDTO, Faq> getFaqList(FaqPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
 
-        Page<Faq> result = faqRepository.findAll(pageable);
+        BooleanBuilder booleanBuilder = getSearch(requestDTO);
+
+        Page<Faq> result = faqRepository.findAll(booleanBuilder, pageable);
 
         Function<Faq, FaqDTO> fn = (entity -> entityToDto(entity));
 
         return new FaqPageResultDTO(result, fn);
+    }
+
+    private BooleanBuilder getSearch(FaqPageRequestDTO pageRequestDTO){
+        String type = pageRequestDTO.getType();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QFaq qFaq = QFaq.faq;
+
+        BooleanExpression expression = qFaq.id.gt(0L);
+        booleanBuilder.and(expression);
+        if(type == null || type.trim().length() == 0){
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(type.contains("t1")){
+            conditionBuilder.or(qFaq.ctgr.ctgrType.contains("사이트 이용"));
+        }
+
+        if(type.contains("t2")){
+            conditionBuilder.or(qFaq.ctgr.ctgrType.contains("물품 나눔"));
+        }
+
+        if(type.contains("t3")){
+            conditionBuilder.or(qFaq.ctgr.ctgrType.contains("소모임"));
+        }
+
+        if(type.contains("t4")){
+            conditionBuilder.or(qFaq.ctgr.ctgrType.contains("대회"));
+        }
+
+        if(type.contains("t5")){
+            conditionBuilder.or(qFaq.ctgr.ctgrType.contains("기타"));
+        }
+
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
     }
 
     @Override

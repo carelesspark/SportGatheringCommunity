@@ -5,7 +5,9 @@ import com.swithus.community.user.entity.AuthId;
 import com.swithus.community.user.entity.User;
 
 public interface RegisterService {
-    Long join(UserDTO userDTO);
+    boolean join(UserDTO userDTO);
+    boolean isUserIdExists(String userId);
+    boolean isUserNicknameExists(String userNickname);
     default User dtoToEntity (UserDTO dto){
         User entity = User.builder()
                 .name(dto.getName())
@@ -51,6 +53,7 @@ public interface RegisterService {
                 .build();
         return dto;
     }
+
 
 
 }

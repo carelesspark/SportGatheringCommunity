@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/layout">
 <th:block layout:fragment="content">
-        <form style="width: 1080px; margin:0 auto; padding: 90px 0px;">
+        <form style="width: 1080px; margin:0 auto; padding: 90px 0px;" method="POST">
             <div style="margin: 0 auto; width: 620px; height: 520px; border: 1px solid lightgray;
                 padding: 90px 130px; border-radius: 10px;">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label" style="color: #898989; font-weight: 550;">스포츠는 함께 Swith Us</label>
-                    <input style="background-color: #e2e6ea; width: 354px; height: 61px; border-radius: 3px" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="아이디를 입력해주세요.">
+                    <label for="userId" class="form-label" style="color: #898989; font-weight: 550;">스포츠는 함께 Swith Us</label>
+                    <input name="userId" style="background-color: #e2e6ea; width: 354px; height: 61px; border-radius: 3px" type="text" class="form-control" id="userId" placeholder="아이디를 입력해주세요.">
 
                 </div>
 
                 <div class="mb-3">
-                    <input style="background-color: #e2e6ea; width: 354px; height: 61px; border-radius: 3px" type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호를 입력해주세요">
+                    <input name="userPwd" style="background-color: #e2e6ea; width: 354px; height: 61px; border-radius: 3px" type="password" class="form-control" id="userPwd" placeholder="비밀번호를 입력해주세요">
                 </div>
 
                 <div style="display: flex; justify-content: flex-end; padding: 0px;">

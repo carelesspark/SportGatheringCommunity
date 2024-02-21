@@ -18,22 +18,22 @@ $(function () {
   }
 
   // uploadResult class div에 업로드한 이미지 보여주기
-  function showResult(uploadResultArr) {
+  function showResult(uploadResultDTOList) {
     var uploadUL = $(".uploadResult ul");
 
     var str = "";
-    $(uploadResultArr).each(function (idx, object) {
-      str += "<li data-path='" + object.folderPath + "' ";
-      str += "data-uuid='" + object.uuid + "' ";
-      str += "data-name='" + object.fileName + "'>";
+    $(uploadResultDTOList).each(function (idx, uploadResultDTO) {
+      str += "<li data-path='" + uploadResultDTO.folderPath + "' ";
+      str += "data-uuid='" + uploadResultDTO.uuid + "' ";
+      str += "data-name='" + uploadResultDTO.fileName + "'>";
 
       str += "<div>";
 
       str +=
-        "<img src='/image/display?fileName=" + object.getThumbnailURL() + "'>";
+        "<img src='/image/display?fileName=" + uploadResultDTO.thumbnailURL + "'>";
 
       str += "<button type='button' ";
-      str += "data-file='" + object.getImageURL() + "' ";
+      str += "data-file='" + uploadResultDTO.imageURL + "' ";
       str += "class ='btn-warning btn-sm'>";
       str += "삭제";
       str += "</button>";
@@ -108,6 +108,7 @@ $(function () {
     });
   });
 
+  // 클럽 생성 버튼을 눌렀을 때, 이미지를 업로드하기 위한 작업 후 submit 진행
   $(".submitBtn").on("click", function (event) {
     // <a>, submit 등에서 click 이벤트를 직접 적용할 때 사용
     event.preventDefault();
@@ -115,7 +116,6 @@ $(function () {
     var str = "";
     $(".uploadResult li").each(function (idx, obj) {
       var target = $(obj);
-
       str += "<input type='hidden' ";
       str += "name='imageDTOList[" + idx + "].path' ";
       str += "value='" + target.data("path") + "'>";
@@ -129,8 +129,6 @@ $(function () {
       str += "value='" + target.data("name") + "'>";
     });
     $(".box").html(str);
-
     $("form").submit();
-    $("form").reset();
   });
 });
