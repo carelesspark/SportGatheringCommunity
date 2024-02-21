@@ -14,27 +14,26 @@
       </div>
     </div>
 
-    <div>
-      <div th:if="${navDTO.isGuest}">[[${session.userName}]]님은 방문객입니다.</div>
-      <div th:if="${navDTO.isBlacklist}">[[${session.userName}]]님은 정지된 회원입니다.</div>
-      <div th:if="${navDTO.isWaiting}">[[${session.userName}]]님은 가입처리중입니다.</div>
-      <div th:if="${navDTO.isMember && !navDTO.isLeader}">[[${session.userName}]]님은 회원입니다.</div>
-      <div th:if="${navDTO.isLeader}">[[${session.userName}]]님은 클럽장입니다.</div>
-    </div>
-
-    <div class="d-flex justify-content-end align-items-center" th:if="${navDTO.isLeader}">
-      <a class="link btn btn-secondary" th:href="@{/club/leader/main(clubId=${navDTO.clubId})}">
+    <div class="d-flex justify-content-end align-items-center">
+      <a class="link btn btn-secondary"
+         th:href="@{/club/leader/main(clubId=${navDTO.clubId})}"
+         th:if="${navDTO.isLeader}">
         클럽 관리
       </a>
+      <a class="link btn btn-success"
+         th:href="@{/club/register(clubId=${navDTO.clubId})}"
+         th:if="${navDTO.isGuest}">
+        가입 신청
+      </a>
     </div>
-    <div class="d-flex justify-content-end align-items-center" th:if="${navDTO.isGuest}">
-      <div class="p-1">
-        <a class="link btn btn-primary" th:href="@{/club/inquiry(clubId=${navDTO.clubId})}">1대1 문의</a>
-      </div>
-      <div class="p-1">
-        <a class="link btn btn-success" th:href="@{/club/register(clubId=${navDTO.clubId})}">가입 신청</a>
-      </div>
-    </div>
+  </div>
+
+  <div class="mb-3">
+    <div th:if="${navDTO.isGuest}">[[${session.userName}]]님은 방문객입니다.</div>
+    <div th:if="${navDTO.isBlacklist}">[[${session.userName}]]님은 정지된 회원입니다.</div>
+    <div th:if="${navDTO.isWaiting}">[[${session.userName}]]님은 가입처리중입니다.</div>
+    <div th:if="${navDTO.isMember && !navDTO.isLeader}">[[${session.userName}]]님은 회원입니다.</div>
+    <div th:if="${navDTO.isLeader}">[[${session.userName}]]님은 클럽장입니다.</div>
   </div>
 
   <div class="mb-3">
@@ -43,16 +42,24 @@
         <a class="nav-link clubNavLink" th:href="@{/club/member(clubId=${navDTO.clubId})}">명단</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/calendar(clubId=${navDTO.clubId})}">달력</a>
+        <a class="nav-link clubNavLink"
+           th:href="@{/club/greetings(clubId=${navDTO.clubId})}"
+           th:if="${navDTO.isMember}">
+          가입인사
+        </a>
+        <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">가입인사</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/greetings(clubId=${navDTO.clubId})}">가입인사</a>
+        <a class="nav-link clubNavLink" th:href="@{/club/meeting(clubId=${navDTO.clubId})}" th:if="${navDTO.isMember}">일정</a>
+        <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">일정</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/meeting(clubId=${navDTO.clubId})}">일정</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/board(clubId=${navDTO.clubId})}">게시글</a>
+        <a class="nav-link clubNavLink"
+           th:href="@{/club/board(clubId=${navDTO.clubId})}"
+           th:if="${navDTO.isMember}">
+          게시글
+        </a>
+        <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">게시글</a>
       </li>
     </ul>
   </div>

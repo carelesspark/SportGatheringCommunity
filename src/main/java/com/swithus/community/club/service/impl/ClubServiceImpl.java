@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -48,13 +49,16 @@ public class ClubServiceImpl implements ClubService {
                 .clubSearchPage(pageable, regionId, sportsId, keyword);
 
         // 각 결과 항복을 ClubDTO로 변환하는 함수를 정의 → 각 요소를 entityToClubDTO method에 전달.
-        Function<Object[], ClubDTO> func = (objectList -> entityToClubDTO(
-                (Club) objectList[0],
-                Collections.singletonList((ClubImage) objectList[1]),
-                (Long) objectList[2]));
+        Function<Object[], ClubDTO> function = (objectList -> {
+            if (ObjectUtils.isEmpty(objectList[1])) {
+                List<ClubImage> clubImageList = new ArrayList<>();
+                return entityToClubDTO((Club) objectList[0], clubImageList, (Long) objectList[2]);
+            }
+            return entityToClubDTO((Club) objectList[0], Collections.singletonList((ClubImage) objectList[1]), (Long) objectList[2]);
+        });
 
         // 페이지에 대한 정보와 페이지에 포함된 결과를 저장.
-        return new SearchPageResultDTO<>(searchPage, func);
+        return new SearchPageResultDTO<>(searchPage, function);
     }
 
     @Override
@@ -66,7 +70,9 @@ public class ClubServiceImpl implements ClubService {
 
         @SuppressWarnings("unchecked")
         List<ClubImage> imageList = (List<ClubImage>) clubMap.get("imageList");
-        for (ClubImage clubImage : imageList) clubImageRepository.save(clubImage);
+        if (!ObjectUtils.isEmpty(imageList)) {
+            for (ClubImage clubImage : imageList) clubImageRepository.save(clubImage);
+        }
 
         Long clubId = club.getId();
         // 클럽 멤버 테이블에 record 생성
@@ -85,20 +91,6 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public ClubDTO getClub(Long clubId) {
         List<Object[]> result = clubRepository.getClubWithEveryImage(clubId);
-
-        if (ObjectUtils.isEmpty(result)) {
-            return ClubDTO.builder()
-                    .regionName("대한민국")
-                    .sportsName("종목")
-                    .name("클럽 이름")
-                    .headline("헤드라인")
-                    .introduce("클럽 설명")
-                    .personnel(1L)
-                    .rank(0)
-                    .point(0)
-                    .build();
-        }
-
         Club club = (Club) result.get(0)[0];
         Long personnel = (Long) result.get(0)[1];
         ClubDTO clubDTO = ClubDTO.builder()
@@ -117,27 +109,57 @@ public class ClubServiceImpl implements ClubService {
                 .regDate(club.getRegDate())
                 .build();
 
-        result.forEach(objects -> {
-            ClubImage clubImage = (ClubImage) objects[1];
-            ImageDTO imageDTO = ImageDTO.builder()
-                    .path(clubImage.getPath())
-                    .name(clubImage.getName())
-                    .uuid(clubImage.getUuid())
-                    .build();
-            clubDTO.getImageDTOList().add(imageDTO);
-        });
+        if (result.size() == 1) {
+            if (ObjectUtils.isEmpty(result.get(0)[2])) {
+                ImageDTO imageDTO = ImageDTO.builder()
+                        .name(club.getSports().getName() + ".jpg")
+                        .uuid("uuid")
+                        .path("club/main")
+                        .build();
+                clubDTO.getImageDTOList().add(imageDTO);
+            }
+
+        } else {
+            for (Object[] objects : result) {
+                if (!ObjectUtils.isEmpty(objects[2])) {
+                    ClubImage clubImage = (ClubImage) objects[2];
+                    ImageDTO imageDTO = ImageDTO.builder()
+                            .path(clubImage.getPath())
+                            .name(clubImage.getName())
+                            .uuid(clubImage.getUuid())
+                            .build();
+                    clubDTO.getImageDTOList().add(imageDTO);
+                }
+            }
+        }
+
+//        result.forEach(objects -> {
+//            ClubImage clubImage = (ClubImage) objects[2];
+//            ImageDTO imageDTO = ImageDTO.builder()
+//                    .path(clubImage.getPath())
+//                    .name(clubImage.getName())
+//                    .uuid(clubImage.getUuid())
+//                    .build();
+//            clubDTO.getImageDTOList().add(imageDTO);
+//        });
 
         return clubDTO;
     }
 
     @Override
     public NavDTO getNav(Long clubId, Long userId) {
-        Object[] result = clubRepository.getClubAndClubMemberByClubAndUser(clubId, userId);
-        if (ObjectUtils.isEmpty(result)) {
-            log.warn("nav를 만들기 위한 정보가 비어있습니다.");
+        List<Object[]> resultList = clubRepository.getClubAndClubMemberByClubAndUser(clubId, userId);
+        if (ObjectUtils.isEmpty(resultList)) {
+            Club club = clubRepository.getClubByClubId(clubId);
 
-            return NavDTO.builder().clubName("Club Name").clubHeadline("Club Headline").isGuest(true).build();
+            return NavDTO.builder()
+                    .clubId(club.getId())
+                    .clubName(club.getName())
+                    .clubHeadline(club.getHeadline())
+                    .isGuest(true)
+                    .build();
         } else {
+            Object[] result = resultList.get(0);
             Club club = (Club) result[0];
             ClubMember clubMember = (ClubMember) result[1];
 
