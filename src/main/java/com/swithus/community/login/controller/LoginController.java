@@ -57,8 +57,13 @@ public String login(LoginDTO loginDTO, HttpSession session) {
     if (value != null) {
         session.setAttribute("userid", value.getUserid());
         session.setAttribute("username", value.getUser().getName());
+        // 클럽쪽에서 사용할 것들 추가했습니다.
         session.setAttribute("userId",value.getUser().getId());
         session.setAttribute("userName", value.getUser().getName());
+        // 관리자 페이지로 점핑하기 위한 코드입니다.
+        if(value.getUser().getId()== 1L){
+            return "redirect:/manager/main";
+        }
         return "redirect:/swithus/main";//redirect할 땐 처음 들어가지는 경로로 올바른 경로로 바뀌어서 감
     }
     return "login/login";
