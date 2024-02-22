@@ -24,12 +24,14 @@ public class Meeting extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private MeetingCtgr ctgr;
 
-    // 날짜
-    private LocalDateTime when;
-    // 위치
-    private String where;
+    // 제목
+    private String title;
     // 설명
-    private String what;
+    private String content;
+    // 날짜
+    private LocalDateTime mTime;
+    // 위치
+    private String mPlace;
     // 인원
-    private int who;
+    private int mPersonnel;
 }

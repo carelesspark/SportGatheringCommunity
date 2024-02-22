@@ -3,27 +3,62 @@
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div>
-      <h1>일정</h1>
-      <a href="#">클럽장만 해당: 일정 추가</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>클럽 일정</h3>
+      <a class="btn btn-light"
+         th:href="@{/club/meetingForm(clubId=${navDTO.clubId})}"
+         th:if="${navDTO.isLeader}">
+        일정 추가
+      </a>
     </div>
-    <div>
 
-      <div class="container"> th each 사용. 활성화된 일정만 보여주기
-        <div >
-          <div >모임 날짜</div>
-          <div >모임 이름</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6 text-left">이미지</div>
-          <div class="col-xs-6 text-right">
-            <div>일시</div>
-            <div>위치</div>
-            <div>참석</div>
-          </div>
-        </div>
+    <div class="d-flex flex-row align-items-center mb-3">
+      <div class="p-1">
+        <a class="btn btn-primary"
+           th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=1)}">정기모임</a>
       </div>
+      <div class="p-1">
+        <a class="btn btn-primary"
+           th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=2)}">송년회</a>
+      </div>
+      <div class="p-1">
+        <a class="btn btn-primary"
+           th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=3)}">번개모임</a>
+      </div>
+      <div class="p-1">
+        <a class="btn btn-primary"
+           th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=4)}">회식</a>
+      </div>
+    </div>
 
+    <div class="d-flex flex-column mb-3">
+      <div class="p-1" th:each="meetingDTO : ${meetingDTOList}">
+        <a class="card bg-light shadow-sm mb-3"
+           style="text-decoration: none; color: inherit;"
+           th:href="@{/club/meetingDetail(clubId=${navDTO.clubId}, meetingId=${meetingDTO.meetingId})}">
+
+          <div class="card-body">
+            <div class="d-flex flex-row align-items-center">
+              <div class="p-1">
+                <h5 class="card-title">[[${meetingDTO.title}]]</h5>
+              </div>
+              <div class="p-1">
+                <h6 class="card-subtitle bg-light border rounded p-1">[[${meetingDTO.ctgrName}]]</h6>
+              </div>
+            </div>
+
+            <div>
+              <p class="card-text">
+                일시 <span th:text="${#temporals.format(meetingDTO.mTime, 'yy년M월d일 a h시 m분')}"></span>
+              </p>
+              <p class="card-text">장소 [[${meetingDTO.mPlace}]]</p>
+              <p class="card-text">인원 [[${meetingDTO.mPersonnel}]]명/[[${meetingDTO.currentPersonnel}]]명</p>
+
+            </div>
+          </div>
+
+        </a>
+      </div>
     </div>
 
   </div>
