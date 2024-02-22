@@ -8,6 +8,7 @@ import com.swithus.community.club.dto.page.SearchPageRequestDTO;
 import com.swithus.community.club.service.ClubMemberService;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.club.service.GreetingsService;
+import com.swithus.community.club.service.MeetingService;
 import com.swithus.community.global.service.RegionService;
 import com.swithus.community.global.service.SportsService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+
 @Controller
 @Log4j2
 @RequiredArgsConstructor
@@ -31,6 +34,7 @@ public class ClubController {
     private final ClubService clubService;
     private final ClubMemberService clubMemberService;
     private final GreetingsService greetingsService;
+    private final MeetingService meetingService;
 
     private final String USER_ID = "userId";
     private final String NAV_DTO = "navDTO";
@@ -187,9 +191,12 @@ public class ClubController {
     public void goMeeting(@RequestParam Long clubId,
                           Model model,
                           HttpSession session) {
-        log.info("GET /club/meeting");
+        log.info("GET /club/meeting?clubId={}", clubId);
+
+        LocalDateTime now = LocalDateTime.now();
 
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
+        model.addAttribute("MeetingDTOList", meetingService.getActiveMeetingDTOList(clubId, now));
     }
 
 
@@ -197,7 +204,7 @@ public class ClubController {
     public void goBoard(@RequestParam Long clubId,
                         Model model,
                         HttpSession session) {
-        log.info("GET /club/board");
+        log.info("GET /club/board?clubId={}", clubId);
 
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
     }

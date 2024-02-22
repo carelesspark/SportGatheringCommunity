@@ -39,7 +39,10 @@
   <div class="mb-3">
     <ul class="nav nav-justified border-bottom mb-3 clubNav">
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/member(clubId=${navDTO.clubId})}">명단</a>
+        <a class="nav-link clubNavLink"
+           th:href="@{/club/member(clubId=${navDTO.clubId})}">
+          명단
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link clubNavLink"
@@ -50,7 +53,9 @@
         <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">가입인사</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link clubNavLink" th:href="@{/club/meeting(clubId=${navDTO.clubId})}" th:if="${navDTO.isMember}">일정</a>
+        <a class="nav-link clubNavLink"
+           th:href="@{/club/meeting(clubId=${navDTO.clubId})}"
+           th:if="${navDTO.isMember}">일정</a>
         <a class="nav-link clubNavLink" th:if="${!navDTO.isMember}">일정</a>
       </li>
       <li class="nav-item">
