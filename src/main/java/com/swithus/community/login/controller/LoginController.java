@@ -57,6 +57,8 @@ public String login(LoginDTO loginDTO, HttpSession session) {
     if (value != null) {
         session.setAttribute("userid", value.getUserid());
         session.setAttribute("username", value.getUser().getName());
+        session.setAttribute("userId",value.getUser().getId());
+        session.setAttribute("userName", value.getUser().getName());
         return "redirect:/swithus/main";//redirect할 땐 처음 들어가지는 경로로 올바른 경로로 바뀌어서 감
     }
     return "login/login";

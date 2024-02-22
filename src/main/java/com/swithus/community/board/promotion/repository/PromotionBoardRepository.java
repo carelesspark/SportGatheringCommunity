@@ -30,11 +30,11 @@ public interface PromotionBoardRepository extends JpaRepository<Promotion,Long> 
 //
 //    // 어떤 게시물의 댓글개수를 출력.
 //    @Query(value = "SELECT p,w,count(r) FROM Promotion p" +
-//            " LEFT JOIN p.writer w" +
-//            " LEFT JOIN PromotionReply r ON r.promotion = p" +
-//            " GROUP BY p",
+//                    " LEFT JOIN p.writer w" +
+//                    " LEFT JOIN PromotionReply r ON r.promotion = p" +
+//                    " GROUP BY p",
 //            countQuery = "SELECT count(p) FROM Promotion p"
-//    )
+//           )
 //    Page<Object[]> getBoardWithReplyCount(Pageable pageable);
 
 }

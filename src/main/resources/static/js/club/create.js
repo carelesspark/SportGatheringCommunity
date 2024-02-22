@@ -110,7 +110,6 @@ $(function () {
 
   // 클럽 생성 버튼을 눌렀을 때, 이미지를 업로드하기 위한 작업 후 submit 진행
   $(".submitBtn").on("click", function (event) {
-    // <a>, submit 등에서 click 이벤트를 직접 적용할 때 사용
     event.preventDefault();
 
     var str = "";
@@ -129,6 +128,6 @@ $(function () {
       str += "value='" + target.data("name") + "'>";
     });
     $(".box").html(str);
-    $("form").submit();
+    $("#clubForm").submit();
   });
 });
