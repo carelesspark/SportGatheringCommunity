@@ -184,18 +184,22 @@ public class ClubController {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////// 진행중
 
     @GetMapping("/meeting")
-    public void goMeeting(@RequestParam Long clubId, Model model) {
+    public void goMeeting(@RequestParam Long clubId,
+                          Model model,
+                          HttpSession session) {
         log.info("GET /club/meeting");
 
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
     }
 
 
     @GetMapping("/board")
-    public void goBoard(@RequestParam Long clubId, Model model) {
+    public void goBoard(@RequestParam Long clubId,
+                        Model model,
+                        HttpSession session) {
         log.info("GET /club/board");
 
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////// 보류 라인
