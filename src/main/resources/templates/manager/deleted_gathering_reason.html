@@ -2,90 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/manager/managerMain :: setContent(~{this::content} )}">
-
     <div id="right" th:fragment="content">
         <div id="main_title">
-            <p>○ 소모임 관리</p>
+            <p>○ 삭제된 소모임 상세 정보</p>
         </div>
         <div id="main_content">
             <div id="sub_title">
-                <p>◇ Managing Gathering</p>
+                <p>◇ Managing Detail Deleted Gathering</p>
             </div>
-            <div id="table">
-                <table class="table1">
-                    <tr class="table_tr">
-                        <th><p class="table_tr_p">No.</p></th>
-                        <th><p class="table_tr_p">소모임 이름</p></th>
-                        <th><p class="table_tr_p">소모임장</p></th>
-                        <th><p class="table_tr_p">생성 날짜</p></th>
-                        <th><p class="table_tr_p">상세보기</p></th>
+            <div id="info_table">
+                <table class="table">
+                    <tr class="table_tr1">
+                        <td class="table_q">No.</td>
+                        <td class="table_a">[[${dto.id}]]</td>
+                        <td class="table_q">소모임</td>
+                        <td class="table_a">[[${dto.clubName}]]</td>
                     </tr>
-                    <tr class="table_tr2" th:each="dto: ${result.dtoList}">
-                        <td>[[${dto.id}]]</td>
-                        <td>[[${dto.clubName}]]</td>
-                        <td>[[${dto.clubLeader}]]</td>
-                        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-secondary gathering_info"
-                                    th:onclick="|location.href='@{/manager/gathering_info(no=${dto.id}, page=${result.page}, search=${pageRequestDTO.search})}'|">
-                                상세 정보
-                            </button>
-                        </td>
+                    <tr class="table_tr1">
+                        <td class="table_q">삭제 날짜</td>
+                        <td class="table_a">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                        <td class="table_q">클럽장</td>
+                        <td class="table_a">[[${dto.leaderName}]]</td>
                     </tr>
-
+                    <tr class="table_tr3">
+                        <td class="table_q">삭제 사유</td>
+                        <td colspan="3" class="table_a enter">[[${dto.deleteReason}]]</td>
+                    </tr>
                 </table>
             </div>
-            <form action="/manager/gathering" method="get" class="searchForm">
-                <div id="search">
-                    <div class="padding-left">
-                        <button type="button" class="btn btn-outline-danger"
-                                th:onclick="|location.href='@{/manager/deleted_gathering}'|">
-                            삭제된 소모임 정보 조회
-                        </button>
-                    </div>
-                    <div class="padding-left2">
-                        <div id="search_border">
-                            <input type="text" id="gathering_search" th:value="${pageRequestDTO.search}" name="search"
-                                   placeholder="소모임 이름을 검색해주세요."/>
-                            <a class="search_a">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_49_250)">
-                                        <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z"
-                                              fill="black"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_49_250">
-                                            <rect width="20" height="20" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="paging">
-                <ul class="pagination h-100 justify-content-center align-items-center">
-                    <li class="page-item" th:if="${result.prev}">
-                        <a class="page-link"
-                           th:href="@{/manager/gathering(page=${result.start - 1}, search=${pageRequestDTO.search})}">Prev</a>
-                    </li>
-                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
-                        th:each="page: ${result.pageList}">
-                        <a class="page-link"
-                           th:href="@{/manager/gathering(page=${page}, search=${pageRequestDTO.search})}">[[${page}]]</a>
-                    </li>
-                    <li class="page-item" th:if="${result.next}">
-                        <a class="page-link"
-                           th:href="@{/manager/gathering(page=${result.end + 1}, search=${pageRequestDTO.search})}">Next</a>
-                    </li>
-                </ul>
+            <div>
+                <button type="button" class="btn btn-primary info_btn"
+                        th:onclick="|location.href='@{/manager/deleted_gathering(page=${pageRequestDTO.page}, search=${pageRequestDTO.search})}'|">돌아가기
+                </button>
             </div>
+
+
         </div>
 
-
-        <link th:href="@{/css/manager/gathering.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/manager/detailDeletedGathering.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script>
@@ -199,14 +153,10 @@
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
 
-               var searchForm = $(".searchForm");
-               $(".search_a").click(function() {
-                    searchForm.submit();
-               });
            });
         </script>
 
-    </div>
 
+    </div>
 </th:block>
 </html>

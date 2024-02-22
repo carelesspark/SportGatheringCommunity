@@ -232,7 +232,7 @@ a:hover {
     background-color: white;
     box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
     display: grid;
-    grid-template-rows: 120px 500px 80px;
+    grid-template-rows: 120px 440px 140px;
     place-items: center;
 }
 
@@ -290,8 +290,8 @@ div#menu a:hover{
 #search {
     width: 770px;
     height: 70px;
-    padding-left: 460px;
     padding-top: 20px;
+    padding-left:460px;
 }
 
 #write_button {
@@ -301,7 +301,7 @@ div#menu a:hover{
     font-weight: bold;
 }
 
-.gathering_info {
+.user_info {
     width: 100px;
     height: 30px;
     padding: 0;
@@ -310,11 +310,11 @@ div#menu a:hover{
 
 #search_border {
     width: 270px;
-    border: 2px solid black;
+    border:  2px solid black;
     border-radius: 5px;
 }
 
-#gathering_search {
+#user_search {
     width: 240px;
     border: 0;
     outline: none;
@@ -350,56 +350,52 @@ div#menu a:hover{
     padding-left: 50px;
 }
 
-.gathering_body {
+.user_body {
     width: 700px;
     display: grid;
-    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px 100px;
     place-items: center;
 }
 
-
-.modal_gathering_info {
+.modal_user_info {
     width: 700px;
     height: 100px;
     display: grid;
-    grid-template-columns: 140px 560px;
+    grid-template-columns: 80px 620px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
 
-.gathering_delete_body {
+.user_withdrawal_body {
     width: 700px;
     display: grid;
-    grid-template-rows: 70px 70px 300px;
+    grid-template-rows: 70px 300px;
     place-items: center;
 }
 
-.modal_gathering_info2 {
+.modal_user_info2 {
     width: 700px;
     height: 70px;
     display: grid;
-    grid-template-columns: 140px 560px;
+    grid-template-columns: 120px 580px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
 
-.modal_gathering_info3 {
+.modal_user_info3 {
     width: 700px;
     height: 300px;
     display: grid;
-    grid-template-columns: 140px 560px;
+    grid-template-columns: 120px 580px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
 
-#delete_reason {
-    width: 560px;
+#withdrawal_reason {
+    width: 580px;
     height: 300px;
     resize: none;
     border-radius: .25rem;
-    padding-left: 10px;
-    font-size: 15pt;
-    font-weight: bold;
 }
 
 .modal_padding1 {
@@ -409,75 +405,68 @@ div#menu a:hover{
 
 .modal_padding2 {
     padding-top: 5px;
-    padding-left: 30px;
+    padding-left: 25px;
 }
 
 .modal_padding3 {
     padding-top: 5px;
-    padding-left: 25px;
+    padding-left: 55px;
 }
 
 .modal_padding4 {
     padding-top: 5px;
-    padding-left: 22px;
 }
 
-.modal_padding5 {
-    padding-top: 5px;
+.btn-outline-danger {
+    width: 140px;
+    height: 30px;
+    padding: 0;
+    font-size: 10pt;
+}
+
+#info_table{
+    width: 770px;
+    height: 440px;
     padding-left: 40px;
 }
 
-.modal_padding6 {
-    padding-top: 5px;
+.table {
+    width: 700px;
+    text-align: center;
+    border-top: 1px solid #B0B0B0;
+    border-bottom: 1px solid #B0B0B0;
+    border-right: 1px solid #B0B0B0;
+}
+
+.table td {
+    vertical-align: middle;
 }
 
 
-.gathering_pic_body {
-    width: 850px;
-    height: 500px;
+.table_tr1 {
+    height: 50px;
+    border-bottom: 1px solid #D1D1D1;
 }
 
-#top {
-    width: 670px;
-    height: 120px;
-    padding-top: 60px;
-    font-size: 15pt;
-    font-family: bold;
+.table_q {
+    background-color: #D9D9D9;
+    font-size: 11pt;
+    font-weight: bold;
     font-family: 'Inter', sans-serif;
 }
 
-#middle {
-    width: 770px;
-    height: 480px;
-    padding-left: 40px;
-    padding-top: 15px;
-}
-
-#button {
-    width: 770px;
-    height: 80px;
-    display: grid;
-    grid-template-columns: 500px 110px 160px;
-
-}
-
-.gathering_info_ctgr {
-    font-size: 15pt;
+.table_a {
+    font-size: 9pt;
     font-weight: bold;
+    color: #7B7B7B;
+    text-align: left;
 }
 
-.form-control {
-    font-size: 15pt;
-    font-weight: bold;
+.table_tr3 {
+    height: 290px;
+    border-bottom: 1px solid #D1D1D1;
 }
 
-#button1 {
-    width: 200px;
-    height: 40px;
-    padding-left: 60px;
-}
-
-.img {
-    width: 850px;
-    height: 500px;
+.enter{
+    white-space: pre-wrap;
 }
