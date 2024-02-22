@@ -70,10 +70,15 @@ public class ClubController {
 
     // 클럽 생성 및 해당 클럽으로 이동
     @PostMapping("/createClub")
-    public String createClub(ClubDTO clubDTO, @RequestParam("rank") int rank, @RequestParam("point") int point) {
-        log.info("POST /club/create");
-        clubDTO.setRank(rank);
-        clubDTO.setPoint(point);
+    public String createClub(ClubDTO clubDTO,
+                             @RequestParam("rank") int rank,
+                             @RequestParam("point") int point,
+                             Model model,
+                             HttpSession session) {
+        log.info("POST /club/createClub");
+        clubDTO.setRank(rank); // 둘 다 처음엔 0
+        clubDTO.setPoint(point); // 둘 다 처음엔 0
+        clubDTO.setLeaderId((Long) session.getAttribute(USER_ID));
 
         Long clubId = clubService.create(clubDTO);
         log.info("Club ID: {}", clubId);
@@ -129,7 +134,7 @@ public class ClubController {
         requestDTO.setClubId(clubId);
         requestDTO.setUserId(userId);
 
-        model.addAttribute("checkUserId",userId);
+        model.addAttribute("checkUserId", userId);
         model.addAttribute("myGreetingsId", myGreetingsId);
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, myUserId));
         model.addAttribute(RESULT, greetingsService.getGreetingsPage(requestDTO));
@@ -175,7 +180,6 @@ public class ClubController {
 
         return "redirect:/club/greetings?clubId=" + clubId;
     }
-
 
 
     @GetMapping("/meeting")

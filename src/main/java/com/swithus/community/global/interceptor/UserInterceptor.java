@@ -15,10 +15,10 @@ public class UserInterceptor implements HandlerInterceptor {
         log.info("Check login");
 
         HttpSession session = request.getSession();
-        Long uKey = (Long)session.getAttribute("uKey");
+        Long userId = (Long) session.getAttribute("userId");
 
-        if(uKey==null){
-            response.sendRedirect(request.getContextPath()+"/user/login");
+        if (userId == null) {
+            response.sendRedirect(request.getContextPath() + "/user/login");
             return false;
         }
         return true;
