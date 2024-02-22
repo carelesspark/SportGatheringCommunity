@@ -69,7 +69,12 @@ public String login(LoginDTO loginDTO, HttpSession session) {
     return "login/login";
 }
 
+@GetMapping("/logout")
+public String logout(HttpSession session){
+        session.invalidate();
 
+        return "redirect:/swithus/main";
+}
 
 
     @GetMapping("/findId")

@@ -21,15 +21,15 @@ public class MainController {
         String username = (String) session.getAttribute("username");
         log.info("session userid: "+userid+""+" username: "+username);
         // 세션에 사용자 정보가 없으면 로그인 페이지로 이동
-        if (userid == null || username == null) {
-
-            return "redirect:/login/login";
-        }else{
+//        if (userid == null || username == null) {
+//
+//            return "redirect:/login/login";
+//        }else{
             // 모델에 userid와 username을 추가
-            model.addAttribute("userid", userid);
-            model.addAttribute("username", username);
+//            model.addAttribute("userid", userid);
+//            model.addAttribute("username", username);
             return "main/main";
-        }
+//        }
 //        // 세션에 사용자 정보가 있으면 메인 페이지로 이동
     }
 
