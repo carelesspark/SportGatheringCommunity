@@ -12,15 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("Check login");
+        log.info("UserInterceptor: Check login");
 
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
 
         if (userId == null) {
-            response.sendRedirect(request.getContextPath() + "/user/login");
+            response.sendRedirect(request.getContextPath() + "/login/login");
             return false;
         }
+
         return true;
     }
 

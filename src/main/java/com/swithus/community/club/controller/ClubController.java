@@ -181,6 +181,7 @@ public class ClubController {
         return "redirect:/club/greetings?clubId=" + clubId;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////// 진행중
 
     @GetMapping("/meeting")
     public void goMeeting(@RequestParam Long clubId, Model model) {
