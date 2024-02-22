@@ -1,6 +1,5 @@
 package com.swithus.community.manager.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,24 +11,24 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class GatheringDTO {
 
     private Long id;
 
-    private LocalDateTime modDate;
-
     private LocalDateTime regDate;
 
-    private String userid;
+    private LocalDateTime modDate;
 
-    private String userpwd;
+    private String clubName;
 
-    private Long userDetailId;
+    private String clubLeader;
 
-    private String email;
+    private int memberCount;
 
-    private String gender;
+    private String ctgr;
 
-    private String nickname;
+
+
+
 
 }

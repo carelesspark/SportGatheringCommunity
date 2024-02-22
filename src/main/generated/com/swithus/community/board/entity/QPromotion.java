@@ -40,6 +40,8 @@ public class QPromotion extends EntityPathBase<Promotion> {
 
     public final NumberPath<Integer> visitCount = createNumber("visitCount", Integer.class);
 
+    public final com.swithus.community.user.entity.QUser writer;
+
     public QPromotion(String variable) {
         this(Promotion.class, forVariable(variable), INITS);
     }
@@ -59,6 +61,7 @@ public class QPromotion extends EntityPathBase<Promotion> {
     public QPromotion(Class<? extends Promotion> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.club = inits.isInitialized("club") ? new com.swithus.community.club.entity.QClub(forProperty("club"), inits.get("club")) : null;
+        this.writer = inits.isInitialized("writer") ? new com.swithus.community.user.entity.QUser(forProperty("writer")) : null;
     }
 
 }
