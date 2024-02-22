@@ -37,22 +37,12 @@ public class ClubController {
     private final String CLUB_DTO = "clubDTO";
     private final String RESULT = "result";
 
-    // 임시 함수
-    private void putSession(HttpSession session) {
-        if (session.getAttribute("userId") == null) {
-            session.setAttribute("userId", 3L);
-            session.setAttribute("userName", "b");
-        }
-    }
-
     // 클럽 서칭 페이지로 이동
     @GetMapping("/search")
     public void search(SearchPageRequestDTO pageRequestDTO,
                        Model model,
                        HttpSession session) {
         log.info("GET /club/search");
-
-        putSession(session);
 
         Long regionId = pageRequestDTO.getRegionId();
         Long sportsId = pageRequestDTO.getSportsId();
@@ -80,10 +70,15 @@ public class ClubController {
 
     // 클럽 생성 및 해당 클럽으로 이동
     @PostMapping("/createClub")
-    public String createClub(ClubDTO clubDTO, @RequestParam("rank") int rank, @RequestParam("point") int point) {
-        log.info("POST /club/create");
-        clubDTO.setRank(rank);
-        clubDTO.setPoint(point);
+    public String createClub(ClubDTO clubDTO,
+                             @RequestParam("rank") int rank,
+                             @RequestParam("point") int point,
+                             Model model,
+                             HttpSession session) {
+        log.info("POST /club/createClub");
+        clubDTO.setRank(rank); // 둘 다 처음엔 0
+        clubDTO.setPoint(point); // 둘 다 처음엔 0
+        clubDTO.setLeaderId((Long) session.getAttribute(USER_ID));
 
         Long clubId = clubService.create(clubDTO);
         log.info("Club ID: {}", clubId);
@@ -139,7 +134,7 @@ public class ClubController {
         requestDTO.setClubId(clubId);
         requestDTO.setUserId(userId);
 
-        model.addAttribute("checkUserId",userId);
+        model.addAttribute("checkUserId", userId);
         model.addAttribute("myGreetingsId", myGreetingsId);
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, myUserId));
         model.addAttribute(RESULT, greetingsService.getGreetingsPage(requestDTO));
@@ -186,7 +181,7 @@ public class ClubController {
         return "redirect:/club/greetings?clubId=" + clubId;
     }
 
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////// 진행중
 
     @GetMapping("/meeting")
     public void goMeeting(@RequestParam Long clubId, Model model) {
