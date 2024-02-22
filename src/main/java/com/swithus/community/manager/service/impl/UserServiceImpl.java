@@ -63,7 +63,8 @@ public class UserServiceImpl implements UserService {
         }
 
         BooleanBuilder conditionBuilder = new BooleanBuilder();
-        conditionBuilder.or(qAuthId.userid.contains(search));
+        conditionBuilder.or(qAuthId.userid.containsIgnoreCase(search));
+        conditionBuilder.or(qAuthId.user.nickname.containsIgnoreCase(search));
 
         booleanBuilder.and(conditionBuilder);
 

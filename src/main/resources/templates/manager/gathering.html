@@ -20,210 +20,67 @@
                         <th><p class="table_tr_p">생성 날짜</p></th>
                         <th><p class="table_tr_p">상세보기</p></th>
                     </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>32</td>
-                        <td>같이 축구해요!!</td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td><button type="button" class="btn btn-outline-secondary gathering_info">상세 정보</button></td>
+                    <tr class="table_tr2" th:each="dto: ${result.dtoList}">
+                        <td>[[${dto.id}]]</td>
+                        <td>[[${dto.clubName}]]</td>
+                        <td>[[${dto.clubLeader}]]</td>
+                        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-secondary gathering_info"
+                                    th:onclick="|location.href='@{/manager/gathering_info(no=${dto.id}, page=${result.page}, search=${pageRequestDTO.search})}'|">
+                                상세 정보
+                            </button>
+                        </td>
                     </tr>
 
                 </table>
             </div>
-            <div id="search">
-                <div id="search_border">
-                    <input type="text" id="gathering_search" placeholder="소모임 이름을 검색해주세요." />
-                    <a><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_49_250)">
-                            <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z" fill="black"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_49_250">
-                                <rect width="20" height="20" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg></a>
-                </div>
-            </div>
-            <div></div>
-        </div>
-
-
-        <!-- 소모임 상세 정보 모달 -->
-        <div class="modal fade" id="GatheringInfoModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <p class="modal-title">◇ Gathering Info</p>
-
+            <form action="/manager/gathering" method="get" class="searchForm">
+                <div id="search">
+                    <div class="padding-left">
+                        <button type="button" class="btn btn-outline-danger"
+                                th:onclick="|location.href='@{/manager/deleted_gathering}'|">
+                            삭제된 유저 정보 조회
+                        </button>
                     </div>
-
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="gathering_body">
-                                <div class="modal_gathering_info">
-                                    <div class="modal_padding1"><label>소모임 이름 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_name" name="gathering_name" disabled/></div>
-                                </div>
-                                <div class="modal_gathering_info">
-                                    <div class="modal_padding2"><label>소모임장 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_leader" name="gathering_leader" disabled/></div>
-                                </div>
-                                <div class="modal_gathering_info">
-                                    <div class="modal_padding3"><label>생성 날짜 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_date" name="gathering_date" disabled/></div>
-                                </div>
-                                <div class="modal_gathering_info">
-                                    <div class="modal_padding3"><label>참여 인원 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_member" name="gathering_member" disabled/></div>
-                                </div>
-                                <div class="modal_gathering_info">
-                                    <div class="modal_padding2"><label>카테고리 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_ctgr" name="gathering_ctgr" disabled/></div>
-                                </div>
-
-                            </div>
+                    <div class="padding-left2">
+                        <div id="search_border">
+                            <input type="text" id="gathering_search" th:value="${pageRequestDTO.search}" name="search"
+                                   placeholder="소모임 이름을 검색해주세요."/>
+                            <a class="search_a">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_49_250)">
+                                        <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z"
+                                              fill="black"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_49_250">
+                                            <rect width="20" height="20" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
                         </div>
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary gathering_pic">소모임 사진</button>
-                        <button type="button" class="btn btn-primary modal_return"  data-bs-dismiss="modal">돌아가기</button>
-                        <button type="button" class="btn btn-outline-danger reason_delete">소모임 삭제 사유</button>
-                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- 소모임 사진 모달 -->
-        <div class="modal fade" id="GatheringPicModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <p class="modal-title">◇ Gathering Pic</p>
-
-                    </div>
-
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="gathering_pic_body">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary modal_return"  data-bs-dismiss="modal">돌아가기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 소모임 삭제 모달 -->
-        <div class="modal fade" id="GatheringDeleteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <p class="modal-title">◇ Delete Gathering</p>
-
-                    </div>
-
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="gathering_delete_body">
-                                <div class="modal_gathering_info2">
-                                    <div class="modal_padding4"><label>소모임 이름 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_name" name="gathering_name" disabled/></div>
-                                </div>
-                                <div class="modal_gathering_info2">
-                                    <div class="modal_padding5"><label>소모임장 : </label></div>
-                                    <div><input type="text" class="form-control gathering_info_leader" name="gathering_name" disabled/></div>
-                                </div>
-                                <div class="modal_gathering_info3">
-                                    <div class="modal_padding6"><label>강제 탈퇴 사유 : </label></div>
-                                    <div><textarea id="delete_reason" ></textarea></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary modal_return"  data-bs-dismiss="modal">돌아가기</button>
-                        <button type="button" class="btn btn-danger">삭제 적용</button>
-                    </div>
-                </div>
+            </form>
+            <div class="paging">
+                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link"
+                           th:href="@{/manager/gathering(page=${result.start - 1}, search=${pageRequestDTO.search})}">Prev</a>
+                    </li>
+                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link"
+                           th:href="@{/manager/gathering(page=${page}, search=${pageRequestDTO.search})}">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link"
+                           th:href="@{/manager/gathering(page=${result.end + 1}, search=${pageRequestDTO.search})}">Next</a>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -278,23 +135,6 @@
                         $('.icon6').css("transition", "fill 0.3s ease-in-out");
                     }
                 });
-
-               var GatheringInfoModal = $("#GatheringInfoModal");
-               var GatheringPicModal = $("#GatheringPicModal");
-               var GatheringDeleteModal = $("#GatheringDeleteModal");
-
-               $(".gathering_info").click(function(){
-                    GatheringInfoModal.modal('show');
-               });
-
-               $(".gathering_pic").click(function(){
-                    GatheringPicModal.modal('show');
-               });
-
-               $(".reason_delete").click(function(){
-                    GatheringDeleteModal.modal('show');
-               });
-
 
 
                $('div#announcement a').hover(function(){
@@ -357,6 +197,11 @@
                     $(this).css("transition", "background 0.3s ease-in-out");
                     $('.icon8').css("fill", "#D6D6D6");
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
+               });
+
+               var searchForm = $(".searchForm");
+               $(".search_a").click(function() {
+                    searchForm.submit();
                });
            });
         </script>

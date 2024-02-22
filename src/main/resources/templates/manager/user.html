@@ -15,14 +15,14 @@
                     <tr class="table_tr">
                         <th><p class="table_tr_p">No.</p></th>
                         <th><p class="table_tr_p">유저 아이디</p></th>
-                        <th><p class="table_tr_p">이름</p></th>
+                        <th><p class="table_tr_p">닉네임</p></th>
                         <th><p class="table_tr_p">가입 날짜</p></th>
                         <th><p class="table_tr_p">상세보기</p></th>
                     </tr>
                     <tr class="table_tr2" th:each="dto : ${result.dtoList}">
                         <td>[[${dto.id}]]</td>
                         <td>[[${dto.userid}]]</td>
-                        <td>[[${dto.name}]]</td>
+                        <td>[[${dto.nickname}]]</td>
                         <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
                         <td>
                             <button type="button" class="btn btn-outline-secondary user_info"
@@ -43,7 +43,7 @@
                     <div class="padding-left2">
                         <div id="search_border">
                             <input type="text" id="user_search" name="search" th:value="${pageRequestDTO.search}"
-                                   placeholder="유저 아이디를 검색해주세요."/>
+                                   placeholder="아이디or닉네임을(를) 검색해주세요."/>
                             <a class="search_a">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
