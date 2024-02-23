@@ -56,7 +56,8 @@ dependencies {
 
 	//validation 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	//이메일 전송 의존성
+	//이메일
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	//로그인 의존성 추가

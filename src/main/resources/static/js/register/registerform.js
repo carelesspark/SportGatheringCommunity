@@ -77,52 +77,52 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
-// 이메일 인증하기 버튼 클릭 시 호출되는 함수
-function sendEmailVerification() {
-    var email = document.getElementById('email').value;
-
-    // Check if email is provided
-    if (!email) {
-        alert('이메일 주소를 입력해주세요.');
-        return;
-    }
-
-    // Send email verification request
+function sendNumber() {
+    $("#mail_number").css("display", "block");
     $.ajax({
-        type: 'POST',
-        url: '/register/sendVerificationCode',
-        data: { email: email },
-        success: function (response) {
-            alert(response);
+        url: "/verify-email",
+        type: "post",
+        dataType: "json",
+        data: {"email": $("#email").val()},
+        success: function (data, status, xhr) {
+            if (data.status === "success") {
+                // 인증 성공 시
+                alert("이메일이 전송되었습니다.");
+                // 또는 다른 UI 업데이트 로직을 추가할 수 있습니다.
+            } else {
+                // 인증 실패 시
+                alert("이메일 전송에 실패하였습니다.");
+                // 또는 다른 UI 업데이트 로직을 추가할 수 있습니다.
+            }
         },
-        error: function (error) {
-            alert('이메일 전송 중 오류가 발생했습니다.');
+        error: function(xhr, status, error){
+            console.log("Error during send Email", error);
         }
     });
 }
 
-function verifyCode() {
-    var email = document.getElementById('email').value;
-    var verificationCode = document.getElementById('verificationCode').value;
+function confirmNumber() {
+    let email = $("#email").val();
+    let verificationCode = $("#verificationCode").val();
 
-    // Check if email and verification code are provided
-    if (!email || !verificationCode) {
-        alert('이메일과 인증 코드를 입력해주세요.');
-        return;
-    }
-
-    // Verify the provided code
     $.ajax({
-        type: 'POST',
-        url: '/register/verifyCode',
-        data: { email: email, code: verificationCode },
-        success: function (response) {
-            alert(response);
+        url: "/verification-code",
+        type: "post",
+        dataType: "json",
+        data: {"email": email, "verifyCode": verificationCode},
+        success: function (data, status, xhr) {
+            if (data.status === "success") {
+                // 인증 성공 시
+                alert("인증이 완료되었습니다.");
+                // 또는 다른 UI 업데이트 로직을 추가할 수 있습니다.
+            } else {
+                // 인증 실패 시
+                alert("인증에 실패하였습니다. 올바른 인증 코드를 입력해주세요.");
+                // 또는 다른 UI 업데이트 로직을 추가할 수 있습니다.
+            }
         },
-        error: function (error) {
-            alert('인증 코드 확인 중 오류가 발생했습니다.');
+        error: function(xhr, status, error){
+            console.log("Error during verification", error);
         }
     });
 }
-
