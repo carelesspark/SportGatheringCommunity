@@ -2,12 +2,12 @@ package com.swithus.community.club.service;
 
 import com.swithus.community.club.dto.GreetingsDTO;
 import com.swithus.community.club.dto.page.GreetingsPageRequestDTO;
+import com.swithus.community.club.entity.ClubMember;
 import com.swithus.community.club.entity.Greetings;
 import com.swithus.community.global.dto.PageResultDTO;
-import com.swithus.community.user.entity.User;
 
 public interface GreetingsService {
-    PageResultDTO<GreetingsDTO, Object[]> getGreetingsPage(GreetingsPageRequestDTO greetingsPageRequestDTO);
+    PageResultDTO<GreetingsDTO, Object[]> getGreetingsDTOPage(GreetingsPageRequestDTO greetingsPageRequestDTO);
 
     GreetingsDTO getGreetings(Long clubId, Long userId);
 
@@ -25,13 +25,13 @@ public interface GreetingsService {
 
     void deleteGreetingsLike(Long greetingsId, Long clubMemberId);
 
-    default GreetingsDTO entityToGreetingsDTO(Greetings greetings, User user, Long likeCount, Long clicked) {
+    default GreetingsDTO entityToGreetingsDTO(Greetings greetings, ClubMember clubMember, Long likeCount, Long clicked) {
         boolean isClicked;
         isClicked = clicked > 0;
 
         return GreetingsDTO.builder()
                 .greetingsId(greetings.getId())
-                .memberName(user.getName())
+                .memberName(clubMember.getNickname())
                 .content(greetings.getContent())
                 .likeCount(likeCount)
                 .clicked(isClicked)

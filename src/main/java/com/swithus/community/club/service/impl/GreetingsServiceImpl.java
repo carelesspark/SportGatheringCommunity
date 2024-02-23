@@ -6,13 +6,11 @@ import com.swithus.community.club.entity.ClubMember;
 import com.swithus.community.club.entity.Greetings;
 import com.swithus.community.club.entity.GreetingsImage;
 import com.swithus.community.club.entity.GreetingsLike;
-import com.swithus.community.club.repository.GreetingsImageRepository;
 import com.swithus.community.club.repository.GreetingsLikeRepository;
 import com.swithus.community.club.repository.GreetingsRepository;
 import com.swithus.community.club.service.GreetingsService;
 import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
-import com.swithus.community.user.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -31,11 +28,10 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class GreetingsServiceImpl implements GreetingsService {
     private final GreetingsRepository greetingsRepository;
-    private final GreetingsImageRepository greetingsImageRepository;
     private final GreetingsLikeRepository greetingsLikeRepository;
 
     @Override
-    public PageResultDTO<GreetingsDTO, Object[]> getGreetingsPage(GreetingsPageRequestDTO requestDTO) {
+    public PageResultDTO<GreetingsDTO, Object[]> getGreetingsDTOPage(GreetingsPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
         Long clubId = requestDTO.getClubId();
         Long userId = requestDTO.getUserId();
@@ -45,7 +41,7 @@ public class GreetingsServiceImpl implements GreetingsService {
 
         Function<Object[], GreetingsDTO> func = (objects -> entityToGreetingsDTO(
                 (Greetings) objects[0],
-                (User) objects[1],
+                (ClubMember) objects[1],
                 (Long) objects[2],
                 (Long) objects[3]
         ));
@@ -99,9 +95,7 @@ public class GreetingsServiceImpl implements GreetingsService {
 
     @Override
     public Greetings getGreetingsById(Long greetingsId) {
-        Optional<Greetings> greetings = greetingsRepository.findById(greetingsId);
-
-        return greetings.orElseGet(Greetings::new);
+        return greetingsRepository.getReferenceById(greetingsId);
     }
 
     @Override

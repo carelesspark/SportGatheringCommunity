@@ -1,6 +1,7 @@
 package com.swithus.community.club.repository;
 
 import com.swithus.community.club.entity.Club;
+import com.swithus.community.club.entity.ClubPostCtgr;
 import com.swithus.community.club.entity.Meeting;
 import com.swithus.community.club.entity.MeetingCtgr;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ class ClubRepositoryTests {
     MeetingRepository meetingRepository;
     @Autowired
     MeetingCtgrRepository meetingCtgrRepository;
+    @Autowired
+    ClubPostCtgrRepository clubPostCtgrRepository;
 
     @Test
     void insetMeeting() {
@@ -50,8 +53,19 @@ class ClubRepositoryTests {
                     .name(ctgrList.get(i)).build();
             meetingCtgrRepository.save(ctgr);
         });
-
     }
 
+    @Test
+    void insertClubPostCtgr() {
+        // 추가함
+        List<String> ctgrList = new ArrayList<>();
+        ctgrList.add("모임 후기");
+        ctgrList.add("자유 글");
 
+        IntStream.rangeClosed(0, ctgrList.size() - 1).forEach(i -> {
+            ClubPostCtgr ctgr = ClubPostCtgr.builder()
+                    .name(ctgrList.get(i)).build();
+            clubPostCtgrRepository.save(ctgr);
+        });
+    }
 }

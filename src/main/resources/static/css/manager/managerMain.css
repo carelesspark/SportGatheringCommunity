@@ -481,6 +481,10 @@ th:nth-child(6) {
     color: red;
 }
 
+.inquiry_status2 {
+    color: blue;
+}
+
 td:nth-child(6) {
     padding-left: 10px;
 }
@@ -605,4 +609,8 @@ textarea {
 
 .btn {
     font-weight: bold;
+}
+
+.paging {
+    margin-top: 25px;
 }

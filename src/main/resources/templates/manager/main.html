@@ -42,7 +42,7 @@
                         <p>대기 문의 건</p>
                     </div>
                     <div class="info-font4">
-                        <p><a class="open_inquiry_modal">3건</a></p>
+                        <p><a class="open_inquiry_modal" th:href="@{/manager/main_modal}">3건</a></p>
                     </div>
                 </div>
             </div>
@@ -186,116 +186,6 @@
         </div>
 
 
-        <!-- 문의사항 모달 -->
-        <div class="modal fade" id="inquiryModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <p class="modal-title">◇ 문의 사항</p>
-
-                    </div>
-
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="modal_small_title"><p>◇ Inquiry </p></div>
-                            <div>
-                                <table class="table1">
-                                    <tr class="table_tr">
-                                        <th><p class="table_tr_p">No.</p></th>
-                                        <th><p class="table_tr_p">문의 사유</p></th>
-                                        <th><p class="table_tr_p">작성자</p></th>
-                                        <th><p class="table_tr_p">작성 날짜</p></th>
-                                        <th><p class="table_tr_p">상태</p></th>
-                                        <th><p class="table_tr_p2">상세 보기</p></th>
-                                    </tr>
-                                    <tr class="table_tr2">
-                                        <td>20</td>
-                                        <td>사이트 이용 방법....</td>
-                                        <td>sdfsdf1242</td>
-                                        <td>2024/02/04</td>
-                                        <td class="inquiry_status">답장 미완료</td>
-                                        <td>
-                                            <button type="button" class="btn btn-outline-secondary inquiry_info">보기</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">돌아가기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 문의사항 상세 모달 -->
-        <div class="modal fade" id="inquiryInfoModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <p class="modal-title">◇ Inquiry Info</p>
-
-                    </div>
-
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="info_table">
-                                <table class="table2">
-                                    <tr class="table2_tr1">
-                                        <td class="table2_q">문의 분류</td>
-                                        <td class="table2_a">신고</td>
-                                        <td class="table2_q">작성자</td>
-                                        <td class="table2_a">sdfdf1234</td>
-                                    </tr>
-                                    <tr class="table2_tr2">
-                                        <td class="table2_q">제목</td>
-                                        <td colspan="3" class="table2_a">소모임 관련 신고하고자 합니다.</td>
-                                    </tr>
-                                    <tr class="table2_tr3">
-                                        <td class="table2_q">내용</td>
-                                        <td colspan="3" class="table2_a">000000000000000 소모임에 참가했는데, 다툼도 자주 발생하고 더 이상 유지해서는
-                                            안되는
-                                            소모임 인 것 같습니다. 확인 부탁드립니다.
-                                        </td>
-                                    </tr>
-                                    <tr class="table2_tr4">
-                                        <td class="table2_q">작성 날짜</td>
-                                        <td class="table2_a">2024/02/04</td>
-                                        <td class="table2_q">첨부파일</td>
-                                        <td class="table2_a">capture_20240205.jpg</td>
-                                    </tr>
-                                </table>
-                                <hr class="under_the_table">
-                                <div class="inquiry_req">
-                                    <div class="modal_small_title2">◇ 답변 작성란</div>
-                                    <div class="inquiry_req_title">
-                                        <div><label>제목 : </label></div>
-                                        <div><input type="text" class="form-control req_title" name="req_title"/></div>
-                                    </div>
-                                    <div class="inquiry_req_content">
-                                        <div class="req_small_title"><label>답변 : </label></div>
-                                        <div><textarea class="req_content" name="req_content"></textarea></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">돌아가기</button>
-                        <button type="button" class="btn btn-danger">답장하기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <link th:href="@{/css/manager/managerMain.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -347,17 +237,6 @@
                     }
                 });
 
-               var inquiryModal = $("#inquiryModal");
-
-               $(".open_inquiry_modal").click(function(){
-                    inquiryModal.modal('show');
-               });
-
-               var inquiryInfoModal = $("#inquiryInfoModal");
-
-               $(".inquiry_info").on("click", function(){
-                    inquiryInfoModal.modal('show');
-               });
 
                $('div#announcement a').hover(function(){
                     $(this).css("background-color", "#277DFF");
@@ -430,6 +309,7 @@
                     $('.icon8').css("fill", "#D6D6D6");
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
+
            });
         </script>
     </div>

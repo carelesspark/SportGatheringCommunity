@@ -12,6 +12,7 @@ import com.swithus.community.club.repository.ClubRepository;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
+import com.swithus.community.manager.repository.UserDetailRepository;
 import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,10 +33,11 @@ import java.util.function.Function;
 @Log4j2
 @RequiredArgsConstructor
 public class ClubServiceImpl implements ClubService {
-
     private final ClubRepository clubRepository;
     private final ClubImageRepository clubImageRepository;
     private final ClubMemberRepository clubMemberRepository;
+
+    private final UserDetailRepository userDetailRepository;
 
     @Override
     public PageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO) {
@@ -75,13 +77,14 @@ public class ClubServiceImpl implements ClubService {
         }
 
         Long clubId = club.getId();
+        User user = userDetailRepository.getReferenceById(clubDTO.getLeaderId());
         // 클럽 멤버 테이블에 record 생성
         ClubMember clubMember = ClubMember.builder()
                 .club(Club.builder().id(clubId).build())
-                .member(User.builder().id(clubDTO.getLeaderId()).build())
+                .member(User.builder().id(user.getId()).build())
+                .nickname(user.getNickname())
                 .rank(100)
                 .isActive((byte) 1)
-                .isBlacklist((byte) 0)
                 .build();
         clubMemberRepository.save(clubMember);
 
@@ -147,34 +150,57 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public NavDTO getNav(Long clubId, Long userId) {
-        List<Object[]> resultList = clubRepository.getClubAndClubMemberByClubAndUser(clubId, userId);
-        if (ObjectUtils.isEmpty(resultList)) {
-            Club club = clubRepository.getClubByClubId(clubId);
+    public NavDTO getNavDTO(Long clubId, Long clubMemberId) {
+        if (clubMemberId == null) {
+            Club club = clubRepository.getReferenceById(clubId);
 
             return NavDTO.builder()
                     .clubId(club.getId())
                     .clubName(club.getName())
                     .clubHeadline(club.getHeadline())
+                    .clubMemberId(null)
+                    .nickname(null)
                     .isGuest(true)
+                    .isWaiting(false)
+                    .isMember(false)
+                    .isLeader(false)
                     .build();
         } else {
-            Object[] result = resultList.get(0);
+            List<Object[]> objectList = clubRepository
+                    .getClubAndClubMemberByClubIdAndClubMemberId(clubId, clubMemberId);
+
+            Object[] result = objectList.get(0);
             Club club = (Club) result[0];
             ClubMember clubMember = (ClubMember) result[1];
 
-            return entityToNavDTO(club, clubMember);
+            boolean isWaiting = clubMember.getRank() == 0;
+            boolean isMember = clubMember.getRank() > 0;
+            boolean isLeader = clubMember.getRank() == 100;
+
+            return NavDTO.builder()
+                    .clubId(club.getId())
+                    .clubName(club.getName())
+                    .clubHeadline(club.getHeadline())
+                    .clubMemberId(clubMember.getId())
+                    .nickname(clubMember.getNickname())
+                    .isGuest(false)
+                    .isWaiting(isWaiting)
+                    .isMember(isMember)
+                    .isLeader(isLeader)
+                    .build();
         }
     }
 
     @Override
     public Long registerClub(Long clubId, Long userId) {
+        User user = userDetailRepository.getReferenceById(userId);
+
         ClubMember clubMember = ClubMember.builder()
                 .club(Club.builder().id(clubId).build())
-                .member(User.builder().id(userId).build())
+                .member(User.builder().id(user.getId()).build())
+                .nickname(user.getNickname())
                 .rank(0)
-                .isActive((byte) 0)
-                .isBlacklist((byte) 0)
+                .isActive((byte) 1)
                 .build();
         clubMemberRepository.save(clubMember);
 

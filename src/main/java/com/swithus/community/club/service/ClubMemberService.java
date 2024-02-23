@@ -12,6 +12,9 @@ public interface ClubMemberService {
 
     Long getClubMemberId(Long clubId, Long userId);
 
+    void changeNickname(Long clubMemberId, String nickname);
+
+
     // 이거 UserImage도 넣어서 완성시켜야함
     default ClubMemberDTO entityToClubMemberDTO(ClubMember clubMember, User user) {
         String temp = "";
@@ -29,8 +32,6 @@ public interface ClubMemberService {
                 .memberName(user.getName())
                 .rank(clubMember.getRank())
                 .isActive(clubMember.getIsActive())
-                .isBlacklist(clubMember.getIsBlacklist())
-                .blacklistReason(clubMember.getBlacklistReason())
                 .regDate(clubMember.getRegDate())
                 .imageDTO(imageDTO)
                 .build();

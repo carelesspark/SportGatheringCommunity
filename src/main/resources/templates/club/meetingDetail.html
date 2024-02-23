@@ -3,66 +3,124 @@
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex flex-row">
         <div class="d-flex align-items-center p-1">
           <h3>[[${meetingDTO.title}]]</h3>
         </div>
-        <div class="d-flex align-items-end p-1">
+        <div class="d-flex p-1">
           <div class="">[[${meetingDTO.ctgrName}]]</div>
         </div>
         <div class="d-flex align-items-end p-1">
           <div th:if="${isAttended}">참가중</div>
         </div>
       </div>
-      <a class="btn btn-primary"
-         onclick="checkAttendees(event)"
-         th:disabled="${meetingDTO.currentPersonnel ge meetingDTO.mPersonnel}"
-         th:href="@{/club/attendMeeting(
+      <div class="d-flex align-items-center">
+        <a class="btn btn-light border shadow-sm"
+           th:href="@{/club/meetingForm(clubId=${navDTO.clubId},meetingId=${meetingDTO.meetingId})}"
+           th:if="${navDTO.isLeader}">
+          일정 수정
+        </a>
+        <a class="btn btn-primary"
+           onclick="checkAttendees(event)"
+           th:disabled="${meetingDTO.currentPersonnel ge meetingDTO.mPersonnel}"
+           th:href="@{/club/attendMeeting(
          clubId=${navDTO.clubId},
          meetingId=${meetingDTO.meetingId},
          isAttended=${isAttended}
          )}"
-         th:if="${!isAttended}"
-      >참가</a>
-      <a class="btn btn-primary" th:href="@{/club/attendMeeting(
+           th:if="${!isAttended}"
+        >참가</a>
+        <a class="btn btn-primary" th:href="@{/club/attendMeeting(
          clubId=${navDTO.clubId},
          meetingId=${meetingDTO.meetingId},
          isAttended=${isAttended}
          )}"
-         th:if="${isAttended}">참가 취소</a>
+           th:if="${isAttended}">참가 취소</a>
+      </div>
     </div>
 
-    <div class="d-flex mr-3">
-      <div>
-        일시 [[${#temporals.format(meetingDTO.mTime, 'M월 d일 a h시 m분')}]]
-      </div>
-      <div>
-        장소 [[${meetingDTO.mPlace}]]
-      </div>
-      <div>
-        인원 [[${meetingDTO.mPersonnel}]] / [[${meetingDTO.currentPersonnel}]]
-      </div>
-      <div>
-        <div>설며</div>
-        <div>[[${meetingDTO.content}]]</div>
+    <div class="row mb-3">
+      <div class="col d-flex flex-row">
+        <div class="mb-3">
+          일시 [[${#temporals.format(meetingDTO.mTime, 'M월 d일 a h시 m분')}]]
+        </div>
+        <div class="mb-3">
+          장소 [[${meetingDTO.mPlace}]]
+        </div>
+        <div class="mb-3">
+          인원 [[${meetingDTO.mPersonnel}]]명 / [[${meetingDTO.currentPersonnel}]]명
+        </div>
       </div>
 
-      <p th:text="${meetingDTO.mPersonnel} + '명/' + ${meetingDTO.currentPersonnel} + '명'"></p>
-      <p th:text="${meetingDTO.replyCount}"></p>
+      <div class="col p-1">
+        <div id="map" style="height:360px"></div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>[[${meetingDTO.content}]]</div>
+    </div>
+
+    <div class="mb-3">
+      댓글 [[${meetingDTO.replyCount}]]개
     </div>
 
     <!--댓글 창-->
     <div>
       <!--댓글 작성하는 곳-->
-      <div>
-
+      <div class="mb-3">
+        <label for="replyInput">댓글</label>
+        <input id="replyInput" name="comment" placeholder="댓글을 작성해주세요" type="text">
+        <button class="btn btn-outline-dark addReplyBtn" type="button">댓글 등록</button>
       </div>
       <!--댓글 보여주는 곳-->
-      <div>
+      <div class="list-group replyList">
 
       </div>
     </div>
+
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=36e802b03704729000dddf8ec908f633&libraries=services"
+            type="text/javascript"></script>
+    <script th:inline="javascript">
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      mapOption = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+          level: 3 // 지도의 확대 레벨
+      };
+
+      // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
+
+      // 주소-좌표 변환 객체를 생성합니다
+      var geocoder = new kakao.maps.services.Geocoder();
+
+      // 주소로 좌표를 검색합니다
+      var meetingAddr = [[${meetingDTO.mAddr}]];
+      geocoder.addressSearch(meetingAddr, function(result, status) {
+
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      }
+      });
+    </script>
 
     <script th:inline="javascript">
       function checkAttendees(event) {
@@ -74,6 +132,64 @@
           event.preventDefault();
         }
       }
+    </script>
+
+    <script th:inline="javascript">
+      $(function() {
+        var userId = [[${navDTO.userId}]];
+        var meetingId = [[${meetingDTO.meetingId}]];
+        var replyContent = $('input[name="comment"]');
+
+        $(".addReplyBtn").click(function() {
+          var data = {
+            meetingId: meetingId,
+            userId:
+            comment: replyContent,
+          };
+
+          $.ajax({
+            url: "/meetingReply/" + meetingId,
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            success: function(result) {
+              console.log("result: " + result);
+
+              self.location.reload();
+            }
+          });
+        });
+
+        function getMeetingReviews() {
+          function formatTime(str) {
+            var date = new Date(str);
+
+            return date.getFullYear() + '년 ' +
+            (date.getMonth() + 1) + '월 ' +
+            date.getDate() + '일 ' +
+            date.getHours() + '시 ' +
+            date.getMinutes() + '분';
+          }
+
+          $.getJSON("/meetingReply/" + meetingId + "/list", function(arr) {
+            var str = "";
+            $.each(err, function(idx, reply) {
+              console.log(reply);
+
+              str += ' <div class="card-body" data-meeting-id=' + reply.meetingReplyId + ' data-member-id=' + reply.memberId + '>';
+              str += ' <h5 class="card-title">' + reply.comment + '</h5>';
+              str += ' <h6 class="card-subtitle mb-2 text-muted">' + reply.memberNickname + '</h6>';
+              str += ' <p class="card-text">' + formatTime(reply.regDate) + '</p>';
+              str += '</div>';
+            });
+
+            $(".replyList").html(str);
+          });
+        }
+
+        getMeetingReviews();
+      });
     </script>
   </div>
 </th:block>

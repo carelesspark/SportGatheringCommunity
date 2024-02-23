@@ -28,4 +28,6 @@ public class Inquiry extends BaseEntity {
     private String content;
 
     private boolean isAnswered;
+
+    public void change_isAnswered(boolean isAnswered){this.isAnswered = isAnswered;}
 }
