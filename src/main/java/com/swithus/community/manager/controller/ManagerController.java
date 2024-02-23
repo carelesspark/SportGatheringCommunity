@@ -3,7 +3,9 @@ package com.swithus.community.manager.controller;
 import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
+import com.swithus.community.manager.service.GatheringService;
 import com.swithus.community.manager.service.InquiryService;
+import com.swithus.community.manager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -21,12 +23,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ManagerController {
 
     private final InquiryService inquiryService;
+    private final UserService userService;
+    private final GatheringService gatheringService;
 
     @GetMapping("/main")
     public void home(Model model){
-        Long count = inquiryService.countBy();
+        Long inqCount = inquiryService.countBy();
+        Long userCount = userService.countBy();
+        Long userTodayCount = userService.countTodayUser();
+        Long gatheringCount = gatheringService.countGathering();
 
-        model.addAttribute("inquiryCount", count);
+        model.addAttribute("inquiryCount", inqCount);
+        model.addAttribute("userCount", userCount);
+        model.addAttribute("userTodayCount", userTodayCount);
+        model.addAttribute("gatheringCount", gatheringCount);
     }
 
 
@@ -35,9 +45,15 @@ public class ManagerController {
         log.info("메인 페이지 + inquiry" + mainPageRequestDTO);
         log.info(inquiryService.getInquiryList(mainPageRequestDTO).getDtoList());
 
-        Long count = inquiryService.countBy();
+        Long inqCount = inquiryService.countBy();
+        Long userCount = userService.countBy();
+        Long userTodayCount = userService.countTodayUser();
+        Long gatheringCount = gatheringService.countGathering();
 
-        model.addAttribute("inquiryCount", count);
+        model.addAttribute("inquiryCount", inqCount);
+        model.addAttribute("userCount", userCount);
+        model.addAttribute("userTodayCount", userTodayCount);
+        model.addAttribute("gatheringCount", gatheringCount);
         model.addAttribute("pageRequestDTO", mainPageRequestDTO);
         model.addAttribute("result", inquiryService.getInquiryList(mainPageRequestDTO));
     }

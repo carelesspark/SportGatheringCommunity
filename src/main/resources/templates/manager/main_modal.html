@@ -15,7 +15,7 @@
                         <p>오늘 가입한 유저 수</p>
                     </div>
                     <div class="info-font2">
-                        <p>13명</p>
+                        <p>[[${userTodayCount}]]명</p>
                     </div>
                 </div>
                 <div id="info2">
@@ -24,16 +24,16 @@
                         <p>총 가입 유저 수</p>
                     </div>
                     <div class="info-font2">
-                        <p>231명</p>
+                        <p>[[${userCount}]]명</p>
                     </div>
                 </div>
                 <div id="info3">
                     <div class="pin"></div>
                     <div class="info-font3">
-                        <p>Best 소모임</p>
+                        <p>총 소모임 수</p>
                     </div>
                     <div class="info-font2">
-                        <p>신촌에서 같이 축...</p>
+                        <p>[[${gatheringCount}]] 모임</p>
                     </div>
                 </div>
                 <div id="info4">
@@ -183,6 +183,12 @@
                 </div>
                 <div id="post_view"></div>
             </div>
+            <div id="mainImg"><a>
+                <div id="img_button">
+                    <p>=Image Change</p>
+                </div>
+            </a>
+            </div>
         </div>
 
         <!-- 문의사항 모달 -->
@@ -219,11 +225,15 @@
                                         <td class="inquiry_status2" th:if="${dto.isAnswered eq true}">답변 완료</td>
                                         <td th:if="${dto.isAnswered eq false}">
                                             <button type="button" class="btn btn-outline-secondary inquiry_info"
-                                            th:onclick="|location.href='@{/manager/inquiry_answer(page=${pageRequestDTO.page}, no=${dto.id}, answerId=0)}'|">보기</button>
+                                                    th:onclick="|location.href='@{/manager/inquiry_answer(page=${pageRequestDTO.page}, no=${dto.id}, answerId=0)}'|">
+                                                보기
+                                            </button>
                                         </td>
                                         <td th:if="${dto.isAnswered eq true}">
                                             <button type="button" class="btn btn-outline-secondary inquiry_info"
-                                                    th:onclick="|location.href='@{/manager/inquiry_answer(page=${pageRequestDTO.page}, no=${dto.id}, answerId=${dto.answerId})}'|">보기</button>
+                                                    th:onclick="|location.href='@{/manager/inquiry_answer(page=${pageRequestDTO.page}, no=${dto.id}, answerId=${dto.answerId})}'|">
+                                                보기
+                                            </button>
                                         </td>
                                     </tr>
                                 </table>
@@ -235,7 +245,8 @@
                                     </li>
                                     <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
                                         th:each="page: ${result.pageList}">
-                                        <a class="page-link" th:href="@{/manager/main_modal(page=${page})}" th:data-page-number="${page}">[[${page}]]</a>
+                                        <a class="page-link" th:href="@{/manager/main_modal(page=${page})}"
+                                           th:data-page-number="${page}">[[${page}]]</a>
                                     </li>
                                     <li class="page-item" th:if="${result.next}">
                                         <a class="page-link" th:href="@{/manager/main_modal(page=${result.end + 1})}">Next</a>
@@ -245,7 +256,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">돌아가기</button>
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">돌아가기</button>
                     </div>
                 </div>
             </div>
@@ -393,8 +404,6 @@
            });
         </script>
     </div>
-
-
 
 
 </th:block>

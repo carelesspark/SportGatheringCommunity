@@ -219,7 +219,7 @@ a:hover {
 
 #main_content{
     display: grid;
-    grid-template-rows: 150px 330px 330px;
+    grid-template-rows: 150px 330px 270px 60px;
     place-items: center;
 }
 
@@ -354,9 +354,9 @@ a:hover {
 
 #post_info {
     width: 875px;
-    height: 300px;
+    height: 250px;
     display: grid;
-    grid-template-rows: 50px 250px;
+    grid-template-rows: 50px 200px;
     place-items: center;
     border-radius: 10px;
     background-color: white;
@@ -613,4 +613,31 @@ textarea {
 
 .paging {
     margin-top: 25px;
+}
+
+#mainImg {
+    width: 900px;
+    height: 80px;
+    padding-top: 15px;
+    padding-left: 785px;
+}
+
+#mainImg a {
+    cursor: pointer;
+}
+
+#img_button {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+}
+
+#img_button p {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #70B1FD;
+    text-align: center;
+    padding-top: 8px;
 }

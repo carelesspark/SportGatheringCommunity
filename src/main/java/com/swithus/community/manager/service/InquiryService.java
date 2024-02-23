@@ -6,9 +6,6 @@ import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
 import com.swithus.community.manager.dto.page.MainPageResultDTO;
-import com.swithus.community.manager.repository.InquiryAnswerRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 
 public interface InquiryService {
