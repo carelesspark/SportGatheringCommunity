@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+
+    <div class="mb-5 rounded p-4 shadow">
+      <h3 class="mb-4">닉네임 수정</h3>
+
+      <form action="/club/changeNickname"
+            method="post">
+        <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
+        <input name="clubMemberId" th:value="${navDTO.clubMemberId}" type="hidden">
+
+        <div class=" mb-3">
+          <label class="form-label" for="nicknameInput">닉네임</label>
+          <input class="form-control" id="nicknameInput" name="nickname" required type="text">
+        </div>
+
+        <div>
+          <button class="btn btn-outline-success" type="submit">완료</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</th:block>
+
+</html>

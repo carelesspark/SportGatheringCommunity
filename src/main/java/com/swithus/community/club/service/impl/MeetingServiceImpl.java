@@ -1,9 +1,7 @@
 package com.swithus.community.club.service.impl;
 
 import com.swithus.community.club.dto.MeetingDTO;
-import com.swithus.community.club.entity.ClubMember;
-import com.swithus.community.club.entity.Meeting;
-import com.swithus.community.club.entity.MeetingMember;
+import com.swithus.community.club.entity.*;
 import com.swithus.community.club.repository.MeetingMemberRepository;
 import com.swithus.community.club.repository.MeetingRepository;
 import com.swithus.community.club.service.MeetingService;
@@ -60,6 +58,39 @@ public class MeetingServiceImpl implements MeetingService {
                     })
                     .collect(Collectors.toList());
         }
+    }
+
+    @Override
+    public void createMeeting(MeetingDTO meetingDTO) {
+        Meeting meeting = Meeting.builder()
+                .club(Club.builder().id(meetingDTO.getClubId()).build())
+                .ctgr(MeetingCtgr.builder().id(meetingDTO.getCtgrId()).build())
+                .title(meetingDTO.getTitle())
+                .content(meetingDTO.getContent())
+                .mTime(meetingDTO.getMTime())
+                .mPlace(meetingDTO.getMPlace())
+                .mAddr(meetingDTO.getMAddr())
+                .mPersonnel(meetingDTO.getMPersonnel())
+                .build();
+
+        meetingRepository.save(meeting);
+    }
+
+    @Override
+    public void updateMeeting(MeetingDTO meetingDTO) {
+        Meeting meeting = Meeting.builder()
+                .id(meetingDTO.getMeetingId())
+                .club(Club.builder().id(meetingDTO.getClubId()).build())
+                .ctgr(MeetingCtgr.builder().id(meetingDTO.getCtgrId()).build())
+                .title(meetingDTO.getTitle())
+                .content(meetingDTO.getContent())
+                .mTime(meetingDTO.getMTime())
+                .mPlace(meetingDTO.getMPlace())
+                .mAddr(meetingDTO.getMAddr())
+                .mPersonnel(meetingDTO.getMPersonnel())
+                .build();
+
+        meetingRepository.save(meeting);
     }
 
     @Override

@@ -22,6 +22,13 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
             "where c.id = :clubId and cm.member.id = :userId")
     List<Object[]> getClubAndClubMemberByClubAndUser(Long clubId, Long userId);
 
+    @Query("select c, cm " +
+            "from Club c " +
+            "left join ClubMember cm on cm.club = c " +
+            "where c.id = :clubId and cm.id = :clubMemberId")
+    List<Object[]> getClubAndClubMemberByClubIdAndClubMemberId(Long clubId, Long clubMemberId);
+
+
     @Query("select c " +
             "from Club c " +
             "where c.id = :clubId")

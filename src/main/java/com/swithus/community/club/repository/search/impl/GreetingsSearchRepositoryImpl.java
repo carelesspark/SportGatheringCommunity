@@ -47,7 +47,7 @@ public class GreetingsSearchRepositoryImpl extends QuerydslRepositorySupport imp
         // select
         JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery
                 .select(qGreetings,
-                        qUser,
+                        qClubMember,
                         qGreetingsLike.countDistinct()
                         , JPAExpressions.select(qGreetingsLike.id.count())
                                 .from(qGreetingsLike)

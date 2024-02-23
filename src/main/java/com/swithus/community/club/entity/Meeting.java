@@ -32,6 +32,8 @@ public class Meeting extends BaseEntity {
     private LocalDateTime mTime;
     // 위치
     private String mPlace;
+    // 주소
+    private String mAddr;
     // 인원
     private int mPersonnel;
 }

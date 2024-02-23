@@ -24,6 +24,7 @@ public interface GreetingsRepository extends JpaRepository<Greetings, Long>, Gre
     List<Object[]> getGreetingsAndLikeCountByGreetingsId(Long greetingsId);
 
     @Modifying
-    @Query("update Greetings g set g.content = :content where g.id = :greetingsId")
+    @Query("update Greetings g set g.content = :content " +
+            "where g.id = :greetingsId")
     void updateGreetings(Long greetingsId, String content);
 }

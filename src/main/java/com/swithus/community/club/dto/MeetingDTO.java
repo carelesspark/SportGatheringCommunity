@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 public class MeetingDTO {
+    // 클럽 아이디
+    private Long clubId;
     // 모임 아이디
     private Long meetingId;
     // 모임 종류 아이디
@@ -22,6 +24,8 @@ public class MeetingDTO {
     private LocalDateTime mTime;
     // 모임 장소
     private String mPlace;
+    // 모임 주소
+    private String mAddr;
     // 모임 설명
     private String content;
     // 한도 인원
