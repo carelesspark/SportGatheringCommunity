@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PostDTO {
+public class ClubPostDTO {
     private Long clubPostId;
 }

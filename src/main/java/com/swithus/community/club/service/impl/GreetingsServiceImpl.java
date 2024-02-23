@@ -11,7 +11,6 @@ import com.swithus.community.club.repository.GreetingsRepository;
 import com.swithus.community.club.service.GreetingsService;
 import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
-import com.swithus.community.user.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -97,9 +95,7 @@ public class GreetingsServiceImpl implements GreetingsService {
 
     @Override
     public Greetings getGreetingsById(Long greetingsId) {
-        Optional<Greetings> greetings = greetingsRepository.findById(greetingsId);
-
-        return greetings.orElseGet(Greetings::new);
+        return greetingsRepository.getReferenceById(greetingsId);
     }
 
     @Override

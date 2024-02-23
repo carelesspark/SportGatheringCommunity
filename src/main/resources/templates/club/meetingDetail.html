@@ -3,7 +3,7 @@
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex flex-row">
         <div class="d-flex align-items-center p-1">
           <h3>[[${meetingDTO.title}]]</h3>
@@ -15,22 +15,29 @@
           <div th:if="${isAttended}">참가중</div>
         </div>
       </div>
-      <a class="btn btn-primary"
-         onclick="checkAttendees(event)"
-         th:disabled="${meetingDTO.currentPersonnel ge meetingDTO.mPersonnel}"
-         th:href="@{/club/attendMeeting(
+      <div class="d-flex align-items-center">
+        <a class="btn btn-light border shadow-sm"
+           th:href="@{/club/meetingForm(clubId=${navDTO.clubId},meetingId=${meetingDTO.meetingId})}"
+           th:if="${navDTO.isLeader}">
+          일정 수정
+        </a>
+        <a class="btn btn-primary"
+           onclick="checkAttendees(event)"
+           th:disabled="${meetingDTO.currentPersonnel ge meetingDTO.mPersonnel}"
+           th:href="@{/club/attendMeeting(
          clubId=${navDTO.clubId},
          meetingId=${meetingDTO.meetingId},
          isAttended=${isAttended}
          )}"
-         th:if="${!isAttended}"
-      >참가</a>
-      <a class="btn btn-primary" th:href="@{/club/attendMeeting(
+           th:if="${!isAttended}"
+        >참가</a>
+        <a class="btn btn-primary" th:href="@{/club/attendMeeting(
          clubId=${navDTO.clubId},
          meetingId=${meetingDTO.meetingId},
          isAttended=${isAttended}
          )}"
-         th:if="${isAttended}">참가 취소</a>
+           th:if="${isAttended}">참가 취소</a>
+      </div>
     </div>
 
     <div class="row mb-3">

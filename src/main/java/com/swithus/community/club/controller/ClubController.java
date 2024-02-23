@@ -101,7 +101,6 @@ public class ClubController {
     // 가입 요청 기능 구현
     @GetMapping("/register")
     public String doRegister(@RequestParam Long clubId,
-                             Model model,
                              HttpSession session) {
         log.info("GET /club/register?clubId={}", clubId);
 
@@ -279,9 +278,6 @@ public class ClubController {
                                 MeetingDTO meetingDTO) {
         log.info("POST /club/updateMeeting");
 
-        meetingDTO.setClubId(clubId);
-        meetingDTO.setMeetingId(meetingId);
-
         meetingService.updateMeeting(meetingDTO);
 
         return "redirect:/club/meeting?clubId=" + clubId;
@@ -325,6 +321,8 @@ public class ClubController {
 
         return "redirect:/club/meetingDetail?clubId=" + clubId + "&meetingId=" + meetingId;
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 수정중
 
     @GetMapping("/board")
     public void goBoard(@RequestParam Long clubId,

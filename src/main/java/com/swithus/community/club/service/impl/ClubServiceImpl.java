@@ -13,7 +13,6 @@ import com.swithus.community.club.service.ClubService;
 import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
 import com.swithus.community.manager.repository.UserDetailRepository;
-import com.swithus.community.manager.repository.UserRepository;
 import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
