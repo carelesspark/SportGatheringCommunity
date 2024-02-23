@@ -15,14 +15,14 @@
                     <tr class="table_tr">
                         <th><p class="table_tr_p">No.</p></th>
                         <th><p class="table_tr_p">유저 아이디</p></th>
-                        <th><p class="table_tr_p">이름</p></th>
+                        <th><p class="table_tr_p">닉네임</p></th>
                         <th><p class="table_tr_p">가입 날짜</p></th>
                         <th><p class="table_tr_p">상세보기</p></th>
                     </tr>
                     <tr class="table_tr2" th:each="dto : ${result.dtoList}">
                         <td>[[${dto.id}]]</td>
                         <td>[[${dto.userid}]]</td>
-                        <td>[[${dto.name}]]</td>
+                        <td>[[${dto.nickname}]]</td>
                         <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
                         <td>
                             <button type="button" class="btn btn-outline-secondary user_info"
@@ -35,36 +35,46 @@
             </div>
             <form action="/manager/user" method="get" class="searchForm">
                 <div id="search">
-                    <div id="search_border">
-                        <input type="text" id="user_search" name="search" th:value="${pageRequestDTO.search}" placeholder="유저 아이디를 검색해주세요."/>
-                        <a class="search_a">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_49_250)">
-                                    <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z"
-                                          fill="black"/>
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_49_250">
-                                        <rect width="20" height="20" fill="white"/>
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                        </a>
+                    <div class="padding-left">
+                        <button type="button" class="btn btn-outline-danger"
+                                th:onclick="|location.href='@{/manager/deleted_user}'|">
+                            삭제된 유저 정보 조회</button>
+                    </div>
+                    <div class="padding-left2">
+                        <div id="search_border">
+                            <input type="text" id="user_search" name="search" th:value="${pageRequestDTO.search}"
+                                   placeholder="아이디or닉네임을(를) 검색해주세요."/>
+                            <a class="search_a">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_49_250)">
+                                        <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z"
+                                              fill="black"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_49_250">
+                                            <rect width="20" height="20" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </form>
             <div class="paging">
                 <ul class="pagination h-100 justify-content-center align-items-center">
                     <li class="page-item" th:if="${result.prev}">
-                        <a class="page-link" th:href="@{/manager/user(page=${result.start - 1}, search=${pageRequestDTO.search})}">Prev</a>
+                        <a class="page-link"
+                           th:href="@{/manager/user(page=${result.start - 1}, search=${pageRequestDTO.search})}">Prev</a>
                     </li>
                     <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
                         th:each="page: ${result.pageList}">
                         <a class="page-link" th:href="@{/manager/user(page=${page}, search=${pageRequestDTO.search})}">[[${page}]]</a>
                     </li>
                     <li class="page-item" th:if="${result.next}">
-                        <a class="page-link" th:href="@{/manager/user(page=${result.end + 1}, search=${pageRequestDTO.search})}">Next</a>
+                        <a class="page-link"
+                           th:href="@{/manager/user(page=${result.end + 1}, search=${pageRequestDTO.search})}">Next</a>
                     </li>
                 </ul>
             </div>

@@ -30,6 +30,6 @@ public class UserDTO {
 
     private String gender;
 
-    private String name;
+    private String nickname;
 
 }

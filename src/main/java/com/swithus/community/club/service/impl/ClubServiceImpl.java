@@ -3,7 +3,6 @@ package com.swithus.community.club.service.impl;
 import com.swithus.community.club.dto.ClubDTO;
 import com.swithus.community.club.dto.NavDTO;
 import com.swithus.community.club.dto.page.SearchPageRequestDTO;
-import com.swithus.community.club.dto.page.SearchPageResultDTO;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.entity.ClubImage;
 import com.swithus.community.club.entity.ClubMember;
@@ -12,6 +11,7 @@ import com.swithus.community.club.repository.ClubMemberRepository;
 import com.swithus.community.club.repository.ClubRepository;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.global.dto.ImageDTO;
+import com.swithus.community.global.dto.PageResultDTO;
 import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -38,7 +38,7 @@ public class ClubServiceImpl implements ClubService {
     private final ClubMemberRepository clubMemberRepository;
 
     @Override
-    public SearchPageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO) {
+    public PageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
         Long regionId = requestDTO.getRegionId();
         Long sportsId = requestDTO.getSportsId();
@@ -58,7 +58,7 @@ public class ClubServiceImpl implements ClubService {
         });
 
         // 페이지에 대한 정보와 페이지에 포함된 결과를 저장.
-        return new SearchPageResultDTO<>(searchPage, function);
+        return new PageResultDTO<>(searchPage, function);
     }
 
     @Override

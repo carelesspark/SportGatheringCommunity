@@ -7,7 +7,7 @@
     <div class="mb-5 rounded p-4 shadow">
       <h3 class="mb-4">클럽 생성</h3>
 
-      <form enctype="multipart/form-data" action="/club/createClub" method="post">
+      <form action="/club/createClub" enctype="multipart/form-data" id="clubForm" method="post">
         <input name="leaderId" required th:value="${session.userId}" type="hidden">
         <input name="rank" required th:value="0" type="hidden">
         <input name="point" required th:value="0" type="hidden">
@@ -54,10 +54,9 @@
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label" for="ckEditor">소개란</label>
           <div class="col-sm-10">
-            <input class="form-control" id="ckEditor" name="introduce" required type="text">
+            <textarea class="form-control" id="ckEditor" name="introduce" required type="text"></textarea>
           </div>
         </div>
-
 
 
         <div class="row mb-3">
@@ -82,7 +81,7 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
     <script th:src="@{/js/global/ckEditor.js}"></script>
-    <script th:src="@{/js/club/create.js}"></script>
+    <script th:inline="javascript" th:src="@{/js/club/create.js}"></script>
   </div>
 </th:block>
 

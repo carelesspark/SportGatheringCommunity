@@ -22,13 +22,21 @@ public class QProduct extends EntityPathBase<Product> {
 
     public static final QProduct product = new QProduct("product");
 
-    public final QProductBoard board;
+    public final StringPath content = createString("content");
+
+    public final QProductCtgr ctgr;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final BooleanPath isDone = createBoolean("isDone");
+    public final NumberPath<Byte> isDone = createNumber("isDone", Byte.class);
 
     public final StringPath name = createString("name");
+
+    public final com.swithus.community.global.entity.QSports sports;
+
+    public final com.swithus.community.user.entity.QUser user;
+
+    public final NumberPath<Integer> visitCount = createNumber("visitCount", Integer.class);
 
     public QProduct(String variable) {
         this(Product.class, forVariable(variable), INITS);
@@ -48,7 +56,9 @@ public class QProduct extends EntityPathBase<Product> {
 
     public QProduct(Class<? extends Product> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new QProductBoard(forProperty("board"), inits.get("board")) : null;
+        this.ctgr = inits.isInitialized("ctgr") ? new QProductCtgr(forProperty("ctgr")) : null;
+        this.sports = inits.isInitialized("sports") ? new com.swithus.community.global.entity.QSports(forProperty("sports")) : null;
+        this.user = inits.isInitialized("user") ? new com.swithus.community.user.entity.QUser(forProperty("user")) : null;
     }
 
 }

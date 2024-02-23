@@ -58,4 +58,21 @@ public class UserController {
         return "redirect:/manager/user";
     }
 
+    @GetMapping("/deleted_user")
+    public void deleted_user_list(UserPageRequestDTO userPageRequestDTO, Model model){
+
+        log.info("삭제된 Uesr 관리 페이지" + userPageRequestDTO);
+
+        model.addAttribute("pageRequestDTO", userPageRequestDTO);
+        model.addAttribute("result", service.getDeletedUserList(userPageRequestDTO));
+    }
+
+    @GetMapping("/deleted_user_reason")
+    public void deleted_user_detail(long no, @ModelAttribute("pageRequestDTO")UserPageRequestDTO userPageRequestDTO, Model model){
+        log.info("삭제된 User 상세 정보");
+
+        WithdrawalUserDTO dto = service.infoDeletedUser(no);
+        model.addAttribute("dto", dto);
+    }
+
 }

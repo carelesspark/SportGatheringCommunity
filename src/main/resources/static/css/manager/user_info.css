@@ -397,6 +397,8 @@ div#menu a:hover{
     resize: none;
     border-radius: .25rem;
     padding-left: 10px;
+    font-size: 15pt;
+    font-weight: bold;
 }
 
 .modal_padding1 {
@@ -448,4 +450,9 @@ div#menu a:hover{
     width: 770px;
     height: 40px;
     padding-left: 520px;
+}
+
+.form-control {
+    font-size: 15pt;
+    font-weight: bold;
 }

@@ -3,11 +3,11 @@ package com.swithus.community.club.service;
 import com.swithus.community.club.dto.ClubDTO;
 import com.swithus.community.club.dto.NavDTO;
 import com.swithus.community.club.dto.page.SearchPageRequestDTO;
-import com.swithus.community.club.dto.page.SearchPageResultDTO;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.entity.ClubImage;
 import com.swithus.community.club.entity.ClubMember;
 import com.swithus.community.global.dto.ImageDTO;
+import com.swithus.community.global.dto.PageResultDTO;
 import com.swithus.community.global.entity.Region;
 import com.swithus.community.global.entity.Sports;
 import com.swithus.community.user.entity.User;
@@ -17,7 +17,7 @@ import java.util.*;
 
 public interface ClubService {
     // 클럽 검색 페이지 리스트 반환
-    SearchPageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO);
+    PageResultDTO<ClubDTO, Object[]> getSearchPage(SearchPageRequestDTO requestDTO);
 
     // 새 클럽 생성
     Long create(ClubDTO clubDTO);

@@ -8,6 +8,7 @@ import com.swithus.community.club.dto.page.SearchPageRequestDTO;
 import com.swithus.community.club.service.ClubMemberService;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.club.service.GreetingsService;
+import com.swithus.community.club.service.MeetingService;
 import com.swithus.community.global.service.RegionService;
 import com.swithus.community.global.service.SportsService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+
 @Controller
 @Log4j2
 @RequiredArgsConstructor
@@ -31,19 +34,12 @@ public class ClubController {
     private final ClubService clubService;
     private final ClubMemberService clubMemberService;
     private final GreetingsService greetingsService;
+    private final MeetingService meetingService;
 
     private final String USER_ID = "userId";
     private final String NAV_DTO = "navDTO";
     private final String CLUB_DTO = "clubDTO";
     private final String RESULT = "result";
-
-    // 임시 함수
-    private void putSession(HttpSession session) {
-        if (session.getAttribute("userId") == null) {
-            session.setAttribute("userId", 3L);
-            session.setAttribute("userName", "b");
-        }
-    }
 
     // 클럽 서칭 페이지로 이동
     @GetMapping("/search")
@@ -51,8 +47,6 @@ public class ClubController {
                        Model model,
                        HttpSession session) {
         log.info("GET /club/search");
-
-        putSession(session);
 
         Long regionId = pageRequestDTO.getRegionId();
         Long sportsId = pageRequestDTO.getSportsId();
@@ -80,10 +74,15 @@ public class ClubController {
 
     // 클럽 생성 및 해당 클럽으로 이동
     @PostMapping("/createClub")
-    public String createClub(ClubDTO clubDTO, @RequestParam("rank") int rank, @RequestParam("point") int point) {
-        log.info("POST /club/create");
-        clubDTO.setRank(rank);
-        clubDTO.setPoint(point);
+    public String createClub(ClubDTO clubDTO,
+                             @RequestParam("rank") int rank,
+                             @RequestParam("point") int point,
+                             Model model,
+                             HttpSession session) {
+        log.info("POST /club/createClub");
+        clubDTO.setRank(rank); // 둘 다 처음엔 0
+        clubDTO.setPoint(point); // 둘 다 처음엔 0
+        clubDTO.setLeaderId((Long) session.getAttribute(USER_ID));
 
         Long clubId = clubService.create(clubDTO);
         log.info("Club ID: {}", clubId);
@@ -139,6 +138,7 @@ public class ClubController {
         requestDTO.setClubId(clubId);
         requestDTO.setUserId(userId);
 
+        model.addAttribute("checkUserId", userId);
         model.addAttribute("myGreetingsId", myGreetingsId);
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, myUserId));
         model.addAttribute(RESULT, greetingsService.getGreetingsPage(requestDTO));
@@ -185,21 +185,66 @@ public class ClubController {
         return "redirect:/club/greetings?clubId=" + clubId;
     }
 
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////// 진행중
 
     @GetMapping("/meeting")
-    public void goMeeting(@RequestParam Long clubId, Model model) {
-        log.info("GET /club/meeting");
+    public void goMeeting(@RequestParam Long clubId,
+                          @RequestParam(required = false) Long ctgrId,
+                          Model model,
+                          HttpSession session) {
+        log.info("GET /club/meeting?clubId={}", clubId);
 
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+        LocalDateTime now = LocalDateTime.now();
+
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
+        model.addAttribute("meetingDTOList", meetingService.getActiveMeetingDTOList(clubId, ctgrId, now));
     }
 
+    @GetMapping("/meetingDetail")
+    public void goMeetingDetail(@RequestParam Long clubId,
+                                @RequestParam Long meetingId,
+                                Model model,
+                                HttpSession session) {
+        log.info("GET /club/goMeetingDetail?clubId={}&meetingId={}", clubId, meetingId);
+
+        Long userId = (Long) session.getAttribute(USER_ID);
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+
+        boolean isAttended = meetingService.existsMeetingMember(meetingId, clubMemberId);
+
+        model.addAttribute("isAttended", isAttended);
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
+        model.addAttribute("meetingDTO", meetingService.getMeetingDTO(meetingId));
+    }
+
+    @GetMapping("/attendMeeting")
+    public String attendMeeting(@RequestParam Long clubId,
+                                @RequestParam Long meetingId,
+                                @RequestParam boolean isAttended,
+                                Model model,
+                                HttpSession session
+    ) {
+        log.info("GET /club/goMeetingDetail?clubId={}&meetingId={}&isAttended={}", clubId, meetingId, isAttended);
+
+        Long userId = (Long) session.getAttribute(USER_ID);
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+
+        if (isAttended) {
+            meetingService.deleteMeetingMember(meetingId,clubMemberId);
+        } else {
+            meetingService.insertMeetingMember(meetingId,clubMemberId);
+        }
+
+        return "redirect:/club/meetingDetail?clubId=" + clubId + "&meetingId=" + meetingId;
+    }
 
     @GetMapping("/board")
-    public void goBoard(@RequestParam Long clubId, Model model) {
-        log.info("GET /club/board");
+    public void goBoard(@RequestParam Long clubId,
+                        Model model,
+                        HttpSession session) {
+        log.info("GET /club/board?clubId={}", clubId);
 
-        model.addAttribute(NAV_DTO, clubService.getNav(0L, 0L));
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////// 보류 라인

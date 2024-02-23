@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/layout">
 <th:block layout:fragment="content">
     <main>
+        <h1 th:if="${session.RuserId != null}">환영합니다, <span th:text="${session.RuserId}"></span>님!</h1>
+<!--        <p th:if="${session.userid != null}">당신의 사용자 이름은 <span th:text="${session.username}"></span>입니다.</p>-->
         <div id="content">
             <div id="promotion">
                 <div id="pic" class="carousel slide" data-ride="carousel">

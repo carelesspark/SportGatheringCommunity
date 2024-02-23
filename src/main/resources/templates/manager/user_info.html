@@ -5,11 +5,11 @@
 
     <div id="right" th:fragment="content">
         <div id="main_title">
-            <p>○ FAQ Info</p>
+            <p>○ User Info</p>
         </div>
         <div id="main_content">
             <div id="top">
-                <p>□ [[${dto.name}]]님의 유저 정보</p>
+                <p>□ [[${dto.nickname}]]님의 유저 정보</p>
             </div>
             <div id="middle">
                 <div class="user_body">
@@ -19,8 +19,8 @@
                                     disabled/></div>
                     </div>
                     <div class="modal_user_info">
-                        <div class="modal_padding2"><label>이름 : </label></div>
-                        <div><input type="text" class="form-control user_info_name" th:value="${dto.name}" name="name"
+                        <div class="modal_padding1"><label>닉네임 : </label></div>
+                        <div><input type="text" class="form-control user_info_name" th:value="${dto.nickname}" name="name"
                                     disabled/></div>
                     </div>
                     <div class="modal_user_info">
