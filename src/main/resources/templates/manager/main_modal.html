@@ -42,7 +42,7 @@
                         <p>대기 문의 건</p>
                     </div>
                     <div class="info-font4">
-                        <p><a class="open_inquiry_modal" th:href="@{/manager/main_modal}">3건</a></p>
+                        <p><a class="open_inquiry_modal">3건</a></p>
                     </div>
                 </div>
             </div>
@@ -185,6 +185,72 @@
             </div>
         </div>
 
+        <!-- 문의사항 모달 -->
+        <div class="modal fade" id="inquiryModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+
+                    <div class="modal-header">
+                        <p class="modal-title">◇ 문의 사항</p>
+
+                    </div>
+
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="modal_small_title"><p>◇ Inquiry </p></div>
+                            <div>
+                                <table class="table1">
+                                    <tr class="table_tr">
+                                        <th><p class="table_tr_p">No.</p></th>
+                                        <th><p class="table_tr_p">문의 사유</p></th>
+                                        <th><p class="table_tr_p">작성자</p></th>
+                                        <th><p class="table_tr_p">작성 날짜</p></th>
+                                        <th><p class="table_tr_p">상태</p></th>
+                                        <th><p class="table_tr_p2">상세 보기</p></th>
+                                    </tr>
+                                    <tr class="table_tr2" th:each="dto: ${result.dtoList}">
+                                        <td>[[${dto.id}]]</td>
+                                        <td>[[${dto.title}]]</td>
+                                        <td>[[${dto.writer}]]</td>
+                                        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                                        <td class="inquiry_status" th:if="${dto.isAnswered eq false}">답변 미완료</td>
+                                        <td class="inquiry_status2" th:if="${dto.isAnswered eq true}">답변 완료</td>
+                                        <td th:if="${dto.isAnswered eq false}">
+                                            <button type="button" class="btn btn-outline-secondary inquiry_info"
+                                            th:onclick="|location.href='@{/manager/inquiry_answer(page=${pageRequestDTO.page}, no=${dto.id}, answerId=0)}'|">보기</button>
+                                        </td>
+                                        <td th:if="${dto.isAnswered eq true}">
+                                            <button type="button" class="btn btn-outline-secondary inquiry_info"
+                                                    th:onclick="|location.href='@{/manager/inquiry_answer(page=${pageRequestDTO.page}, no=${dto.id}, answerId=${dto.answerId})}'|">보기</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="paging">
+                                <ul class="pagination h-100 justify-content-center align-items-center">
+                                    <li class="page-item" th:if="${result.prev}">
+                                        <a class="page-link" th:href="@{/manager/main_modal(page=${result.start - 1})}">Prev</a>
+                                    </li>
+                                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
+                                        th:each="page: ${result.pageList}">
+                                        <a class="page-link" th:href="@{/manager/main_modal(page=${page})}" th:data-page-number="${page}">[[${page}]]</a>
+                                    </li>
+                                    <li class="page-item" th:if="${result.next}">
+                                        <a class="page-link" th:href="@{/manager/main_modal(page=${result.end + 1})}">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">돌아가기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <link th:href="@{/css/manager/managerMain.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -237,6 +303,17 @@
                     }
                 });
 
+               var inquiryModal = $("#inquiryModal");
+
+               $(".open_inquiry_modal").click(function(){
+                    inquiryModal.modal('show');
+               });
+
+               var inquiryInfoModal = $("#inquiryInfoModal");
+
+               $(".inquiry_info").on("click", function(){
+                    inquiryInfoModal.modal('show');
+               });
 
                $('div#announcement a').hover(function(){
                     $(this).css("background-color", "#277DFF");
@@ -309,6 +386,9 @@
                     $('.icon8').css("fill", "#D6D6D6");
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
+
+               $('#inquiryModal').modal('show');
+
 
            });
         </script>
