@@ -30,6 +30,9 @@ public class UserDTO {
     //회원 이메일
     private String email;
 
+    //인증번호
+    private String verifyCode;
+
     //회원 생년월일
     private String birth;
 
@@ -47,4 +50,12 @@ public class UserDTO {
 
     //클럽장여부
     private byte isLeader;
+
+    public String getVerificationCode() {
+        return verifyCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verifyCode = verificationCode;
+    }
 }
