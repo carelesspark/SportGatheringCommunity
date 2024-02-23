@@ -10,17 +10,18 @@ import org.springframework.data.domain.Sort;
 @Data
 @Builder
 @AllArgsConstructor
-public class PostPageRequestDTO {
+public class ClubPostPageRequestDTO {
     // 사용자에게 요청받은 페이지 번호
     private int page;
     // 사용자에게 요청받은 페이지당 객체 수
     private int size;
 
+    private Long clubId;
     private Long ctgrId;
     private String type;
     private String keyword;
 
-    public PostPageRequestDTO() {
+    public ClubPostPageRequestDTO() {
         page = 1;
         size = 10;
     }
