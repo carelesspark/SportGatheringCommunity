@@ -189,6 +189,7 @@ public class ClubController {
 
     @GetMapping("/meeting")
     public void goMeeting(@RequestParam Long clubId,
+                          @RequestParam(required = false) Long ctgrId,
                           Model model,
                           HttpSession session) {
         log.info("GET /club/meeting?clubId={}", clubId);
@@ -196,9 +197,46 @@ public class ClubController {
         LocalDateTime now = LocalDateTime.now();
 
         model.addAttribute(NAV_DTO, clubService.getNav(clubId, (Long) session.getAttribute(USER_ID)));
-        model.addAttribute("MeetingDTOList", meetingService.getActiveMeetingDTOList(clubId, now));
+        model.addAttribute("meetingDTOList", meetingService.getActiveMeetingDTOList(clubId, ctgrId, now));
     }
 
+    @GetMapping("/meetingDetail")
+    public void goMeetingDetail(@RequestParam Long clubId,
+                                @RequestParam Long meetingId,
+                                Model model,
+                                HttpSession session) {
+        log.info("GET /club/goMeetingDetail?clubId={}&meetingId={}", clubId, meetingId);
+
+        Long userId = (Long) session.getAttribute(USER_ID);
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+
+        boolean isAttended = meetingService.existsMeetingMember(meetingId, clubMemberId);
+
+        model.addAttribute("isAttended", isAttended);
+        model.addAttribute(NAV_DTO, clubService.getNav(clubId, userId));
+        model.addAttribute("meetingDTO", meetingService.getMeetingDTO(meetingId));
+    }
+
+    @GetMapping("/attendMeeting")
+    public String attendMeeting(@RequestParam Long clubId,
+                                @RequestParam Long meetingId,
+                                @RequestParam boolean isAttended,
+                                Model model,
+                                HttpSession session
+    ) {
+        log.info("GET /club/goMeetingDetail?clubId={}&meetingId={}&isAttended={}", clubId, meetingId, isAttended);
+
+        Long userId = (Long) session.getAttribute(USER_ID);
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+
+        if (isAttended) {
+            meetingService.deleteMeetingMember(meetingId,clubMemberId);
+        } else {
+            meetingService.insertMeetingMember(meetingId,clubMemberId);
+        }
+
+        return "redirect:/club/meetingDetail?clubId=" + clubId + "&meetingId=" + meetingId;
+    }
 
     @GetMapping("/board")
     public void goBoard(@RequestParam Long clubId,
