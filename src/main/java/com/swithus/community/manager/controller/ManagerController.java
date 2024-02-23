@@ -52,13 +52,12 @@ public class ManagerController {
         public String inquiry_answer_submit(InquiryAnswerDTO inquiryAnswerDTO, @ModelAttribute("pageRequestDTO")MainPageRequestDTO mainPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info("inquiry 답장");
 
-        Long id = inquiryService.inquiryAnswer(inquiryAnswerDTO);
+        inquiryService.inquiryAnswer(inquiryAnswerDTO);
 
-        redirectAttributes.addFlashAttribute("answerId", id);
-        redirectAttributes.addAttribute("no", inquiryAnswerDTO.getInquiryId());
         redirectAttributes.addAttribute("page", mainPageRequestDTO.getPage());
 
-        return "redirect:/manager/inquiry_answer";
+
+        return "redirect:/manager/main_modal";
     }
 
     @GetMapping("/report_comment")

@@ -15,11 +15,11 @@ public interface InquiryService {
 
     MainPageResultDTO<InquiryDTO, Inquiry>getInquiryList(MainPageRequestDTO mainPageRequestDTO);
 
-    InquiryDTO inquiryInfo(long id);
+    InquiryDTO inquiryInfo(Long id);
 
-    Long inquiryAnswer(InquiryAnswerDTO inquiryAnswerDTO);
+    void inquiryAnswer(InquiryAnswerDTO inquiryAnswerDTO);
 
-    InquiryAnswerDTO inquiryAnswerInfo(long id);
+    InquiryAnswerDTO inquiryAnswerInfo(Long id);
 
     default InquiryAnswer dtoToEntity(InquiryAnswerDTO inquiryAnswerDTO){
         InquiryAnswer entity = InquiryAnswer.builder()

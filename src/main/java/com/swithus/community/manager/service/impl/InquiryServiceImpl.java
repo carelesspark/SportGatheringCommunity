@@ -55,14 +55,14 @@ public class InquiryServiceImpl implements InquiryService {
 
     }
     @Override
-    public InquiryDTO inquiryInfo(long id) {
+    public InquiryDTO inquiryInfo(Long id) {
         Optional<Inquiry> result = inquiryRepository.findById(id);
 
         return result.isPresent()? entityToDto(result.get()) : null;
     }
 
     @Override
-    public Long inquiryAnswer(InquiryAnswerDTO inquiryAnswerDTO) {
+    public void inquiryAnswer(InquiryAnswerDTO inquiryAnswerDTO) {
 
         InquiryAnswer entity = dtoToEntity(inquiryAnswerDTO);
         inquiryAnswerRepository.save(entity);
@@ -74,11 +74,10 @@ public class InquiryServiceImpl implements InquiryService {
             inquiryRepository.save(inquiry);
         }
 
-        return entity.getId();
     }
 
     @Override
-    public InquiryAnswerDTO inquiryAnswerInfo(long id) {
+    public InquiryAnswerDTO inquiryAnswerInfo(Long id) {
         Optional<InquiryAnswer> result = inquiryAnswerRepository.findById(id);
 
         return result.isPresent()? entityToAnswerDto(result.get()) : null;
