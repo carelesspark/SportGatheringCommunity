@@ -17,19 +17,18 @@ public class MainController {
     @GetMapping("/main")
     public String announcement(HttpSession session, Model model){
         // 세션에서 사용자 정보를 가져옴
-        String userid = (String) session.getAttribute("userid");
-        String username = (String) session.getAttribute("username");
-        log.info("session userid: "+userid+""+" username: "+username);
-        // 세션에 사용자 정보가 없으면 로그인 페이지로 이동
-//        if (userid == null || username == null) {
-//
-//            return "redirect:/login/login";
-//        }else{
-            // 모델에 userid와 username을 추가
-//            model.addAttribute("userid", userid);
-//            model.addAttribute("username", username);
+        String RuserId= (String) session.getAttribute("RuserId");
+        //String userName = (String) session.getAttribute("userName");
+         //세션에 사용자 정보가 없으면 로그인 페이지로 이동
+        if (RuserId == null) {
+
+            return "redirect:/login/login";
+        }else{
+             //모델에 userId와 userName을 추가
+            model.addAttribute("RuserId", RuserId);
+            //model.addAttribute("userName", userName);
             return "main/main";
-//        }
+        }
 //        // 세션에 사용자 정보가 있으면 메인 페이지로 이동
     }
 
