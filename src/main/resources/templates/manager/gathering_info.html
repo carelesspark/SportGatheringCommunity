@@ -5,72 +5,128 @@
 
     <div id="right" th:fragment="content">
         <div id="main_title">
-            <p>○ User Info</p>
+            <p>○ Gathering Info</p>
         </div>
         <div id="main_content">
             <div id="top">
-                <p>□ [[${dto.nickname}]]님의 유저 정보</p>
+                <p>□ [[${dto.clubName}]] 소모임 정보</p>
             </div>
             <div id="middle">
-                <div class="user_body">
-                    <div class="modal_user_info">
-                        <div class="modal_padding1"><label>아이디 : </label></div>
-                        <div><input type="text" class="form-control user_info_id" th:value="${dto.userid}" name="id"
+                <div class="gathering_body">
+                    <div class="modal_gathering_info">
+                        <div class="modal_padding1"><label>소모임 이름 : </label></div>
+                        <div><input type="text" class="form-control gathering_info_name" th:value="${dto.clubName}"
+                                    name="id"
                                     disabled/></div>
                     </div>
-                    <div class="modal_user_info">
-                        <div class="modal_padding1"><label>닉네임 : </label></div>
-                        <div><input type="text" class="form-control user_info_name" th:value="${dto.nickname}" name="name"
+                    <div class="modal_gathering_info">
+                        <div class="modal_padding2"><label>소모임장 : </label></div>
+                        <div><input type="text" class="form-control gathering_info_leader" th:value="${dto.clubLeader}"
+                                    name="name"
                                     disabled/></div>
                     </div>
-                    <div class="modal_user_info">
-                        <div class="modal_padding1"><label>이메일 : </label></div>
-                        <div><input type="text" class="form-control user_info_email" th:value="${dto.email}"
+                    <div class="modal_gathering_info">
+                        <div class="modal_padding3"><label>생성 날짜 : </label></div>
+                        <div><input type="text" class="form-control gathering_info_regDate"
+                                    th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd')}"
                                     name="email" disabled/></div>
                     </div>
-                    <div class="modal_user_info">
-                        <div class="modal_padding2"><label>성별 : </label></div>
-                        <div><input type="text" class="form-control user_info_gender" th:value="${dto.gender}"
+                    <div class="modal_gathering_info">
+                        <div class="modal_padding3"><label>참여 인원 : </label></div>
+                        <div><input type="text" class="form-control gathering_info_count" th:value="${dto2.personnel}"
+                                    name="gender" disabled/></div>
+                    </div>
+                    <div class="modal_gathering_info">
+                        <div class="modal_padding2"><label>카테고리 : </label></div>
+                        <div><input type="text" class="form-control gathering_info_ctgr" th:value="${dto.ctgr}"
                                     name="gender" disabled/></div>
                     </div>
                 </div>
             </div>
             <div id="button">
-                <button type="button" class="btn btn-primary user_return" data-bs-dismiss="modal"
-                        th:onclick="|location.href='@{/manager/user(page=${pageRequestDTO.page}, search=${pageRequestDTO.search})}'|">돌아가기
-                </button>
-                <button type="button" class="btn btn-outline-danger reason_kick">탈퇴 사유 등록</button>
+                <div id="button1">
+                    <button type="button" class="btn btn-primary gathering_pic" data-bs-dismiss="modal">소모임 사진</button>
+                </div>
+                <div id="button2">
+                    <button type="button" class="btn btn-primary gathering_return" data-bs-dismiss="modal"
+                            th:onclick="|location.href='@{/manager/gathering(page=${pageRequestDTO.page}, search=${pageRequestDTO.search})}'|">
+                        돌아가기
+                    </button>
+                </div>
+                <div id="button3">
+                    <button type="button" class="btn btn-outline-danger reason_delete">삭제 사유 등록</button>
+                </div>
+
             </div>
 
         </div>
-        <form action="/manager/withdrawal_user" method="post" class="withdrawalForm">
-            <!-- 유저 탈퇴 모달 -->
-            <div class="modal fade" id="KickUserModal" tabindex="-1" role="dialog">
+
+        <!-- 소모임 사진 모달 -->
+        <div class="modal fade" id="GatheringPicModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+
+                    <div class="modal-header">
+                        <p class="modal-title">◇ Gathering Pic</p>
+
+                    </div>
+
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="gathering_pic_body">
+                                <img class="img-fluid img"
+                                     style="object-fit: cover;"
+                                     th:alt="${dto2.imageDTOList[0].name}"
+                                     th:if="${dto2.imageDTOList.size() > 0 && dto2.imageDTOList[0].path != null}"
+                                     th:src="@{/image/display(fileName=${dto2.imageDTOList[0].getImageURL()})}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">돌아가기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 소모임 삭제 모달 -->
+        <form action="/manager/withdrawal_gathering" method="post" class="deleteGatheringForm">
+            <div class="modal fade" id="GatheringDeleteModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
 
                         <div class="modal-header">
-                            <p class="modal-title">◇ Withdrawal User</p>
+                            <p class="modal-title">◇ Delete Gathering</p>
 
                         </div>
 
 
                         <div class="modal-body">
                             <div class="form-group">
-                                <div class="user_withdrawal_body">
-                                    <div class="modal_user_info2">
-                                        <input type="hidden" th:value="${dto.email}" name="email"/>
-                                        <input type="hidden" th:value="${dto.id}" name="authUserId"/>
-                                        <input type="hidden" th:value="${dto.userid}" name="userId"/>
-                                        <input type="hidden" th:value="${dto.userDetailId}" name="authUserDetailId" />
-                                        <div class="modal_padding3"><label>아이디 : </label></div>
-                                        <div><input type="text" class="form-control user_info_id" th:value="${dto.userid}"
-                                                    name="userId" disabled/></div>
+                                <div class="gathering_delete_body">
+                                    <input type="hidden" th:value="${dto.id}" name="clubId"/>
+                                    <input type="hidden" th:value="${dto.clubName}" name="clubName"/>
+                                    <input type="hidden" th:value="${dto.clubLeader}" name="leaderName"/>
+                                    <div class="modal_gathering_info2">
+                                        <div class="modal_padding4"><label>소모임 이름 : </label></div>
+                                        <div><input type="text" class="form-control gathering_info_name"
+                                                    th:value="${dto.clubName}"
+                                                    name="clubName" disabled/></div>
                                     </div>
-                                    <div class="modal_user_info3">
-                                        <div class="modal_padding4"><label>강제 탈퇴 사유 : </label></div>
-                                        <div><textarea id="withdrawal_reason" name="deleteReason"></textarea></div>
+                                    <div class="modal_gathering_info2">
+                                        <div class="modal_padding5"><label>소모임장 : </label></div>
+                                        <div><input type="text" class="form-control gathering_info_leader"
+                                                    th:value="${dto.clubLeader}"
+                                                    name="leaderName" disabled/></div>
+                                    </div>
+                                    <div class="modal_gathering_info3">
+                                        <div class="modal_padding6"><label>강제 탈퇴 사유 : </label></div>
+                                        <div><textarea id="delete_reason" name="deleteReason"></textarea></div>
                                     </div>
                                 </div>
                             </div>
@@ -79,13 +135,13 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary modal_return" data-bs-dismiss="modal">돌아가기
                             </button>
-                            <button type="button" class="btn btn-danger withdrawalApply">탈퇴 적용</button>
+                            <button type="button" class="btn btn-danger deleteBtn">삭제 적용</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
-        <link th:href="@{/css/manager/user_info.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/manager/gathering_info.css}" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script th:inline="javascript">
@@ -198,38 +254,41 @@
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
 
-               var KickUserModal = $("#KickUserModal");
-               $(".reason_kick").click(function(){
-                    KickUserModal.modal('show');
+               var GatheringPicModal = $("#GatheringPicModal");
+               var GatheringDeleteModal = $("#GatheringDeleteModal");
+
+                $(".gathering_pic").click(function(){
+                    GatheringPicModal.modal('show');
+                });
+
+                $(".reason_delete").click(function(){
+                    GatheringDeleteModal.modal('show');
+                });
+
+                var no = [[${dto.id}]];
+                var page = [[${pageRequestDTO.page}]];
+                var search = [[${pageRequestDTO.search}]];
+
+                $(".modal_return").click(function(){
+                    window.location.href = 'http://localhost:3306/manager/gathering_info?no=' + no  + '&page=' + page + '&search=' + search;
                });
 
-               var no = [[${dto.id}]]
-               var page = [[${pageRequestDTO.page}]]
-               var search = [[${pageRequestDTO.search}]]
-
-
-               $(".modal_return").click(function(){
-                    window.location.href = 'http://localhost:3306/manager/user_info?no=' + no  + '&page=' + page + '&search=' + search;
-               });
-
-
-                var form = $(".withdrawalForm");
-
-                $(".withdrawalApply").click(function(){
-                    if($("#withdrawal_reason").val() == ""){
+               var form = $(".deleteGatheringForm");
+               $(".deleteBtn").click(function(){
+                    if($("#delete_reason").val() == ""){
                         alert("탈퇴 적용 사유를 입력하세요.");
                         return;
                     }
 
-                    if(!confirm("탈퇴 적용하시겠습니까?")){
+                    if(!confirm("삭제 적용하시겠습니까?")){
                         return;
                     }
 
-                    form.attr("action", "/manager/withdrawal_user").attr("method", "post");
+                    form.attr("action", "/manager/withdrawal_gathering").attr("method", "post");
                     form.submit();
-                });
+               });
+            });
 
-           });
         </script>
 
     </div>

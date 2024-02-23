@@ -194,8 +194,12 @@ a:hover {
     text-decoration-line: none;
 }
 
-#faq {
+#gathering {
     background-color: #277DFF;
+}
+
+.icon4 {
+    fill: white;
 }
 
 #right {
@@ -228,107 +232,97 @@ a:hover {
     background-color: white;
     box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
     display: grid;
-    grid-template-rows: 120px 520px 60px;
+    grid-template-rows: 120px 500px 80px;
     place-items: center;
 }
 
-
-
-#top {
-    width: 670px;
-        height: 120px;
-        padding-top: 60px;
-        font-size: 15pt;
-        font-family: bold;
-        font-family: 'Inter', sans-serif;
-        border-bottom: 1px solid #e9ecef;
+div#menu a:hover{
+    transition: background 0.3s ease-in-out;
+    background-color: #277DFF;
 }
 
 #sub_title {
-    width: 200px;
+    width: 770px;
     height: 120px;
     padding-top: 80px;
     padding-left: 40px;
+}
+
+#sub_title p{
     font-size: 11pt;
-    font-weight: bold;
     font-family: 'Inter', sans-serif;
-}
-
-#select {
-    display: grid;
-    grid-template-columns: 400px 170px;
-    place-items: center;
-
-}
-
-.form-select1 {
-    width: 200px;
-    height: 35px;
-    border: 1px solid #aaa7a7;
-    color: #767070;
-    border-radius: 5px;
-    font-size: 10pt;
-    margin-bottom: 5px;
-}
-
-.form-select2 {
-    width: 200px;
-    height: 35px;
-    border: 1px solid #aaa7a7;
-    color: #767070;
-    border-radius: 5px;
-    font-size: 10pt;
-}
-
-
-
-.search {
-    height: 35px;
-    width: 80px;
-    font-size: 10pt;
-    background-color: #D9D9D9;
-    border: 1px solid #aaa7a7;
-    color: #767070;
-    margin-bottom: 3px;
-}
-
-#middle {
-    width: 770px;
-    height: 480px;
-    padding-left: 40px;
+    font-weight: bold;
 }
 
 #table {
+    width: 770px;
+    height: 440px;
+    padding-left: 40px
+
+}
+
+.table1 {
     width: 690px;
-    border-top: 1px solid #B2B2B2;
 }
 
-#table tr {
-    border-bottom: 1px solid #D2D2D2;
+.table_tr{
+    background-color: #D1D1D1;
+    text-align: center;
+    height: 35px;
 }
 
-#table tr th{
-    height: 80px;
+.table_tr_p {
+    height: 20px;
+    border-right: 1px solid #BBBBBB;
 }
 
-#table tr th a {
-    display: grid;
-    grid-template-columns: 40px 600px 50px;
-    place-items: center;
-    cursor: pointer;
+.table_tr2 {
+    text-align: center;
+    font-size: 10pt;
+    height: 40px;
+    border-bottom: 1px solid #D1D1D1;
 }
 
-.faq_title {
-    width: 600px;
-    font-size: 11pt;
-    font-family: 'Inter', sans-serif;
+.table_tr2 td a {
+    color: black;
 }
 
-.faq_title_input {
+#search {
+    width: 770px;
+    height: 70px;
+    padding-left: 460px;
+    padding-top: 20px;
+}
+
+#write_button {
+    width: 100px;
+    height: 30px;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.gathering_info {
+    width: 100px;
+    height: 30px;
     padding: 0;
-    padding-left: 10px;
-    font-size: 12pt;
-    font-weight:bold;
+    font-size: 10pt;
+}
+
+#search_border {
+    width: 270px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#gathering_search {
+    width: 240px;
+    border: 0;
+    outline: none;
+    font-size: 10pt;
+}
+
+#search_border a {
+    cursor: pointer;
 }
 
 .modal-dialog {
@@ -356,99 +350,134 @@ a:hover {
     padding-left: 50px;
 }
 
-#button {
-    width: 770px;
-    height: 40px;
-    padding-left: 540px;
-}
-
-#write_button {
-    width: 100px;
-    height: 30px;
-    font-size: 10pt;
-    font-weight: bold;
-}
-
-.btn {
-    font-weight: bold;
-}
-
-.faq_body {
+.gathering_body {
     width: 700px;
     display: grid;
-    grid-template-rows: 100px 100px 300px;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    place-items: center;
 }
 
-.faq_ctgr {
+
+.modal_gathering_info {
     width: 700px;
     height: 100px;
     display: grid;
-    grid-template-columns: 80px 620px;
+    grid-template-columns: 140px 560px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
 
-.faq_select {
+.gathering_delete_body {
     width: 700px;
-    height: 60px;
     display: grid;
-    grid-template-columns: 80px 620px;
-    margin-bottom: 20px;
-    font-family: 'Inter', sans-serif;
-    font-weight: bold;
+    grid-template-rows: 70px 70px 300px;
+    place-items: center;
 }
 
-.faq_write_title {
+.modal_gathering_info2 {
     width: 700px;
-    height: 100px;
+    height: 70px;
     display: grid;
-    grid-template-columns: 80px 620px;
+    grid-template-columns: 140px 560px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
 
-.faq_write_content {
+.modal_gathering_info3 {
     width: 700px;
     height: 300px;
     display: grid;
-    grid-template-columns: 80px 620px;
+    grid-template-columns: 140px 560px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 }
 
-.icon2 {
-    fill: white;
-}
-
-.faq_content_input {
-    width: 620px;
+#delete_reason {
+    width: 560px;
     height: 300px;
     resize: none;
     border-radius: .25rem;
-    border: 1px solid #ced4da;
     padding-left: 10px;
     font-size: 15pt;
     font-weight: bold;
 }
 
-.faq_content_input:disabled {
-    background-color: #e9ecef;
-    opacity: 1;
+.modal_padding1 {
+    padding-top: 5px;
+    padding-left: 10px;
 }
 
-.modal_padding {
+.modal_padding2 {
+    padding-top: 5px;
     padding-left: 30px;
 }
 
-.faq_info_modal {
-    color: black;
+.modal_padding3 {
+    padding-top: 5px;
+    padding-left: 25px;
+}
+
+.modal_padding4 {
+    padding-top: 5px;
+    padding-left: 22px;
+}
+
+.modal_padding5 {
+    padding-top: 5px;
+    padding-left: 40px;
+}
+
+.modal_padding6 {
+    padding-top: 5px;
+}
+
+
+.gathering_pic_body {
+    width: 850px;
+    height: 500px;
+}
+
+#top {
+    width: 670px;
+    height: 120px;
+    padding-top: 60px;
+    font-size: 15pt;
+    font-family: bold;
+    font-family: 'Inter', sans-serif;
+}
+
+#middle {
+    width: 770px;
+    height: 480px;
+    padding-left: 40px;
+    padding-top: 15px;
+}
+
+#button {
+    width: 770px;
     height: 80px;
+    display: grid;
+    grid-template-columns: 500px 110px 160px;
+
 }
 
-.faq_info_modal:hover {
-    color: black;
+.gathering_info_ctgr {
+    font-size: 15pt;
+    font-weight: bold;
 }
 
-.enter{
-    white-space: pre-wrap;
+.form-control {
+    font-size: 15pt;
+    font-weight: bold;
+}
+
+#button1 {
+    width: 200px;
+    height: 40px;
+    padding-left: 60px;
+}
+
+.img {
+    width: 850px;
+    height: 500px;
 }

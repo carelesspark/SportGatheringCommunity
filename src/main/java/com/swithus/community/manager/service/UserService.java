@@ -29,7 +29,7 @@ public interface UserService {
                 .userDetailId(authId.getUser().getId())
                 .email(authId.getUser().getEmail())
                 .gender(authId.getUser().getGender())
-                .name(authId.getUser().getName())
+                .nickname(authId.getUser().getNickname())
                 .build();
 
         return dto;
