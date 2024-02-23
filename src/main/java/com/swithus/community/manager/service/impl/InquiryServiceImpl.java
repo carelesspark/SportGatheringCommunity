@@ -28,6 +28,12 @@ public class InquiryServiceImpl implements InquiryService {
     private final InquiryRepository inquiryRepository;
     private final InquiryAnswerRepository inquiryAnswerRepository;
 
+    @Override
+    public Long countBy() {
+        return inquiryRepository.countByIsAnsweredFalse();
+    }
+
+
     private InquiryDTO entityToDto(Inquiry inquiry) {
         Long answerId = inquiryAnswerRepository.findAnswerIdByInquiryId(inquiry.getId());
 
@@ -82,6 +88,8 @@ public class InquiryServiceImpl implements InquiryService {
 
         return result.isPresent()? entityToAnswerDto(result.get()) : null;
     }
+
+
 
 
 }

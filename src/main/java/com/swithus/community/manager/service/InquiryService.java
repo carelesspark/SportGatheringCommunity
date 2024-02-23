@@ -21,6 +21,8 @@ public interface InquiryService {
 
     InquiryAnswerDTO inquiryAnswerInfo(Long id);
 
+    Long countBy();
+
     default InquiryAnswer dtoToEntity(InquiryAnswerDTO inquiryAnswerDTO){
         InquiryAnswer entity = InquiryAnswer.builder()
                 .id(inquiryAnswerDTO.getId())

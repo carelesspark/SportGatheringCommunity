@@ -23,8 +23,10 @@ public class ManagerController {
     private final InquiryService inquiryService;
 
     @GetMapping("/main")
-    public void home(){
+    public void home(Model model){
+        Long count = inquiryService.countBy();
 
+        model.addAttribute("inquiryCount", count);
     }
 
 
@@ -33,6 +35,9 @@ public class ManagerController {
         log.info("메인 페이지 + inquiry" + mainPageRequestDTO);
         log.info(inquiryService.getInquiryList(mainPageRequestDTO).getDtoList());
 
+        Long count = inquiryService.countBy();
+
+        model.addAttribute("inquiryCount", count);
         model.addAttribute("pageRequestDTO", mainPageRequestDTO);
         model.addAttribute("result", inquiryService.getInquiryList(mainPageRequestDTO));
     }
