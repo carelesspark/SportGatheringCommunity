@@ -25,10 +25,9 @@ public interface ClubService {
     // ClubDTO 반환
     ClubDTO getClub(Long clubId);
 
-    NavDTO getNav(Long clubId, Long userId);
+    NavDTO getNavDTO(Long clubId, Long clubMemberId);
 
     Long registerClub(Long clubId, Long userId);
-
 
     default Map<String, Object> clubDTOToEntity(ClubDTO clubDTO) {
         Map<String, Object> clubMap = new HashMap<>();
@@ -104,36 +103,4 @@ public interface ClubService {
                 .imageDTOList(imageDTOList)
                 .build();
     }
-
-    default NavDTO entityToNavDTO(Club club, ClubMember clubMember) {
-        boolean isGuest = false;
-        boolean isBlacklist = false;
-        boolean isWaiting = false;
-        boolean isMember = false;
-        boolean isLeader = false;
-
-        if (clubMember == null) isGuest = true;
-        else {
-            if (clubMember.getIsBlacklist() == 1) isBlacklist = true;
-            else {
-                if (clubMember.getRank() == 0) isWaiting = true;
-                else if (clubMember.getRank() > 0) isMember = true;
-
-                if (clubMember.getRank() == 100) isLeader = true;
-            }
-        }
-
-        return NavDTO.builder()
-                .clubId(club.getId())
-                .clubName(club.getName())
-                .clubHeadline(club.getHeadline())
-                .clubMemberId(Objects.requireNonNull(clubMember).getId())
-                .isGuest(isGuest)
-                .isBlacklist(isBlacklist)
-                .isWaiting(isWaiting)
-                .isMember(isMember)
-                .isLeader(isLeader)
-                .build();
-    }
-
 }

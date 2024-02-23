@@ -9,18 +9,25 @@
           [[${navDTO.clubName}]]
         </h1>
       </a>
-      <div>
+      <h3>
         [[${navDTO.clubHeadline}]]
-      </div>
+      </h3>
     </div>
 
     <div class="d-flex justify-content-end align-items-center">
-      <a class="link btn btn-secondary"
+      <a class="link btn btn-outline-dark"
          th:href="@{/club/leader/main(clubId=${navDTO.clubId})}"
          th:if="${navDTO.isLeader}">
         클럽 관리
       </a>
-      <a class="link btn btn-success"
+      <a class="link btn btn-outline-success"
+         th:href="@{/club/nicknameForm(
+      clubId=${navDTO.clubId},
+      clubMemberId=${navDTO.clubMemberId})}"
+         th:if="${navDTO.isMember}">
+        닉네임 변경
+      </a>
+      <a class="link btn btn-outline-success"
          th:href="@{/club/register(clubId=${navDTO.clubId})}"
          th:if="${navDTO.isGuest}">
         가입 신청
@@ -28,12 +35,10 @@
     </div>
   </div>
 
-  <div class="mb-3">
-    <div th:if="${navDTO.isGuest}">[[${session.userName}]]님은 방문객입니다.</div>
-    <div th:if="${navDTO.isBlacklist}">[[${session.userName}]]님은 정지된 회원입니다.</div>
-    <div th:if="${navDTO.isWaiting}">[[${session.userName}]]님은 가입처리중입니다.</div>
-    <div th:if="${navDTO.isMember && !navDTO.isLeader}">[[${session.userName}]]님은 회원입니다.</div>
-    <div th:if="${navDTO.isLeader}">[[${session.userName}]]님은 클럽장입니다.</div>
+  <div class="mb-3" th:if="${navDTO.clubMemberId != null}">
+    <div th:if="${navDTO.isWaiting}">가입처리중입니다.</div>
+    <div th:if="${navDTO.isMember && !navDTO.isLeader}">반갑습니다. [[${navDTO.nickname}]]님!</div>
+    <div th:if="${navDTO.isLeader}">반갑습니다. [[${navDTO.nickname}]] 클럽장님!</div>
   </div>
 
   <div class="mb-3">
