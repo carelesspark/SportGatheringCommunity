@@ -59,26 +59,55 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      댓글 [[${meetingDTO.replyCount}]]개
-    </div>
-
-    <!--댓글 창-->
-    <div>
-      <!--댓글 작성하는 곳-->
-      <div class="border-bottom mb-3">
-        <div class="mb-3">
-          <form action="" method="post">
-
-          </form>
-          <label for="replyInput">댓글</label>
-          <input id="replyInput" name="comment" placeholder="댓글을 작성해주세요" type="text">
-          <button class="btn btn-outline-dark btn-sm addReplyBtn" type="button">댓글 등록</button>
-        </div>
+    <div class="d-flex flex-column mb-3">
+      <div class="mb-3">
+        댓글 [[${meetingDTO.replyCount}]]개
       </div>
-      <!--댓글 보여주는 곳-->
+
+      <div class="mb-3">
+        <button class="btn btn-outline-info addReplyBtn" type="button">
+          댓글 등록
+        </button>
+      </div>
+
       <div class="list-group replyList">
 
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="reviewModal modal" role="dialog" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">
+              댓글 작성
+            </h4>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <input class="form-control" name="memberId" th:value="${navDTO.clubMemberId}" type="hidden">
+
+            <div class="form-group">
+              <label for="replyInput">댓글</label>
+              <input class="form-control" id="replyInput" name="comment" type="text">
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" type="button">Close</button>
+            <button class="btn btn-primary reviewSaveBtn" type="button">Save changes</button>
+            <button class="btn btn-warning modifyBtn" type="button">Modify</button>
+            <button class="btn btn-danger removeBtn" type="button">Remove</button>
+          </div>
+        </div>
       </div>
     </div>
 
