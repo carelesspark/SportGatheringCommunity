@@ -1,9 +1,6 @@
 package com.swithus.community.club.controller;
 
-import com.swithus.community.club.dto.ClubDTO;
-import com.swithus.community.club.dto.GreetingsDTO;
-import com.swithus.community.club.dto.MeetingDTO;
-import com.swithus.community.club.dto.NavDTO;
+import com.swithus.community.club.dto.*;
 import com.swithus.community.club.dto.page.ClubPostPageRequestDTO;
 import com.swithus.community.club.dto.page.GreetingsPageRequestDTO;
 import com.swithus.community.club.dto.page.MemberPageRequestDTO;
@@ -348,7 +345,24 @@ public class ClubController {
         model.addAttribute("result", clubPostService.getClubPostDTOPage(pageRequestDTO));
     }
 
+    @GetMapping("/post")
+    public void goPost(@RequestParam Long clubId,
+                       @RequestParam Long postId,
+                       Model model,
+                       HttpSession session) {
+        log.info("GET /club/post?clubId={}&postId={}", clubId, postId);
+
+        Long userId = (Long) session.getAttribute("userId");
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+        NavDTO navDTO = clubService.getNavDTO(clubId, clubMemberId);
+
+        ClubPostDTO postDTO = clubPostService.getClubPostDTO(postId);
+
+        model.addAttribute("navDTO", navDTO);
+        model.addAttribute("postDTO", postDTO);
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////// 보류 라인
+
 
     // 1대1 문의 페이지로 이동
     @GetMapping("/inquiry")

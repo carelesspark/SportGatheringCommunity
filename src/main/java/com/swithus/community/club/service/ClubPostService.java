@@ -14,6 +14,8 @@ import java.util.List;
 public interface ClubPostService {
     PageResultDTO<ClubPostDTO, Object[]> getClubPostDTOPage(ClubPostPageRequestDTO pageRequestDTO);
 
+    ClubPostDTO getClubPostDTO(Long postId);
+
     default ClubPostDTO entityToClubPostDTO(ClubPost post,
                                             Long replyCount,
                                             Long likeCount,
