@@ -8,4 +8,8 @@ public interface ClubPostReplyService {
     List<ClubPostReplyDTO> getReplyListByClubPost(Long postId);
 
     Long createReply(ClubPostReplyDTO replyDTO);
+
+    void updateReply(ClubPostReplyDTO replyDTO);
+
+    void deleteReply(Long replyId);
 }

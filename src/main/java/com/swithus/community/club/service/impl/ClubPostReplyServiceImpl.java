@@ -41,10 +41,28 @@ public class ClubPostReplyServiceImpl implements ClubPostReplyService {
         ClubPostReply reply = ClubPostReply.builder()
                 .post(ClubPost.builder().id(replyDTO.getPostId()).build())
                 .writer(ClubMember.builder().id(replyDTO.getWriterId()).build())
-                .comment(replyDTO.getComment()).build();
+                .comment(replyDTO.getComment())
+                .build();
 
         replyRepository.save(reply);
 
         return reply.getId();
+    }
+
+    @Override
+    public void updateReply(ClubPostReplyDTO replyDTO) {
+        ClubPostReply reply = ClubPostReply.builder()
+                .id(replyDTO.getReplyId())
+                .post(ClubPost.builder().id(replyDTO.getPostId()).build())
+                .writer(ClubMember.builder().id(replyDTO.getWriterId()).build())
+                .comment(replyDTO.getComment())
+                .build();
+
+        replyRepository.save(reply);
+    }
+
+    @Override
+    public void deleteReply(Long replyId) {
+        replyRepository.deleteById(replyId);
     }
 }

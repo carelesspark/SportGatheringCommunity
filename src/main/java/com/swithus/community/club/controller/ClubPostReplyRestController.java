@@ -55,6 +55,14 @@ public class ClubPostReplyRestController {
     }
 
     // D
+    @DeleteMapping("/{postId}/{replyId}")
+    public ResponseEntity<Long> deleteReply(
+            @PathVariable("postId") Long postId,
+            @PathVariable("replyId") Long replyId) {
+        log.info("DELETE /clubPostReply/{}/{}", postId, replyId);
 
+        replyService.deleteReply(replyId);
 
+        return new ResponseEntity<>(replyId, HttpStatus.OK);
+    }
 }
