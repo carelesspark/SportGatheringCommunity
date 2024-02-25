@@ -1,5 +1,6 @@
 package com.swithus.community.main.controller;
 
+import com.swithus.community.manager.service.MainImageService;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -9,11 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/swithus")
 @Log4j2
 @RequiredArgsConstructor
 public class MainController {
+
+    private final MainImageService mainImageService;
+
     @GetMapping("/main")
     public String announcement(HttpSession session, Model model){
         // 세션에서 사용자 정보를 가져옴
@@ -26,6 +32,11 @@ public class MainController {
         }else{
              //모델에 userId와 userName을 추가
             model.addAttribute("RuserId", RuserId);
+
+            List<String> imageFiles = mainImageService.getImageFiles();
+            log.info(imageFiles);
+            model.addAttribute("imageFiles", imageFiles);
+
             //model.addAttribute("userName", userName);
             return "main/main";
         }

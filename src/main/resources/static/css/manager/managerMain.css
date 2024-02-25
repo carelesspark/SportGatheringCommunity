@@ -63,9 +63,6 @@ p {
     place-items: center;
 }
 
-#pic {
-
-}
 
 #nickname {
     font-size: 11pt;
@@ -423,10 +420,6 @@ a:hover {
     font-weight: bold;
 }
 
-.form-group {
-    padding-left: 50px;
-}
-
 .table_tr{
     background-color: #D1D1D1;
     text-align: center;
@@ -640,4 +633,48 @@ textarea {
     color: #70B1FD;
     text-align: center;
     padding-top: 8px;
+}
+
+.fileForm {
+    width: 500px;
+}
+
+
+.modal-body {
+    width: 1140px;
+    height: 600px;
+}
+
+.uploadImg {
+    margin-right: 410px;
+    margin-top: 37px;
+}
+
+.img_scroll {
+    width: 1080px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.pic_body {
+    width: 1100px;
+    height: 600px;
+    overflow: scroll;
+}
+
+.img_size {
+    width: 1100px;
+    height: 600px;
+}
+
+.img_delete{
+    width: 1100px;
+    height: 100px;
+    border-bottom: 1px solid #D1D1D1;
+    margin-bottom: 30px;
+}
+
+.deleteImg {
+    margin-top: 30px;
+    margin-left: 990px;
 }
