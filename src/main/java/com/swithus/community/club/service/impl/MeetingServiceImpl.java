@@ -111,6 +111,7 @@ public class MeetingServiceImpl implements MeetingService {
                     .title(meeting.getTitle())
                     .mTime(meeting.getMTime())
                     .mPlace(meeting.getMPlace())
+                    .mAddr(meeting.getMAddr())
                     .content(meeting.getContent())
                     .mPersonnel(meeting.getMPersonnel())
                     .currentPersonnel(currentPersonnel)
