@@ -17,21 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/meetingReply")
 public class MeetingReplyRestController {
-    private final MeetingService meetingService;
-    private final ClubMemberService clubMemberService;
     private final MeetingReplyService meetingReplyService;
 
-    @GetMapping("{meetingId}/list")
-    public ResponseEntity<List<MeetingReplyDTO>> getreplyDTOList(@PathVariable("meetingId") Long meetingId) {
-        log.info("/meetingReply/{}/list", meetingId);
-
-        List<MeetingReplyDTO> replyDTOList = meetingReplyService.getMeetingReplyDTOListByMeeting(meetingId);
-
-        return new ResponseEntity<>(replyDTOList, HttpStatus.OK);
-    }
-
+    // C
     @PostMapping("/{meetingId}")
-    public ResponseEntity<Long> insert(@PathVariable("meetingId") Long meetingId,
+    public ResponseEntity<Long> createReply(
+            @PathVariable("meetingId") Long meetingId,
                                        @RequestBody MeetingReplyDTO meetingReplyDTO) {
         log.info("/meetingReply/{}", meetingId);
 
@@ -39,4 +30,22 @@ public class MeetingReplyRestController {
 
         return new ResponseEntity<>(meetingReplyId, HttpStatus.OK);
     }
+
+    // R
+    @GetMapping("{meetingId}/list")
+    public ResponseEntity<List<MeetingReplyDTO>> getreplyDTOList(
+            @PathVariable("meetingId") Long meetingId) {
+        log.info("/meetingReply/{}/list", meetingId);
+
+        List<MeetingReplyDTO> replyDTOList = meetingReplyService
+                .getMeetingReplyDTOListByMeeting(meetingId);
+
+        return new ResponseEntity<>(replyDTOList, HttpStatus.OK);
+    }
+
+    // U
+
+
+    // D
+
 }

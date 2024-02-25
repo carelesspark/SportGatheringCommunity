@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ClubPostReplyService {
     List<ClubPostReplyDTO> getReplyListByClubPost(Long postId);
+
+    Long createReply(ClubPostReplyDTO replyDTO);
 }

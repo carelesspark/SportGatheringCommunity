@@ -1,6 +1,7 @@
 package com.swithus.community.club.service.impl;
 
 import com.swithus.community.club.dto.ClubPostReplyDTO;
+import com.swithus.community.club.entity.ClubMember;
 import com.swithus.community.club.entity.ClubPost;
 import com.swithus.community.club.entity.ClubPostReply;
 import com.swithus.community.club.repository.ClubPostReplyRepository;
@@ -33,5 +34,17 @@ public class ClubPostReplyServiceImpl implements ClubPostReplyService {
                         .regDate(reply.getRegDate())
                         .modDate(reply.getModDate())
                         .build()).toList();
+    }
+
+    @Override
+    public Long createReply(ClubPostReplyDTO replyDTO) {
+        ClubPostReply reply = ClubPostReply.builder()
+                .post(ClubPost.builder().id(replyDTO.getPostId()).build())
+                .writer(ClubMember.builder().id(replyDTO.getWriterId()).build())
+                .comment(replyDTO.getComment()).build();
+
+        replyRepository.save(reply);
+
+        return reply.getId();
     }
 }
