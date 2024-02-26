@@ -1,8 +1,8 @@
 package com.swithus.community.main.controller;
 
 import com.swithus.community.board.entity.Promotion;
-import com.swithus.community.board.promotion.repository.PromotionBoardRepository;
-import com.swithus.community.board.promotion.service.PromotionBoardService;
+import com.swithus.community.board.repository.PromotionBoardRepository;
+import com.swithus.community.board.service.PromotionBoardService;
 import com.swithus.community.manager.dto.AnnouncementDTO;
 import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.service.AnnouncementService;
@@ -31,6 +31,10 @@ public class MainController {
     public String announcement(HttpSession session, Model model){
         // 세션에서 사용자 정보를 가져옴
         String RuserId= (String) session.getAttribute("RuserId");
+        String nickname= (String) session.getAttribute("userNickname");
+
+        log.info(RuserId + " + " + nickname);
+
         //String userName = (String) session.getAttribute("userName");
          //세션에 사용자 정보가 없으면 로그인 페이지로 이동
         if (RuserId == null) {
@@ -39,6 +43,7 @@ public class MainController {
         }else{
              //모델에 userId와 userName을 추가
             model.addAttribute("RuserId", RuserId);
+            model.addAttribute("nickname", nickname);
 
             List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
             log.info(result);
