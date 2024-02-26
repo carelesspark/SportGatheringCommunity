@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -80,38 +82,36 @@ public class MainImageController {
 
     }
 
-    @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName) {
+    @GetMapping("/getImagePaths")
+    public ResponseEntity<List<String>> getImagePaths() {
+        List<String> imagePaths = mainImageService.getImageFiles();
+        return new ResponseEntity<>(imagePaths, HttpStatus.OK);
+    }
 
-        ResponseEntity<byte[]> result = null;
+    @GetMapping("/getImage")
+    public ResponseEntity<byte[]> getImage(@RequestParam String fileName) {
+        try {
+            File file = new File(uploadPath + File.separator + fileName);
+            byte[] fileContent = Files.readAllBytes(file.toPath());
 
-        try{
-            String findFileName = URLDecoder.decode(fileName, "UTF-8");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG); // 이미지 형식에 맞게 설정
 
-            log.info(findFileName);
-
-            File file = new File(uploadPath + File.separator + findFileName);
-
-            log.info(file);
-
-            HttpHeaders header = new HttpHeaders();
-
-            header.add("Content-Type", Files.probeContentType(file.toPath()));
-            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
-        } catch(Exception e){
-            log.error(e.getMessage());
+            return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return result;
     }
 
     @PostMapping("/removeFile")
-    public ResponseEntity<Boolean> removeFile(String fileName){
+    public ResponseEntity<Boolean> removeFile(String fileName) {
+
 
         String srcFileName = null;
         try {
-            srcFileName = URLDecoder.decode(fileName,"UTF-8");
-            File file = new File(uploadPath2 + srcFileName);
+            srcFileName = URLDecoder.decode(fileName, "UTF-8");
+            File file = new File(uploadPath + srcFileName);
             boolean result = file.delete();
 
 

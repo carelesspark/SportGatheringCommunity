@@ -43,7 +43,7 @@ public class MainImageServiceImpl implements MainImageService {
             if(files != null){
                 for(File file : files){
                     if(file.isFile() && isImageFile(file.getName())){
-                        String newFileName = "/images/main/" + file.getName();
+                        String newFileName = file.getName();
                         imageFiles.add(newFileName);
                     }
                 }
