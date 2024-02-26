@@ -40,8 +40,8 @@
       </div>
     </div>
 
-    <div class="row mb-3">
-      <div class="col d-flex flex-row">
+    <div class="row border-bottom mb-3">
+      <div class="col d-flex flex-column">
         <div class="mb-3">
           일시 [[${#temporals.format(meetingDTO.mTime, 'M월 d일 a h시 m분')}]]
         </div>
@@ -49,45 +49,76 @@
           장소 [[${meetingDTO.mPlace}]]
         </div>
         <div class="mb-3">
-          인원 [[${meetingDTO.mPersonnel}]]명 / [[${meetingDTO.currentPersonnel}]]명
+          인원 [[${meetingDTO.currentPersonnel}]]명 / [[${meetingDTO.mPersonnel}]]명
         </div>
+        <div class="mb-3" th:utext="${meetingDTO.content}"></div>
       </div>
 
-      <div class="col p-1">
-        <div id="map" style="height:360px"></div>
+      <div class="col p-1 mb-3">
+        <div id="map" style="width:100%; height:360px"></div>
       </div>
     </div>
 
-    <div class="mb-3">
-      <div>[[${meetingDTO.content}]]</div>
-    </div>
-
-    <div class="mb-3">
-      댓글 [[${meetingDTO.replyCount}]]개
-    </div>
-
-    <!--댓글 창-->
-    <div>
-      <!--댓글 작성하는 곳-->
+    <div class="d-flex flex-column mb-3">
       <div class="mb-3">
-        <label for="replyInput">댓글</label>
-        <input id="replyInput" name="comment" placeholder="댓글을 작성해주세요" type="text">
-        <button class="btn btn-outline-dark addReplyBtn" type="button">댓글 등록</button>
+        댓글 [[${meetingDTO.replyCount}]]개
       </div>
-      <!--댓글 보여주는 곳-->
+
+      <div class="mb-3">
+        <button class="btn btn-outline-info addReplyBtn" type="button">
+          댓글 등록
+        </button>
+      </div>
+
       <div class="list-group replyList">
 
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="reviewModal modal" role="dialog" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">
+              댓글 작성
+            </h4>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <input class="form-control" name="memberId" th:value="${navDTO.clubMemberId}" type="hidden">
+
+            <div class="form-group">
+              <label for="replyInput">댓글</label>
+              <input class="form-control" id="replyInput" name="comment" type="text">
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" type="button">Close</button>
+            <button class="btn btn-primary reviewSaveBtn" type="button">Save changes</button>
+            <button class="btn btn-warning modifyBtn" type="button">Modify</button>
+            <button class="btn btn-danger removeBtn" type="button">Remove</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=36e802b03704729000dddf8ec908f633&libraries=services"
             type="text/javascript"></script>
     <script th:inline="javascript">
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-      mapOption = {
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 3 // 지도의 확대 레벨
-      };
+          level: 3, // 지도의 확대 레벨
+        };
 
       // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -96,29 +127,29 @@
       var geocoder = new kakao.maps.services.Geocoder();
 
       // 주소로 좌표를 검색합니다
-      var meetingAddr = [[${meetingDTO.mAddr}]];
-      geocoder.addressSearch(meetingAddr, function(result, status) {
+      geocoder.addressSearch("서울 강남구 일원로 7", function (result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
+          // 결과값으로 받은 위치를 마커로 표시합니다
+          var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+          });
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          // 인포윈도우로 장소에 대한 설명을 표시합니다
+          var infowindow = new kakao.maps.InfoWindow({
+            content:
+              '<div style="width:150px;text-align:center;padding:6px 0;">모임 장소</div>',
+          });
+          infowindow.open(map, marker);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-          map: map,
-          position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-      }
+          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+          map.setCenter(coords);
+        } else {
+          console.log("왜 안돼?");
+        }
       });
     </script>
 
@@ -132,64 +163,6 @@
           event.preventDefault();
         }
       }
-    </script>
-
-    <script th:inline="javascript">
-      $(function() {
-        var userId = [[${navDTO.userId}]];
-        var meetingId = [[${meetingDTO.meetingId}]];
-        var replyContent = $('input[name="comment"]');
-
-        $(".addReplyBtn").click(function() {
-          var data = {
-            meetingId: meetingId,
-            userId:
-            comment: replyContent,
-          };
-
-          $.ajax({
-            url: "/meetingReply/" + meetingId,
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "text",
-            success: function(result) {
-              console.log("result: " + result);
-
-              self.location.reload();
-            }
-          });
-        });
-
-        function getMeetingReviews() {
-          function formatTime(str) {
-            var date = new Date(str);
-
-            return date.getFullYear() + '년 ' +
-            (date.getMonth() + 1) + '월 ' +
-            date.getDate() + '일 ' +
-            date.getHours() + '시 ' +
-            date.getMinutes() + '분';
-          }
-
-          $.getJSON("/meetingReply/" + meetingId + "/list", function(arr) {
-            var str = "";
-            $.each(err, function(idx, reply) {
-              console.log(reply);
-
-              str += ' <div class="card-body" data-meeting-id=' + reply.meetingReplyId + ' data-member-id=' + reply.memberId + '>';
-              str += ' <h5 class="card-title">' + reply.comment + '</h5>';
-              str += ' <h6 class="card-subtitle mb-2 text-muted">' + reply.memberNickname + '</h6>';
-              str += ' <p class="card-text">' + formatTime(reply.regDate) + '</p>';
-              str += '</div>';
-            });
-
-            $(".replyList").html(str);
-          });
-        }
-
-        getMeetingReviews();
-      });
     </script>
   </div>
 </th:block>

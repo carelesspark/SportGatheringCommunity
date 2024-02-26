@@ -13,11 +13,11 @@
   <title>스윗어스</title>
 </head>
 <body style="width: 1080px; margin:0 auto">
-<th:block th:replace="/layout/fragment/header :: headerFragment"></th:block>
+<th:block th:replace="~{/layout/fragment/header :: headerFragment}"></th:block>
 
 <th:block layout:fragment="content"></th:block>
 
-<th:block th:replace="/layout/fragment/footer :: footerFragment"></th:block>
+<th:block th:replace="~{/layout/fragment/footer :: footerFragment}"></th:block>
 </body>
 
 </html>

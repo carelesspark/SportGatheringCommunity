@@ -1,4 +1,5 @@
 package com.swithus.community.board.promotion.repository;
+import com.swithus.community.manager.entity.Announcement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PromotionBoardRepository extends JpaRepository<Promotion,Long> , QuerydslPredicateExecutor<Promotion> {
+    List<Promotion> findTop4ByOrderByRegDateDesc();
+
 
 //    // 어떤 게시글의 작성자가 누구인가?
 //    @Query("SELECT p,w FROM Promotion p LEFT JOIN p.writer w WHERE p.id = :id")

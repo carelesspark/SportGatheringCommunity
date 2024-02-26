@@ -34,6 +34,11 @@ public class GatheringServiceImpl implements GatheringService {
 
 
     @Override
+    public Long countGathering() {
+        return gatheringRepository.countBy();
+    }
+
+    @Override
     public GatheringPageResultDTO<GatheringDTO, Club> getGatheringList(GatheringPageRequestDTO gatheringPageRequestDTO) {
         Pageable pageable = gatheringPageRequestDTO.getPageable(Sort.by("id").descending());
 
@@ -120,6 +125,8 @@ public class GatheringServiceImpl implements GatheringService {
 
         return result.isPresent()? entityToWithdrawalGatheringDTO(result.get()) : null;
     }
+
+
 }
 
 

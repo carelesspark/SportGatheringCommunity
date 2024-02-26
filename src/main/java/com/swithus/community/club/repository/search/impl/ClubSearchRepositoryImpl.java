@@ -41,7 +41,9 @@ public class ClubSearchRepositoryImpl extends QuerydslRepositorySupport implemen
         jpqlQuery.leftJoin(clubMember).on(clubMember.club.eq(club));
         jpqlQuery.leftJoin(clubImage).on(clubImage.club.eq(club));
         // select c, ci, count(distinct cm)
-        JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery.select(club, clubImage, clubMember.countDistinct());
+        JPQLQuery<Tuple> tupleJPQLQuery = jpqlQuery.select(club,
+                clubImage,
+                clubMember.countDistinct());
         // where
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(club.id.gt(0L));

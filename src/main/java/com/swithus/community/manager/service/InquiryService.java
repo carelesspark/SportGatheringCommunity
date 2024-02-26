@@ -6,20 +6,19 @@ import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
 import com.swithus.community.manager.dto.page.MainPageResultDTO;
-import com.swithus.community.manager.repository.InquiryAnswerRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 
 public interface InquiryService {
 
     MainPageResultDTO<InquiryDTO, Inquiry>getInquiryList(MainPageRequestDTO mainPageRequestDTO);
 
-    InquiryDTO inquiryInfo(long id);
+    InquiryDTO inquiryInfo(Long id);
 
-    Long inquiryAnswer(InquiryAnswerDTO inquiryAnswerDTO);
+    void inquiryAnswer(InquiryAnswerDTO inquiryAnswerDTO);
 
-    InquiryAnswerDTO inquiryAnswerInfo(long id);
+    InquiryAnswerDTO inquiryAnswerInfo(Long id);
+
+    Long countBy();
 
     default InquiryAnswer dtoToEntity(InquiryAnswerDTO inquiryAnswerDTO){
         InquiryAnswer entity = InquiryAnswer.builder()

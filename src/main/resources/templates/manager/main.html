@@ -15,7 +15,7 @@
                         <p>오늘 가입한 유저 수</p>
                     </div>
                     <div class="info-font2">
-                        <p>13명</p>
+                        <p>[[${userTodayCount}]]명</p>
                     </div>
                 </div>
                 <div id="info2">
@@ -24,16 +24,16 @@
                         <p>총 가입 유저 수</p>
                     </div>
                     <div class="info-font2">
-                        <p>231명</p>
+                        <p>[[${userCount}]]명</p>
                     </div>
                 </div>
                 <div id="info3">
                     <div class="pin"></div>
                     <div class="info-font3">
-                        <p>Best 소모임</p>
+                        <p>총 소모임 수</p>
                     </div>
                     <div class="info-font2">
-                        <p>신촌에서 같이 축...</p>
+                        <p>[[${gatheringCount}]] 모임</p>
                     </div>
                 </div>
                 <div id="info4">
@@ -42,7 +42,7 @@
                         <p>대기 문의 건</p>
                     </div>
                     <div class="info-font4">
-                        <p><a class="open_inquiry_modal" th:href="@{/manager/main_modal}">3건</a></p>
+                        <p><a class="open_inquiry_modal" th:href="@{/manager/main_modal}">[[${inquiryCount}]]건</a></p>
                     </div>
                 </div>
             </div>
@@ -182,6 +182,12 @@
                     <p>○ 최신 게시글 현황</p>
                 </div>
                 <div id="post_view"></div>
+            </div>
+            <div id="mainImg"><a th:href="@{/manager/main_ImgModal}">
+                <div id="img_button">
+                    <p>Image Change</p>
+                </div>
+            </a>
             </div>
         </div>
 

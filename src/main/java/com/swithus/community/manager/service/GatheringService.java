@@ -19,6 +19,8 @@ public interface GatheringService {
 
     WithdrawalGatheringDTO infoDeletedGathering(long no);
 
+    Long countGathering();
+
     default GatheringDTO entityToDto(Club club){
         GatheringDTO dto = GatheringDTO.builder()
                 .id(club.getId())
