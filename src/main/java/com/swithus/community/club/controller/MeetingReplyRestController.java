@@ -1,9 +1,7 @@
 package com.swithus.community.club.controller;
 
 import com.swithus.community.club.dto.MeetingReplyDTO;
-import com.swithus.community.club.service.ClubMemberService;
 import com.swithus.community.club.service.MeetingReplyService;
-import com.swithus.community.club.service.MeetingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,7 @@ public class MeetingReplyRestController {
     @PostMapping("/{meetingId}")
     public ResponseEntity<Long> createReply(
             @PathVariable("meetingId") Long meetingId,
-                                       @RequestBody MeetingReplyDTO meetingReplyDTO) {
+            @RequestBody MeetingReplyDTO meetingReplyDTO) {
         log.info("/meetingReply/{}", meetingId);
 
         Long meetingReplyId = meetingReplyService.register(meetingReplyDTO);
@@ -32,7 +30,7 @@ public class MeetingReplyRestController {
     }
 
     // R
-    @GetMapping("{meetingId}/list")
+    @GetMapping("/{meetingId}/list")
     public ResponseEntity<List<MeetingReplyDTO>> getreplyDTOList(
             @PathVariable("meetingId") Long meetingId) {
         log.info("/meetingReply/{}/list", meetingId);
@@ -44,8 +42,28 @@ public class MeetingReplyRestController {
     }
 
     // U
+    @PutMapping("/{meetingId}/{replyId}")
+    public ResponseEntity<Long> updateReply(
+            @PathVariable("meetingId") Long meetingId,
+            @PathVariable("replyId") Long replyId,
+            @RequestBody MeetingReplyDTO meetingReplyDTO) {
+        log.info("/meetingReply/{}/{}", meetingId, replyId);
 
+        meetingReplyService.updateReply(meetingReplyDTO);
+
+        return new ResponseEntity<>(replyId, HttpStatus.OK);
+    }
 
     // D
+    @DeleteMapping("/{meetingId}/{replyId}")
+    public ResponseEntity<Long> delete(
+            @PathVariable("meetingId") Long meetingId,
+            @PathVariable("replyId") Long replyId) {
+        log.info("/meetingReply/{}/{}", meetingId, replyId);
+
+        meetingReplyService.deleteReply(replyId);
+
+        return new ResponseEntity<>(replyId, HttpStatus.OK);
+    }
 
 }
