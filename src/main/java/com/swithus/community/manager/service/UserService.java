@@ -20,6 +20,10 @@ public interface UserService {
 
     WithdrawalUserDTO infoDeletedUser(long no);
 
+    Long countBy();
+
+    Long countTodayUser();
+
     default UserDTO entityToDto(AuthId authId){
         UserDTO dto = UserDTO.builder()
                 .id(authId.getId())

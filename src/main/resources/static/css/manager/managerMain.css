@@ -63,9 +63,6 @@ p {
     place-items: center;
 }
 
-#pic {
-
-}
 
 #nickname {
     font-size: 11pt;
@@ -219,7 +216,7 @@ a:hover {
 
 #main_content{
     display: grid;
-    grid-template-rows: 150px 330px 330px;
+    grid-template-rows: 150px 330px 270px 60px;
     place-items: center;
 }
 
@@ -354,9 +351,9 @@ a:hover {
 
 #post_info {
     width: 875px;
-    height: 300px;
+    height: 250px;
     display: grid;
-    grid-template-rows: 50px 250px;
+    grid-template-rows: 50px 200px;
     place-items: center;
     border-radius: 10px;
     background-color: white;
@@ -421,10 +418,6 @@ a:hover {
     font-family: 'Inter', sans-serif;
     font-size: 12pt;
     font-weight: bold;
-}
-
-.form-group {
-    padding-left: 50px;
 }
 
 .table_tr{
@@ -613,4 +606,75 @@ textarea {
 
 .paging {
     margin-top: 25px;
+}
+
+#mainImg {
+    width: 900px;
+    height: 80px;
+    padding-top: 15px;
+    padding-left: 785px;
+}
+
+#mainImg a {
+    cursor: pointer;
+}
+
+#img_button {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+}
+
+#img_button p {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #70B1FD;
+    text-align: center;
+    padding-top: 8px;
+}
+
+.fileForm {
+    width: 500px;
+}
+
+
+.modal-body {
+    width: 1140px;
+    height: 600px;
+}
+
+.uploadImg {
+    margin-right: 410px;
+    margin-top: 37px;
+}
+
+.img_scroll {
+    width: 1080px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.pic_body {
+    width: 1100px;
+    height: 600px;
+    overflow: scroll;
+}
+
+.img_size {
+    width: 1100px;
+    height: 600px;
+}
+
+.img_delete{
+    width: 1100px;
+    height: 100px;
+    border-bottom: 1px solid #D1D1D1;
+    margin-bottom: 30px;
+}
+
+.deleteImg {
+    margin-top: 30px;
+    margin-left: 990px;
 }

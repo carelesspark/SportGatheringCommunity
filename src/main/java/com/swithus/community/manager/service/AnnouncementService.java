@@ -5,6 +5,8 @@ import com.swithus.community.manager.dto.page.AncPageRequestDTO;
 import com.swithus.community.manager.dto.page.AncPageResultDTO;
 import com.swithus.community.manager.entity.Announcement;
 
+import java.util.List;
+
 public interface AnnouncementService {
 
     AncPageResultDTO<AnnouncementDTO, Announcement> getAnnouncementList(AncPageRequestDTO requestDTO);
@@ -16,6 +18,8 @@ public interface AnnouncementService {
     void modify(AnnouncementDTO dto);
 
     void delete(Long no);
+
+    List<Announcement> findTop4ByOrderByRegDateDesc();
 
     default Announcement dtoTOEntity(AnnouncementDTO dto){
         Announcement entity = Announcement.builder()

@@ -1,5 +1,6 @@
 package com.swithus.community.manager.entity;
 
+import com.swithus.community.global.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,15 +13,15 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
-public class MainImage {
+public class MainImage{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String uuid;
+
+    private String imgName;
 
     private String path;
-
-    private String uuid;
 }
