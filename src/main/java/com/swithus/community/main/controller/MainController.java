@@ -1,5 +1,8 @@
 package com.swithus.community.main.controller;
 
+import com.swithus.community.board.entity.Promotion;
+import com.swithus.community.board.promotion.repository.PromotionBoardRepository;
+import com.swithus.community.board.promotion.service.PromotionBoardService;
 import com.swithus.community.manager.dto.AnnouncementDTO;
 import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.service.AnnouncementService;
@@ -22,6 +25,7 @@ import java.util.List;
 public class MainController {
 
     private final AnnouncementService announcementService;
+    private final PromotionBoardService promotionBoardService;
 
     @GetMapping("/main")
     public String announcement(HttpSession session, Model model){
@@ -38,8 +42,10 @@ public class MainController {
 
             List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
             log.info(result);
-
+            List<Promotion> result2 = promotionBoardService.findTop4ByOrderByRegDateDesc();
+            log.info(result2);
             model.addAttribute("announcement", result);
+            model.addAttribute("promotion", result2);
 
             //model.addAttribute("userName", userName);
             return "main/main";
