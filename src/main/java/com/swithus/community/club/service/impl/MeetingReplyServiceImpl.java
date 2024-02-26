@@ -33,4 +33,16 @@ public class MeetingReplyServiceImpl implements MeetingReplyService {
 
         return reply.getId();
     }
+
+    @Override
+    public void updateReply(MeetingReplyDTO meetingReplyDTO) {
+        MeetingReply reply = meetingReplyDTOToMeetingReply(meetingReplyDTO);
+
+        replyRepository.save(reply);
+    }
+
+    @Override
+    public void deleteReply(Long meetingReplyId) {
+        replyRepository.deleteById(meetingReplyId);
+    }
 }

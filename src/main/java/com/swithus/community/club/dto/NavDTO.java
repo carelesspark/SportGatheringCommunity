@@ -16,11 +16,10 @@ public class NavDTO {
     // 회원 정보 → ClubMember에서 가져옴 → 들어갈 수 있는 키
     Long clubMemberId;
     String nickname;
-    // 1 0 0 0 0
-    // 0 1 0 0 0
-    // 0 0 1 0 0
-    // 0 0 0 1 0
-    // 0 0 0 1 1
+    // 1 0 0 0
+    // 0 1 0 0
+    // 0 0 1 0
+    // 0 0 1 1
     boolean isGuest;
     boolean isWaiting;
     boolean isMember;
