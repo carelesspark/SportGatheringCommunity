@@ -46,4 +46,7 @@ public class User extends BaseEntity {
 
     //클럽장여부
     private byte isLeader;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }
