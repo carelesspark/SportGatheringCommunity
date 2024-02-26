@@ -79,7 +79,9 @@ public class ClubServiceImpl implements ClubService {
         Long clubId = club.getId();
         User user = userDetailRepository.getReferenceById(clubDTO.getLeaderId());
         // 클럽 멤버 테이블에 record 생성
-        ClubMember clubMember = ClubMember.builder().club(Club.builder().id(clubId).build()).member(User.builder().id(user.getId()).build()).nickname(user.getNickname()).rank(100).isActive((byte) 1).build();
+        ClubMember clubMember = ClubMember.builder()
+                .club(Club.builder().id(clubId).build()).member(User.builder().id(user.getId()).build())
+                .nickname(user.getNickname()).rank(100).isActive((byte) 1).build();
         clubMemberRepository.save(clubMember);
 
         return clubId;
@@ -90,11 +92,29 @@ public class ClubServiceImpl implements ClubService {
         List<Object[]> result = clubRepository.getClubWithEveryImage(clubId);
         Club club = (Club) result.get(0)[0];
         Long personnel = (Long) result.get(0)[1];
-        ClubDTO clubDTO = ClubDTO.builder().clubId(club.getId()).leaderId(club.getLeader().getId()).regionId(club.getRegion().getId()).regionName(club.getRegion().getName()).sportsId(club.getSports().getId()).sportsName(club.getSports().getName()).name(club.getName()).headline(club.getHeadline()).introduce(club.getIntroduce()).personnel(personnel).rank(club.getRank()).point(club.getPoint()).regDate(club.getRegDate()).build();
+        ClubDTO clubDTO = ClubDTO.builder()
+                .clubId(club.getId())
+                .leaderId(club.getLeader().getId())
+                .regionId(club.getRegion().getId())
+                .regionName(club.getRegion().getName())
+                .sportsId(club.getSports().getId())
+                .sportsName(club.getSports().getName())
+                .name(club.getName())
+                .headline(club.getHeadline())
+                .introduce(club.getIntroduce())
+                .personnel(personnel)
+                .rank(club.getRank())
+                .point(club.getPoint())
+                .regDate(club.getRegDate())
+                .build();
 
         if (result.size() == 1) {
             if (ObjectUtils.isEmpty(result.get(0)[2])) {
-                ImageDTO imageDTO = ImageDTO.builder().name(club.getSports().getName() + ".jpg").uuid("uuid").path("club/main").build();
+                ImageDTO imageDTO = ImageDTO.builder()
+                        .name(club.getSports().getName() + ".jpg")
+                        .uuid("uuid")
+                        .path("club/main")
+                        .build();
                 clubDTO.getImageDTOList().add(imageDTO);
             }
 
@@ -102,21 +122,15 @@ public class ClubServiceImpl implements ClubService {
             for (Object[] objects : result) {
                 if (!ObjectUtils.isEmpty(objects[2])) {
                     ClubImage clubImage = (ClubImage) objects[2];
-                    ImageDTO imageDTO = ImageDTO.builder().path(clubImage.getPath()).name(clubImage.getName()).uuid(clubImage.getUuid()).build();
+                    ImageDTO imageDTO = ImageDTO.builder()
+                            .path(clubImage.getPath())
+                            .name(clubImage.getName())
+                            .uuid(clubImage.getUuid())
+                            .build();
                     clubDTO.getImageDTOList().add(imageDTO);
                 }
             }
         }
-
-//        result.forEach(objects -> {
-//            ClubImage clubImage = (ClubImage) objects[2];
-//            ImageDTO imageDTO = ImageDTO.builder()
-//                    .path(clubImage.getPath())
-//                    .name(clubImage.getName())
-//                    .uuid(clubImage.getUuid())
-//                    .build();
-//            clubDTO.getImageDTOList().add(imageDTO);
-//        });
 
         return clubDTO;
     }
@@ -126,27 +140,51 @@ public class ClubServiceImpl implements ClubService {
         if (clubMemberId == null) {
             Club club = clubRepository.getReferenceById(clubId);
 
-            return NavDTO.builder().clubId(club.getId()).clubName(club.getName()).clubHeadline(club.getHeadline()).clubMemberId(null).nickname(null).isGuest(true).isWaiting(false).isMember(false).isLeader(false).build();
-        } else {
-            List<Object[]> objectList = clubRepository.getClubAndClubMemberByClubIdAndClubMemberId(clubId, clubMemberId);
-
-            Object[] result = objectList.get(0);
-            Club club = (Club) result[0];
-            ClubMember clubMember = (ClubMember) result[1];
-
-            boolean isWaiting = clubMember.getRank() == 0;
-            boolean isMember = clubMember.getRank() > 0;
-            boolean isLeader = clubMember.getRank() == 100;
-
-            return NavDTO.builder().clubId(club.getId()).clubName(club.getName()).clubHeadline(club.getHeadline()).clubMemberId(clubMember.getId()).nickname(clubMember.getNickname()).isGuest(false).isWaiting(isWaiting).isMember(isMember).isLeader(isLeader).build();
+            return NavDTO.builder().clubId(club.getId())
+                    .clubName(club.getName())
+                    .clubHeadline(club.getHeadline())
+                    .clubMemberId(null)
+                    .nickname(null)
+                    .isGuest(true)
+                    .isWaiting(false)
+                    .isMember(false)
+                    .isLeader(false)
+                    .build();
         }
+        List<Object[]> objectList = clubRepository
+                .getClubAndClubMemberByClubIdAndClubMemberId(clubId, clubMemberId);
+
+        Object[] result = objectList.get(0);
+        Club club = (Club) result[0];
+        ClubMember clubMember = (ClubMember) result[1];
+
+        boolean isWaiting = clubMember.getRank() == 0;
+        boolean isMember = clubMember.getRank() > 0;
+        boolean isLeader = clubMember.getRank() == 100;
+
+        return NavDTO.builder()
+                .clubId(club.getId())
+                .clubName(club.getName())
+                .clubHeadline(club.getHeadline())
+                .clubMemberId(clubMember.getId())
+                .nickname(clubMember.getNickname())
+                .isGuest(false).isWaiting(isWaiting)
+                .isMember(isMember)
+                .isLeader(isLeader)
+                .build();
     }
 
     @Override
     public Long registerClub(Long clubId, Long userId) {
         User user = userDetailRepository.getReferenceById(userId);
 
-        ClubMember clubMember = ClubMember.builder().club(Club.builder().id(clubId).build()).member(User.builder().id(user.getId()).build()).nickname(user.getNickname()).rank(0).isActive((byte) 1).build();
+        ClubMember clubMember = ClubMember.builder()
+                .club(Club.builder().id(clubId).build())
+                .member(User.builder().id(user.getId()).build())
+                .nickname(user.getNickname())
+                .rank(0)
+                .isActive((byte) 1)
+                .build();
         clubMemberRepository.save(clubMember);
 
         return clubMember.getId();
@@ -164,7 +202,7 @@ public class ClubServiceImpl implements ClubService {
             Long memberCount = (Long) result[1];
             Long meetingCount = (Long) result[2];
             // 비어있을 수 있음
-            List<ClubImage> imageList = (List<ClubImage>) result[3];
+            List<ClubImage> imageList = Collections.singletonList((ClubImage) result[3]);
 
             List<ImageDTO> imageDTOList = new ArrayList<>();
             if (ObjectUtils.isEmpty(imageList)) {

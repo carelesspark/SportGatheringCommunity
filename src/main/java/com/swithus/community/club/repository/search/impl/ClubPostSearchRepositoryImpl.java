@@ -85,7 +85,7 @@ public class ClubPostSearchRepositoryImpl extends QuerydslRepositorySupport impl
             Order direction = order.isDescending() ? Order.DESC : Order.ASC;
             String property = order.getProperty();
             // 정렬 기준 정의
-            PathBuilder<ClubPost> pathBuilder = new PathBuilder<>(ClubPost.class, "ClubPost");
+            PathBuilder<ClubPost> pathBuilder = new PathBuilder<>(ClubPost.class, "clubPost");
             tupleJPQLQuery.orderBy(new OrderSpecifier(direction, pathBuilder.get(property)));
         });
         // 전체 개수 얻기
