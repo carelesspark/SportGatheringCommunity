@@ -1,0 +1,89 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/profile/profilelayout :: setContent(~{this::content} )}">
+
+    <div id="left" th:fragment="menu_bar">
+        <div id="menu">
+            <div id="profile"><a th:href="@{/profile/main}">
+                <p>내 프로필</p>
+            </a>
+            </div>
+            <div id="likeclub"><a th:href="@{/manager/faq}">
+                <p>찜한 클럽</p>
+            </a>
+            </div>
+            <div id="myclub"><a th:href="@{/manager/user}">
+                <p>나의 클럽</p>
+            </a>
+            </div>
+            <div id="article">
+                <a class="article_a">
+                    <div class="menu_font2">
+                        <p>게시글 관리</p>
+                    </div>
+                    <div>
+                        <svg width="14" height="7" viewBox="0 0 14 7" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 7L0.0717964 0.25L13.9282 0.25L7 7Z" fill="#6B6A6A" class="icon6"/>
+                        </svg>
+                    </div>
+                </a>
+                <div class="menu_hide">
+                    <div id="article_comment">
+                        <a th:href="@{/manager/report_comment}" class="submenu_a">
+                            <div class="menu_font">
+                                <p>내가 쓴 댓글</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="article_post">
+                        <a th:href="@{/manager/report_post}" class="submenu_a">
+                            <div class="menu_font">
+                                <p>내가 쓴 게시글</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cs">
+                <a class="cs_a">
+                    <div class="menu_font2">
+                        <p>고객센터</p>
+                    </div>
+                    <div>
+                        <svg width="14" height="7" viewBox="0 0 14 7" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 7L0.0717964 0.25L13.9282 0.25L7 7Z" fill="#6B6A6A" class="icon6"/>
+                        </svg>
+                    </div>
+                </a>
+                <div class="menu_hide">
+                    <div id="cs_faq">
+                        <a th:href="@{/manager/report_comment}" class="submenu_a">
+                            <div class="menu_font">
+                                <p>FAQ</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="cs_notice">
+                        <a th:href="@{/manager/report_post}" class="submenu_a">
+                            <div class="menu_font">
+                                <p>공지사항</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="cs_onetoone">
+                        <a th:href="@{/manager/report_post}" class="submenu_a">
+                            <div class="menu_font">
+                                <p>1:1 문의</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
