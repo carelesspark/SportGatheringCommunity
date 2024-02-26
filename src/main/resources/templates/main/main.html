@@ -36,25 +36,10 @@
                         </div>
                         <div class="table">
                             <table>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
+                                <tr th:each="anc : ${announcement}">
+                                    <td>[[${anc.id}]]</td>
+                                    <td><a>[[${anc.title}]]</a></td>
+                                    <td>[[${anc.writer}]]</td>
                                 </tr>
                             </table>
                         </div>

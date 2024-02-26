@@ -72,10 +72,6 @@ public class ManagerController {
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
 
-        List<String> imageFiles = mainImageService.getImageFiles();
-        log.info(imageFiles);
-
-        model.addAttribute("imageFiles", imageFiles);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);
         model.addAttribute("userTodayCount", userTodayCount);

@@ -8,6 +8,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 public interface UserCountRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User> {
     Long countBy();
 
-    @Query(value = "SELECT COUNT(*) FROM user WHERE DATE_FORMAT(reg_date, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(CURRENT_DATE, INTERVAL 24 HOUR), '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM user WHERE DATE_FORMAT(reg_date, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')", nativeQuery = true)
     Long countTodayRegisteredUsers();
 }

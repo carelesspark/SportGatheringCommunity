@@ -1,5 +1,8 @@
 package com.swithus.community.main.controller;
 
+import com.swithus.community.manager.dto.AnnouncementDTO;
+import com.swithus.community.manager.entity.Announcement;
+import com.swithus.community.manager.service.AnnouncementService;
 import com.swithus.community.manager.service.MainImageService;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final MainImageService mainImageService;
+    private final AnnouncementService announcementService;
 
     @GetMapping("/main")
     public String announcement(HttpSession session, Model model){
@@ -33,9 +36,10 @@ public class MainController {
              //모델에 userId와 userName을 추가
             model.addAttribute("RuserId", RuserId);
 
-            List<String> imageFiles = mainImageService.getImageFiles();
-            log.info(imageFiles);
-            model.addAttribute("imageFiles", imageFiles);
+            List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
+            log.info(result);
+
+            model.addAttribute("announcement", result);
 
             //model.addAttribute("userName", userName);
             return "main/main";
