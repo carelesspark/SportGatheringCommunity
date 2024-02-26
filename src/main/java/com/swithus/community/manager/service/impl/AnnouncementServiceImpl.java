@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -74,5 +75,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public void delete(Long no) {
         announcementRepository.deleteById(no);
+    }
+
+    @Override
+    public List<Announcement> findTop4ByOrderByRegDateDesc() {
+        return announcementRepository.findTop4ByOrderByRegDateDesc();
     }
 }

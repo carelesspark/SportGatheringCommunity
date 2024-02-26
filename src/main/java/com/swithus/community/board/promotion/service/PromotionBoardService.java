@@ -5,7 +5,11 @@ import com.swithus.community.board.promotion.dto.PromotionBoardDTO;
 import com.swithus.community.global.entity.Sports;
 import com.swithus.community.user.entity.User;
 
+import java.util.List;
+
 public interface PromotionBoardService {
+
+    List<Promotion> findTop4ByOrderByRegDateDesc();
 
 //    PageResultDTO<PromotionBoardDTO,Object[]> getList(PageRequestDTO pageRequestDTO);
 

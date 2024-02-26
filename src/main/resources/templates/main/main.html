@@ -1,31 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <th:block layout:fragment="content">
     <main>
-        <h1 th:if="${session.RuserId != null}">환영합니다, <span th:text="${session.RuserId}"></span>님!</h1>
-<!--        <p th:if="${session.userid != null}">당신의 사용자 이름은 <span th:text="${session.username}"></span>입니다.</p>-->
+        <h1 th:if="${session.RuserId != null}">환영합니다, <span th:text="${session.username}"></span>님!</h1>
+        <!--        <p th:if="${session.userid != null}">당신의 사용자 이름은 <span th:text="${session.username}"></span>입니다.</p>-->
         <div id="content">
             <div id="promotion">
                 <div id="pic" class="carousel slide" data-ride="carousel">
-
-                    <!-- Indicators -->
-                    <ul class="carousel-indicators">
-                        <li data-target="#pic" data-slide-to="0" class="active"></li>
-                        <li data-target="#pic" data-slide-to="1"></li>
-                        <li data-target="#pic" data-slide-to="2"></li>
-                    </ul>
-
                     <!-- The slideshow -->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img th:src="@{/images/main/promotion1.png}" alt="pic1">
-                        </div>
-                        <div class="carousel-item">
-                            <img th:src="@{/images/main/promotion2.png}" alt="pic2">
-                        </div>
-                        <div class="carousel-item">
-                            <img th:src="@{/images/main/promotion3.png}" alt="pic3">
-                        </div>
+                    <div class="carousel-inner" id="imageContainer">
+
                     </div>
 
                     <!-- Left and right controls -->
@@ -51,25 +36,10 @@
                         </div>
                         <div class="table">
                             <table>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
+                                <tr th:each="anc : ${announcement}">
+                                    <td>[[${anc.id}]]</td>
+                                    <td><a>[[${anc.title}]]</a></td>
+                                    <td>[[${anc.writer}]]</td>
                                 </tr>
                             </table>
                         </div>
@@ -83,25 +53,10 @@
                         </div>
                         <div class="table">
                             <table>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
-                                </tr>
-                                <tr>
-                                    <td>[23]</td>
-                                    <td><a>사이트 이용 방법에 대해 안내드립니다.</a></td>
-                                    <td>2024/02/05</td>
+                                <tr th:each="pro : ${promotion}">
+                                    <td>[[${pro.id}]]</td>
+                                    <td><a>[[${pro.title}]]</a></td>
+                                    <td>[[${pro.club.leader.nickname}]]</td>
                                 </tr>
                             </table>
                         </div>
@@ -170,6 +125,48 @@
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                loadImages();
+
+                function loadImages() {
+                    $.ajax({
+                        url: '/getImagePaths', // Replace with your API endpoint
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (images) {
+                            updateImageContainer(images);
+                            console.log(images);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                        }
+                    });
+                }
+
+                function updateImageContainer(images) {
+                    var imageContainer = $("#imageContainer");
+
+                    imageContainer.empty();
+
+                    var str = "";
+
+                    images.forEach(function (imagePath, index) {
+
+                        var isActive = index === 0 ? ' active' : '';
+
+                        str += "<div class='carousel-item " + isActive + "'>";
+                        str += "<img src='/getImage?fileName=" + imagePath + "' alt='pic' class='img_size' />";
+                        str += "</div>";
+                    });
+                    imageContainer.append(str);
+
+                    $('.carousel').carousel();
+                }
+            });
+        </script>
     </main>
 </th:block>
 </html>

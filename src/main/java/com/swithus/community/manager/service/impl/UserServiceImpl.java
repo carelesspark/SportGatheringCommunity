@@ -10,6 +10,7 @@ import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.entity.Faq;
 import com.swithus.community.manager.entity.QWithdrawalUser;
 import com.swithus.community.manager.entity.WithdrawalUser;
+import com.swithus.community.manager.repository.UserCountRepository;
 import com.swithus.community.manager.repository.UserDetailRepository;
 import com.swithus.community.manager.repository.UserRepository;
 import com.swithus.community.manager.repository.WithdrawalUserRepository;
@@ -34,7 +35,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final WithdrawalUserRepository withdrawalUserRepository;
     private final UserDetailRepository userDetailRepository;
+    private final UserCountRepository userCountRepository;
 
+
+    @Override
+    public Long countBy() {
+       return userCountRepository.countBy();
+    }
+
+    @Override
+    public Long countTodayUser() {
+        return userCountRepository.countTodayRegisteredUsers();
+    }
 
     @Override
     public UserPageResultDTO<UserDTO, AuthId> getUserList(UserPageRequestDTO requestDTO) {
@@ -132,4 +144,6 @@ public class UserServiceImpl implements UserService {
 
         return result.isPresent()? entityToWithdrawalUserDTO(result.get()) : null;
     }
+
+
 }

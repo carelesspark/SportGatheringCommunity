@@ -1,5 +1,12 @@
 package com.swithus.community.main.controller;
 
+import com.swithus.community.board.entity.Promotion;
+import com.swithus.community.board.promotion.repository.PromotionBoardRepository;
+import com.swithus.community.board.promotion.service.PromotionBoardService;
+import com.swithus.community.manager.dto.AnnouncementDTO;
+import com.swithus.community.manager.entity.Announcement;
+import com.swithus.community.manager.service.AnnouncementService;
+import com.swithus.community.manager.service.MainImageService;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -9,11 +16,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/swithus")
 @Log4j2
 @RequiredArgsConstructor
 public class MainController {
+
+    private final AnnouncementService announcementService;
+    private final PromotionBoardService promotionBoardService;
+
     @GetMapping("/main")
     public String announcement(HttpSession session, Model model){
         // 세션에서 사용자 정보를 가져옴
@@ -26,6 +39,14 @@ public class MainController {
         }else{
              //모델에 userId와 userName을 추가
             model.addAttribute("RuserId", RuserId);
+
+            List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
+            log.info(result);
+            List<Promotion> result2 = promotionBoardService.findTop4ByOrderByRegDateDesc();
+            log.info(result2);
+            model.addAttribute("announcement", result);
+            model.addAttribute("promotion", result2);
+
             //model.addAttribute("userName", userName);
             return "main/main";
         }
