@@ -5,6 +5,7 @@ import com.swithus.community.club.repository.search.ClubSearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRepository {
@@ -28,9 +29,15 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
             "where c.id = :clubId and cm.id = :clubMemberId")
     List<Object[]> getClubAndClubMemberByClubIdAndClubMemberId(Long clubId, Long clubMemberId);
 
-
-    @Query("select c " +
+    @Query("select c, count(distinct cm), count(distinct m), ci " +
             "from Club c " +
-            "where c.id = :clubId")
-    Club getClubByClubId(Long clubId);
+            "left join ClubMember cm on cm.club = c " +
+            "left join Meeting m on m.club = c " +
+            "left outer join ClubImage ci on ci.club = c " +
+            "where m.mTime > :currentDateTime " +
+            "group by c, ci " +
+            "order by count(distinct m) desc, " +
+            "count(distinct cm) desc " +
+            "limit :number")
+    List<Object[]> getClubAndMemberCountAndMeetingCountAndImageLimitByNumber(LocalDateTime currentDateTime, int number);
 }

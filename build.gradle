@@ -31,8 +31,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
 	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
-	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+	// implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.2.0'
 
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
