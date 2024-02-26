@@ -1,7 +1,9 @@
 package com.swithus.community.manager.service;
 
+import com.swithus.community.board.dto.BoardInquiryDTO;
 import com.swithus.community.board.entity.Inquiry;
 import com.swithus.community.board.entity.InquiryAnswer;
+import com.swithus.community.board.entity.InquiryCtgr;
 import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
@@ -10,7 +12,9 @@ import com.swithus.community.manager.dto.page.MainPageResultDTO;
 
 public interface InquiryService {
 
-    MainPageResultDTO<InquiryDTO, Inquiry>getInquiryList(MainPageRequestDTO mainPageRequestDTO);
+    void postInquiry(BoardInquiryDTO boardInquiryDTO);
+
+    MainPageResultDTO<InquiryDTO, Inquiry> getInquiryList(MainPageRequestDTO mainPageRequestDTO);
 
     InquiryDTO inquiryInfo(Long id);
 
@@ -42,4 +46,5 @@ public interface InquiryService {
 
         return dto;
     }
+
 }
