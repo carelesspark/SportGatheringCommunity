@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-public class UserRepositoryTest {
+public class FindMemberRepositoryTest {
     @Autowired
     UserDetailRepository userRepository;
     @Autowired

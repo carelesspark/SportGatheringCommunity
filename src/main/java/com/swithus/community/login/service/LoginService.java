@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface LoginService {
     Optional<AuthId> check(LoginDTO loginDTO);
+    //아이디찾기
+    Optional<String> findUserId(String email, String name);
     default AuthId DtoTOEntity (LoginDTO loginDTO){
         AuthId authentity = AuthId.builder()
                 .userid(loginDTO.getUserId())

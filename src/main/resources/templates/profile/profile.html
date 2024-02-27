@@ -23,22 +23,38 @@
             </div>
         </div>
 
-        <!--   닉네임수정 모달창    -->
-        <div class="modal fade" id="editNicknameModal" tabindex="-1" role="dialog" aria-labelledby="editNicknameModalLabel" aria-hidden="true">
+        <!--   프로필수정 모달창    -->
+        <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editNicknameModalLabel">닉네임 수정</h5>
+                        <h5 class="modal-title" id="editProfileModalLabel">프로필 수정</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- 수정할 닉네임을 입력하는 폼 -->
-                        <form id="editNicknameForm">
+                        <!-- 수정할 프로필 정보를 입력하는 폼 -->
+                        <form id="editProfileForm">
                             <div class="form-group">
                                 <label for="newNickname">수정할 닉네임:</label>
                                 <input type="text" class="form-control" id="newNickname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newEmail">수정할 이메일:</label>
+                                <input type="email" class="form-control" id="newEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newAddress">수정할 주소:</label>
+                                <input type="text" class="form-control" id="newAddress" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newAddressDetail">수정할 상세주소:</label>
+                                <input type="text" class="form-control" id="newAddressDetail">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPost">수정할 우편번호:</label>
+                                <input type="text" class="form-control" id="newPost" required>
                             </div>
                             <button type="submit" class="btn btn-primary">저장</button>
                         </form>
@@ -46,6 +62,8 @@
                 </div>
             </div>
         </div> <!--Modal End -->
+
+        <div id="profileUpdateMessage" style="display: none;"></div>
 
         <div id="info2">
             <div><p>주소</p></div>
@@ -73,7 +91,7 @@
         </div>
 
         <div id="editBtn">
-            <button>프로필 수정</button>
+            <button id="editProfileBtn">프로필 수정</button>
         </div>
 
 
@@ -274,40 +292,56 @@
                     $('.icon8').css("transition", "fill 0.3s ease-in-out");
                });
 
-           });
 
-$(document).ready(function () {
-  // Edit Nickname 버튼 클릭 시 모달 표시
-  $("#editNickname").click(function () {
-    $("#editNicknameModal").modal("show");
-  });
-});
+                   // 프로필 수정 버튼 클릭 시 모달 열기
+                    $('#editProfileBtn').on('click', function () {
+                        // 모달 열기 등의 동작 추가
+                        $('#editProfileModal').modal('show');
+                    });
 
+                    // 프로필 수정 폼 제출 시
+                    $('#editProfileForm').submit(function (e) {
+                        e.preventDefault(); // 폼 제출 기본 동작 막기
 
-$("#editNicknameForm").submit(function (event) {
-    event.preventDefault();
+                        // 수정할 정보 값 가져오기
+                        var newNickname = $('#newNickname').val();
+                        var newEmail = $('#newEmail').val();
+                        var newAddress = $('#newAddress').val();
+                        var newAddressDetail = $('#newAddressDetail').val();
+                        var newPost = $('#newPost').val();
 
-    var newNickname = $("#newNickname").val();
+                        // AJAX를 사용하여 서버로 수정 요청 보내기
+                        $.ajax({
+                            type: 'POST',
+                            url: '/profile/update',
+                            data: {
+                                nickname: newNickname,
+                                email: newEmail,
+                                address: newAddress,
+                                addressDetail: newAddressDetail,
+                                post: newPost
+                            },
+                            success: function (response) {
+                                // 서버로부터 성공 응답을 받았을 때의 동작
+                                console.log('프로필 수정이 성공적으로 완료되었습니다.');
 
-    $.ajax({
-        type: "POST",
-        url: "/profile/editNickname",
-        data: { newNickname: newNickname },
-        success: function (data) {
-            if (data === "SUCCESS") {
-                alert("닉네임이 성공적으로 변경되었습니다.");
-                // 모달 닫기 등 추가 동작 수행
-            } else if (data === "DUPLICATE") {
-                alert("이미 존재하는 닉네임입니다. 다른 닉네임을 시도해주세요.");
-            } else {
-                alert("닉네임 변경에 실패했습니다.");
-            }
-        },
-        error: function (error) {
-            alert("에러 발생: " + error.responseText);
-        }
-    });
-});
+                                // 성공 메시지를 동적으로 생성하여 출력
+                                var successMessage = '<div class="alert alert-success" role="alert">' + response.message + '</div>';
+                                $('#profileUpdateMessage').html(successMessage).fadeIn(500).delay(3000).fadeOut(500);
+
+                                location.reload();
+                            },
+                            error: function (xhr, status, error) {
+                                // 서버로부터 실패 응답
+                                console.error('프로필 수정 중 에러 발생: ' + error);
+
+                                // 실패 메시지를 동적으로 생성하여 출력
+                                var errorMessage = '<div class="alert alert-danger" role="alert">프로필 수정 중 에러가 발생했습니다. 다시 시도해주세요.</div>';
+                                $('#profileUpdateMessage').html(errorMessage).fadeIn(500).delay(3000).fadeOut(500);
+                            }
+                        });
+                    });
+            }); <!--document Ready End-->
         </script>
     </div>
 </th:block>
