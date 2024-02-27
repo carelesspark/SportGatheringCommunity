@@ -70,33 +70,78 @@
       </div>
     </div>
 
-
-
+    <!--검색 결과를 보여주는 곳-->
     <div>
-      <ul class="pagination h-100 justify-content-center align-items-center">
-        <li class="page-item">
-          <a class="page-link">
-            ‹
-          </a>
-        </li>
+      <!--테이블-->
+      <div>
+        <table class="table table-striped table-hover">
+          <thead class="table-light">
+          <tr>
+            <th scope="col">카테고리</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">조회수</th>
+            <th scope="col">좋아요</th>
+            <th scope="col">작성일</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+              th:each="dto : ${result.dtoList}"
+              th:onclick="goPost(${navDTO.clubId}, ${dto.clubPostId})"
+          >
+            <th scope="row">[[${dto.ctgrName}]]</th>
+            <td>[[${dto.title}]] ([[${dto.replyCount}]])</td>
+            <td>[[${dto.writerName}]]</td>
+            <td>[[${dto.visitCount}]]</td>
+            <td>[[${dto.likeCount}]]</td>
+            <td>[[${dto.regDate}]]</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--페이지 번호-->
+      <div>
+        <ul class="pagination h-100 justify-content-center align-items-center">
+          <li class="page-item" th:if="${result.prev}">
+            <a class="page-link"
+               th:href="@{/club/board(
+               page = ${result.start - 1},
+               ctgrId = ${selectedCtgrId},
+               type = ${selectedType},
+               keyword = ${selectedKeyword}
+               )}">
+              ‹
+            </a>
+          </li>
 
-        <li>
-          <a class="page-link">
-            페이지 번호
-          </a>
-        </li>
+          <li th:class="'page-item ' + ${result.page == page ? 'active ' : ''}"
+              th:each="page : ${result.pageList}">
+            <a class="page-link"
+               th:href="@{/club/board(
+            page = ${page},
+            ctgrId = ${selectedCtgrId},
+            type = ${selectedType},
+            keyword = ${selectedKeyword}
+            )}">
+              [[${page}]]
+            </a>
+          </li>
 
-        <li class="page-item">
-          <a class="page-link">
-            ›
-          </a>
-        </li>
-      </ul>
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link"
+               th:href="@{/club/board(
+            page = ${result.end + 1},
+            ctgrId = ${selectedCtgrId},
+            type = ${selectedType},
+            keyword = ${selectedKeyword}
+            )}">
+              ›
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <script th:inline="javascript">
-
-    </script>
   </div>
 </th:block>
 </html>

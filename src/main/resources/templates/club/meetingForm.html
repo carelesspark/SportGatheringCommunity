@@ -21,6 +21,7 @@
               <label class="form-label" for="ctgrSelect">모임 종류 선택</label>
               <select class="form-select" id="ctgrSelect" name="ctgrId" required>
                 <option th:each="ctgr : ${ctgrList}"
+                        th:selected="${meetingDTO != null and meetingDTO.ctgrId == ctgr.id}"
                         th:text="${ctgr.name}"
                         th:value="${ctgr.id}"></option>
               </select>
