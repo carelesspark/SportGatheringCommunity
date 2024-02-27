@@ -52,6 +52,8 @@ public class MainController {
             log.info(result2);
 
             List<PopularClubDTO> popularClubDTOList = clubService.getPopularClubDTOList(4);
+            log.info(popularClubDTOList);
+
             if (ObjectUtils.isEmpty(popularClubDTOList)) {
                 log.warn("Club이 존재하지 않습니다.");
                 model.addAttribute("popularClubDTOList", null);

@@ -1,20 +1,21 @@
 package com.swithus.community.profile.controller;
 
-import com.swithus.community.profile.service.ProfileService;
+import com.swithus.community.profile.service.MemberService;
+import com.swithus.community.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/profile")
 @Log4j2
 @RequiredArgsConstructor
 public class ProfileController {
-
-    private final ProfileService profileService;
+    private final MemberService memberService;
     @GetMapping("/main")
     public String main(HttpSession session, Model model){
 
@@ -33,30 +34,25 @@ public class ProfileController {
         return "profile/profile";
     }
 
-    @PostMapping("/editNickname")
-    @ResponseBody
-    public String editNickname(@RequestParam String newNickname, HttpSession session) {
-        String userId = (String) session.getAttribute("RuserId");
-
+    @PostMapping("/update")
+    public String updateProfile(HttpSession session, UserDTO updatedUser, RedirectAttributes redirectAttributes) {
         try {
-            // 세션에서 받은 userId를 Long으로 변환
-            Long userIdLong = Long.parseLong(userId);
+            Long userId = (Long) session.getAttribute("userId");
+            updatedUser.setId(userId);
 
-            // 새로운 닉네임이 이미 존재하는지 확인
-            if (profileService.isNicknameExists(newNickname)) {
-                return "DUPLICATE"; // 중복된 닉네임인 경우
-            }
+            memberService.updateUserInfo(updatedUser);
 
-            // 중복이 아니라면 닉네임 업데이트
-            profileService.updateNickname(userIdLong, newNickname);
-            session.setAttribute("userNickname", newNickname);
+            // 업데이트 성공 시 메시지를 리다이렉트로 전달
+            redirectAttributes.addFlashAttribute("successMessage", "프로필이 업데이트되었습니다.");
 
-            return "SUCCESS";
-        } catch (NumberFormatException e) {
-            // userId가 올바른 Long 형태가 아닌 경우 처리
-            return "INVALID_USER_ID";
+        } catch (Exception e) {
+            log.error("프로필 업데이트 중 오류 발생: " + e.getMessage());
+
+            // 업데이트 실패 시 메시지를 리다이렉트로 전달
+            redirectAttributes.addFlashAttribute("errorMessage", "프로필 업데이트에 실패했습니다. 다시 시도해주세요.");
         }
-    }
 
+        return "redirect:/profile/main";
+    }
 
 }

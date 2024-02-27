@@ -38,7 +38,7 @@
               <table class="table_table">
                 <tr th:each="anc : ${announcement}">
                   <td>[[${anc.id}]]</td>
-                  <td><a>[[${anc.title}]]</a></td>
+                  <td><a th:href="@{/board/announcement_info(no=${anc.id})}" class="hover_a">[[${anc.title}]]</a></td>
                   <td>[[${anc.writer}]]</td>
                 </tr>
               </table>
@@ -162,7 +162,7 @@
           </div>
         </div>
         <div id="bottom">
-          <a href="/club/search"><p>> 더많은 소모임 보러가기</p></a>
+          <a th:href="@{/club/search}"><p>> 더많은 소모임 보러가기</p></a>
         </div>
       </div>
     </div>

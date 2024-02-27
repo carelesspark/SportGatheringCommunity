@@ -1,12 +1,8 @@
 package com.swithus.community.user.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
-import com.swithus.community.user.authentication.domain.oauth.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Builder
@@ -47,16 +43,35 @@ public class User extends BaseEntity {
 
     //클럽장여부
     private byte isLeader;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private AuthVerification authVerification;
+
+    // 'nickname' 필드에 대한 setter 메서드 추가
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
-    private OAuthProvider oAuthProvider;
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
 
-    @Builder
-    public User(String email, String nickname, OAuthProvider oAuthProvider) {
+    // 'addrDetail' 필드에 대한 setter 메서드 추가
+    public void setAddrDetail(String addrDetail) {
+        this.addrDetail = addrDetail;
+    }
+
+    // 'post' 필드에 대한 setter 메서드 추가
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    // 'email' 필드에 대한 setter 메서드 추가
+    public void setEmail(String email) {
         this.email = email;
-        this.nickname = nickname;
-        this.oAuthProvider = oAuthProvider;
+    }
+
+    public Long getUserid() {
+        return this.id = id;
     }
 }
