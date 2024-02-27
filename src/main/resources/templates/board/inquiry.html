@@ -34,13 +34,14 @@
                             <p>ID : </p>
                         </div>
                         <div th:if="${session.RuserId != null}">
-                            <input type="text" class="form-control input_id" th:value="${session.RuserId}" name="userId" disabled/>
+                            <input type="text" class="form-control input_id" th:value="${session.RuserId}" name="userId"
+                                   disabled/>
                         </div>
                         <div class="p1">
                             <p>유저명 : </p>
                         </div>
                         <div th:if="${nickname != null}">
-                            <input type="hidden" th:value="${nickname}" name="nickname" />
+                            <input type="hidden" th:value="${nickname}" name="nickname"/>
                             <input type="text" class="form-control input_nickname" th:value="${nickname}" disabled/>
                         </div>
                     </div>
@@ -49,7 +50,7 @@
                             <p>제목 : </p>
                         </div>
                         <div>
-                            <input type="text" class="form-control input_title" name="title" />
+                            <input type="text" class="form-control input_title" name="title"/>
                         </div>
                     </div>
                     <div id="content_box">
@@ -57,17 +58,19 @@
                             <p>내용 : </p>
                         </div>
                         <div>
-                        <textarea name="content" class="input_content"></textarea>
+                            <textarea name="content" class="input_content"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="button">
                     <div class="button_div">
                         <div>
-                            <button type="button" class="btn btn-outline-primary btns">Primary</button>
+                            <button type="button" class="btn btn-outline-primary btns"
+                                    th:onclick="|location.href='@{/swithus/main}'|">메인으로
+                            </button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-outline-success btns postBtn">Success</button>
+                            <button type="button" class="btn btn-outline-success btns postBtn">전송하기</button>
                         </div>
                     </div>
                 </div>
