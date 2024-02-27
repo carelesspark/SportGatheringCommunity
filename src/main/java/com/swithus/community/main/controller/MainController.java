@@ -1,12 +1,9 @@
 package com.swithus.community.main.controller;
 
 import com.swithus.community.board.entity.Promotion;
-import com.swithus.community.board.promotion.service.PromotionBoardService;
+import com.swithus.community.board.service.PromotionBoardService;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.main.dto.PopularClubDTO;
-import com.swithus.community.board.repository.PromotionBoardRepository;
-import com.swithus.community.board.service.PromotionBoardService;
-import com.swithus.community.manager.dto.AnnouncementDTO;
 import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.service.AnnouncementService;
 import jakarta.servlet.http.HttpSession;
@@ -35,7 +32,7 @@ public class MainController {
 
         String RuserId = (String) session.getAttribute("RuserId");
 
-        String nickname= (String) session.getAttribute("userNickname");
+        String nickname = (String) session.getAttribute("userNickname");
 
         log.info(RuserId + " + " + nickname);
 
@@ -56,8 +53,10 @@ public class MainController {
 
             List<PopularClubDTO> popularClubDTOList = clubService.getPopularClubDTOList(4);
             if (ObjectUtils.isEmpty(popularClubDTOList)) {
+                log.warn("Club이 존재하지 않습니다.");
                 model.addAttribute("popularClubDTOList", null);
-            }else{
+            } else {
+                log.warn("Club이 존재합니다.");
                 model.addAttribute("popularClubDTOList", popularClubDTOList);
             }
 

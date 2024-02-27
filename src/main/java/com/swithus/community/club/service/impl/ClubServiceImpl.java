@@ -18,6 +18,7 @@ import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -193,8 +194,11 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<PopularClubDTO> getPopularClubDTOList(int number) {
         LocalDateTime now = LocalDateTime.now();
+
+        Pageable pageable = PageRequest.of(0, number);
+
         List<Object[]> resultList = clubRepository
-                .getClubAndMemberCountAndMeetingCountAndImageLimitByNumber(now, number);
+                .getClubAndMemberCountAndMeetingCountAndImageLimitByNumber(now, pageable);
         if (ObjectUtils.isEmpty(resultList)) return null;
 
         return resultList.stream().map(result -> {
