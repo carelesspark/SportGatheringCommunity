@@ -148,6 +148,10 @@ a {
     cursor: pointer;
 }
 
+.hover_a:hover {
+    text-decoration: none;
+}
+
 #promotion_grid {
     padding-top: 10px;
 }
@@ -255,3 +259,4 @@ table, tr, td {
     padding-top: 10px;
     padding-left: 940px;
 }
+
