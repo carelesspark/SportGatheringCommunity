@@ -31,11 +31,11 @@
                         <div id="announcement_grid">
                             <div class="announcement_post_top">
                                 <div><p class="sub_title">Announcement</p></div>
-                                <div><a><p class="move">> 더보기</p></a></div>
+                                <div><a th:href="@{/board/announcement}"><p class="move">> 더보기</p></a></div>
                             </div>
                         </div>
                         <div class="table">
-                            <table>
+                            <table class="table_table">
                                 <tr th:each="anc : ${announcement}">
                                     <td>[[${anc.id}]]</td>
                                     <td><a>[[${anc.title}]]</a></td>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="table">
-                            <table>
+                            <table class="table_table">
                                 <tr th:each="pro : ${promotion}">
                                     <td>[[${pro.id}]]</td>
                                     <td><a>[[${pro.title}]]</a></td>
@@ -67,61 +67,23 @@
                 <div id="title2">
                     <p>Today's Best Club</p>
                 </div>
-                <div id="best4"><a>
-                    <div class="club">
+                <div id="best4">
+                    <div class="club" th:each="dto : ${popularClubDTOList}"><a>
                         <img th:src="@{/images/main/soccer.jpg}" class="img"/>
                         <div class="club_info">
-                            <div class="info1"><p>블랙FC · 축구</p></div>
-                            <div class="info2"><p>50년 전통의 어둠축구</p></div>
+                            <div class="info1"><p>[[${dto.name}]] · [[${dto.sportsName}]]</p></div>
+                            <div class="info2"><p>[[${dto.headline}]]</p></div>
                             <div class="info3">
-                                <div class="info3_1"><p>세부 지역 · 멤버 81 · </p></div>
-                                <div class="info3_2"><p>정모 3 · 대회</p></div>
+                                <div class="info3_1"><p>세부 지역 [[${dto.regionName}]] · 멤버 [[${dto.memberCount}]] · </p>
+                                </div>
+                                <div class="info3_2"><p>정모 [[${dto.meetingCount}]]</p></div>
                             </div>
                         </div>
+                    </a>
                     </div>
-                </a>
-                    <a>
-                        <div class="club">
-                            <img th:src="@{/images/main/soccer.jpg}" class="img"/>
-                            <div class="club_info">
-                                <div class="info1"><p>블랙FC · 축구</p></div>
-                                <div class="info2"><p>50년 전통의 어둠축구</p></div>
-                                <div class="info3">
-                                    <div class="info3_1"><p>세부 지역 · 멤버 81 · </p></div>
-                                    <div class="info3_2"><p>정모 3 · 대회</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a>
-                        <div class="club">
-                            <img th:src="@{/images/main/soccer.jpg}" class="img"/>
-                            <div class="club_info">
-                                <div class="info1"><p>블랙FC · 축구</p></div>
-                                <div class="info2"><p>50년 전통의 어둠축구</p></div>
-                                <div class="info3">
-                                    <div class="info3_1"><p>세부 지역 · 멤버 81 · </p></div>
-                                    <div class="info3_2"><p>정모 3 · 대회</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a>
-                        <div class="club">
-                            <img th:src="@{/images/main/soccer.jpg}" class="img"/>
-                            <div class="club_info">
-                                <div class="info1"><p>블랙FC · 축구</p></div>
-                                <div class="info2"><p>50년 전통의 어둠축구</p></div>
-                                <div class="info3">
-                                    <div class="info3_1"><p>세부 지역 · 멤버 81 · </p></div>
-                                    <div class="info3_2"><p>정모 3 · 대회</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div id="bottom">
-                    <a><p>> 더많은 소모임 보러가기</p></a>
+                    <div id="bottom">
+                        <a th:href="@{/club/search}"><p>> 더많은 소모임 보러가기</p></a>
+                    </div>
                 </div>
             </div>
         </div>

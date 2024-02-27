@@ -44,6 +44,8 @@ public String login(LoginDTO loginDTO, HttpSession session) {
         // 클럽쪽에서 사용할 것들 추가했습니다.
         session.setAttribute("userId",value.getUser().getId());
         session.setAttribute("userName", value.getUser().getName());
+        session.setAttribute("userNickname", value.getUser().getNickname());
+
 
         //프로필페이지 사용할것
         session.setAttribute("userNickname", value.getUser().getNickname());

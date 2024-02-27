@@ -1,5 +1,7 @@
 package com.swithus.community.manager.controller;
 
+import com.swithus.community.board.entity.Promotion;
+import com.swithus.community.board.service.PromotionBoardService;
 import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
@@ -29,6 +31,7 @@ public class ManagerController {
     private final UserService userService;
     private final GatheringService gatheringService;
     private final MainImageService mainImageService;
+    private final PromotionBoardService promotionBoardService;
 
     @GetMapping("/main")
     public void home(Model model){
@@ -36,7 +39,9 @@ public class ManagerController {
         Long userCount = userService.countBy();
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
+        List<Promotion> result = promotionBoardService.findTop4ByOrderByRegDateDesc();
 
+        model.addAttribute("promotion", result);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);
         model.addAttribute("userTodayCount", userTodayCount);
@@ -53,7 +58,9 @@ public class ManagerController {
         Long userCount = userService.countBy();
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
+        List<Promotion> result = promotionBoardService.findTop4ByOrderByRegDateDesc();
 
+        model.addAttribute("promotion", result);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);
         model.addAttribute("userTodayCount", userTodayCount);
@@ -71,7 +78,9 @@ public class ManagerController {
         Long userCount = userService.countBy();
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
+        List<Promotion> result = promotionBoardService.findTop4ByOrderByRegDateDesc();
 
+        model.addAttribute("promotion", result);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);
         model.addAttribute("userTodayCount", userTodayCount);

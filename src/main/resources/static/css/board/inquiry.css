@@ -1,0 +1,168 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+
+html {
+	height: 100%;
+}
+/*body {*/
+/*	height: 100%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    margin: 0;*/
+/*}*/
+
+main {
+    flex: 1;
+    /*padding: 50px;*/
+    padding-top: 10px;
+}
+
+p {
+    margin: 0;
+}
+
+#content {
+    width: 1080px;
+    height: 1100px;
+    display: grid;
+    grid-template-rows: 150px 850px 100px;
+    place-items: center;
+    margin: 0 auto 30px auto;
+}
+
+#inquiry_title {
+    width: 980px;
+    height: 150px;
+    background: #F2F0F0;
+}
+
+#title_css {
+    width: 980px;
+    height: 150px;
+    text-align: center;
+}
+
+#title_css p {
+    font-size: 25pt;
+    font-weight: bold;
+    padding-top: 50px;
+}
+
+#inquiry_middle{
+    width: 980px;
+    height: 850px;
+    display: grid;
+    grid-template-rows: 100px 80px 80px 80px 510px;
+    place-items: center;
+}
+
+#padding {
+    width: 900px;
+    height: 100px;
+    padding-top: 70px;
+    padding-left: 20px;
+    border-bottom: 1px solid #828080;
+}
+
+#padding p {
+    font-size: 12pt;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+#category {
+     width: 900px;
+     height: 80px;
+     display: grid;
+     grid-template-columns: 120px 860px;
+     place-items: center;
+     border-bottom: 1px solid #D9D9D9;
+}
+
+#id_user {
+     width: 900px;
+     height: 80px;
+     display: grid;
+     grid-template-columns: 120px 330px 120px 330px;
+     place-items: center;
+     border-bottom: 1px solid #D9D9D9;
+}
+
+#title_box {
+     width: 900px;
+     height: 80px;
+     display: grid;
+     grid-template-columns: 120px 860px;
+     place-items: center;
+     border-bottom: 1px solid #D9D9D9;
+}
+
+#content_box {
+     width: 900px;
+     height: 510px;
+     display: grid;
+     grid-template-columns: 120px 860px;
+     place-items: center;
+}
+
+.p1 p {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#div1 {
+    padding-right: 600px;
+}
+
+.input_id {
+    width: 210px;
+    margin-right: 60px;
+}
+
+.input_nickname {
+     width: 210px;
+     margin-right: 60px;
+ }
+
+.input_title {
+    width: 500px;
+    margin-right: 300px;
+}
+
+textarea {
+    width: 720px;
+    height: 450px;
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+    resize: none;
+    margin-right: 80px;
+    padding-top: 10px;
+    padding-left: 20px;
+
+}
+
+#content_margin{
+    margin-bottom: 400px;
+}
+
+.button_div{
+    width: 900px;
+    height: 100px;
+    border-top: 1px solid #828080;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.btns {
+    width: 150px;
+    height: 50px;
+}
+
+.btn-outline-primary {
+    margin-left: 150px;
+}
+
+.btn-outline-success {
+    margin-right: 150px;
+}

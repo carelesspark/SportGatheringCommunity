@@ -2,36 +2,75 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
-    <div>
-      <h1>게시판</h1>
-      <a class="btn" href="">게시글 작성</a>
+
+    <div class="border-bottom mb-3">
+      <div class="mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="d-flex align-items-center">
+            <h3>게시판</h3>
+          </div>
+          <div class="d-flex align-items-center">
+            <a class="btn btn-outline-success" href="/club/postForm">
+              게시글 작성
+            </a>
+          </div>
+        </div>
+
+        <form
+            action="/club/searchPost"
+            class="bg-light bg-gradient p-3 rounded"
+            method="get"
+        >
+          <input name="page" type="hidden" value="1"/>
+
+          <div class="row">
+            <div class="col-2 p-1">
+              <label class="form-label" for="ctgrSelect">카테고리</label>
+              <select class="form-select" id="ctgrSelect" name="ctgrId">
+                <option th:selected="${selectedCtgrId == null}">---</option>
+                <option
+                    th:each="ctgr : ${ctgrList}"
+                    th:selected="${ctgr.id == selectedCtgrId}"
+                    th:text="${ctgr.name}"
+                    th:value="${ctgr.id}"
+                ></option>
+              </select>
+            </div>
+            <div class="col p-1">
+              <label class="form-label" for="typeSelect">검색어</label>
+              <div class="input-group">
+                <select class="form-select" id="typeSelect" name="type">
+                  <option th:selected="${selectedType == null}">---</option>
+                  <option th:selected="${selectedType == 't'}" value="t">
+                    제목
+                  </option>
+                  <option th:selected="${selectedType == 'c'}" value="c">
+                    내용
+                  </option>
+                  <option th:selected="${selectedType == 'w'}" value="w">
+                    작성자
+                  </option>
+                  <option th:selected="${selectedType == 'tc'}" value="tc">
+                    제목+내용
+                  </option>
+                  <option th:selected="${selectedType == 'tcw'}" value="tcw">
+                    제목+내용+작성자
+                  </option>
+                </select>
+                <input class="form-control" style="width: 50%" type="text"/>
+              </div>
+            </div>
+            <div
+                class="col-1 d-flex align-items-end justify-content-center p-1"
+            >
+              <button class="btn btn-primary" type="submit">제출</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <div>
-      검색창
-    </div>
-    <div>
-      게시글 리스트
-      <table class="table">
-        <thead>
-        <tr>
-          <th class="text-center" scope="col">#</th>
-          <th class="text-center" scope="col">제목</th>
-          <th class="text-center" scope="col">댓글 개수</th>
-          <th class="text-center" scope="col">좋아요</th>
-          <th class="text-center" scope="col">등록일</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>th each
-          <td><a>#</a></td>
-          <td>제목</td>
-          <td>댓글 개수</td>
-          <td>좋아요</td>
-          <td>등록일</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+
+
 
     <div>
       <ul class="pagination h-100 justify-content-center align-items-center">
