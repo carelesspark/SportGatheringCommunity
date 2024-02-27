@@ -1,6 +1,7 @@
 package com.swithus.community.user.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.user.authentication.domain.oauth.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,5 +49,14 @@ public class User extends BaseEntity {
     private byte isLeader;
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    private OAuthProvider oAuthProvider;
+
+    @Builder
+    public User(String email, String nickname, OAuthProvider oAuthProvider) {
+        this.email = email;
+        this.nickname = nickname;
+        this.oAuthProvider = oAuthProvider;
     }
 }
