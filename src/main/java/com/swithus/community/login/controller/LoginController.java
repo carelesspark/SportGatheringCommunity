@@ -2,17 +2,20 @@ package com.swithus.community.login.controller;
 
 import com.swithus.community.login.dto.LoginDTO;
 import com.swithus.community.login.service.LoginService;
-import com.swithus.community.register.service.RegisterService;
+import com.swithus.community.user.dto.UserDTO;
 import com.swithus.community.user.entity.AuthId;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -69,6 +72,24 @@ public String logout(HttpSession session){
     public String findId(){
 
         return "login/findId";
+    }
+
+    @PostMapping("/findId")
+    public ResponseEntity<Map<String, String>> mailSend(UserDTO userDTO) throws MessagingException {
+        log.info("EmailController.mailSend()");
+
+        // 이메일 및 이름을 통해 아이디를 찾는 서비스 호출
+        Optional<String> foundUserIdOptional = loginService.findUserId(userDTO.getEmail(), userDTO.getName());
+
+        Map<String, String> response = new HashMap<>();
+        if (foundUserIdOptional.isPresent()) {
+            response.put("status", "success");
+            response.put("userId", foundUserIdOptional.get());  // 아이디를 클라이언트에게 전달
+        } else {
+            response.put("status", "fail");
+            response.put("message", foundUserIdOptional.orElse("이메일 인증이 완료되지 않았습니다."));
+        }
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/findPwd")

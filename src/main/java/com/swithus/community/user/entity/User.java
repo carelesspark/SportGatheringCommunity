@@ -4,9 +4,6 @@ import com.swithus.community.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Builder
 @AllArgsConstructor
@@ -46,7 +43,35 @@ public class User extends BaseEntity {
 
     //클럽장여부
     private byte isLeader;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private AuthVerification authVerification;
+
+    // 'nickname' 필드에 대한 setter 메서드 추가
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    // 'addrDetail' 필드에 대한 setter 메서드 추가
+    public void setAddrDetail(String addrDetail) {
+        this.addrDetail = addrDetail;
+    }
+
+    // 'post' 필드에 대한 setter 메서드 추가
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    // 'email' 필드에 대한 setter 메서드 추가
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getUserid() {
+        return this.id = id;
     }
 }
