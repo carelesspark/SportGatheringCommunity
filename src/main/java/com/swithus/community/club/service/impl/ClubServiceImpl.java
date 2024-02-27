@@ -206,10 +206,11 @@ public class ClubServiceImpl implements ClubService {
             Long memberCount = (Long) result[1];
             Long meetingCount = (Long) result[2];
             // 비어있을 수 있음
-            List<ClubImage> imageList = Collections.singletonList((ClubImage) result[3]);
+            Object possibleImageList = result[3];
 
             List<ImageDTO> imageDTOList = new ArrayList<>();
-            if (ObjectUtils.isEmpty(imageList)) {
+
+            if (possibleImageList == null) {
                 ImageDTO imageDTO = ImageDTO.builder()
                         .uuid("uuid")
                         .name(club.getSports().getName() + ".jpg")
@@ -217,13 +218,24 @@ public class ClubServiceImpl implements ClubService {
 
                 imageDTOList.add(imageDTO);
             } else {
-                imageDTOList = imageList.stream()
-                        .map(image -> ImageDTO.builder()
-                                .path(image.getPath())
-                                .name(image.getName())
-                                .uuid(image.getUuid())
-                                .build())
-                        .toList();
+                if (possibleImageList instanceof ClubImage) {
+                    ClubImage clubImage = (ClubImage) possibleImageList;
+                    ImageDTO imageDTO = ImageDTO.builder()
+                            .uuid(clubImage.getUuid())
+                            .name(clubImage.getName())
+                            .path(clubImage.getPath())
+                            .build();
+                    imageDTOList.add(imageDTO);
+                } else {
+                    List<ClubImage> clubImageList = (List<ClubImage>) possibleImageList;
+                    imageDTOList = clubImageList.stream()
+                            .map(image -> ImageDTO.builder()
+                                    .path(image.getPath())
+                                    .name(image.getName())
+                                    .uuid(image.getUuid())
+                                    .build())
+                            .toList();
+                }
             }
 
             return PopularClubDTO.builder()

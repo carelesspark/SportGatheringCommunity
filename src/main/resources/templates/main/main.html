@@ -2,212 +2,212 @@
 <html layout:decorate="layout/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="content">
-    <main>
-        <h1 th:if="${session.RuserId != null}">환영합니다, <span th:text="${session.username}"></span>님!</h1>
-        <!--        <p th:if="${session.userid != null}">당신의 사용자 이름은 <span th:text="${session.username}"></span>입니다.</p>-->
-        <div id="content">
-            <div id="promotion">
-                <div class="carousel slide" data-ride="carousel" id="pic">
-                    <!-- The slideshow -->
-                    <div class="carousel-inner" id="imageContainer">
+  <main>
+    <h1 th:if="${session.RuserId != null}">환영합니다, <span th:text="${session.username}"></span>님!</h1>
+    <!--        <p th:if="${session.userid != null}">당신의 사용자 이름은 <span th:text="${session.username}"></span>입니다.</p>-->
+    <div id="content">
+      <div id="promotion">
+        <div class="carousel slide" data-ride="carousel" id="pic">
+          <!-- The slideshow -->
+          <div class="carousel-inner" id="imageContainer">
 
-                    </div>
+          </div>
 
-                    <!-- Left and right controls -->
-                    <a class="carousel-control-prev" data-slide="prev" href="#pic">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a class="carousel-control-next" data-slide="next" href="#pic">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
-                </div>
-            </div>
-            <div id="post">
-                <div id="title1">
-                    <p>Announcement&Promotional post</p>
-                </div>
-                <div id="post_content">
-                    <div id="announcement_post">
-                        <div id="announcement_grid">
-                            <div class="announcement_post_top">
-                                <div><p class="sub_title">Announcement</p></div>
-                                <div><a><p class="move">> 더보기</p></a></div>
-                            </div>
-                        </div>
-                        <div class="table">
-                            <table class="table_table">
-                                <tr th:each="anc : ${announcement}">
-                                    <td>[[${anc.id}]]</td>
-                                    <td><a th:href="@{/board/announcement_info(no=${anc.id})}" class="hover_a">[[${anc.title}]]</a></td>
-                                    <td>[[${anc.writer}]]</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="promotion_post">
-                        <div id="promotion_grid">
-                            <div class="announcement_post_top">
-                                <div><p class="sub_title">Promotional Post</p></div>
-                                <div><a><p class="move">> 더보기</p></a></div>
-                            </div>
-                        </div>
-                        <div class="table">
-                            <table class="table_table">
-                                <tr th:each="pro : ${promotion}">
-                                    <td>[[${pro.id}]]</td>
-                                    <td><a>[[${pro.title}]]</a></td>
-                                    <td>[[${pro.club.leader.nickname}]]</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="club">
-                <div id="title2">
-                    <p>Today's Best Club</p>
-                </div>
-                <div class="row mb-3">
-                    <div class="col p-3">
-                        <div class="card text-dark bg-light rounded"
-                             th:each="popularClub, popularClubStat : ${popularClubDTOList}"
-                             th:if="${popularClubStat.index % 4 == 0}">
-                            <a style="text-decoration: none; color: inherit;"
-                               th:href="@{/club/main(clubId=${popularClub.clubId})}">
-                                <img class="card-img-top"
-                                     th:alt="${popularClub.imageDTOList[0].name}"
-                                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
-                                <div class="card-body">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
-                                        <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
-                                    </div>
-                                    <p class="card-text mb-5">[[${popularClub.headline}]]</p>
-                                    <div class="card-text">
-                                        [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
-                                        [[${popularClub.meetingCount}]]개
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col p-3">
-                        <div class="card text-dark bg-light rounded"
-                             th:each="popularClub, popularClubStat : ${popularClubDTOList}"
-                             th:if="${popularClubStat.index % 4 == 1}">
-                            <a style="text-decoration: none; color: inherit;"
-                               th:href="@{/club/main(clubId=${popularClub.clubId})}">
-                                <img class="card-img-top"
-                                     th:alt="${popularClub.imageDTOList[0].name}"
-                                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
-                                <div class="card-body">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
-                                        <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
-                                    </div>
-                                    <p class="card-text mb-5">[[${popularClub.headline}]]</p>
-                                    <div class="card-text">
-                                        [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
-                                        [[${popularClub.meetingCount}]]개
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col p-3">
-                        <div class="card text-dark bg-light rounded"
-                             th:each="popularClub, popularClubStat : ${popularClubDTOList}"
-                             th:if="${popularClubStat.index % 4 == 2}">
-                            <a style="text-decoration: none; color: inherit;"
-                               th:href="@{/club/main(clubId=${popularClub.clubId})}">
-                                <img class="card-img-top"
-                                     th:alt="${popularClub.imageDTOList[0].name}"
-                                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
-                                <div class="card-body">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
-                                        <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
-                                    </div>
-                                    <p class="card-text mb-5">[[${popularClub.headline}]]</p>
-                                    <div class="card-text">
-                                        [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
-                                        [[${popularClub.meetingCount}]]개
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col p-3">
-                        <div class="card text-dark bg-light rounded"
-                             th:each="popularClub, popularClubStat : ${popularClubDTOList}"
-                             th:if="${popularClubStat.index % 4 == 3}">
-                            <a style="text-decoration: none; color: inherit;"
-                               th:href="@{/club/main(clubId=${popularClub.clubId})}">
-                                <img class="card-img-top"
-                                     th:alt="${popularClub.imageDTOList[0].name}"
-                                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
-                                <div class="card-body">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
-                                        <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
-                                    </div>
-                                    <p class="card-text mb-5">[[${popularClub.headline}]]</p>
-                                    <div class="card-text">
-                                        [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
-                                        [[${popularClub.meetingCount}]]개
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div id="bottom">
-                    <a th:href="@{/club/search}"><p>> 더많은 소모임 보러가기</p></a>
-                </div>
-            </div>
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" data-slide="prev" href="#pic">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" data-slide="next" href="#pic">
+            <span class="carousel-control-next-icon"></span>
+          </a>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                loadImages();
+      </div>
+      <div id="post">
+        <div id="title1">
+          <p>Announcement&Promotional post</p>
+        </div>
+        <div id="post_content">
+          <div id="announcement_post">
+            <div id="announcement_grid">
+              <div class="announcement_post_top">
+                <div><p class="sub_title">Announcement</p></div>
+                <div><a><p class="move">> 더보기</p></a></div>
+              </div>
+            </div>
+            <div class="table">
+              <table class="table_table">
+                <tr th:each="anc : ${announcement}">
+                  <td>[[${anc.id}]]</td>
+                  <td><a th:href="@{/board/announcement_info(no=${anc.id})}" class="hover_a">[[${anc.title}]]</a></td>
+                  <td>[[${anc.writer}]]</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div id="promotion_post">
+            <div id="promotion_grid">
+              <div class="announcement_post_top">
+                <div><p class="sub_title">Promotional Post</p></div>
+                <div><a><p class="move">> 더보기</p></a></div>
+              </div>
+            </div>
+            <div class="table">
+              <table class="table_table">
+                <tr th:each="pro : ${promotion}">
+                  <td>[[${pro.id}]]</td>
+                  <td><a>[[${pro.title}]]</a></td>
+                  <td>[[${pro.club.leader.nickname}]]</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="club">
+        <div id="title2">
+          <p>Today's Best Club</p>
+        </div>
+        <div class="row mb-3">
+          <div class="col p-3">
+            <div class="card text-dark bg-light rounded"
+                 th:each="popularClub, popularClubStat : ${popularClubDTOList}"
+                 th:if="${popularClubStat.index % 4 == 0}">
+              <a style="text-decoration: none; color: inherit;"
+                 th:href="@{/club/main(clubId=${popularClub.clubId})}">
+                <img class="card-img-top"
+                     th:alt="${popularClub.imageDTOList[0].name}"
+                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
+                <div class="card-body">
+                  <div class="d-flex flex-row align-items-center">
+                    <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
+                    <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
+                  </div>
+                  <p class="card-text mb-5">[[${popularClub.headline}]]</p>
+                  <div class="card-text">
+                    [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
+                    [[${popularClub.meetingCount}]]개
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col p-3">
+            <div class="card text-dark bg-light rounded"
+                 th:each="popularClub, popularClubStat : ${popularClubDTOList}"
+                 th:if="${popularClubStat.index % 4 == 1}">
+              <a style="text-decoration: none; color: inherit;"
+                 th:href="@{/club/main(clubId=${popularClub.clubId})}">
+                <img class="card-img-top"
+                     th:alt="${popularClub.imageDTOList[0].name}"
+                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
+                <div class="card-body">
+                  <div class="d-flex flex-row align-items-center">
+                    <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
+                    <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
+                  </div>
+                  <p class="card-text mb-5">[[${popularClub.headline}]]</p>
+                  <div class="card-text">
+                    [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
+                    [[${popularClub.meetingCount}]]개
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col p-3">
+            <div class="card text-dark bg-light rounded"
+                 th:each="popularClub, popularClubStat : ${popularClubDTOList}"
+                 th:if="${popularClubStat.index % 4 == 2}">
+              <a style="text-decoration: none; color: inherit;"
+                 th:href="@{/club/main(clubId=${popularClub.clubId})}">
+                <img class="card-img-top"
+                     th:alt="${popularClub.imageDTOList[0].name}"
+                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
+                <div class="card-body">
+                  <div class="d-flex flex-row align-items-center">
+                    <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
+                    <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
+                  </div>
+                  <p class="card-text mb-5">[[${popularClub.headline}]]</p>
+                  <div class="card-text">
+                    [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
+                    [[${popularClub.meetingCount}]]개
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col p-3">
+            <div class="card text-dark bg-light rounded"
+                 th:each="popularClub, popularClubStat : ${popularClubDTOList}"
+                 th:if="${popularClubStat.index % 4 == 3}">
+              <a style="text-decoration: none; color: inherit;"
+                 th:href="@{/club/main(clubId=${popularClub.clubId})}">
+                <img class="card-img-top"
+                     th:alt="${popularClub.imageDTOList[0].name}"
+                     th:src="@{/image/display(fileName=${popularClub.imageDTOList[0].getThumbnailURL()})}">
+                <div class="card-body">
+                  <div class="d-flex flex-row align-items-center">
+                    <h5 class="card-title mr-1">[[${popularClub.name}]]</h5>
+                    <h6 class="card-subtitle text-muted">[[${popularClub.sportsName}]]</h6>
+                  </div>
+                  <p class="card-text mb-5">[[${popularClub.headline}]]</p>
+                  <div class="card-text">
+                    [[${popularClub.regionName}]] · 멤버 [[${popularClub.memberCount}]]명 · 모임
+                    [[${popularClub.meetingCount}]]개
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="bottom">
+          <a th:href="@{/club/search}"><p>> 더많은 소모임 보러가기</p></a>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function () {
+          loadImages();
 
-                function loadImages() {
-                    $.ajax({
-                        url: '/getImagePaths', // Replace with your API endpoint
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (images) {
-                            updateImageContainer(images);
-                            console.log(images);
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus);
-                        }
-                    });
-                }
+          function loadImages() {
+              $.ajax({
+                  url: '/getImagePaths', // Replace with your API endpoint
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function (images) {
+                      updateImageContainer(images);
+                      console.log(images);
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      console.log(textStatus);
+                  }
+              });
+          }
 
-                function updateImageContainer(images) {
-                    var imageContainer = $("#imageContainer");
+          function updateImageContainer(images) {
+              var imageContainer = $("#imageContainer");
 
-                    imageContainer.empty();
+              imageContainer.empty();
 
-                    var str = "";
+              var str = "";
 
-                    images.forEach(function (imagePath, index) {
+              images.forEach(function (imagePath, index) {
 
-                        var isActive = index === 0 ? ' active' : '';
+                  var isActive = index === 0 ? ' active' : '';
 
-                        str += "<div class='carousel-item " + isActive + "'>";
-                        str += "<img src='/getImage?fileName=" + imagePath + "' alt='pic' class='img_size' />";
-                        str += "</div>";
-                    });
-                    imageContainer.append(str);
+                  str += "<div class='carousel-item " + isActive + "'>";
+                  str += "<img src='/getImage?fileName=" + imagePath + "' alt='pic' class='img_size' />";
+                  str += "</div>";
+              });
+              imageContainer.append(str);
 
-                    $('.carousel').carousel();
-                }
-            });
-        </script>
-    </main>
+              $('.carousel').carousel();
+          }
+      });
+    </script>
+  </main>
 </th:block>
 </html>

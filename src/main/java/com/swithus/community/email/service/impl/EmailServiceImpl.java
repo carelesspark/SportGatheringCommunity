@@ -2,6 +2,10 @@ package com.swithus.community.email.service.impl;
 
 import com.swithus.community.email.service.EmailService;
 import com.swithus.community.global.util.RedisUtil;
+import com.swithus.community.user.entity.AuthVerification;
+import com.swithus.community.user.entity.User;
+import com.swithus.community.user.repository.AuthVerificationRepository;
+import com.swithus.community.user.repository.FindMemberRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +26,8 @@ import java.util.Random;
 @Transactional
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
+    private final AuthVerificationRepository authVerificationRepository;
+    private final FindMemberRepository findMemberRepository;
     @Autowired
     private final JavaMailSender javaMailSender;
     @Autowired
@@ -50,12 +56,30 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public Boolean verifyEmailCode(String email, String code) {
+        log.info("Verify email code for email: {}, code: {}", email, code);
         String codeFoundByEmail = redisUtil.getData(email);
         log.info("이메일로 찾은 코드: " + codeFoundByEmail);
-        if (codeFoundByEmail == null) {
+        if (codeFoundByEmail == null || !codeFoundByEmail.equals(code)) {
+            log.warn("Verification failed: Code does not match.");
             return false;
         }
-        return codeFoundByEmail.equals(code);
+
+        // 인증 코드가 일치하면 사용자를 찾아서 인증 상태 변경
+        User user = findMemberRepository.findByEmail(email);
+        AuthVerification authVerification = authVerificationRepository.findByUser(user);
+
+        // AuthVerification 객체가 없으면 생성하고 저장
+        if (authVerification == null) {
+            authVerification = new AuthVerification();
+            authVerification.setUser(user);
+            authVerification.setVerificationCode(codeFoundByEmail);
+            authVerificationRepository.save(authVerification);
+        }
+        authVerification.setIsEmailVerified(true);
+        authVerificationRepository.save(authVerification);
+        log.info("Email verification succeeded.");
+
+        return true;
     }
 
     private String createCode() {
@@ -103,5 +127,20 @@ public class EmailServiceImpl implements EmailService {
         redisUtil.setDataExpire(email, authCode, 60 * 30L);
 
         return message;
+    }
+
+    private void createAndSaveAuthVerification(String email) {
+        // 1. 인증 코드 생성
+        String verificationCode = createCode();
+
+        // 2. AuthVerification 객체 생성
+        AuthVerification authVerification = AuthVerification.builder()
+                .user(findMemberRepository.findByEmail(email))
+                .isEmailVerified(false)
+                .verificationCode(verificationCode)
+                .build();
+
+        // 3. AuthVerification 저장
+        authVerificationRepository.save(authVerification);
     }
 }
