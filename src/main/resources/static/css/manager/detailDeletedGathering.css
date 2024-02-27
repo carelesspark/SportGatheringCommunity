@@ -449,6 +449,7 @@ div#menu a:hover{
 }
 
 .table_q {
+    width: 150px;
     background-color: #D9D9D9;
     font-size: 11pt;
     font-weight: bold;
