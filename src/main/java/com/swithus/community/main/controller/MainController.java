@@ -32,7 +32,7 @@ public class MainController {
 
         String RuserId = (String) session.getAttribute("RuserId");
 
-        String nickname= (String) session.getAttribute("userNickname");
+        String nickname = (String) session.getAttribute("userNickname");
 
         log.info(RuserId + " + " + nickname);
 
@@ -55,8 +55,10 @@ public class MainController {
             log.info(popularClubDTOList);
 
             if (ObjectUtils.isEmpty(popularClubDTOList)) {
+                log.warn("Club이 존재하지 않습니다.");
                 model.addAttribute("popularClubDTOList", null);
-            }else{
+            } else {
+                log.warn("Club이 존재합니다.");
                 model.addAttribute("popularClubDTOList", popularClubDTOList);
             }
 
