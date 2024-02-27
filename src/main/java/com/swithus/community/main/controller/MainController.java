@@ -1,12 +1,9 @@
 package com.swithus.community.main.controller;
 
 import com.swithus.community.board.entity.Promotion;
-import com.swithus.community.board.promotion.service.PromotionBoardService;
+import com.swithus.community.board.service.PromotionBoardService;
 import com.swithus.community.club.service.ClubService;
 import com.swithus.community.main.dto.PopularClubDTO;
-import com.swithus.community.board.repository.PromotionBoardRepository;
-import com.swithus.community.board.service.PromotionBoardService;
-import com.swithus.community.manager.dto.AnnouncementDTO;
 import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.service.AnnouncementService;
 import jakarta.servlet.http.HttpSession;
@@ -55,6 +52,8 @@ public class MainController {
             log.info(result2);
 
             List<PopularClubDTO> popularClubDTOList = clubService.getPopularClubDTOList(4);
+            log.info(popularClubDTOList);
+
             if (ObjectUtils.isEmpty(popularClubDTOList)) {
                 model.addAttribute("popularClubDTOList", null);
             }else{
