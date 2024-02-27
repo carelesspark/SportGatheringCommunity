@@ -85,9 +85,7 @@
             <h4 class="modal-title">
               댓글 작성
             </h4>
-            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
           </div>
 
           <!-- Modal body -->
@@ -100,7 +98,7 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button class="btn btn-danger" data-dismiss="modal" type="button">Close</button>
+            <button class="btn btn-danger closeBtn" data-bs-dismiss="modal" type="button">Close</button>
             <button class="btn btn-primary saveBtn" type="button">저장</button>
             <button class="btn btn-warning modifyBtn" type="button">수정</button>
             <button class="btn btn-danger removeBtn" type="button">삭제</button>
@@ -295,6 +293,11 @@
 
           replyModal.modal("hide");
         });
+      });
+
+      // closeBtn 클릭 시 모달 닫기
+      $(".closeBtn").click(function() {
+          $(".replyModal").modal("hide");
       });
     </script>
   </div>

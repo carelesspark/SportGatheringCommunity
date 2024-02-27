@@ -5,15 +5,18 @@ import com.swithus.community.club.dto.NavDTO;
 import com.swithus.community.club.dto.page.SearchPageRequestDTO;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.entity.ClubImage;
-import com.swithus.community.club.entity.ClubMember;
 import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
 import com.swithus.community.global.entity.Region;
 import com.swithus.community.global.entity.Sports;
+import com.swithus.community.main.dto.PopularClubDTO;
 import com.swithus.community.user.entity.User;
 import org.springframework.util.ObjectUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface ClubService {
     // 클럽 검색 페이지 리스트 반환
@@ -28,6 +31,8 @@ public interface ClubService {
     NavDTO getNavDTO(Long clubId, Long clubMemberId);
 
     Long registerClub(Long clubId, Long userId);
+
+    List<PopularClubDTO> getPopularClubDTOList(int number);
 
     default Map<String, Object> clubDTOToEntity(ClubDTO clubDTO) {
         Map<String, Object> clubMap = new HashMap<>();
