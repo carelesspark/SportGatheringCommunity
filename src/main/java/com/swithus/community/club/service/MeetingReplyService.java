@@ -12,13 +12,17 @@ public interface MeetingReplyService {
 
     Long register(MeetingReplyDTO meetingReplyDTO);
 
+    void updateReply(MeetingReplyDTO meetingReplyDTO);
+
+    void deleteReply(Long meetingReplyId);
+
     default MeetingReplyDTO entityToMeetingReplyDTO(MeetingReply reply) {
         return MeetingReplyDTO.builder()
                 .meetingReplyId(reply.getId())
                 .meetingId(reply.getMeeting().getId())
                 .memberId(reply.getMember().getId())
                 .memberName(reply.getMember().getMember().getName())
-                .memberNickname(reply.getMember().getMember().getNickname())
+                .memberNickname(reply.getMember().getNickname())
                 .comment(reply.getComment())
                 .regDate(reply.getRegDate())
                 .build();

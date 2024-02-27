@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<th:block layout:fragment="content">
+    <main>
+        <form action="/board/inquiry_post" method="post" class="postForm">
+            <div id="content">
+                <div id="inquiry_title">
+                    <div id="title_css">
+                        <p>1 : 1 문의 사항</p>
+                    </div>
+                </div>
+                <div id="inquiry_middle">
+                    <div id="padding">
+                        <p>문의 작성 페이지</p>
+                    </div>
+                    <div id="category">
+                        <div class="p1">
+                            <p>문의 분류 :</p>
+                        </div>
+                        <div id="div1">
+                            <select class="form-select form-select1" aria-label="Default select example" name="ctgrId">
+                                <option value="0" selected>--- 세부 카테고리 ---</option>
+                                <option value="1" name="신고">사이트 이용</option>
+                                <option value="2" name="건의 사항">물품 나눔</option>
+                                <option value="3" name="잇템 문의">소모임</option>
+                                <option value="4" name="클럽 문의">대회</option>
+                                <option value="5" name="유저 문의">기타</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="id_user">
+                        <div class="p1">
+                            <p>ID : </p>
+                        </div>
+                        <div th:if="${session.RuserId != null}">
+                            <input type="text" class="form-control input_id" th:value="${session.RuserId}" name="userId" disabled/>
+                        </div>
+                        <div class="p1">
+                            <p>유저명 : </p>
+                        </div>
+                        <div th:if="${nickname != null}">
+                            <input type="hidden" th:value="${nickname}" name="nickname" />
+                            <input type="text" class="form-control input_nickname" th:value="${nickname}" disabled/>
+                        </div>
+                    </div>
+                    <div id="title_box">
+                        <div class="p1">
+                            <p>제목 : </p>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control input_title" name="title" />
+                        </div>
+                    </div>
+                    <div id="content_box">
+                        <div class="p1" id="content_margin">
+                            <p>내용 : </p>
+                        </div>
+                        <div>
+                        <textarea name="content" class="input_content"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="button">
+                    <div class="button_div">
+                        <div>
+                            <button type="button" class="btn btn-outline-primary">Primary</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-success postBtn">Success</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <link th:href="@{/css/board/inquiry.css}" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var form = $(".postForm");
+
+                $(".postBtn").click(function(){
+                    if($("select[name=ctgrId] option:selected").val() == "0"){
+                        alert("카테고리를 설정해주세요");
+                        return;
+                    }
+
+                    if($(".input_title").val() == ""){
+                        alert("제목을 입력하세요.");
+                        return;
+                    }
+
+                    if($(".input_content").val() == ""){
+                        alert("내용을 입력하세요.");
+                        return;
+                    }
+
+                    if(!confirm("작성하시겠습니까?")){
+                        return;
+                    }
+
+                    form.attr("action", "/board/inquiry_post").attr("method", "post");
+                    form.submit();
+                });
+
+            });
+
+        </script>
+    </main>
+</th:block>
+</html>

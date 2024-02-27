@@ -1,15 +1,17 @@
 package com.swithus.community.manager.service.impl;
 
 
+import com.swithus.community.board.dto.BoardInquiryDTO;
 import com.swithus.community.board.entity.Inquiry;
 import com.swithus.community.board.entity.InquiryAnswer;
+import com.swithus.community.board.entity.InquiryCtgr;
 import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
 import com.swithus.community.manager.dto.page.MainPageResultDTO;
-import com.swithus.community.manager.repository.InquiryAnswerRepository;
-import com.swithus.community.manager.repository.InquiryRepository;
+import com.swithus.community.manager.repository.*;
 import com.swithus.community.manager.service.InquiryService;
+import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,8 @@ public class InquiryServiceImpl implements InquiryService {
 
     private final InquiryRepository inquiryRepository;
     private final InquiryAnswerRepository inquiryAnswerRepository;
+    private final InquiryCtgrRepository inquiryCtgrRepository;
+    private final UserDetailRepository userDetailRepository;
 
     @Override
     public Long countBy() {
@@ -47,6 +51,24 @@ public class InquiryServiceImpl implements InquiryService {
                 .ctgr(inquiry.getCtgr().getName())
                 .answerId(answerId)
                 .build();
+    }
+
+    @Override
+    public void postInquiry(BoardInquiryDTO boardInquiryDTO) {
+        InquiryCtgr inquiryCtgr = inquiryCtgrRepository.getOne(boardInquiryDTO.getCtgrId());
+
+        User user = userDetailRepository.getUserByUserNickname(boardInquiryDTO.getNickname());
+
+        Inquiry inquiry = Inquiry.builder()
+                .id(boardInquiryDTO.getId())
+                .title(boardInquiryDTO.getTitle())
+                .content(boardInquiryDTO.getContent())
+                .ctgr(inquiryCtgr)
+                .user(user)
+                .isAnswered(false)
+                .build();
+
+        inquiryRepository.save(inquiry);
     }
 
     @Override
