@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<th:block layout:fragment="content">
+    <main>
+            <div id="content">
+                <div id="anc_title">
+                    <div id="title_css">
+                        <p>홍보 게시판</p>
+                    </div>
+                </div>
+                <div id="pro_middle">
+                    <div id="padding">
+                        <p>□ Announcement</p>
+                    </div>
+                    <div id="table">
+                        <table class="table1">
+                            <tr class="table_tr">
+                                <th><p class="table_tr_p">No.</p></th>
+                                <th class="table_title"><p class="table_tr_p">제목</p></th>
+                                <th><p class="table_tr_p">작성 날짜</p></th>
+                                <th><p class="table_tr_p">작성자</p></th>
+                                <th><p class="table_tr_p2">조회수</p></th>
+                            </tr>
+                            <tr class="table_tr2" th:each="dto : ${result.dtoList}">
+                                <td>[[${dto.id}]]</td>
+                                <td><a th:href="@{/board/announcement_info(page=${result.page}, no=${dto.id})}">[[${dto.title}]]</a></td>
+                                <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                                <td>[[${dto.writer}]]</td>
+                                <td>[[${dto.visitCount}]]</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="paging">
+                    <ul class="pagination h-100 justify-content-center align-items-center">
+                        <li class="page-item" th:if="${result.prev}">
+                            <a class="page-link" th:href="@{/board/announcement(page=${result.start - 1})}">Prev</a>
+                        </li>
+                        <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
+                            th:each="page: ${result.pageList}">
+                            <a class="page-link" th:href="@{/board/announcement(page=${page})}">[[${page}]]</a>
+                        </li>
+                        <li class="page-item" th:if="${result.next}">
+                            <a class="page-link" th:href="@{/board/announcement(page=${result.end + 1})}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <link th:href="@{/css/board/promotion.css}" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+
+        </script>
+    </main>
+</th:block>
+</html>

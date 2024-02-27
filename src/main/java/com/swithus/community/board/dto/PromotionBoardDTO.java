@@ -1,5 +1,6 @@
 package com.swithus.community.board.dto;
 
+import com.swithus.community.club.entity.Club;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,17 +17,19 @@ public class PromotionBoardDTO {
 
     private String content;
 
-    private String sports;
+    private String clubCtgr;
+
+    private String clubName;
+
+    private Long clubId;
 
     private String writer;
 
-    private Long visitCount;
+    private int visitCount;
 
     private LocalDateTime regDate;
 
     private LocalDateTime modDate;
-
-    private int replyCount;
 
 
 }
