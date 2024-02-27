@@ -362,7 +362,7 @@ a:hover {
 
 #post_info_title {
     width: 875px;
-    height: 50px;a
+    height: 50px;
     background-color: #F5F5F5;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -443,7 +443,7 @@ a:hover {
 }
 
 .table1 {
-    width: 990px;
+    width: 1108px;
 }
 
 th:nth-child(1) {
@@ -677,4 +677,31 @@ textarea {
 .deleteImg {
     margin-top: 30px;
     margin-left: 990px;
+}
+
+#post_view {
+    width: 800px;
+    height: 150px;
+}
+
+.pro_table {
+    width: 800px;
+    height: 150px;
+    text-align: center;
+    font-size: 15pt;
+    font-weight: bold;
+    color: #6b6b6b;
+}
+
+.pro_table tr {
+    border-bottom: 1px solid #d4d2d2;
+}
+
+.td_width {
+    width: 500px;
+    text-align: left;
+}
+
+.td_width a {
+    cursor: pointer;
 }
