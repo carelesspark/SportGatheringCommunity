@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<th:block layout:fragment="content">
+    <main>
+        <div id="content">
+            <div id="anc_title">
+                <div id="title_css">
+                    <p>공지사항</p>
+                </div>
+            </div>
+            <div id="anc_middle">
+                <div id="padding">
+                    <p>□ [[${dto.id}]]번 공지 게시글</p>
+                </div>
+                <div id="info_table">
+                    <table class="table_info">
+                        <tr class="table_tr1">
+                            <td class="table_q">No.</td>
+                            <td class="table_a">[[${dto.id}]]</td>
+                            <td class="table_q">조회수</td>
+                            <td class="table_a">[[${dto.visitCount}]]</td>
+                        </tr>
+                        <tr class="table_tr2">
+                            <td class="table_q">제목</td>
+                            <td colspan="3" class="table_a">[[${dto.title}]]</td>
+                        </tr>
+                        <tr class="table_tr3">
+                            <td class="table_q">내용</td>
+                            <td colspan="3" class="table_a enter">[[${dto.content}]]</td>
+                        </tr>
+                        <tr class="table_tr4">
+                            <td class="table_q">작성 날짜</td>
+                            <td class="table_a">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                            <td class="table_q">작성자</td>
+                            <td class="table_a">[[${dto.writer}]]</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="button">
+                <button type="button" class="btn btn-primary info_btn"
+                        th:onclick="|location.href='@{/board/announcement(page=${pageRequestDTO.page})}'|">목록
+                </button>
+            </div>
+        </div>
+        <link th:href="@{/css/board/announcement_info.css}" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+
+        </script>
+    </main>
+</th:block>
+</html>

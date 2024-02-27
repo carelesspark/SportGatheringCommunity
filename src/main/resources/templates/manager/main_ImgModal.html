@@ -181,7 +181,15 @@
                 <div id="post_info_title">
                     <p>○ 최신 게시글 현황</p>
                 </div>
-                <div id="post_view"></div>
+                <div id="post_view">
+                    <table class="pro_table">
+                        <tr th:each="pro : ${promotion}">
+                            <td>○ [홍보]</td>
+                            <td class="td_width"><a>[[${pro.title}]]</a></td>
+                            <td>[[${pro.club.leader.nickname}]]</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div id="mainImg"><a th:href="@{/manager/main_ImgModal}">
                 <div id="img_button">
