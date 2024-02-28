@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Table
-@ToString
 public class User extends BaseEntity {
 
     @Id

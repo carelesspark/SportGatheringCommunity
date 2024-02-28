@@ -60,7 +60,6 @@ public class ClubSearchRepositoryImpl extends QuerydslRepositorySupport implemen
         tupleJPQLQuery.where(booleanBuilder);
         // group by
         tupleJPQLQuery.groupBy(club);
-        tupleJPQLQuery.groupBy(clubImage);
         // order by
         Sort sort = pageable.getSort();
         sort.stream().forEach(order -> {

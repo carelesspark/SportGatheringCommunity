@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.DuplicateFormatFlagsException;
 
-@Slf4j
 @Service
 @Log4j2
 @Transactional

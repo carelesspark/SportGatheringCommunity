@@ -1,8 +1,10 @@
 package com.swithus.community.club.repository;
 
 import com.swithus.community.club.entity.ClubPost;
+import com.swithus.community.club.entity.ClubPostImage;
 import com.swithus.community.club.repository.search.ClubPostSearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -16,4 +18,10 @@ public interface ClubPostRepository extends JpaRepository<ClubPost, Long>, ClubP
             "left join ClubPostImage i on i.post = p " +
             "group by p, i")
     List<Object[]> getClubPostDTO(Long postId);
+
+    @Modifying
+    @Query("update ClubPost p " +
+            "set p.visitCount = p.visitCount + 1 " +
+            "where p.id = :postId")
+    void increaseVisitCount(Long postId);
 }

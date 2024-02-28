@@ -40,4 +40,13 @@ public class ClubPostRestController {
             return new ResponseEntity<>(postDTO, HttpStatus.CREATED);
         }
     }
+
+    @PostMapping("/increaseCount")
+    public ResponseEntity<Void> increaseVisitCount(@RequestParam Long postId) {
+        log.info("/clubPost/increaseCount");
+
+        postService.increaseVisitCount(postId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

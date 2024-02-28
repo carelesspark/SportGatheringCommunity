@@ -3,6 +3,7 @@ package com.swithus.community.club.service.impl;
 import com.swithus.community.club.dto.MeetingDTO;
 import com.swithus.community.club.entity.*;
 import com.swithus.community.club.repository.MeetingMemberRepository;
+import com.swithus.community.club.repository.MeetingReplyRepository;
 import com.swithus.community.club.repository.MeetingRepository;
 import com.swithus.community.club.service.MeetingService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class MeetingServiceImpl implements MeetingService {
     private final MeetingRepository meetingRepository;
     private final MeetingMemberRepository meetingMemberRepository;
+    private final MeetingReplyRepository meetingReplyRepository;
 
     @Override
     public List<MeetingDTO> getActiveMeetingDTOList(Long clubId, Long meetingCtgrId, LocalDateTime now) {
@@ -138,5 +140,20 @@ public class MeetingServiceImpl implements MeetingService {
     @Transactional
     public void deleteMeetingMember(Long meetingId, Long clubMemberId) {
         meetingMemberRepository.deleteMeetingMember(meetingId, clubMemberId);
+    }
+
+    @Override
+    public void deleteMeeting(Long meetingId) {
+        List<MeetingMember> memberList = meetingRepository.getMeetingMemberListByMeetingId(meetingId);
+        if (!ObjectUtils.isEmpty(memberList)) {
+            memberList.forEach(meetingMember -> meetingMemberRepository.deleteById(meetingMember.getId()));
+        }
+
+        List<MeetingReply> replyList = meetingReplyRepository.findByMeeting(Meeting.builder().id(meetingId).build());
+        if (!ObjectUtils.isEmpty(replyList)) {
+            replyList.forEach(reply -> meetingReplyRepository.deleteById(reply.getId()));
+        }
+
+        meetingRepository.deleteById(meetingId);
     }
 }
