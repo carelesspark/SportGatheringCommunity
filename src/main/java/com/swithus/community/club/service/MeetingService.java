@@ -19,4 +19,6 @@ public interface MeetingService {
     void insertMeetingMember(Long meetingId, Long clubMemberId);
 
     void deleteMeetingMember(Long meetingId, Long clubMemberId);
+
+    void deleteMeeting(Long meetingId);
 }

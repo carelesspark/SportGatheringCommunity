@@ -14,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -324,8 +321,6 @@ public class ClubController {
         return "redirect:/club/meetingDetail?clubId=" + clubId + "&meetingId=" + meetingId;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 수정중
-
     @GetMapping("/board")
     public void goBoard(@RequestParam Long clubId,
                         ClubPostPageRequestDTO pageRequestDTO,
@@ -342,6 +337,7 @@ public class ClubController {
         String keyword = pageRequestDTO.getKeyword();
 
         model.addAttribute("navDTO", navDTO);
+        model.addAttribute("ctgrList", clubPostCtgrService.getCtgrList());
         model.addAttribute("selectedCtgrId", ctgrId);
         model.addAttribute("selectedType", type);
         model.addAttribute("selectedKeyword", keyword);
@@ -349,12 +345,55 @@ public class ClubController {
     }
 
     @GetMapping("/postForm")
-    public void goPostForm(Model model,
+    public void goPostForm(@RequestParam Long clubId,
+                           @RequestParam(required = false) Long postId,
+                           Model model,
+                           HttpSession session,
                            HttpServletRequest request) {
-        log.info("GET /club/postForm");
+        log.info("GET /club/postForm?clubId={}&postId={}", clubId, postId);
 
+        Long userId = (Long) session.getAttribute("userId");
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+        NavDTO navDTO = clubService.getNavDTO(clubId, clubMemberId);
+
+        boolean isEditing;
+        if (postId == null) {
+            log.info("게시글 생성");
+            isEditing = false;
+            model.addAttribute("postDTO", null);
+        } else {
+            log.info("게시글 수정");
+            isEditing = true;
+            model.addAttribute("postDTO", clubPostService.getClubPostDTO(postId));
+        }
+
+        model.addAttribute("navDTO", navDTO);
         model.addAttribute("servletPath", request.getServletPath());
+        model.addAttribute("isEditing", isEditing);
         model.addAttribute("ctgrList", clubPostCtgrService.getCtgrList());
+    }
+
+    @PostMapping("/createPost")
+    public String createPost(ClubPostDTO clubPostDTO) {
+        log.info("POST /club/createPost");
+
+        clubPostDTO.setVisitCount(0);
+        Long postId = clubPostService.createPost(clubPostDTO);
+
+        return "redirect:/club/post?clubId=" + clubPostDTO.getClubId() + "&postId=" + postId;
+    }
+
+    @PostMapping("/updatePost")
+    public String updatePost(@RequestParam Long clubId,
+                             @RequestParam Long postId,
+                             @ModelAttribute ClubPostDTO clubPostDTO) {
+        log.info("POST /club/updatePost");
+
+        clubPostDTO.setClubPostId(postId);
+        clubPostDTO.setClubId(clubId);
+        clubPostService.updatePost(clubPostDTO);
+
+        return "redirect:/club/post?clubId=" + clubPostDTO.getClubId() + "&postId=" + clubPostDTO.getClubPostId();
     }
 
     @GetMapping("/post")
@@ -373,31 +412,6 @@ public class ClubController {
         model.addAttribute("navDTO", navDTO);
         model.addAttribute("postDTO", postDTO);
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////// 보류 라인
 
 
-    // 1대1 문의 페이지로 이동
-    @GetMapping("/inquiry")
-    public void goInquiry(@RequestParam Long clubId, Model model, HttpSession session) {
-        log.info("GET /club/inquiry/{}", clubId);
-
-        Long userId = (Long) session.getAttribute("userId");
-        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
-        NavDTO navDTO = clubService.getNavDTO(clubId, clubMemberId);
-
-        model.addAttribute("navDTO", navDTO);
-    }
-
-    @GetMapping("/calendar")
-    public void goCalendar(@RequestParam Long clubId,
-                           Model model,
-                           HttpSession session) {
-        log.info("GET /club/calendar");
-
-        Long userId = (Long) session.getAttribute("userId");
-        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
-        NavDTO navDTO = clubService.getNavDTO(clubId, clubMemberId);
-
-        model.addAttribute("navDTO", navDTO);
-    }
 }

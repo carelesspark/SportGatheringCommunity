@@ -1,6 +1,7 @@
 package com.swithus.community.club.repository;
 
 import com.swithus.community.club.entity.Meeting;
+import com.swithus.community.club.entity.MeetingMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +34,9 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
             "where m.id = :meetingId " +
             "group by m")
     List<Object[]> getMeetingDTOByMeetingId(Long meetingId);
+
+    @Query("select mm " +
+            "from MeetingMember mm " +
+            "where mm.meeting.id = :meetingId")
+    List<MeetingMember> getMeetingMemberListByMeetingId(Long meetingId);
 }

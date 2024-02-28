@@ -13,7 +13,8 @@
       <form method="post"
             th:action="${isEditing ? '/club/updateMeeting' : '/club/createMeeting'}">
         <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
-        <input name="meetingId" th:if="${isEditing}" type="hidden">
+        <input name="meetingId" th:if="${isEditing}" th:value="${meetingDTO != null ? meetingDTO.meetingId : ''}"
+               type="hidden">
 
         <div class="row mb-3">
           <div class="col-sm-6">
@@ -29,17 +30,22 @@
 
             <div class="mb-3">
               <label class="form-label" for="titleInput">모임명</label>
-              <input class="form-control" id="titleInput" name="title" required type="text">
+              <input class="form-control" id="titleInput" name="title" required
+                     th:value="${meetingDTO != null ? meetingDTO.title : ''}"
+                     type="text">
             </div>
 
             <div class="mb-3">
               <label class="form-label" for="mTimeInput">모임 일시</label>
-              <input class="form-control" id="mTimeInput" name="mTime" required type="datetime-local">
+              <input class="form-control" id="mTimeInput" name="mTime"
+                     required type="datetime-local">
             </div>
 
             <div class="mb-3">
               <label class="form-label" for="mPersonnelInput">인원</label>
-              <input class="form-control" id="mPersonnelInput" name="mPersonnel" required type="number">
+              <input class="form-control" id="mPersonnelInput"
+                     name="mPersonnel"
+                     required th:value="${meetingDTO != null ? meetingDTO.mPersonnel : ''}" type="number">
             </div>
           </div>
 
@@ -52,19 +58,25 @@
           <div class="col-sm-6">
             <div class="mb-2">
               <label class="form-label" for="mAddrInput">주소</label>
-              <input class="form-control" id="mAddrInput" name="mAddr" required type="text">
+              <input class="form-control" id="mAddrInput" name="mAddr"
+                     required
+                     th:value="${meetingDTO != null ? meetingDTO.mAddr : ''}" type="text">
             </div>
             <button class="btn btn-outline-dark" onclick="findPost()" type="button">주소 검색</button>
           </div>
           <div class="col-sm-6">
             <label class="form-label" for="mPlaceInput">장소</label>
-            <input class="form-control" id="mPlaceInput" name="mPlace" required type="text">
+            <input class="form-control" id="mPlaceInput" name="mPlace"
+                   required
+                   th:value="${meetingDTO != null ? meetingDTO.mPlace : ''}" type="text">
           </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" for="ckEditor">설명</label>
-          <textarea class="form-control" id="ckEditor" name="content"></textarea>
+          <textarea class="form-control" id="ckEditor"
+                    name="content"
+                    th:value="${meetingDTO != null ? meetingDTO.content : ''}"></textarea>
         </div>
 
         <div>
@@ -132,9 +144,11 @@
 
     <script th:inline="javascript">
       function getNow() {
-        const today = new Date();
+        const koreaOffset = 9 * 60 * 60000; // 한국 표준시(UTC+9) 오프셋
 
-        return today.toISOString().slice(0, 16);
+        const koreaTime = new Date((new Date()).getTime() + koreaOffset + 60 * 60000);
+
+        return koreaTime.toISOString().slice(0, 16);
       }
 
       const mTimeInputElement = document.getElementById('mTimeInput');

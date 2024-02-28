@@ -10,4 +10,6 @@ import java.util.List;
 public interface ClubPostReplyRepository extends JpaRepository<ClubPostReply, Long> {
     @EntityGraph(attributePaths = {"writer"}, type = EntityGraph.EntityGraphType.FETCH)
     List<ClubPostReply> findListByPost(ClubPost post);
+
+
 }

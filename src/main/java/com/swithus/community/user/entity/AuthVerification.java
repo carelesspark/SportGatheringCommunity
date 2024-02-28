@@ -10,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Table(name = "auth_verification")
-@ToString
 public class AuthVerification extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

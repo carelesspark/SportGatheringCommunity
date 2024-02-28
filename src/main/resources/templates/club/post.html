@@ -2,25 +2,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
-    <div>
-      <h1>게시글 제목</h1>
-      <a class="btn" href="">게시글 수정</a>
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div>
+        <h3>[[${postDTO.title}]]</h3>
+      </div>
+      <div>
+        <a class="btn btn-outline-light"
+           th:href="@{/club/postForm(clubId=${navDTO.clubId}, postId=${postDTO.clubPostId})}"
+           th:if="${postDTO.writerId == navDTO.clubMemberId}">수정</a>
+      </div>
     </div>
 
-    <div>
-      작성자, 작성 시간, 수정 시간
+    <div class="border-bottom mb-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>작성자 [[${postDTO.writerName}]]</div>
+        <div>작성일 [[${#temporals.format(postDTO.regDate, 'M월 d일 a h시 m분')}]]</div>
+      </div>
+    </div>
+    <!--이미지 넣는 곳-->
+    <div class="p-3 border mb-3">
+
     </div>
 
-    <div>
-      내용
-    </div>
+    <div class="mb-3" th:utext="${postDTO.content}"></div>
 
     <div>
       댓글 달리는 곳
     </div>
 
     <script th:inline="javascript">
+      let isCounted = false;
 
+      function handleScroll() {
+        if (!isCounted) {
+          // postId로 visitCount 1 증가시키기
+          const postId = [[${postDTO.clubPostId}]];
+
+          const xhr = new XMLHttpRequest();
+          const url = '/clubPost/increaseCount'; // 서버의 URL
+          xhr.open('POST', url, true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                isCounted = true;
+
+                const visitCountElement = document.getElementById('visitCountDiv');
+                visitCountElement.innerText = parseInt(visitCountElement.innerText) + 1;
+              } else {
+                console.error('visitCount를 증가하는 동안 오류가 발생했습니다.');
+              }
+            }
+          }
+
+          xhr.send(JSON.stringify({ postId: postId })); // postId를 JSON 형식으로 전송
+        }
+      }
+
+      window.addEventListener('scroll', handleScroll);
     </script>
   </div>
 </th:block>
