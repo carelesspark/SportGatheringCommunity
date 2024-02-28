@@ -83,6 +83,8 @@ public class ClubPostServiceImpl implements ClubPostService {
         Long replyCount = (Long) result.get(0)[1];
         Long likeCount = (Long) result.get(0)[2];
 
+        log.info("개수: {}", result.size());
+
         ClubPostDTO postDTO = ClubPostDTO.builder()
                 .clubPostId(post.getId())
                 .clubId(post.getClub().getId())
@@ -144,6 +146,7 @@ public class ClubPostServiceImpl implements ClubPostService {
     }
 
     @Override
+    @Transactional
     public void increaseVisitCount(Long postId) {
         clubPostRepository.increaseVisitCount(postId);
     }

@@ -17,10 +17,11 @@
         </div>
 
         <form
-            action="/club/searchPost"
             class="bg-light bg-gradient p-3 rounded"
             method="get"
+            th:action="@{/club/board}"
         >
+          <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
           <input name="page" type="hidden" value="1"/>
 
           <div class="row">

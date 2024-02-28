@@ -7,10 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @Log4j2
@@ -26,24 +25,32 @@ public class ClubPostRestController {
         log.info("/clubPost/updateLike");
 
         boolean checkClicked = likeService.checkClickedLike(postId, clubMemberId);
+        log.info("checkClicked: {}", checkClicked);
+
         if (checkClicked) {
+            log.info("좋아요 취소");
+
             likeService.deleteLike(postId, clubMemberId);
 
             ClubPostDTO postDTO = postService.getClubPostDTO(postId);
 
             return new ResponseEntity<>(postDTO, HttpStatus.OK);
-        } else {
-            likeService.createLike(postId, clubMemberId);
-
-            ClubPostDTO postDTO = postService.getClubPostDTO(postId);
-
-            return new ResponseEntity<>(postDTO, HttpStatus.CREATED);
         }
+        log.info("좋아요 추가");
+
+        likeService.createLike(postId, clubMemberId);
+
+        ClubPostDTO postDTO = postService.getClubPostDTO(postId);
+
+        return new ResponseEntity<>(postDTO, HttpStatus.CREATED);
+
     }
 
     @PostMapping("/increaseCount")
-    public ResponseEntity<Void> increaseVisitCount(@RequestParam Long postId) {
+    public ResponseEntity<Void> increaseVisitCount(@RequestBody Map<String, Long> request) {
         log.info("/clubPost/increaseCount");
+
+        Long postId = request.get("postId");
 
         postService.increaseVisitCount(postId);
 

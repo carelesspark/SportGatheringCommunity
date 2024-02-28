@@ -100,7 +100,6 @@
           <div class="modal-footer">
             <button class="btn btn-danger closeBtn" data-bs-dismiss="modal" type="button">Close</button>
             <button class="btn btn-primary saveBtn" type="button">저장</button>
-            <button class="btn btn-warning modifyBtn" type="button">수정</button>
             <button class="btn btn-danger removeBtn" type="button">삭제</button>
           </div>
         </div>
@@ -170,7 +169,7 @@
         $(".addReplyBtn").click(function () {
           comment.val("");
 
-          $(".removeBtn, .modifyBtn").hide();
+          $(".removeBtn").hide();
           $(".saveBtn").show();
 
           replyModal.modal("show");
@@ -245,7 +244,7 @@
 
         $(".replyList").on("click", ".card-body", function () {
           $(".saveBtn").hide();
-          $(".removeBtn, .modifyBtn").show();
+          $(".removeBtn").show();
 
           var targetReply = $(this);
           replyId = targetReply.data("reply-id");
@@ -255,28 +254,6 @@
           );
 
           $(".replyModal").modal("show");
-        });
-
-        // 수정: U
-        $(".modifyBtn").on("click", function () {
-          var data = {
-            meetingId: meetingId,
-            memberId: curMemberId,
-            comment: comment.val(),
-          };
-
-          $.ajax({
-            url: "/meetingReply/" + meetingId + "/" + replyId,
-            type: "PUT",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=UTF-8",
-            dataType: "text",
-            success: function (result) {
-              self.location.reload();
-            },
-          });
-
-          replyModal.modal("hide");
         });
 
         // 삭제: D
