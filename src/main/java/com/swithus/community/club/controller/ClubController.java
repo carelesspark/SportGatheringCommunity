@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @Log4j2
@@ -145,6 +146,42 @@ public class ClubController {
 
         model.addAttribute("navDTO", navDTO);
         model.addAttribute("result", clubMemberService.getMemberPage(requestDTO));
+    }
+
+    @GetMapping("/waitingList")
+    public void goWaitingList(@RequestParam Long clubId,
+                              Model model,
+                              HttpSession session) {
+        log.info("GET /club/waitingList?clubId={}", clubId);
+
+        Long userId = (Long) session.getAttribute("userId");
+        Long clubMemberId = clubMemberService.getClubMemberId(clubId, userId);
+        NavDTO navDTO = clubService.getNavDTO(clubId, clubMemberId);
+        List<ClubMemberDTO> waitingList = clubMemberService.getWaitingList(clubId);
+        log.info("대기자 인원수: {}", waitingList);
+
+        model.addAttribute("navDTO", navDTO);
+        model.addAttribute("waitingList", waitingList);
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(@RequestParam Long clubId,
+                          @RequestParam Long clubMemberId) {
+        log.info("GET /club/welcome?clubId={}&clubMemberId={}", clubId, clubMemberId);
+
+        clubService.welcome(clubMemberId);
+
+        return "redirect:/club/waitingList?clubId=" + clubId;
+    }
+
+    @GetMapping("/deny")
+    public String deny(@RequestParam Long clubId,
+                       @RequestParam Long clubMemberId) {
+        log.info("GET /club/deny?clubId={}&clubMemberId={}", clubId, clubMemberId);
+
+        clubService.withdrawClub(clubMemberId);
+
+        return "redirect:/club/waitingList?clubId=" + clubId;
     }
 
     // 가입 인사 페이지로 이동
@@ -413,5 +450,21 @@ public class ClubController {
         model.addAttribute("postDTO", postDTO);
     }
 
+    @GetMapping("/withdraw")
+    public String withdrawClub(@RequestParam Long clubMemberId) {
+        log.info("GET /club/withdraw?clubMemberId={}", clubMemberId);
 
+        clubService.withdrawClub(clubMemberId);
+
+        return "redirect:/club/search";
+    }
+
+    @GetMapping("/delete")
+    public String deleteClub(@RequestParam Long clubId) {
+        log.info("GET /club/post?clubId={}", clubId);
+
+        clubService.deleteClub(clubId);
+
+        return "redirect:/club/search";
+    }
 }

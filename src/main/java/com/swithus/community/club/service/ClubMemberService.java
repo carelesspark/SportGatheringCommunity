@@ -7,8 +7,12 @@ import com.swithus.community.global.dto.ImageDTO;
 import com.swithus.community.global.dto.PageResultDTO;
 import com.swithus.community.user.entity.User;
 
+import java.util.List;
+
 public interface ClubMemberService {
     PageResultDTO<ClubMemberDTO, Object[]> getMemberPage(MemberPageRequestDTO requestDTO);
+
+    List<ClubMemberDTO> getWaitingList(Long clubId);
 
     Long getClubMemberId(Long clubId, Long userId);
 
@@ -36,5 +40,4 @@ public interface ClubMemberService {
                 .imageDTO(imageDTO)
                 .build();
     }
-
 }

@@ -17,17 +17,18 @@
         </div>
 
         <form
-            action="/club/searchPost"
             class="bg-light bg-gradient p-3 rounded"
             method="get"
+            th:action="@{/club/board}"
         >
+          <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
           <input name="page" type="hidden" value="1"/>
 
           <div class="row">
             <div class="col-2 p-1">
               <label class="form-label" for="ctgrSelect">카테고리</label>
               <select class="form-select" id="ctgrSelect" name="ctgrId">
-                <option th:selected="${selectedCtgrId == null}">---</option>
+                <option th:selected="${selectedCtgrId == null}" value="">---</option>
                 <option
                     th:each="ctgr : ${ctgrList}"
                     th:selected="${ctgr.id == selectedCtgrId}"
@@ -40,7 +41,7 @@
               <label class="form-label" for="typeSelect">검색어</label>
               <div class="input-group">
                 <select class="form-select" id="typeSelect" name="type">
-                  <option th:selected="${selectedType == null}">---</option>
+                  <option th:selected="${selectedType == null}" value="">---</option>
                   <option th:selected="${selectedType == 't'}" value="t">
                     제목
                   </option>
@@ -57,7 +58,9 @@
                     제목+내용+작성자
                   </option>
                 </select>
-                <input class="form-control" style="width: 50%" type="text"/>
+                <input class="form-control" name="keyword"
+                       style="width: 50%" th:value="${selectedKeyword}"
+                       type="text"/>
               </div>
             </div>
             <div

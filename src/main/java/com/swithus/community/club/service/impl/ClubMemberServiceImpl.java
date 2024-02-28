@@ -15,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -36,6 +38,29 @@ public class ClubMemberServiceImpl implements ClubMemberService {
         ));
 
         return new PageResultDTO<>(memberPage, func);
+    }
+
+    @Override
+    public List<ClubMemberDTO> getWaitingList(Long clubId) {
+        List<ClubMember> memberList = clubMemberRepository.getRankZeroClubMemberList(clubId);
+
+
+        if (memberList == null) {
+            return Collections.emptyList();
+        }
+        log.info("대기자 인원수: {}", memberList.size());
+
+        return memberList.stream().map(clubMember ->
+                ClubMemberDTO.builder()
+                        .clubMemberId(clubMember.getId())
+                        .clubId(clubMember.getClub().getId())
+                        .memberId(clubMember.getMember().getId())
+                        .memberName(clubMember.getNickname())
+                        .rank(clubMember.getRank())
+                        .isActive(clubMember.getIsActive())
+                        .regDate(clubMember.getRegDate())
+                        .build()
+        ).toList();
     }
 
     @Override

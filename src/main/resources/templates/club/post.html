@@ -8,7 +8,7 @@
         <h3>[[${postDTO.title}]]</h3>
       </div>
       <div>
-        <a class="btn btn-outline-light"
+        <a class="btn btn-outline-dark"
            th:href="@{/club/postForm(clubId=${navDTO.clubId}, postId=${postDTO.clubPostId})}"
            th:if="${postDTO.writerId == navDTO.clubMemberId}">수정</a>
       </div>
@@ -17,21 +17,243 @@
     <div class="border-bottom mb-3">
       <div class="d-flex align-items-center justify-content-between">
         <div>작성자 [[${postDTO.writerName}]]</div>
+        <div>조회수
+          <span id="visitCountDiv">[[${postDTO.visitCount}]]</span>
+        </div>
         <div>작성일 [[${#temporals.format(postDTO.regDate, 'M월 d일 a h시 m분')}]]</div>
       </div>
     </div>
     <!--이미지 넣는 곳-->
-    <div class="p-3 border mb-3">
-
+    <div class="carousel slide mb-3"
+         data-bs-ride="carousel"
+         id="carouselControls"
+         th:if="${not #lists.isEmpty(postDTO.imageDTOList)}">
+      <div class="carousel-inner">
+        <div class="carousel-item"
+             th:classappend="${imageStat.index == 0} ? 'active' : ''"
+             th:each="image, imageStat : ${postDTO.imageDTOList}">
+          <img class="d-block w-100"
+               style="max-height: 600px; max-width: 100%; object-fit: contain;"
+               th:alt="${image.name}"
+               th:src="@{/image/display(fileName=${image.getImageURL()})}">
+        </div>
+      </div>
+      <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselControls"
+              type="button">
+        <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselControls"
+              type="button">
+        <span aria-hidden="true" class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
 
-    <div class="mb-3" th:utext="${postDTO.content}"></div>
+    <div class="p-1 border-bottom mb-3" th:utext="${postDTO.content}"></div>
 
-    <div>
-      댓글 달리는 곳
+    <div class="d-flex align-items-center mb-3">
+      <a th:if="${postDTO.writerId != navDTO.clubMemberId}"
+         th:onclick="updateLike()">
+        💖 좋아요
+      </a>
+      <div th:if="${postDTO.writerId == navDTO.clubMemberId}">
+        💖 좋아요
+      </div>
+      <div id="likeCountDiv"> [[${postDTO.likeCount}]]개</div>
+    </div>
+
+    <div class="border mb-3">
+      <div class="d-flex align-items-center mb-3">
+        <div class="mb-3" id="replyCountDiv">댓글 [[${postDTO.replyCount}]]개</div>
+        <button class="btn btn-outline-info addReplyBtn" type="button">
+          댓글 등록
+        </button>
+      </div>
+    </div>
+
+    <div class="list-group replyList mb-3"></div>
+
+    <!-- The Modal -->
+    <div class="replyModal modal" role="dialog" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">
+              댓글 작성
+            </h4>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="replyInput">댓글</label>
+              <input class="form-control" id="replyInput" name="comment" type="text">
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-danger closeBtn" data-bs-dismiss="modal" type="button">Close</button>
+            <button class="btn btn-primary saveBtn" type="button">저장</button>
+            <button class="btn btn-danger removeBtn" type="button">삭제</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script th:inline="javascript">
+      $(function () {
+        var replyModal = $(".replyModal");
+        var postId = [[${postDTO.clubPostId}]];
+        var memberId = [[${navDTO.clubMemberId}]];
+        var comment = $('input[name="comment"]');
+
+        // 댓글 모달창 열기
+        $(".addReplyBtn").click(function () {
+          comment.val("");
+
+          $(".removeBtn").hide();
+          $(".saveBtn").show();
+
+          replyModal.modal("show");
+        });
+
+        // 저장 버튼 클릭: C
+        $(".saveBtn").click(function () {
+          var data = {
+            postId: postId,
+            writerId: memberId,
+            comment: comment.val(),
+          };
+
+          $.ajax({
+            url: "/clubPostReply/" + postId,
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            success: function (result) {
+              self.location.reload();
+            },
+          });
+
+          replyModal.modal("hide");
+        });
+
+        // 페이지가 열리는 즉시 댓글들 목록 출력: Read
+        function getReplyList() {
+          function formatTime(str) {
+            var date = new Date(str);
+
+            return (
+              date.getFullYear() +
+              "/" +
+              (date.getMonth() + 1) +
+              "/" +
+              date.getDate() +
+              " " +
+              date.getHours() +
+              ":" +
+              date.getMinutes()
+            );
+          }
+
+          $.getJSON("/clubPostReply/" + postId + "/list", function (arr) {
+            var str = "";
+            $.each(arr, function (idx, replyDTO) {
+              str +=
+                ' <div class="card-body" data-reply-id=' +
+                replyDTO.replyId +
+                " data-writer-id=" +
+                replyDTO.writerId +
+                ">";
+              str += ' <h5 class="card-title">' + replyDTO.comment + "</h5>";
+              str +=
+                ' <h6 class="card-subtitle mb-2 text-muted">' +
+                replyDTO.nickname +
+                "</h6>";
+              str += ' <p class="card-text">' + formatTime(replyDTO.regDate) + "</p>";
+              str += " </div>";
+            });
+
+            $(".replyList").html(str);
+          });
+        }
+
+        getReplyList();
+
+        var replyId;
+        var curWriterId;
+
+        $(".replyList").on("click", ".card-body", function () {
+          var targetReply = $(this);
+          replyId = targetReply.data("reply-id");
+          curWriterId = targetReply.data("writer-id");
+
+          if (memberId != curWriterId) {
+            return;
+          }
+
+          $(".saveBtn").hide();
+          $(".removeBtn").show();
+
+          comment.val(
+            targetReply.find(".card-title").clone().children().remove().end().text()
+          );
+
+          $(".replyModal").modal("show");
+        });
+
+        // 삭제: D
+        $(".removeBtn").on("click", function () {
+          $.ajax({
+            url: "/clubPostReply/" + postId + "/" + replyId,
+            type: "DELETE",
+            contentType: "application/json; charset=UTF-8",
+            dataType: "text",
+            success: function (result) {
+              self.location.reload();
+            },
+          });
+
+          replyModal.modal("hide");
+        });
+      });
+
+      // closeBtn 클릭 시 모달 닫기
+      $(".closeBtn").click(function() {
+          $(".replyModal").modal("hide");
+      });
+    </script>
+
+    <script th:if="${postDTO.writerId != navDTO.clubMemberId}"
+            th:inline="javascript">
+      $(function() {
+        updateLike = function() {
+          $.ajax({
+            type: "POST",
+            url: "/clubPost/updateLike",
+            data: {
+              postId: [[${postDTO.clubPostId}]],
+              clubMemberId: [[${navDTO.clubMemberId}]],
+            },
+            success: function(response, status, xhr) {
+              var likeCountNum = response.likeCount;
+              $("#likeCountDiv").text(" " + likeCountNum + "개");
+            },
+            error: function(xhr, status, error) {
+              console.error("좋아요 증가 실패: ", error);
+            },
+          });
+        }
+      })
+    </script>
+
+    <script th:if="${postDTO.writerId != navDTO.clubMemberId}" th:inline="javascript">
       let isCounted = false;
 
       function handleScroll() {
@@ -47,6 +269,7 @@
             if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {
                 isCounted = true;
+                console.log("visitCount 증가");
 
                 const visitCountElement = document.getElementById('visitCountDiv');
                 visitCountElement.innerText = parseInt(visitCountElement.innerText) + 1;
@@ -58,6 +281,7 @@
 
           xhr.send(JSON.stringify({ postId: postId })); // postId를 JSON 형식으로 전송
         }
+        window.removeEventListener('scroll', handleScroll);
       }
 
       window.addEventListener('scroll', handleScroll);

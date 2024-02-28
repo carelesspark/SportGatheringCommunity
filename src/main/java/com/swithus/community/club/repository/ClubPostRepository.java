@@ -13,10 +13,11 @@ import java.util.List;
 public interface ClubPostRepository extends JpaRepository<ClubPost, Long>, ClubPostSearchRepository {
     @Query("select p, count(distinct r), count(distinct l), i " +
             "from ClubPost p " +
+            "left join ClubPostImage i on i.post = p " +
             "left join ClubPostReply r on r.post = p " +
             "left join ClubPostLike l on l.post = p " +
-            "left join ClubPostImage i on i.post = p " +
-            "group by p, i")
+            "where p.id = :postId " +
+            "group by i")
     List<Object[]> getClubPostDTO(Long postId);
 
     @Modifying

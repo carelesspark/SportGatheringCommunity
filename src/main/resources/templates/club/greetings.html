@@ -112,13 +112,11 @@
             },
             success: function (response, status, xhr) {
               if(xhr.status === 201) {
-                alert("좋아요를 취소했습니다. GreetingsId: " + greetingsId);
                 // decreaseLike가 성공했으므로 '🤍' 버튼을 보이도록 함
                 $("#likeDiv" + index + " a:nth-child(1)").show();
                 // increaseLike는 성공하면 '❤' 버튼을 숨김
                 $("#likeDiv" + index + " a:nth-child(2)").hide();
               } else if (xhr.status === 20) {
-                alert("좋아요를 눌렀습니다. GreetingsId: " + greetingsId);
                 // increaseLike가 성공했으므로 '❤' 버튼을 보이도록 함
                 $("#likeDiv" + index + " a:nth-child(2)").show();
                 // decreaseLike는 성공하면 '🤍' 버튼을 숨김
@@ -145,7 +143,6 @@
               clubId: [[${navDTO.clubId}]],
             },
             success: function (response) {
-              alert("좋아요를 취소했습니다. GreetingsId: " + greetingsId);
               // decreaseLike가 성공했으므로 '🤍' 버튼을 보이도록 함
               $("#likeDiv" + index + " a:nth-child(1)").show();
               // increaseLike는 성공하면 '❤' 버튼을 숨김

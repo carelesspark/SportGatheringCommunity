@@ -253,6 +253,22 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
+    public void withdrawClub(Long clubMemberId) {
+        clubMemberRepository.deleteById(clubMemberId);
+    }
+
+    @Override
+    public void deleteClub(Long clubId) {
+        clubRepository.deleteById(clubId);
+    }
+
+    @Override
+    @Transactional
+    public void welcome(Long clubMemberId) {
+        clubMemberRepository.setRankToOne(clubMemberId);
+    }
+
+    @Override
     public List<Club> findUsersClub(String nickname) {
         return clubRepository.findByUserNickname(nickname);
     }

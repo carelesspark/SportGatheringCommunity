@@ -4,8 +4,12 @@
   <div class="container" th:fragment="content">
 
     <div class="mb-3 border-bottom">
-      <div class="mb-4">
+      <div class="d-flex align-items-center justify-content-between mb-4">
         <h3>클럽 회원</h3>
+        <a class="btn btn-outline-dark"
+           th:href="@{/club/waitingList(clubId=${navDTO.clubId})}">
+          대기 명단
+        </a>
       </div>
     </div>
 
