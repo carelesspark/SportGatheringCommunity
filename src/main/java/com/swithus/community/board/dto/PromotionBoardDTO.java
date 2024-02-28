@@ -23,6 +23,8 @@ public class PromotionBoardDTO {
 
     private Long clubId;
 
+    private Long userId;
+
     private String writer;
 
     private int visitCount;

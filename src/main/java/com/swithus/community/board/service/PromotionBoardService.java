@@ -18,7 +18,11 @@ public interface PromotionBoardService {
 
     List<Promotion> findTop4ByOrderByRegDateDesc();
 
+    boolean checkClubLeader(String nickname);
+
     PageResultDTO<PromotionBoardDTO, Promotion> getPromotionList(PageRequestDTO requestDTO);
+
+    void write(PromotionBoardDTO dto);
 
     PromotionBoardDTO info(Long no);
 
@@ -45,5 +49,6 @@ public interface PromotionBoardService {
 
         return dto;
     }
+
 
 }

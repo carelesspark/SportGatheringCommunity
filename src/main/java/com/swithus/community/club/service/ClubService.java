@@ -32,6 +32,8 @@ public interface ClubService {
 
     Long registerClub(Long clubId, Long userId);
 
+    List<Club> findUsersClub(String nickname);
+
     List<PopularClubDTO> getPopularClubDTOList(int number);
 
     default Map<String, Object> clubDTOToEntity(ClubDTO clubDTO) {
