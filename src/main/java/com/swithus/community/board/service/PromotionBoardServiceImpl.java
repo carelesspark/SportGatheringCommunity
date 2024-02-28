@@ -11,12 +11,6 @@ import com.swithus.community.board.repository.PromotionBoardRepository;
 import com.swithus.community.board.repository.PromotionReplyRepository;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.repository.ClubRepository;
-import com.swithus.community.manager.dto.FaqDTO;
-import com.swithus.community.manager.dto.page.FaqPageRequestDTO;
-import com.swithus.community.manager.dto.page.FaqPageResultDTO;
-import com.swithus.community.manager.entity.Announcement;
-import com.swithus.community.manager.entity.Faq;
-import com.swithus.community.manager.entity.QFaq;
 import com.swithus.community.manager.repository.UserDetailRepository;
 import com.swithus.community.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +41,7 @@ public class PromotionBoardServiceImpl implements PromotionBoardService {
 
     @Override
     public boolean checkClubLeader(String nickname) {
-        List<Promotion> result = promotionBoardRepository.findByUserNickname(nickname);
+        List<Club> result = clubRepository.findByUserNickname(nickname);
         if (result.isEmpty()) {
             return false;
         } else {
