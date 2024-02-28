@@ -1,6 +1,5 @@
 package com.swithus.community.club.repository;
 
-import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.repository.search.ClubSearchRepository;
 import org.springframework.data.domain.Pageable;
@@ -45,18 +44,18 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
     @Query("SELECT c FROM Club c LEFT JOIN User u on c.leader = u WHERE u.nickname = :nickname")
     List<Club> findByUserNickname(String nickname);
 
-    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'soccer'")
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = '축구'")
     Long countBySportsWhichNameSoccer();
 
-    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'baseball'")
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = '야구'")
     Long countBySportsWhichNameBaseball();
 
-    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'basketball'")
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = '농구'")
     Long countBySportsWhichNameBasketball();
 
-    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'table_tennis'")
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = '탁구'")
     Long countBySportsWhichNameTable_Tennis();
 
-    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'badminton'")
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = '배드민턴'")
     Long countBySportsWhichNameBadminton();
 }
