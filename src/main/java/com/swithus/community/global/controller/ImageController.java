@@ -35,6 +35,7 @@ public class ImageController {
     private static final String CLUB_MAIN = "club/main/";
     private static final String CLUB_GREETINGS = "club/greetings/";
     private static final String CLUB_POST = "club/post/";
+    private static  final String USER_PROFILE = "user/profile/";
     // ~~~/images/
     @Value("${image.folder}")
     private String imageFolder;
@@ -89,6 +90,12 @@ public class ImageController {
     public ResponseEntity<List<UploadResultDTO>> uploadClubPost(MultipartFile[] uploadFiles) {
         log.info("POST /image/upload/club/post");
         return upload(uploadFiles, CLUB_POST);
+    }
+
+    @PostMapping("/upload/user/profile")
+    public ResponseEntity<List<UploadResultDTO>> uploadUserProfilePost(MultipartFile[] uploadFiles) {
+        log.info("POST /image/upload/user/profile");
+        return upload(uploadFiles, USER_PROFILE);
     }
 
     @GetMapping("/display")
