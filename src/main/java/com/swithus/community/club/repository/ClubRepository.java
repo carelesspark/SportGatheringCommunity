@@ -1,5 +1,6 @@
 package com.swithus.community.club.repository;
 
+import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.repository.search.ClubSearchRepository;
 import org.springframework.data.domain.Pageable;
@@ -40,4 +41,7 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
             "order by count(distinct m) desc, " +
             "count(distinct cm) desc ")
     List<Object[]> getClubAndMemberCountAndMeetingCountAndImageLimitByNumber(LocalDateTime currentDateTime, Pageable pageable);
+
+    @Query("SELECT c FROM Club c LEFT JOIN User u on c.leader = u WHERE u.nickname = :nickname")
+    List<Club> findByUserNickname(String nickname);
 }

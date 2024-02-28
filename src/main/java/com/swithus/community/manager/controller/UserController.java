@@ -6,6 +6,7 @@ import com.swithus.community.manager.dto.WithdrawalUserDTO;
 import com.swithus.community.manager.dto.page.AncPageRequestDTO;
 import com.swithus.community.manager.dto.page.UserPageRequestDTO;
 import com.swithus.community.manager.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,6 @@ public class UserController {
         model.addAttribute("dto", dto);
     }
 
-    
     @PostMapping("/withdrawal_user")
     public String withdrawal(WithdrawalUserDTO withdrawalUserDTO, @ModelAttribute("pageRequestDTO")UserPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
         

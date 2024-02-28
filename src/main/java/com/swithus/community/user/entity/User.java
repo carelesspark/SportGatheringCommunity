@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Table
-@ToString
 public class User extends BaseEntity {
 
     @Id
@@ -77,11 +76,11 @@ public class User extends BaseEntity {
     public Long getUserid() {
         return this.id = id;
     }
+
     @Builder
     public User(String email, String nickname, OAuthProvider oAuthProvider) {
         this.email = email;
         this.nickname = nickname;
         this.oAuthProvider = oAuthProvider;
     }
-
 }

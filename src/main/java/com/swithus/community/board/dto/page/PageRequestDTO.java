@@ -1,4 +1,4 @@
-package com.swithus.community.board.dto;
+package com.swithus.community.board.dto.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class PageRequestDTO {
     private int page;
     private int size;
     private String type;
-    private String keyword;
+    private String search;
 
     public PageRequestDTO(){
         this.page = 1;

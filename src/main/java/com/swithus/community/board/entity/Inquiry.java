@@ -20,6 +20,7 @@ public class Inquiry extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private InquiryCtgr ctgr;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

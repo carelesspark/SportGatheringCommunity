@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<th:block layout:fragment="content">
+    <main>
+        <form action="/board/promotion_write_post" method="post" class="writeForm">
+            <input th:each="club : ${list}" type="hidden" th:value="${club.leader.id}" name="userId" />
+            <div id="content">
+                <div id="pro_title">
+                    <div id="title_css">
+                        <p>홍보 게시판</p>
+                    </div>
+                </div>
+                <div id="pro_middle">
+                    <div id="padding">
+                        <div class="div_height1">
+                            <p id="padding_p">□ Write Promotion</p>
+                        </div>
+                    </div>
+                    <div id="info_table">
+                        <table class="table_info">
+                            <tr class="table_tr1">
+                                <td class="table_q">소모임 이름</td>
+                                <td class="table_a select_td"><select name="clubId">
+                                    <option th:each="list : ${list}" th:value="${list.id}">[[${list.name}]]</option>
+                                </select></td>
+                                <td class="table_q">작성자</td>
+                                <td class="table_a writer_td">[[${nickname}]]</td>
+                            </tr>
+                            <tr class="table_tr2">
+                                <td class="table_q">제목</td>
+                                <td colspan="3" class="table_a">
+                                    <input type="text" class="form-control pro_title_input" name="title"
+                                           placeholder="제목 입력">
+                                </td>
+                            </tr>
+                            <tr class="table_tr3">
+                                <td class="table_q">내용</td>
+                                <td colspan="3" class="table_a enter">
+                                    <textarea class="pro_content_input enter" name="content"
+                                              placeholder="내용 입력"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <div id="button_padding">
+                        <button type="button" class="btn btn-primary info_btn"
+                                th:onclick="|location.href='@{/board/promotion}'|">
+                            돌아가기
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-success writePro">작성하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <link th:href="@{/css/board/promotion_write.css}" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var form = $(".writeForm");
+                $(".writePro").click(function() {
+                    if($(".pro_title_input").val() == ""){
+                        alert("제목을 입력하세요.");
+                        return;
+                    }
+
+                    if($(".pro_content_input").val() == ""){
+                        alert("내용을 입력하세요.");
+                        return;
+                    }
+
+                    if(!confirm("작성하시겠습니까?")){
+                        return;
+                    }
+
+                    form.attr("action", "/board/promotion_write_post").attr("method", "post");
+                    form.submit();
+                });
+            });
+        </script>
+    </main>
+</th:block>
+</html>

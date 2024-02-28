@@ -2,6 +2,7 @@ package com.swithus.community.manager.service.impl;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.swithus.community.board.entity.Inquiry;
 import com.swithus.community.manager.dto.UserDTO;
 import com.swithus.community.manager.dto.WithdrawalUserDTO;
 import com.swithus.community.manager.dto.page.UserPageRequestDTO;
@@ -10,13 +11,14 @@ import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.entity.Faq;
 import com.swithus.community.manager.entity.QWithdrawalUser;
 import com.swithus.community.manager.entity.WithdrawalUser;
-import com.swithus.community.manager.repository.UserCountRepository;
-import com.swithus.community.manager.repository.UserDetailRepository;
-import com.swithus.community.manager.repository.UserRepository;
-import com.swithus.community.manager.repository.WithdrawalUserRepository;
+import com.swithus.community.manager.repository.*;
 import com.swithus.community.manager.service.UserService;
 import com.swithus.community.user.entity.AuthId;
+import com.swithus.community.user.entity.AuthVerification;
 import com.swithus.community.user.entity.QAuthId;
+import com.swithus.community.user.entity.User;
+import com.swithus.community.user.repository.AuthVerificationRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -36,11 +39,12 @@ public class UserServiceImpl implements UserService {
     private final WithdrawalUserRepository withdrawalUserRepository;
     private final UserDetailRepository userDetailRepository;
     private final UserCountRepository userCountRepository;
-
+    private final AuthVerificationRepository authVerificationRepository;
+    private final InquiryRepository inquiryRepository;
 
     @Override
     public Long countBy() {
-       return userCountRepository.countBy();
+        return userCountRepository.countBy();
     }
 
     @Override
@@ -91,13 +95,14 @@ public class UserServiceImpl implements UserService {
         return result.isPresent() ? entityToDto(result.get()) : null;
     }
 
+    @Transactional
     @Override
     public void withdrawalUser(WithdrawalUserDTO withdrawalUserDTO) {
 
         log.info(withdrawalUserDTO.getUserId());
         WithdrawalUser entity = dtoToEntity(withdrawalUserDTO);
         withdrawalUserRepository.save(entity);
-        userRepository.deleteById(withdrawalUserDTO.getAuthUserId());
+
         userDetailRepository.deleteById(withdrawalUserDTO.getAuthUserDetailId());
 
     }
@@ -142,7 +147,7 @@ public class UserServiceImpl implements UserService {
 
         Optional<WithdrawalUser> result = withdrawalUserRepository.findById(no);
 
-        return result.isPresent()? entityToWithdrawalUserDTO(result.get()) : null;
+        return result.isPresent() ? entityToWithdrawalUserDTO(result.get()) : null;
     }
 
 
