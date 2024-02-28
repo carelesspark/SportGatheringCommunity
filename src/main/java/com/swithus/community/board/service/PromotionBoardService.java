@@ -1,8 +1,15 @@
 package com.swithus.community.board.service;
 
+import com.swithus.community.board.dto.page.PageRequestDTO;
+import com.swithus.community.board.dto.page.PageResultDTO;
 import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.board.dto.PromotionBoardDTO;
 import com.swithus.community.global.entity.Sports;
+import com.swithus.community.manager.dto.AnnouncementDTO;
+import com.swithus.community.manager.dto.FaqDTO;
+import com.swithus.community.manager.dto.page.FaqPageRequestDTO;
+import com.swithus.community.manager.dto.page.FaqPageResultDTO;
+import com.swithus.community.manager.entity.Faq;
 import com.swithus.community.user.entity.User;
 
 import java.util.List;
@@ -11,45 +18,37 @@ public interface PromotionBoardService {
 
     List<Promotion> findTop4ByOrderByRegDateDesc();
 
-//    PageResultDTO<PromotionBoardDTO,Object[]> getList(PageRequestDTO pageRequestDTO);
+    boolean checkClubLeader(String nickname);
 
-    default Promotion dtoToEntity (PromotionBoardDTO promotionBoardDTO) {
+    PageResultDTO<PromotionBoardDTO, Promotion> getPromotionList(PageRequestDTO requestDTO);
 
-        Sports sports = Sports.builder()
-                .id(Long.valueOf(promotionBoardDTO.getSports()))
-                .build();
+    void write(PromotionBoardDTO dto);
 
-        User user = User.builder()
-                .id(Long.valueOf(promotionBoardDTO.getWriter()))
-                .build();
+    PromotionBoardDTO info(Long no);
 
-        Promotion promotion = Promotion.builder()
-                .id(promotionBoardDTO.getId())
-                .title(promotionBoardDTO.getTitle())
-                .content(promotionBoardDTO.getContent())
-                .visitCount(promotionBoardDTO.getReplyCount())
-                //.club(club)
-                .writer(user)
-                .build();
+    void modify(PromotionBoardDTO dto);
 
-        return promotion;
-    }
+    void deletePromotion(Long no);
 
-    default PromotionBoardDTO entityToDto (Promotion promotion, Sports sports, User user, Long replyCount) {
 
-        PromotionBoardDTO promotionBoardDTO = PromotionBoardDTO.builder()
-                .id(promotion.getId())
+    default PromotionBoardDTO entityToDto(Promotion promotion){
+
+        PromotionBoardDTO dto = PromotionBoardDTO.builder().
+                id(promotion.getId())
                 .title(promotion.getTitle())
                 .content(promotion.getContent())
-                .sports(sports.getName())
-                .writer(user.getNickname())
-                .visitCount((long) promotion.getVisitCount())
+                .clubCtgr(promotion.getClub().getSports().getName())
+                .clubName(promotion.getClub().getName())
+                .clubId(promotion.getClub().getId())
+                .writer(promotion.getClub().getLeader().getNickname())
+                .visitCount(promotion.getVisitCount())
+                .nickname(promotion.getClub().getLeader().getNickname())
                 .regDate(promotion.getRegDate())
                 .modDate(promotion.getModDate())
-                .replyCount(replyCount.intValue())
                 .build();
 
-        return promotionBoardDTO;
+        return dto;
     }
+
 
 }

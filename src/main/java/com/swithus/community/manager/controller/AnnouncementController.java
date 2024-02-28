@@ -61,7 +61,7 @@ public class AnnouncementController {
     }
 
     @PostMapping("/announcement_delete")
-    public String delete(long id, @ModelAttribute("pageRequestDTO") AncPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
+    public String delete(Long id, @ModelAttribute("pageRequestDTO") AncPageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
         log.info("공지사항 삭제");
 
         service.delete(id);

@@ -191,6 +191,7 @@ public class ClubServiceImpl implements ClubService {
         return clubMember.getId();
     }
 
+
     @Override
     public List<PopularClubDTO> getPopularClubDTOList(int number) {
         LocalDateTime now = LocalDateTime.now();
@@ -249,5 +250,10 @@ public class ClubServiceImpl implements ClubService {
                     .imageDTOList(imageDTOList)
                     .build();
         }).toList();
+    }
+
+    @Override
+    public List<Club> findUsersClub(String nickname) {
+        return clubRepository.findByUserNickname(nickname);
     }
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+
+    <div class="p-4 rounded shadow mb-5">
+      <h3 class="mb-3" th:text="${isEditing ? '게시글 수정' : '게시글 작성'}"></h3>
+
+      <form enctype="multipart/form-data" id="postForm" method="post"
+            th:action="${isEditing ? '/club/updatePost' : '/club/createPost'}">
+        <input th:name="clubId" th:value="${navDTO.clubId}" type="hidden">
+        <input name="writerId" th:value="${navDTO.clubMemberId}" type="hidden">
+        <input th:if="${isEditing}" th:name="postId"
+               th:value="${postDTO != null ? postDTO.clubPostId : ''}"
+               type="hidden">
+
+        <div class="box"></div>
+
+        <div class="mb-3">
+          <label class="form-label" for="ctgrSelect"></label>
+          <select class="form-select" id="ctgrSelect" required th:name="ctgrId">
+            <option th:each="ctgr : ${ctgrList}"
+                    th:selected="${postDTO != null and postDTO.ctgrId == ctgr.id}"
+                    th:text="${ctgr.name}"
+                    th:value="${ctgr.id}"></option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="titleInput">제목</label>
+          <input class="form-control"
+                 id="titleInput" required th:name="title"
+                 th:value="${postDTO != null ? postDTO.title : ''}"
+                 type="text">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="ckEditor">내용</label>
+          <textarea class="form-control" id="ckEditor" th:name="introduce"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="imageInput">이미지</label>
+          <div class="custom-file">
+            <input class="custom-file-input files" id="imageInput" multiple type="file">
+            <label class="custom-file-label" data-browse="Browse"></label>
+          </div>
+        </div>
+
+        <div class="uploadResult mb-3">
+          <ul>
+
+          </ul>
+        </div>
+
+        <button class="btn btn-outline-dark submitBtn" type="submit">제출</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+    <script th:src="@{/js/global/ckEditor.js}"></script>
+    <script th:inline="javascript" th:src="@{/js/club/postForm.js}"></script>
+  </div>
+</th:block>
+</html>

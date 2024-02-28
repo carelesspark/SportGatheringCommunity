@@ -16,7 +16,9 @@
 
     <link rel="stylesheet"
           th:href="@{/css/global/ckEditor.css}"
-          th:if="${servletPath == '/club/create' || servletPath == '/club/meetingForm'}">
+          th:if="${servletPath == '/club/create' ||
+          servletPath == '/club/meetingForm' ||
+          servletPath == '/club/postForm'}">
   </head>
 
   <body>

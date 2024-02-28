@@ -2,12 +2,17 @@ package com.swithus.community.board.repository;
 
 import com.swithus.community.board.entity.Promotion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
 
 public interface PromotionBoardRepository extends JpaRepository<Promotion,Long> , QuerydslPredicateExecutor<Promotion> {
     List<Promotion> findTop4ByOrderByRegDateDesc();
+
+    @Query("SELECT p FROM Promotion p LEFT JOIN User u on p.writer = u WHERE u.nickname = :nickname")
+    List<Promotion> findByUserNickname(String nickname);
+
 
 
 //    // 어떤 게시글의 작성자가 누구인가?
