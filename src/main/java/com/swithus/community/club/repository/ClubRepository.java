@@ -41,6 +41,7 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
             "count(distinct cm) desc ")
     List<Object[]> getClubAndMemberCountAndMeetingCountAndImageLimitByNumber(LocalDateTime currentDateTime, Pageable pageable);
 
+
     @Query("SELECT c FROM Club c LEFT JOIN User u on c.leader = u WHERE u.nickname = :nickname")
     List<Club> findByUserNickname(String nickname);
 

@@ -26,6 +26,10 @@
                             <td class="table_q">제목</td>
                             <td colspan="3" class="table_a">[[${dto.title}]]</td>
                         </tr>
+                        <tr class="table_tr2">
+                            <td class="table_q">클럽명</td>
+                            <td colspan="3" class="table_a"><a th:href="@{/club/main(clubId=${dto.clubId})}">[[${dto.clubName}]]</a></td>
+                        </tr>
                         <tr class="table_tr3">
                             <td class="table_q">내용</td>
                             <td colspan="3" class="table_a enter">[[${dto.content}]]</td>

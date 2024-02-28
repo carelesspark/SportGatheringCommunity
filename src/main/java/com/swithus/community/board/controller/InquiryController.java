@@ -22,12 +22,17 @@ public class InquiryController {
     private final InquiryService inquiryService;
 
     @GetMapping("/inquiry")
-    public void inquiry(Model model, HttpSession session){
-        String nickname= (String) session.getAttribute("userNickname");
-
-        log.info(nickname);
-
-        model.addAttribute("nickname", nickname);
+    public String inquiry(Model model, HttpSession session ){
+        String nickname = (String) session.getAttribute("userNickname");
+        if(nickname == null){
+            model.addAttribute("msg", "로그인이 필요한 페이지입니다.");
+            model.addAttribute("nickname", nickname);
+            return "/board/return";
+        } else {
+            log.info(nickname);
+            model.addAttribute("nickname", nickname);
+            return "/board/inquiry";
+        }
     }
 
     @PostMapping("/inquiry_post")
