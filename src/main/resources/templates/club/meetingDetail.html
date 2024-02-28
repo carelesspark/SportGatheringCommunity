@@ -243,6 +243,14 @@
         var curMemberId;
 
         $(".replyList").on("click", ".card-body", function () {
+          var targetReply = $(this);
+          replyId = targetReply.data("reply-id");
+          curMemberId = targetReply.data("member-id");
+
+          if (memberId != curMemberId) {
+            return;
+          }
+
           $(".saveBtn").hide();
           $(".removeBtn").show();
 
