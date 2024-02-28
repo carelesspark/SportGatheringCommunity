@@ -2,24 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="profile/profilelayout">
 <th:block layout:fragment="content">
     <div id="right">
-        <div id="title">
-            <h1 th:if="${session.RuserId != null}"><span th:text="${session.userNickname}"></span>님의 프로필</h1>
-        </div>
-
         <div id="info1">
             <div id="profileImg">
-                <div id="imgBox">
-                    <img id="basicImg" src="/images/profile/circle_user.png">
+                <div id="imgBox" style="margin:0 auto;">
                 </div>
-                <div id="editImgBox">
-                    <button id="editImgBtn">프로필사진 수정</button>
+                <div class="col-sm-10 custom-file" style="margin:0 auto; display:flex;
+                justify-content:center; align-items:center; ">
+                    <input class="custom-file-input files" id="inputImage" type="file" style="display:none;">
+                    <label for="inputImage" style="border:1px solid #ccc; border-radius:10px; padding: 5px;">프로필사진 등록</label>
                 </div>
             </div>
             <div id="nickname">
                 <p th:if="${session.RuserId != null}" th:text="${session.userNickname}"><span>님, 안녕하세요!</span></p>
-                <button id="editNickname">
-                    <i class="editsvg fi fi-rr-pen-square"></i>
-                </button>
             </div>
         </div>
 
@@ -42,21 +36,69 @@
                             </div>
                             <div class="form-group">
                                 <label for="newEmail">수정할 이메일:</label>
-                                <input type="email" class="form-control" id="newEmail" required>
+                                <input type="text" class="form-control" id="newEmail" required>
                             </div>
                             <div class="form-group">
-                                <label for="newAddress">수정할 주소:</label>
-                                <input type="text" class="form-control" id="newAddress" required>
+                                <label for="newPost">우편번호</label>
+                                <input type="text" class="form-control" id="newPost" placeholder="우편번호" required>
+                            </div>
+                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                            <div class="form-group">
+                                <label for="newAddress">주소</label>
+                                <input type="text" class="form-control" id="newAddress" placeholder="주소" required>
                             </div>
                             <div class="form-group">
-                                <label for="newAddressDetail">수정할 상세주소:</label>
-                                <input type="text" class="form-control" id="newAddressDetail">
+                                <label for="newAddressDetail">상세주소</label>
+                                <input type="text" class="form-control" id="newAddressDetail" placeholder="상세주소" required>
                             </div>
                             <div class="form-group">
-                                <label for="newPost">수정할 우편번호:</label>
-                                <input type="text" class="form-control" id="newPost" required>
+                                <label for="sample6_extraAddress">참고항목</label>
+                                <input type="text" class="form-control" id="sample6_extraAddress" placeholder="참고항목" required>
                             </div>
+
+                            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                            <script>
+                                function sample6_execDaumPostcode() {
+                                    new daum.Postcode({
+                                        oncomplete: function(data) {
+                                            var addr = ''; // 주소 변수
+                                            var extraAddr = ''; // 참고항목 변수
+
+                                            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                                addr = data.roadAddress;
+                                            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                                addr = data.jibunAddress;
+                                            }
+
+                                            if(data.userSelectedType === 'R'){
+
+                                                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                                    extraAddr += data.bname;
+                                                }
+
+                                                if(data.buildingName !== '' && data.apartment === 'Y'){
+                                                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                                }
+
+                                                if(extraAddr !== ''){
+                                                    extraAddr = ' (' + extraAddr + ')';
+                                                }
+
+                                                document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                                            } else {
+                                                document.getElementById("sample6_extraAddress").value = '';
+                                            }
+
+                                            document.getElementById('newPost').value = data.zonecode;
+                                            document.getElementById("newAddress").value = addr;
+                                            document.getElementById("newAddressDetail").focus();
+                                        }
+                                    }).open();
+                                }
+                            </script>
                             <button type="submit" class="btn btn-primary">저장</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button> <!-- 수정된 부분 -->
                         </form>
                     </div>
                 </div>
@@ -68,13 +110,14 @@
         <div id="info2">
             <div><p>주소</p></div>
             <div>
-                <div th:if="${session.userAddrDetail}">
-                    <p th:text="${session.userAddrDetail}"></p>
+                <div th:if="${session.userAddr != null}">
+                    <p>주소 :<span th:text="${session.userAddr}"></span> </p>
+                    <p>상세주소 :<span th:text="${session.userAddrDetail}"></span></p>
+                    <p>우편번호 :<span th:text="${session.userPost}"></span></p>
                 </div>
-                <div th:unless="${session.userAddrDetail}">
-                    <p>주소를 입력해주세요.</p>
+                <div th:if="${session.userAddr == null}">
+                    <p>주소정보가 없습니다.<br> 프로필을 수정하여 주소를 입려해주세요</p>
                 </div>
-                <span>우편번호 찾기</span>
             </div>
         </div>
 
@@ -83,9 +126,6 @@
             <div>
                 <div th:if="${session.userEmail}">
                     <p th:text="${session.userEmail}"></p>
-                </div>
-                <div th:unless="${session.userEmail}">
-                    <p>이메일 주소를 입력해주세요.</p>
                 </div>
             </div>
         </div>
@@ -100,7 +140,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            $(document).ready(function(){
+$(document).ready(function(){
                 var isClicked = false;
 
                 $('div#article a').hover(function () {
@@ -310,17 +350,18 @@
                         var newAddressDetail = $('#newAddressDetail').val();
                         var newPost = $('#newPost').val();
 
-                        // AJAX를 사용하여 서버로 수정 요청 보내기
+                         // AJAX를 사용하여 서버로 수정 요청 보내기
                         $.ajax({
                             type: 'POST',
                             url: '/profile/update',
-                            data: {
-                                nickname: newNickname,
-                                email: newEmail,
-                                address: newAddress,
-                                addressDetail: newAddressDetail,
-                                post: newPost
-                            },
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                    nickname: newNickname,
+                                    email: newEmail,
+                                    addr: newAddress,
+                                    addrDetail: newAddressDetail,
+                                    post: newPost
+                            }),
                             success: function (response) {
                                 // 서버로부터 성공 응답을 받았을 때의 동작
                                 console.log('프로필 수정이 성공적으로 완료되었습니다.');
@@ -341,7 +382,131 @@
                             }
                         });
                     });
-            }); <!--document Ready End-->
+
+
+    let regex = new RegExp("(.*?).(exe|sh|zip|alz|tiff)$");
+    // 10 MB
+    const maxSize = 10485760;
+
+  // 파일 크기 및 확장자 검사
+  function checkFile(fileName, fileSize) {
+    if (fileSize >= maxSize) {
+      alert("파일 사이즈 초과");
+      return false;
+    }
+    if (regex.test(fileName)) {
+      alert("해당 종류의 파일은 업로드 불가");
+      return false;
+    }
+    return true;
+  }
+
+  // uploadResult class div에 업로드한 이미지 보여주기
+  function showResult(uploadResultDTOList) {
+    var uploadUL = $("#imgBox");
+
+    var str = "";
+    $(uploadResultDTOList).each(function (idx, uploadResultDTO) {
+      str += "<img data-path='" + uploadResultDTO.folderPath + "' ";
+      str += "data-uuid='" + uploadResultDTO.uuid + "' ";
+      str += "data-name='" + uploadResultDTO.fileName + "' ";
+      str += "src='/image/display?fileName=" + uploadResultDTO.thumbnailURL + "' ";
+      str += "style='width: 100%; height: 100%;'>";
+
+      str += "<button type='button' ";
+      str += "data-file='" + uploadResultDTO.imageURL + "' ";
+      str += "class ='btn-warning btn-sm'>";
+      str += "삭제";
+      str += "</button>";
+    });
+    uploadUL.append(str);
+  }
+
+  // 변화가 있을 때마다
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+
+    var formData = new FormData();
+    var inputFile = $(this);
+    var files = inputFile[0].files;
+    var appended = false;
+
+    for (var i = 0; i < files.length; i++) {
+      if (!checkFile(files[i].name, files[i].size)) {
+        return false;
+      }
+
+      formData.append("uploadFiles", files[i]);
+      appended = true;
+    }
+
+    if (!appended) {
+      return;
+    }
+
+    for (var value of formData.values()) {
+      console.log(value);
+    }
+
+    $.ajax({
+      url: "/image/upload/user/profile",
+      processData: false,
+      contentType: false,
+      data: formData,
+      type: "POST",
+      dataType: "JSON",
+      success: function (result) {
+        console.log(result);
+        showResult(result);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log(textStatus);
+      },
+    });
+  });
+
+  // 이미지 삭제 함수
+  $(".uploadResult").on("click", "ul li button", function () {
+    // 물리적인 폴더에서 이미지 삭제
+    var targetFile = $(this).data("file");
+    // 화면에서 이미지 삭제
+    var targetLi = $(this).closest("li");
+
+    $.ajax({
+      url: "/image/delete",
+      data: { fileName: targetFile },
+      type: "POST",
+      success: function (data, textStatus) {
+        alert(textStatus);
+        targetLi.remove();
+      },
+    });
+  });
+
+  // 클럽 생성 버튼을 눌렀을 때, 이미지를 업로드하기 위한 작업 후 submit 진행
+  $(".submitBtn").on("click", function (event) {
+    event.preventDefault();
+
+    var str = "";
+    $(".uploadResult li").each(function (idx, obj) {
+      var target = $(obj);
+      str += "<input type='hidden' ";
+      str += "name='imageDTOList[" + idx + "].path' ";
+      str += "value='" + target.data("path") + "'>";
+
+      str += "<input type='hidden' ";
+      str += "name='imageDTOList[" + idx + "].uuid' ";
+      str += "value='" + target.data("uuid") + "'>";
+
+      str += "<input type='hidden' ";
+      str += "name='imageDTOList[" + idx + "].name' ";
+      str += "value='" + target.data("name") + "'>";
+    });
+    $(".box").html(str);
+    $("#clubForm").submit();
+  });
+}); <!--document Ready End-->
+
         </script>
     </div>
 </th:block>

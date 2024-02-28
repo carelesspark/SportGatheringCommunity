@@ -5,8 +5,7 @@ function sendNumber() {
         type: "post",
         dataType: "json",
         data: {
-                "email": $("#email").val(),
-                "name": $("#name").val()
+                "email": $("#email").val()
                 },
         success: function (data, status, xhr) {
             if (data.status === "success") {
@@ -49,21 +48,21 @@ function confirmNumber() {
     });
 }
 
-function findId() {
-    console.log("findId() 호출");
-    console.log("code : " + $("#verificationCode").val())
+function findPwd() {
+    console.log("findPwd() 호출");
+    console.log("userid : " + $("#userid").val())
     $.ajax({
-            url: "/login/findId",
+            url: "/login/findPwd",
             type: "post",
             dataType: "json",
             data: {
                "email": $("#email").val(),
-               "name": $("#name").val(),
+               "userpwd": $("#userpwd").val(),
                "verifyCode": $("#verificationCode").val()
             },
             success: function (data, status, xhr) {
                 if (data.status === "success") {
-                    alert("회원님의 아이디는 " + data.userId + "입니다.");
+                    alert("회원님의 비밀번호는 " + data.userPwd + "입니다.");
                     window.location.assign('/login/login');
                 } else {
                     alert(data.message);

@@ -23,15 +23,11 @@ public class MemberServiceImpl implements MemberService {
         User existingUser = memberRepository.findById(userDTO.getId())
                 .orElseThrow(() -> new RuntimeException("ID가 " + userDTO.getId() + "인 사용자를 찾을 수 없습니다."));
 
-        if (existingUser.getAddr() == null) {
-            existingUser.setAddr(userDTO.getAddr());
-        }
-        if (existingUser.getAddrDetail() == null) {
-            existingUser.setAddrDetail(userDTO.getAddrDetail());
-        }
         existingUser.setNickname(userDTO.getNickname());
         existingUser.setEmail(userDTO.getEmail());
         existingUser.setPost(userDTO.getPost());
+        existingUser.setAddr(userDTO.getAddr());
+        existingUser.setAddrDetail(userDTO.getAddrDetail());
 
         // JPA가 관리하는 영속성 컨텍스트에서 변경된 내용을 자동으로 감지하고 DB에 반영
         return memberRepository.save(existingUser);
