@@ -52,6 +52,7 @@ public String login(LoginDTO loginDTO, HttpSession session) {
         session.setAttribute("userEmail", value.getUser().getEmail());
         session.setAttribute("userAddrDetail", value.getUser().getAddrDetail());
         session.setAttribute("userPost", value.getUser().getPost());
+        session.setAttribute("userAddr", value.getUser().getAddr());
 
         // 관리자 페이지로 점핑하기 위한 코드입니다.
         if(value.getUser().getId()== 1L){
@@ -59,7 +60,7 @@ public String login(LoginDTO loginDTO, HttpSession session) {
         }
         return "redirect:/swithus/main";//redirect할 땐 처음 들어가지는 경로로 지정해야 올바른 경로로 바뀌어서 감
     }
-    return "login/login";
+    return "redirect:/swithus/main";
 }
 
 @GetMapping("/logout")
@@ -76,12 +77,19 @@ public String logout(HttpSession session){
         return "login/findId";
     }
 
-    @PostMapping("/findId")
-    public ResponseEntity<Map<String, String>> mailSend(UserDTO userDTO) throws MessagingException {
-        log.info("EmailController.mailSend()");
+    @GetMapping("/findPwd")
+    public String findPwd(){
 
+        return "login/findPwd";
+    }
+
+    @PostMapping("/findId")
+    public ResponseEntity<Map<String, String>> findId(UserDTO userDTO) throws MessagingException {
+        log.info("EmailController.mailSend()");
+        log.info("userDTO.getVerificationCode() :" + userDTO.getVerificationCode());
         // 이메일 및 이름을 통해 아이디를 찾는 서비스 호출
-        Optional<String> foundUserIdOptional = loginService.findUserId(userDTO.getEmail(), userDTO.getName());
+        Optional<String> foundUserIdOptional = loginService.findUserId(userDTO.getEmail(), userDTO.getName(), userDTO.getVerificationCode());
+        log.info("foundUserIdOptional = " + foundUserIdOptional);
 
         Map<String, String> response = new HashMap<>();
         if (foundUserIdOptional.isPresent()) {
@@ -94,10 +102,23 @@ public String logout(HttpSession session){
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/findPwd")
-    public String findPwd(){
+    @PostMapping("/findPwd")
+    public ResponseEntity<Map<String, String>> findPwd(UserDTO userDTO) throws MessagingException {
+        log.info("EmailController.mailSend()");
+        log.info("userDTO.getVerificationCode() :" + userDTO.getVerificationCode());
+        // 이메일 및 아이디를 통해 비밀번호를 찾는 서비스 호출
+        Optional<String> foundUserPwdOptional = loginService.findUserPwd(userDTO.getEmail(), userDTO.getUserid(), userDTO.getVerificationCode());
+        log.info("foundUserPwdOptional = " + foundUserPwdOptional);
 
-        return "login/findPwd";
+        Map<String, String> response = new HashMap<>();
+        if (foundUserPwdOptional.isPresent()) {
+            response.put("status", "success");
+            response.put("userPwd", foundUserPwdOptional.get());  // 아이디를 클라이언트에게 전달
+        } else {
+            response.put("status", "fail");
+            response.put("message", foundUserPwdOptional.orElse("이메일 인증이 완료되지 않았습니다."));
+        }
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/changePwd")

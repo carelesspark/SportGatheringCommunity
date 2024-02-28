@@ -16,7 +16,7 @@ public class AuthVerification extends BaseEntity {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = true) // user_id는 user엔티티의 키 값 참조
     private User user;
 
     @Column(name = "is_email_verified", nullable = false)

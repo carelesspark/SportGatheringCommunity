@@ -11,5 +11,4 @@ public interface UserDetailRepository extends JpaRepository<User, Long> {
             "where u.nickname = :nickname")
     User getUserByUserNickname(String nickname);
 
-
 }

@@ -68,14 +68,8 @@ public class EmailServiceImpl implements EmailService {
         User user = findMemberRepository.findByEmail(email);
         AuthVerification authVerification = authVerificationRepository.findByUser(user);
 
-        // AuthVerification 객체가 없으면 생성하고 저장
-        if (authVerification == null) {
-            authVerification = new AuthVerification();
-            authVerification.setUser(user);
-            authVerification.setVerificationCode(codeFoundByEmail);
-            authVerificationRepository.save(authVerification);
-        }
         authVerification.setIsEmailVerified(true);
+        authVerification.setVerificationCode(code);
         authVerificationRepository.save(authVerification);
         log.info("Email verification succeeded.");
 

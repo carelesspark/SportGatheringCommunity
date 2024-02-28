@@ -44,4 +44,19 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
 
     @Query("SELECT c FROM Club c LEFT JOIN User u on c.leader = u WHERE u.nickname = :nickname")
     List<Club> findByUserNickname(String nickname);
+
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'soccer'")
+    Long countBySportsWhichNameSoccer();
+
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'baseball'")
+    Long countBySportsWhichNameBaseball();
+
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'basketball'")
+    Long countBySportsWhichNameBasketball();
+
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'table_tennis'")
+    Long countBySportsWhichNameTable_Tennis();
+
+    @Query("SELECT COUNT(c) FROM Club c LEFT JOIN Sports s on c.sports = s WHERE s.name = 'badminton'")
+    Long countBySportsWhichNameBadminton();
 }

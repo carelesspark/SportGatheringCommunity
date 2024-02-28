@@ -55,28 +55,53 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Optional<String> findUserId(String email, String name) {
+    public Optional<String> findUserId(String email, String name, String code) {
+        log.info("code : " + code);
         Optional<User> foundUser = Optional.ofNullable(findMemberRepository.findByEmailAndName(email, name));
 
         if (foundUser.isPresent()) {
             User user = foundUser.get();
+            log.info("user : " + user);
             AuthId authId = authIdRepository.findByUser(user);
+            log.info("authId : " + authId);
 
-            // 인증 여부 확인
-            AuthVerification authVerification = authVerificationRepository.findByUser(user);
-            if (authVerification != null && authVerification.isEmailVerified()) {
-                // verification_code와 is_email_verified 값을 초기화
-                authVerification.setVerificationCode(null);
-                authVerification.setIsEmailVerified(false);
-                authVerificationRepository.save(authVerification);
+            AuthVerification authVerification = authVerificationRepository
+                    .findByIsEmailVerifiedAndVerificationCode(true, code);
+            log.info("authVerification : " + authVerification);
+            if (authVerification != null) {
 
-                return Optional.ofNullable(authId != null ? authId.getUserid() : null);
+                return Optional.ofNullable(authId.getUserid());
             } else {
+
                 return Optional.empty();
             }
-        } else {
-            return Optional.empty();
         }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<String> findUserPwd(String email, String userid, String code) {
+        log.info("code : " + code);
+        Optional<User> foundUser = Optional.ofNullable(findMemberRepository.findByEmail(email));
+
+        if (foundUser.isPresent()) {
+            User user = foundUser.get();
+            log.info("user : " + user);
+            AuthId authId = authIdRepository.findByUser(user);
+            log.info("authId : " + authId);
+
+            AuthVerification authVerification = authVerificationRepository
+                    .findByIsEmailVerifiedAndVerificationCode(true, code);
+            log.info("authVerification : " + authVerification);
+            if (authVerification != null) {
+                log.info("Optional.ofNullable(authId.getUserpwd()) : " + Optional.ofNullable(authId.getUserpwd()));
+                return Optional.ofNullable(authId.getUserpwd());
+            } else {
+
+                return Optional.empty();
+            }
+        }
+        return Optional.empty();
     }
 
     private boolean isEmailVerified(User user) {
