@@ -57,7 +57,7 @@
                 </div>
                 <div class="graph-div">
                     <div class="graph-div-top">
-                        <p>○ 카테고리 조회수</p>
+                        <p>○ 카테고리 별 소모임 수</p>
                     </div>
                     <div id="graph2">
                         <canvas id="myChart2"></canvas>
@@ -72,7 +72,7 @@
                     <table class="pro_table">
                         <tr th:each="pro : ${promotion}">
                             <td>○ [홍보]</td>
-                            <td class="td_width"><a>[[${pro.title}]]</a></td>
+                            <td class="td_width"><a th:href="@{/board/promotion_info(no=${pro.id})}">[[${pro.title}]]</a></td>
                             <td>[[${pro.club.leader.nickname}]]</td>
                         </tr>
                     </table>

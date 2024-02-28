@@ -27,9 +27,10 @@ public class PromotionBoardDTO {
 
     private int visitCount;
 
+    private String nickname;
+
     private LocalDateTime regDate;
 
     private LocalDateTime modDate;
-
 
 }

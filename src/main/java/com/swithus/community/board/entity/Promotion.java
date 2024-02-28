@@ -31,4 +31,14 @@ public class Promotion extends BaseEntity {
 
     private int visitCount;
 
+    public void changeTitle(String title){
+        this.title = title;
+    }
+
+    public void changeContent(String content){
+        this.content = content;
+    }
+
+    public void plusVisitCount(int visitCount){ this.visitCount = ++visitCount;}
+
 }

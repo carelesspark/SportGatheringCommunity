@@ -5,6 +5,7 @@ import com.swithus.community.board.dto.page.PageResultDTO;
 import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.board.dto.PromotionBoardDTO;
 import com.swithus.community.global.entity.Sports;
+import com.swithus.community.manager.dto.AnnouncementDTO;
 import com.swithus.community.manager.dto.FaqDTO;
 import com.swithus.community.manager.dto.page.FaqPageRequestDTO;
 import com.swithus.community.manager.dto.page.FaqPageResultDTO;
@@ -19,6 +20,12 @@ public interface PromotionBoardService {
 
     PageResultDTO<PromotionBoardDTO, Promotion> getPromotionList(PageRequestDTO requestDTO);
 
+    PromotionBoardDTO info(Long no);
+
+    void modify(PromotionBoardDTO dto);
+
+    void deletePromotion(Long no);
+
 
     default PromotionBoardDTO entityToDto(Promotion promotion){
 
@@ -31,6 +38,7 @@ public interface PromotionBoardService {
                 .clubId(promotion.getClub().getId())
                 .writer(promotion.getClub().getLeader().getNickname())
                 .visitCount(promotion.getVisitCount())
+                .nickname(promotion.getClub().getLeader().getNickname())
                 .regDate(promotion.getRegDate())
                 .modDate(promotion.getModDate())
                 .build();

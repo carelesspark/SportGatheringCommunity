@@ -12,6 +12,7 @@ import com.swithus.community.board.repository.PromotionReplyRepository;
 import com.swithus.community.manager.dto.FaqDTO;
 import com.swithus.community.manager.dto.page.FaqPageRequestDTO;
 import com.swithus.community.manager.dto.page.FaqPageResultDTO;
+import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.entity.Faq;
 import com.swithus.community.manager.entity.QFaq;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
@@ -49,6 +51,8 @@ public class PromotionBoardServiceImpl implements PromotionBoardService {
 
         return new PageResultDTO(result, fn);
     }
+
+
 
     private BooleanBuilder getSearch(PageRequestDTO pageRequestDTO){
         String type = pageRequestDTO.getType();
@@ -81,17 +85,37 @@ public class PromotionBoardServiceImpl implements PromotionBoardService {
         return booleanBuilder;
     }
 
-//    @Override
-//    public PageResultDTO<PromotionBoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
-//
-//        log.info(pageRequestDTO);
-//
-//        Function<Object[],PromotionBoardDTO> fn = (en -> entityToDto((Promotion) en[0],(Club) en[1],(User) en[2],(Long) en[3]));
-//
-//        Page<Object[]> result = promotionBoardRepository.getBoardWithReplyCount(pageRequestDTO.
-//                getPageable(Sort.by("id").descending()));
-//
-//        return new PageResultDTO<>(result,fn);
-//    }
+    @Override
+    public PromotionBoardDTO info(Long no) {
+        Optional<Promotion> info = promotionBoardRepository.findById(no);
+
+        if(info.isPresent()){
+            Promotion entity = info.get();
+            entity.plusVisitCount(entity.getVisitCount());
+
+            promotionBoardRepository.save(entity);
+        }
+
+        return info.isPresent()? entityToDto(info.get()) : null;
+    }
+
+    @Override
+    public void modify(PromotionBoardDTO dto) {
+        Optional<Promotion> before_modify = promotionBoardRepository.findById(dto.getId());
+
+        if(before_modify.isPresent()){
+            Promotion entity = before_modify.get();
+            entity.changeTitle(dto.getTitle());
+            entity.changeContent(dto.getContent());
+
+            promotionBoardRepository.save(entity);
+        }
+    }
+
+    @Override
+    public void deletePromotion(Long no) {
+        promotionBoardRepository.deleteById(no);
+    }
+
 
 }
