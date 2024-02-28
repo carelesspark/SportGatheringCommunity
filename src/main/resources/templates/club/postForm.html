@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
+  <div class="container" th:fragment="content">
+
+    <div class="p-4 rounded shadow mb-5">
+      <h3 class="mb-3">게시글 작성</h3>
+
+      <form action="/club/createPost" method="post">
+        <div class="box"></div>
+
+        <div class="mb-3">
+          <label class="form-label" for="ctgrSelect"></label>
+          <select class="form-select" id="ctgrSelect" name="ctgrId" required>
+            <option th:each="ctgr : ${ctgrList}"
+                    th:text="${ctgr.name}"
+                    th:value="${ctgr.id}"></option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="titleInput">제목</label>
+          <input class="form-control" id="titleInput" name="title" type="text">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="ckEditor">내용</label>
+          <textarea class="form-control" id="ckEditor" name="introduce"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="imageInput">이미지</label>
+          <div class="custom-file">
+            <input class="custom-file-input files" id="imageInput" multiple type="file">
+            <label class="custom-file-label" data-browse="Browse"></label>
+          </div>
+        </div>
+
+        <div class="uploadResult mb-3">
+          <ul>
+
+          </ul>
+        </div>
+
+        <button class="btn btn-outline-dark submitBtn" type="submit">제출</button>
+      </form>
+    </div>
+
+    <div>
+      게시글 사진 넣고 확인하는 곳
+    </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+    <script th:src="@{/js/global/ckEditor.js}"></script>
+    <script th:inline="javascript" th:src="@{/js/club/postForm.js}"></script>
+  </div>
+</th:block>
+</html>
