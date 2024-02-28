@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<th:block layout:fragment="content">
+    <main>
+        <div id="content">
+            <div id="pro_title">
+                <div id="title_css">
+                    <p>홍보 게시판</p>
+                </div>
+            </div>
+            <div id="pro_middle">
+                <div id="padding">
+                    <p>□ [[${dto.id}]]번 홍보 게시글</p>
+                    <input type="hidden" th:value="${dto.nickname}"/>
+                </div>
+                <div id="info_table">
+                    <table class="table_info">
+                        <tr class="table_tr1">
+                            <td class="table_q">No.</td>
+                            <td class="table_a">[[${dto.id}]]</td>
+                            <td class="table_q">조회수</td>
+                            <td class="table_a">[[${dto.visitCount}]]</td>
+                        </tr>
+                        <tr class="table_tr2">
+                            <td class="table_q">제목</td>
+                            <td colspan="3" class="table_a">[[${dto.title}]]</td>
+                        </tr>
+                        <tr class="table_tr3">
+                            <td class="table_q">내용</td>
+                            <td colspan="3" class="table_a enter">[[${dto.content}]]</td>
+                        </tr>
+                        <tr class="table_tr4">
+                            <td class="table_q">작성 날짜</td>
+                            <td class="table_a">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                            <td class="table_q">작성자</td>
+                            <td class="table_a">[[${dto.writer}]]</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <form>
+                <input type="hidden" th:value="${dto.id}" name="id" />
+                <div id="buttons">
+                    <div id="btn_padding">
+                        <button type="button" class="btn btn-danger info_btn" th:if="${nickname == dto.nickname}">수정
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary info_btn proDelete"
+                                th:if="${nickname == dto.nickname}">삭제
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary info_btn"
+                                th:onclick="|location.href='@{/board/promotion(page=${pageRequestDTO.page}, type=${pageRequestDTO.type}, search=${pageRequestDTO.search})}'|">
+                            돌아가기
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 홍보게시글 수정 모달 -->
+        <form action="/board/promotion_modify" method="post">
+            <div class="modal fade" id="ModifyProModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+
+                        <div class="modal-header">
+                            <p class="modal-title">◇ Modifying Promotion</p>
+
+                        </div>
+
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="pro_body">
+                                    <input type="hidden" th:value="${dto.id}" name="id" />
+                                    <div class="pro_title">
+                                        <div><label>제목 : </label></div>
+                                        <div><input type="text" class="form-control pro_title_input" th:value="${dto.title}" name="title"/>
+                                        </div>
+                                    </div>
+                                    <div class="pro_content">
+                                        <div class="content_label_padding"><label>내용 : </label></div>
+                                        <div><textarea class="pro_content_input" name="content">[[${dto.content}]]</textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary cancel" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-success proModify">수정하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <link th:href="@{/css/board/promotion_info.css}" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var form = $("form");
+
+                $(".proDelete").click(function(){
+                    if(!confirm("삭제하시겠습니까?")){
+                        return;
+                    }
+                   form.attr("action", "/board/promotion_delete").attr("method", "post");
+                   form.submit();
+               });
+
+                var ModifyProModal = $("#ModifyProModal");
+
+               $(".btn-danger").click(function(){
+                    ModifyProModal.modal('show');
+               });
+
+               $(".proModify").click(function(){
+
+                    if(!confirm("수정하시겠습니까?")){
+                        return;
+                    }
+
+                    form.attr("action", "/board/promotion_modify").attr("method", "post");
+                    form.submit();
+               });
+
+               var no = [[${dto.id}]];
+               var page = [[${pageRequestDTO.page}]];
+               var type = "[[${pageRequestDTO.type}]]";
+               var search = "[[${pageRequestDTO.search}]]";
+
+               $(".cancel").click(function(){
+                    if(confirm("수정을 취소하시겠습니까?")){
+                        window.location.href = 'http://localhost:3306/board/promotion_info?page=' + page  + '&no=' + no + '&type=' + type + '&search=' + search;
+                    }
+               });
+            });
+        </script>
+    </main>
+</th:block>
+</html>

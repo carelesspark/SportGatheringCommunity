@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="headerFragment">
+  <style>
+    .px-5 {
+      padding-left: 5rem !important;
+    }
+  </style>
   <header class="mx-auto" style="width: 1080px;">
     <nav class="navbar d-flex justify-content-between navbar-light bg-white border-bottom border-primary p-3">
       <a class="navbar-brand text-dark fw-bold fst-italic" href="/swithus/main"><span class="text-primary">S</span>port
@@ -33,7 +38,7 @@
             </button>
           </li>
           <li th:if="${session.RuserId != null}">
-            <button  class="dropdown-item fw-bold" onclick="location.href='/login/logout'" style="font-size: 12px" type="button">로그아웃</button>
+            <button class="dropdown-item fw-bold" onclick="location.href='/login/logout'" style="font-size: 12px" type="button">로그아웃</button>
           </li>
           <li th:if="${session.RuserId == 'user1'}">
             <button class="dropdown-item fw-bold" onclick="location.href='/manager/main'" style="font-size: 12px" type="button">관리자 페이지</button>
@@ -77,21 +82,21 @@
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark"
                                                   th:href="@{/club/search(sportsId=5)}">탁구</a></li>
               </ul>
-              <ul>
+              <ul style="padding-left: 3.6rem;">
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/announcement">공지사항</a></li>
-                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="#">홍보 게시판</a></li>
+                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/promotion">홍보 게시판</a></li>
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="#">대회모집 게시판</a></li>
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/faq">FAQ</a></li>
               </ul>
-              <ul>
+              <ul style="padding-left: 4.6rem;">
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/club/search">클럽 검색</a>
                 </li>
               </ul>
-              <ul style="padding-left: 5.5rem;">
+              <ul style="padding-left: 7.6rem;">
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="#">나눔해요</a></li>
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="#">같이써요</a></li>
               </ul>
-              <ul style="padding-left: 7.3rem;">
+              <ul style="padding-left: 9rem;">
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/inquiry">1:1 문의</a></li>
               </ul>
             </div>

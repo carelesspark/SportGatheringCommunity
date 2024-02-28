@@ -1,6 +1,7 @@
 package com.swithus.community.user.entity;
 
 import com.swithus.community.global.entity.BaseEntity;
+import com.swithus.community.user.authentication.domain.oauth.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,6 +45,8 @@ public class User extends BaseEntity {
     //클럽장여부
     private byte isLeader;
 
+    private OAuthProvider oAuthProvider;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private AuthVerification authVerification;
 
@@ -73,5 +76,12 @@ public class User extends BaseEntity {
 
     public Long getUserid() {
         return this.id = id;
+    }
+
+    @Builder
+    public User(String email, String nickname, OAuthProvider oAuthProvider) {
+        this.email = email;
+        this.nickname = nickname;
+        this.oAuthProvider = oAuthProvider;
     }
 }
