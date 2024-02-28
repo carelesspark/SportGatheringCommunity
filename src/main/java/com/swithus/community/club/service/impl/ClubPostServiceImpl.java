@@ -143,6 +143,8 @@ public class ClubPostServiceImpl implements ClubPostService {
                 .title(postDTO.getTitle())
                 .content(postDTO.getContent())
                 .build();
+
+        clubPostRepository.save(post);
     }
 
     @Override

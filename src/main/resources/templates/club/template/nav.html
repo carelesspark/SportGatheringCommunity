@@ -15,11 +15,6 @@
     </div>
 
     <div class="d-flex justify-content-end align-items-center">
-      <a class="link btn btn-outline-dark"
-         th:href="@{/club/leader/main(clubId=${navDTO.clubId})}"
-         th:if="${navDTO.isLeader}">
-        클럽 관리
-      </a>
       <a class="link btn btn-outline-success"
          th:href="@{/club/nicknameForm(
       clubId=${navDTO.clubId},

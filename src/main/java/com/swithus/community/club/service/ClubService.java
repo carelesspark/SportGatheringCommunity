@@ -36,6 +36,12 @@ public interface ClubService {
 
     List<PopularClubDTO> getPopularClubDTOList(int number);
 
+    void withdrawClub(Long clubMemberId);
+
+    void deleteClub(Long clubId);
+
+    void welcome(Long clubMemberId);
+
     default Map<String, Object> clubDTOToEntity(ClubDTO clubDTO) {
         Map<String, Object> clubMap = new HashMap<>();
 
