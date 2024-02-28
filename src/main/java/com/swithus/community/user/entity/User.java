@@ -85,10 +85,4 @@ public class User extends BaseEntity {
         this.oAuthProvider = oAuthProvider;
     }
 
-    @Builder
-    public User(String email, String nickname, OAuthProvider oAuthProvider) {
-        this.email = email;
-        this.nickname = nickname;
-        this.oAuthProvider = oAuthProvider;
-    }
 }
