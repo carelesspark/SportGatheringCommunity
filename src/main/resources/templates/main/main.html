@@ -2,13 +2,9 @@
 <html layout:decorate="layout/layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="content">
-  <main class="container">
-    <div class="mb-3" th:if="${session.userId != null}">
-      <h1>환영합니다, <span th:text="${session.userNickname}"></span>님!</h1>
-    </div>
-
+  <main class="container mx-auto">
     <div id="content">
-      <div class="mb-5" id="promotion">
+      <div class="mb-4" id="promotion">
         <div class="carousel slide" data-ride="carousel" id="pic">
           <!-- The slideshow -->
           <div class="carousel-inner" id="imageContainer">
