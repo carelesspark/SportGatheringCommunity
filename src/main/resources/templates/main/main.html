@@ -29,12 +29,12 @@
             <div id="announcement_grid">
               <div class="announcement_post_top">
                 <div><p class="sub_title">Announcement</p></div>
-                <div><a><p class="move">> 더보기</p></a></div>
+                <div><a th:href="@{/board/announcement}"><p class="move">> 더보기</p></a></div>
               </div>
             </div>
             <div class="table">
               <table class="table_table">
-                <tr th:each="anc : ${announcement}">
+                <tr th:each="anc : ${announcement}" class="tr_height">
                   <td>[[${anc.id}]]</td>
                   <td><a class="hover_a" th:href="@{/board/announcement_info(no=${anc.id})}">[[${anc.title}]]</a></td>
                   <td>[[${anc.writer}]]</td>
@@ -46,12 +46,12 @@
             <div id="promotion_grid">
               <div class="announcement_post_top">
                 <div><p class="sub_title">Promotional Post</p></div>
-                <div><a><p class="move">> 더보기</p></a></div>
+                <div><a th:href="@{/board/promotion}"><p class="move">> 더보기</p></a></div>
               </div>
             </div>
             <div class="table">
               <table class="table_table">
-                <tr th:each="pro : ${promotion}">
+                <tr th:each="pro : ${promotion}" class="tr_height">
                   <td>[[${pro.id}]]</td>
                   <td><a th:href="@{/board/promotion_info(no=${pro.id})}">[[${pro.title}]]</a></td>
                   <td>[[${pro.club.leader.nickname}]]</td>

@@ -113,7 +113,6 @@ p {
 
 .table_table {
     width: 500px;
-    height: 190px;
     font-size: 9pt;
     color: #000000;
     opacity: 0.7;
@@ -152,6 +151,10 @@ a {
 
 table, tr, td {
     border: none;
+}
+
+.tr_height {
+    height: 47.5px;
 }
 
 #club {
