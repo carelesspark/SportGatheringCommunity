@@ -117,6 +117,15 @@ public class ClubServiceImpl implements ClubService {
                         .path("club/main")
                         .build();
                 clubDTO.getImageDTOList().add(imageDTO);
+            } else {
+                ClubImage clubImage = (ClubImage) result.get(0)[2];
+
+                ImageDTO imageDTO = ImageDTO.builder()
+                        .path(clubImage.getPath())
+                        .name(clubImage.getName())
+                        .uuid(clubImage.getUuid())
+                        .build();
+                clubDTO.getImageDTOList().add(imageDTO);
             }
 
         } else {
