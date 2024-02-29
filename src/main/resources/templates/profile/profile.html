@@ -139,6 +139,13 @@
             </div>
         </div>
 
+        <div id="info4">
+            <div><p>성별</p></div>
+            <div>
+                <p th:text="${session.userGender == 'male' ? '남자' : '여자'}"></p>
+            </div>
+        </div>
+
         <div id="editBtn">
             <button class="btn btn-primary" id="editProfileBtn" style="margin-right:5px;">프로필 수정</button>
             <button class="btn btn-danger" type="button"><a href="/login/updatePwd" style="text-decoration: none; color: inherit;">비밀번호 변경</a></button>

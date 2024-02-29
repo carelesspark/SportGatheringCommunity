@@ -39,6 +39,7 @@ public class ProfileController {
         String userAddr = (String) session.getAttribute("userAddr");
         String userAddrDetail = (String) session.getAttribute("userAddrDetail");
         String userPost = (String) session.getAttribute("userPost");
+        String userGender = (String) session.getAttribute("userGender");
 
         model.addAttribute("userId",userId);
         model.addAttribute("userNickname", userNickname);
@@ -46,6 +47,7 @@ public class ProfileController {
         model.addAttribute("userAddr",userAddr);
         model.addAttribute("userAddrDetail",userAddrDetail);
         model.addAttribute("userPost",userPost);
+        model.addAttribute("userGender",userGender);
 
         return "profile/profile";
     }

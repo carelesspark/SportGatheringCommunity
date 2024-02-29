@@ -42,32 +42,35 @@ public class LoginController {
         return "login/login";
     }
 
+//
 @PostMapping("/login")
-public String login(LoginDTO loginDTO, HttpSession session) {
+public String login(LoginDTO loginDTO, HttpSession session, Model model) {
     Optional<AuthId> loginSuccess = loginService.check(loginDTO);
-    AuthId value = loginSuccess.orElse(null); // orElse를 통해 Optional 값을 가져옵니다.
-    if (value != null) {
-        //R은 Regular(일반회원)으로 나타내려고 붙였습니다.
-        session.setAttribute("RuserId", value.getUserid());
-        // 클럽쪽에서 사용할 것들 추가했습니다.
-        session.setAttribute("userId",value.getUser().getId());
-        session.setAttribute("userName", value.getUser().getName());
 
-        //프로필페이지 사용할것
-        session.setAttribute("userNickname", value.getUser().getNickname());
-        session.setAttribute("userEmail", value.getUser().getEmail());
-        session.setAttribute("userAddrDetail", value.getUser().getAddrDetail());
-        session.setAttribute("userPost", value.getUser().getPost());
-        session.setAttribute("userAddr", value.getUser().getAddr());
+    if (!loginSuccess.isPresent()) {
+        model.addAttribute("loginError", "아이디나 비밀번호가 올바르지 않습니다.");
 
-        //비밀번호 재설정
-        session.setAttribute("userPwd",value.getUserpwd());
-
-        // 관리자 페이지로 점핑하기 위한 코드입니다.
-        if(value.getUser().getId()== 1L){
-            return "redirect:/manager/main";
-        }
+        return "login/login"; // 로그인 실패 시 로그인 페이지에 머무르도록 리턴
     }
+
+    AuthId value = loginSuccess.get(); // 이 부분에서는 isPresent()를 통해 확인 후 사용
+
+    // 아래는 로그인 성공 시의 로직
+    session.setAttribute("RuserId", value.getUserid());
+    session.setAttribute("userId", value.getUser().getId());
+    session.setAttribute("userName", value.getUser().getName());
+    session.setAttribute("userNickname", value.getUser().getNickname());
+
+    session.setAttribute("userNickname", value.getUser().getNickname());
+    session.setAttribute("userEmail", value.getUser().getEmail());
+    session.setAttribute("userAddrDetail", value.getUser().getAddrDetail());
+    session.setAttribute("userPost", value.getUser().getPost());
+    session.setAttribute("userAddr", value.getUser().getAddr());
+
+    if (value.getUser().getId() == 1L) {
+        return "redirect:/manager/main";
+    }
+
     return "redirect:/swithus/main";
 }
 
