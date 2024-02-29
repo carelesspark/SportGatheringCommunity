@@ -27,4 +27,8 @@ public class AuthId extends BaseEntity {
 
     //비밀번호
     private String userpwd;
+
+    public void setUserpwd(String newPwd) {
+        this.userpwd = newPwd;
+    }
 }

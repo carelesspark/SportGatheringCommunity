@@ -11,6 +11,9 @@ public interface LoginService {
     Optional<String> findUserId(String email, String name, String code);
     //비밀번호 찾기
     Optional<String> findUserPwd(String email, String userid, String code);
+    //비밀번호 변경
+    void updatePwd(String userId, String newPwd);
+
     default AuthId DtoTOEntity (LoginDTO loginDTO){
         AuthId authentity = AuthId.builder()
                 .userid(loginDTO.getUserId())

@@ -91,4 +91,9 @@ public class RegisterServiceImpl implements RegisterService {
     public boolean isUserNicknameExists(String userNickname) {
         return registerRepository.existsByNickname(userNickname);
     }
+
+    @Override
+    public boolean isUserEmailExists(String userEmail) {
+        return registerRepository.existsByEmail(userEmail);
+    }
 }
