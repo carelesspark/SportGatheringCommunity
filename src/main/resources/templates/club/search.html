@@ -23,6 +23,7 @@
             <div class="col p-1">
               <label class="form-label" for="inputRegion">지역</label>
               <select class="form-select" id="inputRegion" name="regionId">
+                <option th:selected="${selectedRegionId == null}" value="">---</option>
                 <option th:each="region : ${regionList}"
                         th:selected="${region.id == selectedRegionId}"
                         th:text="${region.name}"
@@ -33,6 +34,7 @@
             <div class="col p-1">
               <label class="form-label" for="inputSports">종목</label>
               <select class="form-select" id="inputSports" name="sportsId">
+                <option th:selected="${selectedSportsId == null}" value="">---</option>
                 <option th:each="sports : ${sportsList}"
                         th:selected="${sports.id == selectedSportsId}"
                         th:text="${sports.name}"
