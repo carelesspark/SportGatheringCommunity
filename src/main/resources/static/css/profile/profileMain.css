@@ -316,6 +316,15 @@ a:hover {
     border-bottom: 1px solid #dee2e6;
     padding:10px 10px;
 }
+
+#info4 {
+    height: 150px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+    padding:10px 10px;
+}
 #editBtn {
     height: 150px;
     display:flex;
