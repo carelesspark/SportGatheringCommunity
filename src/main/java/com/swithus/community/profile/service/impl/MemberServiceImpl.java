@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.DuplicateFormatFlagsException;
-
 @Service
 @Transactional
 public class MemberServiceImpl implements MemberService {
@@ -24,18 +22,11 @@ public class MemberServiceImpl implements MemberService {
         this.memberRepository = memberRepository;
         this.registerRepository = registerRepository;
     }
+
     @Override
     public User updateUserInfo(UserDTO userDTO) {
         User existingUser = memberRepository.findById(userDTO.getId())
                 .orElseThrow(() -> new RuntimeException("ID가 " + userDTO.getId() + "인 사용자를 찾을 수 없습니다."));
-
-        if (isUserNicknameExists(userDTO.getNickname())) {
-            throw new DuplicateFormatException("이미 존재하는 닉네임입니다.");
-        }
-
-        if (isUserEmailExists(userDTO.getEmail())) {
-            throw new DuplicateFormatException("이미 존재하는 이메일입니다.");
-        }
 
         existingUser.setNickname(userDTO.getNickname());
         existingUser.setEmail(userDTO.getEmail());
