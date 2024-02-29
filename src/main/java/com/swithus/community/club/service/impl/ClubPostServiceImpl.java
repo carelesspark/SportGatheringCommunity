@@ -154,6 +154,7 @@ public class ClubPostServiceImpl implements ClubPostService {
     }
 
     @Override
+    @Transactional
     public void deleteClubPost(Long postId) {
         // 이미지 삭제
         List<ClubPostImage> imageList = clubPostImageRepository.getClubPostImageListByClubPostId(postId);

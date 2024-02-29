@@ -302,6 +302,16 @@ public class ClubController {
         model.addAttribute("ctgrList", meetingCtgrService.getCtgrList());
     }
 
+    @GetMapping("/deleteMeeting")
+    public String deleteMeeting(@RequestParam Long clubId,
+                                @RequestParam Long meetingId) {
+        log.info("POST /club/deleteMeeting");
+
+        meetingService.deleteMeeting(meetingId);
+
+        return "redirect:/club/meeting?clubId=" + clubId;
+    }
+
     @PostMapping("/createMeeting")
     public String createMeeting(@RequestParam Long clubId,
                                 MeetingDTO meetingDTO) {
@@ -435,6 +445,16 @@ public class ClubController {
         clubPostService.updatePost(clubPostDTO);
 
         return "redirect:/club/post?clubId=" + clubPostDTO.getClubId() + "&postId=" + clubPostDTO.getClubPostId();
+    }
+
+    @GetMapping("/deletePost")
+    public String deletePost(@RequestParam Long clubId,
+                             @RequestParam Long postId) {
+        log.info("POST /club/deletePost");
+
+        clubPostService.deleteClubPost(postId);
+
+        return "redirect:/club/board?clubId=" + clubId;
     }
 
     @GetMapping("/post")

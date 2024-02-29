@@ -3,7 +3,7 @@
 <th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div class="p-4 rounded shadow mb-5">
+    <div class="p-4 rounded shadow mb-3">
       <h3 class="mb-3" th:text="${isEditing ? '게시글 수정' : '게시글 작성'}"></h3>
 
       <form enctype="multipart/form-data" id="postForm" method="post"
@@ -54,7 +54,7 @@
           </ul>
         </div>
 
-        <button class="btn btn-outline-dark submitBtn" type="submit">제출</button>
+        <button class="btn btn-success shadow-sm submitBtn" type="submit">제출</button>
       </form>
     </div>
 

@@ -53,12 +53,12 @@
     <div class="mb-3" th:utext="${clubDTO.introduce}"></div>
 
     <div class="d-flex align-items-center justify-content-end mb-3">
-      <a class="link btn btn-danger"
+      <a class="link btn btn-danger shadow-sm"
          th:href="@{/club/delete(clubId=${navDTO.clubId})}"
          th:if="${navDTO.isLeader}">
         클럽 삭제
       </a>
-      <a class="link btn btn-danger"
+      <a class="link btn btn-danger shadow-sm"
          th:href="@{/club/withdraw(clubMemberId=${navDTO.clubMemberId})}"
          th:if="${!navDTO.isLeader and navDTO.isMember}">
         클럽 탈퇴
