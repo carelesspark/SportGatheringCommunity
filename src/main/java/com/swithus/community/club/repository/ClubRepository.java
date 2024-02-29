@@ -36,7 +36,7 @@ public interface ClubRepository extends JpaRepository<Club, Long>, ClubSearchRep
             "left join Meeting m on m.club = c " +
             "left join ClubImage ci on ci.club = c " +
             "where m.mTime > :currentDateTime " +
-            "group by c, ci " +
+            "group by c " +
             "order by count(distinct m) desc, " +
             "count(distinct cm) desc ")
     List<Object[]> getClubAndMemberCountAndMeetingCountAndImageLimitByNumber(LocalDateTime currentDateTime, Pageable pageable);

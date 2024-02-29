@@ -6,7 +6,6 @@ import com.swithus.community.club.service.ClubService;
 import com.swithus.community.main.dto.PopularClubDTO;
 import com.swithus.community.manager.entity.Announcement;
 import com.swithus.community.manager.service.AnnouncementService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -27,53 +26,27 @@ public class MainController {
     private final PromotionBoardService promotionBoardService;
 
     @GetMapping("/main")
-    public String announcement(HttpSession session, Model model) {
-        // 세션에서 사용자 정보를 가져옴
+    public String announcement(Model model) {
+        log.info("/swithus/main");
 
-        String RuserId = (String) session.getAttribute("RuserId");
+        List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
+        log.info(result);
+        List<Promotion> result2 = promotionBoardService.findTop4ByOrderByRegDateDesc();
+        log.info(result2);
 
-        String nickname = (String) session.getAttribute("userNickname");
+        List<PopularClubDTO> popularClubDTOList = clubService.getPopularClubDTOList(4);
+        log.info(popularClubDTOList);
 
-        log.info(RuserId + " + " + nickname);
-
-        //String userName = (String) session.getAttribute("userName");
-        //세션에 사용자 정보가 없으면 로그인 페이지로 이동
-        if (RuserId == null) {
-            List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
-            List<Promotion> result2 = promotionBoardService.findTop4ByOrderByRegDateDesc();
-
-            model.addAttribute("announcement", result);
-            model.addAttribute("promotion", result2);
-            return "/main/main";
+        if (ObjectUtils.isEmpty(popularClubDTOList)) {
+            log.warn("Club이 존재하지 않습니다.");
+            model.addAttribute("popularClubDTOList", null);
         } else {
-            //모델에 userId와 userName을 추가
-            model.addAttribute("RuserId", RuserId);
-            model.addAttribute("nickname", nickname);
-
-            List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
-            log.info(result);
-            List<Promotion> result2 = promotionBoardService.findTop4ByOrderByRegDateDesc();
-            log.info(result2);
-
-            List<PopularClubDTO> popularClubDTOList = clubService.getPopularClubDTOList(4);
-            log.info(popularClubDTOList);
-
-            if (ObjectUtils.isEmpty(popularClubDTOList)) {
-                log.warn("Club이 존재하지 않습니다.");
-                model.addAttribute("popularClubDTOList", null);
-            } else {
-                log.warn("Club이 존재합니다.");
-                model.addAttribute("popularClubDTOList", popularClubDTOList);
-            }
-
-            model.addAttribute("announcement", result);
-            model.addAttribute("promotion", result2);
-
-            //model.addAttribute("userName", userName);
-            return "main/main";
+            log.warn("Club이 존재합니다.");
+            model.addAttribute("popularClubDTOList", popularClubDTOList);
         }
-//        // 세션에 사용자 정보가 있으면 메인 페이지로 이동
+
+        model.addAttribute("announcement", result);
+        model.addAttribute("promotion", result2);
+        return "main/main";
     }
-
-
 }

@@ -40,12 +40,9 @@ public String login(LoginDTO loginDTO, HttpSession session) {
     if (value != null) {
         //R은 Regular(일반회원)으로 나타내려고 붙였습니다.
         session.setAttribute("RuserId", value.getUserid());
-        //session.setAttribute("userName", value.getUser().getName());
         // 클럽쪽에서 사용할 것들 추가했습니다.
         session.setAttribute("userId",value.getUser().getId());
         session.setAttribute("userName", value.getUser().getName());
-        session.setAttribute("userNickname", value.getUser().getNickname());
-
 
         //프로필페이지 사용할것
         session.setAttribute("userNickname", value.getUser().getNickname());
@@ -58,7 +55,6 @@ public String login(LoginDTO loginDTO, HttpSession session) {
         if(value.getUser().getId()== 1L){
             return "redirect:/manager/main";
         }
-        return "redirect:/swithus/main";//redirect할 땐 처음 들어가지는 경로로 지정해야 올바른 경로로 바뀌어서 감
     }
     return "redirect:/swithus/main";
 }
