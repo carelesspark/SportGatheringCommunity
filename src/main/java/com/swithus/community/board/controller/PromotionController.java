@@ -46,6 +46,7 @@ public class PromotionController {
         String nickname = (String) session.getAttribute("userNickname");
 
         PromotionBoardDTO dto = promotionBoardService.info(no);
+        log.info(dto);
         model.addAttribute("nickname", nickname);
         model.addAttribute("dto", dto);
     }
@@ -56,7 +57,8 @@ public class PromotionController {
 
         String nickname = (String) session.getAttribute("userNickname");
 
-        boolean result = promotionBoardService.checkClubLeader(nickname);
+        boolean result = clubService.checkHaveClub(nickname);
+        log.info(result);
 
         if (result) {
             List<Club> clubList = clubService.findUsersClub(nickname);
@@ -66,6 +68,7 @@ public class PromotionController {
             return "/board/promotion_write";
         } else {
             model.addAttribute("msg", "클럽을 보유한 유저만 작성 가능한 페이지입니다.");
+            model.addAttribute("nickname", nickname);
             return "/board/return";
         }
     }
@@ -79,12 +82,12 @@ public class PromotionController {
         return "redirect:/board/promotion";
     }
 
-        @PostMapping("/promotion_modify")
-        public String modify(PromotionBoardDTO dto, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes) {
+    @PostMapping("/promotion_modify")
+    public String modify(PromotionBoardDTO dto, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes) {
 
-            log.info("홍보 게시판 수정");
+        log.info("홍보 게시판 수정");
 
-            promotionBoardService.modify(dto);
+        promotionBoardService.modify(dto);
 
         redirectAttributes.addAttribute("no", dto.getId());
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());

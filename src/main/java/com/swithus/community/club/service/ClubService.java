@@ -32,6 +32,8 @@ public interface ClubService {
 
     Long registerClub(Long clubId, Long userId);
 
+    boolean checkHaveClub(String nickname);
+
     List<Club> findUsersClub(String nickname);
 
     List<PopularClubDTO> getPopularClubDTOList(int number);

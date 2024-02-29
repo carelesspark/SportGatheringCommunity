@@ -55,7 +55,7 @@
               <table class="table_table">
                 <tr th:each="pro : ${promotion}">
                   <td>[[${pro.id}]]</td>
-                  <td><a>[[${pro.title}]]</a></td>
+                  <td><a th:href="@{/board/promotion_info(no=${pro.id})}">[[${pro.title}]]</a></td>
                   <td>[[${pro.club.leader.nickname}]]</td>
                 </tr>
               </table>
