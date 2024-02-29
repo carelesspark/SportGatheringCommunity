@@ -84,5 +84,4 @@ public class User extends BaseEntity {
         this.nickname = nickname;
         this.oAuthProvider = oAuthProvider;
     }
-
 }

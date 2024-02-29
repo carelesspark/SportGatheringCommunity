@@ -1,0 +1,27 @@
+<!-- profile/confirmAlert.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Alert</title>
+    <!-- confirm 창을 띄우기 위한 JavaScript 코드 -->
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var errorMessage = [[${errorMessage}]]; // 에러 메시지를 변수에 할당
+
+            var confirmation = confirm(errorMessage);
+
+            if (confirmation) {
+                window.location.replace('/login/login'); // 확인을 누를 경우 로그인 페이지로 리다이렉트
+            } else {
+                window.location.replace('/'); // 취소를 누를 경우 다른 페이지로 리다이렉트 (필요에 따라 수정)
+            }
+        });
+    </script>
+</head>
+<body>
+<!-- 이 페이지는 실제로 사용되지 않습니다. -->
+</body>
+</html>

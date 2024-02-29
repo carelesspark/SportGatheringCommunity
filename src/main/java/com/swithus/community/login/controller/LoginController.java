@@ -8,11 +8,14 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +31,13 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model){
+        // 로그인 페이지로 이동할 때 전달된 errorMessage를 가져와서 alert 창을 띄움
+        String errorMessage = (String) model.getAttribute("errorMessage");
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("showAlert", true);
+        }
 
         return "login/login";
     }
@@ -50,6 +59,9 @@ public String login(LoginDTO loginDTO, HttpSession session) {
         session.setAttribute("userAddrDetail", value.getUser().getAddrDetail());
         session.setAttribute("userPost", value.getUser().getPost());
         session.setAttribute("userAddr", value.getUser().getAddr());
+
+        //비밀번호 재설정
+        session.setAttribute("userPwd",value.getUserpwd());
 
         // 관리자 페이지로 점핑하기 위한 코드입니다.
         if(value.getUser().getId()== 1L){
@@ -117,12 +129,31 @@ public String logout(HttpSession session){
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/changePwd")
+    @GetMapping("/updatePwd")
     public String changePwd(){
 
-        return "login/changePwd";
+        return "login/updatePwd";
     }
 
+    @PostMapping("/updatePwd")
+    public ResponseEntity<Map<String, String>> updatePwd(UserDTO userDTO, @RequestParam String newPwd) throws MessagingException {
+        log.info("userid: " + userDTO.getUserid());
+        log.info("newPwd: " + newPwd);
+
+        try {
+            loginService.updatePwd(userDTO.getUserid(), newPwd);
+            Map<String, String> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("message", "비밀번호가 성공적으로 재설정되었습니다.");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("비밀번호 재설정 중 오류 발생", e);
+            Map<String, String> response = new HashMap<>();
+            response.put("status", "fail");
+            response.put("message", "비밀번호 재설정 중 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
 
 }

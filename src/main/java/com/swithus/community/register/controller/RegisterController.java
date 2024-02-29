@@ -75,4 +75,11 @@ public class RegisterController {
         boolean isUserNicknameExists = registerService.isUserNicknameExists(userNickname);
         return ResponseEntity.ok(isUserNicknameExists ? "EXIST" : "AVAILABLE");
     }
+
+    @GetMapping("/checkUserEmail/{userEmail}")
+    @ResponseBody
+    public ResponseEntity<String> checkUserEmail(@PathVariable String userEmail) {
+        boolean isUserEmailExists = registerService.isUserEmailExists(userEmail);
+        return ResponseEntity.ok(isUserEmailExists ? "EXIST" : "AVAILABLE");
+    }
 }

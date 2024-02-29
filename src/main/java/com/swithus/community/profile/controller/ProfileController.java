@@ -1,6 +1,7 @@
 package com.swithus.community.profile.controller;
 
 import com.swithus.community.profile.service.MemberService;
+import com.swithus.community.register.service.RegisterService;
 import com.swithus.community.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class ProfileController {
     private final MemberService memberService;
+    private final RegisterService registerService;
     @GetMapping("/main")
-    public String main(HttpSession session, Model model){
-
+    public String main(HttpSession session, Model model, RedirectAttributes redirectAttributes){
+        // 세션에서 로그인 정보 가져오기
         String userId = (String) session.getAttribute("RuserId");
-
         String userNickname = (String) session.getAttribute("userNickname");
+
+        if (userId == null || userNickname == null) {
+            // 로그인이 되어있지 않은 경우
+            redirectAttributes.addFlashAttribute("errorMessage", "로그인이 되어있지 않습니다. 로그인을 해주세요.");
+            return "redirect:/profile/confirmAlert"; // 확인 창을 띄우는 페이지로 리다이렉트
+        }
+
         String userEmail = (String) session.getAttribute("userEmail");
         String userAddr = (String) session.getAttribute("userAddr");
         String userAddrDetail = (String) session.getAttribute("userAddrDetail");
@@ -38,12 +46,16 @@ public class ProfileController {
         return "profile/profile";
     }
 
+    @GetMapping("/confirmAlert")
+    public String confirmalert(){
+        return "profile/confirmAlert";
+    }
+
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String updateProfile(HttpSession session,@RequestBody  UserDTO updatedUser, RedirectAttributes redirectAttributes) {
         try {
             Long userId = (Long) session.getAttribute("userId");
             updatedUser.setId(userId);
-
 
             //////////////////////////
             session.setAttribute("userNickname", updatedUser.getNickname());

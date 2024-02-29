@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthIdRepository extends JpaRepository<AuthId, Long> {
     AuthId findByUser(User foundUser);
+
+    AuthId findByUserid(String userId);
 }

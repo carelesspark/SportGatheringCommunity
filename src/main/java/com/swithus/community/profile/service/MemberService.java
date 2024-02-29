@@ -5,4 +5,7 @@ import com.swithus.community.user.entity.User;
 
 public interface MemberService {
     User updateUserInfo(UserDTO userDTO);
+
+    boolean isUserNicknameExists(String userNickname);
+    boolean isUserEmailExists(String userEmail);
 }

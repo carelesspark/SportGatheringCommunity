@@ -91,7 +91,7 @@ $(function () {
   });
 
   // 이미지 삭제 함수
-  $(".uploadResult").on("click", "ul li button", function () {
+  $(".uploadResult").on("click", "li button", function () {
     // 물리적인 폴더에서 이미지 삭제
     var targetFile = $(this).data("file");
     // 화면에서 이미지 삭제

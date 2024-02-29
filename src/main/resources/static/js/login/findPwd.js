@@ -62,8 +62,13 @@ function findPwd() {
             },
             success: function (data, status, xhr) {
                 if (data.status === "success") {
-                    alert("회원님의 비밀번호는 " + data.userPwd + "입니다.");
-                    window.location.assign('/login/login');
+                    var confirmResult = confirm("회원님의 비밀번호는 " + data.userPwd + "입니다. 비밀번호를 재설정 하시겠습니까?");
+
+                    if (confirmResult) {
+                       window.location.assign('/login/updatePwd');
+                    } else {
+                       console.log("비밀번호를 재설정하지 않습니다.");
+                    }
                 } else {
                     alert(data.message);
                 }

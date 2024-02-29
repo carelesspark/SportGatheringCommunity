@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="login/updatePwdLayout">
+<th:block layout:fragment="content">
+    <form style="width: 1080px; margin:0 auto; padding: 90px 0px;">
+        <div style="margin: 0 auto; width: 720px; border: 1px solid lightgray;
+                padding: 90px 130px; border-radius: 10px;">
+            <div class="mb-4">
+                <div>
+                    <label class="form-label" style="color: black; font-weight: bold;">비밀번호 재설정</label>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                    <label for="userid" style="font-size:14px;">아이디</label>
+                    <input style="background-color: #e2e6ea; width: 300px; height: 61px; border-radius: 10px" type="text" class="form-control" id="userid" name="uesrid" placeholder="아이디를 입력해주세요">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                    <label for="newpwd" style="font-size:14px;">새로운 비밀번호</label>
+                    <input style="background-color: #e2e6ea; width: 300px; height: 61px; border-radius: 10px" type="password" class="form-control" id="newpwd" name="newpwd" placeholder="새로운 비밀번호를 입력해주세요">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                    <label for="newpwdConfirm" style="font-size:14px;">새로운 비밀번호 확인</label>
+                    <input style="background-color: #e2e6ea; width: 300px; height: 61px; border-radius: 10px" type="password" class="form-control" name="newpwdConfirm" id="newpwdConfirm" placeholder="새로운 비밀번호를 확인">
+                </div>
+            </div>
+
+
+            <div style="display: flex; justify-content: flex-end">
+                <button style="background-color: #0D6EFF; width: 300px; height: 61px; border-radius: 10px;" type="button" class="btn btn-primary" onclick="updatePwd()">비밀번호 재설정</button>
+            </div>
+
+
+        </div>
+
+
+    </form>
+</th:block>
+</html>
