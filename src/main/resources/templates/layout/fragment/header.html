@@ -25,22 +25,22 @@
           <i class="d-flex justify-content-center fi fi-rr-user text-primary " style="width: 20px; height: 20px;"></i>
         </a>
         <ul class="dropdown-menu" style="min-width: 85px;">
-          <li>
+          <li th:if="${session.userId != null}">
             <button class="dropdown-item fw-bold" onclick="location.href='/profile/main'" style="font-size: 12px"
                     type="button">프로필
             </button>
           </li>
-          <li>
+          <li th:if="${session.userId == null}">
             <button class="dropdown-item fw-bold" onclick="location.href='/register/main'" style="font-size: 12px"
                     type="button">회원가입
             </button>
           </li>
-          <li th:if="${session.RuserId == null}">
+          <li th:if="${session.userId == null}">
             <button class="dropdown-item fw-bold" onclick="location.href='/login/login'" style="font-size: 12px"
                     type="button">로그인
             </button>
           </li>
-          <li th:if="${session.RuserId != null}">
+          <li th:if="${session.userId != null}">
             <button class="dropdown-item fw-bold" onclick="location.href='/login/logout'" style="font-size: 12px"
                     type="button">로그아웃
             </button>

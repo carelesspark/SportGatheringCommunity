@@ -4,9 +4,9 @@
   <div class="container" th:fragment="content">
 
     <div class="mb-3 border-bottom">
-      <div class="d-flex align-items-center justify-content-between mb-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
         <h3>클럽 회원</h3>
-        <a class="btn btn-outline-dark"
+        <a class="btn btn-secondary shadow-sm"
            th:href="@{/club/waitingList(clubId=${navDTO.clubId})}">
           대기 명단
         </a>
@@ -20,7 +20,10 @@
             <div>
               <div class="d-flex justify-content-center align-items-center rounded-circle overflow-hidden border me-3"
                    style="width: 100px; height: 100px;">
-                유저 이미지
+                <img class="d-block w-100"
+                     style="max-height: 100%; max-width: 100%; object-fit: contain;"
+                     th:alt="${dto.imageDTO.name}"
+                     th:src="@{/image/display(fileName=${dto.imageDTO.getImageURL()})}">
               </div>
             </div>
 

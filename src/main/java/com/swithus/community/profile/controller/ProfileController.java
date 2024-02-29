@@ -62,6 +62,7 @@ public class ProfileController {
         try {
             Long userId = (Long) session.getAttribute("userId");
             updatedUser.setId(userId);
+            log.info("userEMAIL: {}",updatedUser.getEmail());
 
             //////////////////////////
             session.setAttribute("userNickname", updatedUser.getNickname());

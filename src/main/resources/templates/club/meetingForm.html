@@ -3,9 +3,9 @@
 <th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div class="p-4 rounded shadow mb-5">
+    <div class="p-4 rounded shadow mb-3">
 
-      <div class="mb-4">
+      <div class="mb-3">
         <h3 th:if="${!isEditing}">일정 추가</h3>
         <h3 th:if="${isEditing}">일정 수정</h3>
       </div>
@@ -62,7 +62,7 @@
                      required
                      th:value="${meetingDTO != null ? meetingDTO.mAddr : ''}" type="text">
             </div>
-            <button class="btn btn-outline-dark" onclick="findPost()" type="button">주소 검색</button>
+            <button class="btn btn-secondary shadow-sm" onclick="findPost()" type="button">주소 검색</button>
           </div>
           <div class="col-sm-6">
             <label class="form-label" for="mPlaceInput">장소</label>
@@ -80,7 +80,7 @@
         </div>
 
         <div>
-          <button class="btn btn-primary" type="submit">완료</button>
+          <button class="btn btn-success shadow-sm" type="submit">완료</button>
         </div>
       </form>
 

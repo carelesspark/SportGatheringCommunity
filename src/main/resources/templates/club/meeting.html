@@ -5,7 +5,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3>클럽 일정</h3>
-      <a class="btn btn-light border shadow-sm"
+      <a class="btn btn-primary shadow-sm"
          th:href="@{/club/meetingForm(clubId=${navDTO.clubId})}"
          th:if="${navDTO.isLeader}">
         일정 추가
@@ -14,22 +14,22 @@
 
     <div class="d-flex flex-row align-items-center mb-3">
       <div class="p-1">
-        <a class="btn btn-outline-dark"
+        <a class="btn btn-light shadow-sm"
            th:disabled="${currentCtgrId == 1}"
            th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=1)}">정기모임</a>
       </div>
       <div class="p-1">
-        <a class="btn btn-outline-dark"
+        <a class="btn btn-light shadow-sm"
            th:disabled="${currentCtgrId == 2}"
            th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=2)}">송년회</a>
       </div>
       <div class="p-1">
-        <a class="btn btn-outline-dark"
+        <a class="btn btn-light shadow-sm"
            th:disabled="${currentCtgrId == 3}"
            th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=3)}">번개모임</a>
       </div>
       <div class="p-1">
-        <a class="btn btn-outline-dark"
+        <a class="btn btn-light shadow-sm"
            th:disabled="${currentCtgrId == 4}"
            th:href="@{/club/meeting(clubId=${navDTO.clubId},ctgrId=4)}">회식</a>
       </div>

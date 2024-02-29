@@ -3,12 +3,12 @@
 <th:block th:replace="~{/club/template/club :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div class="mb-4 d-flex justify-content-between align-items-center">
+    <div class="mb-3 d-flex justify-content-between align-items-center">
       <div>
         <h3>가입인사</h3>
       </div>
       <div th:if="${myGreetingsId == null}">
-        <a class="btn btn-primary" th:href="@{/club/greetingsForm(clubId=${navDTO.clubId})}">
+        <a class="btn btn-primary shadow-sm" th:href="@{/club/greetingsForm(clubId=${navDTO.clubId})}">
           가입인사 작성
         </a>
       </div>
@@ -16,7 +16,7 @@
         <form action="/club/greetings" method="get">
           <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
           <input name="userId" th:value="${session.userId}" type="hidden">
-          <button class="btn btn-info" type="submit">
+          <button class="btn btn-secondary shadow-sm" type="submit">
             나의 가입인사
           </button>
         </form>
@@ -24,7 +24,7 @@
       <div th:if="${checkUserId != null}">
         <form action="/club/greetings" method="get">
           <input name="clubId" th:value="${navDTO.clubId}" type="hidden">
-          <button class="btn btn-info" type="submit">
+          <button class="btn btn-light shadow-sm" type="submit">
             전체 가입인사
           </button>
         </form>
@@ -58,7 +58,7 @@
               <div th:id="'likeCount'+${dtoStat.index}">좋아요 [[${dto.likeCount}]]개</div>
             </div>
             <div th:if="${dto.greetingsId == myGreetingsId}">
-              <a class="btn btn-secondary"
+              <a class="btn btn-warning shadow-sm"
                  th:href="@{/club/greetingsForm(clubId=${navDTO.clubId}, greetingsId=${dto.greetingsId})}">수정하기</a>
             </div>
           </div>

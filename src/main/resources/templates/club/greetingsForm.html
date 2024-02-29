@@ -4,8 +4,8 @@
 <th:block th:replace="~{/club/template/layout :: setContent(~{this :: content})}">
   <div class="container" th:fragment="content">
 
-    <div class="mb-5 rounded p-4 shadow">
-      <h3 class="mb-4"
+    <div class="mb-3 rounded p-4 shadow">
+      <h3 class="mb-3"
           th:text="${myContent == null ? '가입인사 작성' : '가입인사 수정'}"></h3>
 
       <form method="post"
@@ -26,7 +26,7 @@
         </div>
 
         <div>
-          <button class="btn btn-primary" type="submit">완료</button>
+          <button class="btn btn-success shadow-sm" type="submit">완료</button>
         </div>
       </form>
     </div>

@@ -42,7 +42,7 @@
 
                             <div class="form-group">
                                 <label for="newEmail">이메일</label>
-                                <input type="text" class="form-control" id="newEmail" required>
+                                <input type="text" class="form-control" id="newEmail" name="email" required>
                             </div>
                             <div class="mb-3 d-flex justify-content-end">
                                 <button id="checkemailDuplicationBtn" class="mb-3 btn btn-primary" type="button" onclick="checkUserEmail()">중복확인</button>
@@ -107,7 +107,7 @@
                                 }
                             </script>
                             <button type="submit" class="btn btn-primary">저장</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button> <!-- 수정된 부분 -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> <!-- 수정된 부분 -->
                         </form>
                     </div>
                 </div>
