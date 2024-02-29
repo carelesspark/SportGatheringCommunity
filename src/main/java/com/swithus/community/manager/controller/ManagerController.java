@@ -5,10 +5,7 @@ import com.swithus.community.board.service.PromotionBoardService;
 import com.swithus.community.manager.dto.InquiryAnswerDTO;
 import com.swithus.community.manager.dto.InquiryDTO;
 import com.swithus.community.manager.dto.page.MainPageRequestDTO;
-import com.swithus.community.manager.service.GatheringService;
-import com.swithus.community.manager.service.InquiryService;
-import com.swithus.community.manager.service.MainImageService;
-import com.swithus.community.manager.service.UserService;
+import com.swithus.community.manager.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -32,6 +30,7 @@ public class ManagerController {
     private final GatheringService gatheringService;
     private final MainImageService mainImageService;
     private final PromotionBoardService promotionBoardService;
+    private final ManagerGraphService managerGraphService;
 
     @GetMapping("/main")
     public void home(Model model){
@@ -40,7 +39,13 @@ public class ManagerController {
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
         List<Promotion> result = promotionBoardService.findTop4ByOrderByRegDateDesc();
+        List<Long> userCountGraph = managerGraphService.countUserGraph();
+        List<String> dateTimes = managerGraphService.getDatesList();
+        List<Long> clubCountGraph = managerGraphService.countGatheringGraph();
 
+        model.addAttribute("dates", dateTimes);
+        model.addAttribute("userCountGraph", userCountGraph);
+        model.addAttribute("clubCount", clubCountGraph);
         model.addAttribute("promotion", result);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);
@@ -59,7 +64,13 @@ public class ManagerController {
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
         List<Promotion> result = promotionBoardService.findTop4ByOrderByRegDateDesc();
+        List<Long> userCountGraph = managerGraphService.countUserGraph();
+        List<String> dateTimes = managerGraphService.getDatesList();
+        List<Long> clubCountGraph = managerGraphService.countGatheringGraph();
 
+        model.addAttribute("dates", dateTimes);
+        model.addAttribute("userCountGraph", userCountGraph);
+        model.addAttribute("clubCount", clubCountGraph);
         model.addAttribute("promotion", result);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);
@@ -79,7 +90,13 @@ public class ManagerController {
         Long userTodayCount = userService.countTodayUser();
         Long gatheringCount = gatheringService.countGathering();
         List<Promotion> result = promotionBoardService.findTop4ByOrderByRegDateDesc();
+        List<Long> userCountGraph = managerGraphService.countUserGraph();
+        List<String> dateTimes = managerGraphService.getDatesList();
+        List<Long> clubCountGraph = managerGraphService.countGatheringGraph();
 
+        model.addAttribute("dates", dateTimes);
+        model.addAttribute("userCountGraph", userCountGraph);
+        model.addAttribute("clubCount", clubCountGraph);
         model.addAttribute("promotion", result);
         model.addAttribute("inquiryCount", inqCount);
         model.addAttribute("userCount", userCount);

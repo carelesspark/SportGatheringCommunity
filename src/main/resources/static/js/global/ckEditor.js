@@ -91,7 +91,7 @@ CKEDITOR.ClassicEditor.create(document.getElementById("ckEditor"), {
       },
     ],
   },
-  placeholder: "클럽 소개를 입력하세요",
+  placeholder: "내용을 입력해주세요",
   fontSize: {
     options: [10, 12, 14, "default", 18, 20, 22],
     supportAllValues: true,

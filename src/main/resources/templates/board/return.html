@@ -2,9 +2,15 @@
 <script>
     $(document).ready(function(){
         let message = "[[${msg}]]";
+        let session = "[[${nickname}]]";
         if(message != "") {
             alert(message);
-            window.location.href = 'http://localhost:3306/login/login';
+            if(session != "") {
+                window.location.href = 'http://localhost:3306/board/promotion';
+            } else {
+                window.location.href = 'http://localhost:3306/login/login';
+            }
+
         } else {
 
         }

@@ -191,7 +191,6 @@ public class ClubServiceImpl implements ClubService {
         return clubMember.getId();
     }
 
-
     @Override
     public List<PopularClubDTO> getPopularClubDTOList(int number) {
         LocalDateTime now = LocalDateTime.now();
@@ -253,7 +252,33 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
+    public void withdrawClub(Long clubMemberId) {
+        clubMemberRepository.deleteById(clubMemberId);
+    }
+
+    @Override
+    public void deleteClub(Long clubId) {
+        clubRepository.deleteById(clubId);
+    }
+
+    @Override
+    @Transactional
+    public void welcome(Long clubMemberId) {
+        clubMemberRepository.setRankToOne(clubMemberId);
+    }
+
+    @Override
     public List<Club> findUsersClub(String nickname) {
         return clubRepository.findByUserNickname(nickname);
+    }
+
+    @Override
+    public boolean checkHaveClub(String nickname) {
+        List<Club> result = clubRepository.findByUserNickname(nickname);
+        if (result.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

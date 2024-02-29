@@ -39,6 +39,11 @@ public class MainController {
         //String userName = (String) session.getAttribute("userName");
         //세션에 사용자 정보가 없으면 로그인 페이지로 이동
         if (RuserId == null) {
+            List<Announcement> result = announcementService.findTop4ByOrderByRegDateDesc();
+            List<Promotion> result2 = promotionBoardService.findTop4ByOrderByRegDateDesc();
+
+            model.addAttribute("announcement", result);
+            model.addAttribute("promotion", result2);
             return "/main/main";
         } else {
             //모델에 userId와 userName을 추가

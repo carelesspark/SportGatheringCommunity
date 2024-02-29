@@ -8,6 +8,7 @@ import com.swithus.community.club.service.ClubPostLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Log4j2
@@ -29,10 +30,8 @@ public class ClubPostLikeServiceImpl implements ClubPostLikeService {
     }
 
     @Override
+    @Transactional
     public void deleteLike(Long postId, Long clubMemberId) {
-        likeRepository.delete(ClubPostLike.builder()
-                .post(ClubPost.builder().id(postId).build())
-                .member(ClubMember.builder().id(clubMemberId).build())
-                .build());
+        likeRepository.deleteByPostIdAndClubMemberId(postId,clubMemberId);
     }
 }

@@ -30,7 +30,7 @@ public class ClubPostReplyRestController {
     }
 
     // R
-    @GetMapping("/{postId}")
+    @GetMapping("/{postId}/list")
     public ResponseEntity<List<ClubPostReplyDTO>> getReplyDTOList(
             @PathVariable("postId") Long postId) {
         log.info("GET /clubPostReply/{}", postId);
