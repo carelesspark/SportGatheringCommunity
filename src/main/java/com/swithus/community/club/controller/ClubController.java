@@ -161,7 +161,11 @@ public class ClubController {
         log.info("대기자 인원수: {}", waitingList);
 
         model.addAttribute("navDTO", navDTO);
-        model.addAttribute("waitingList", waitingList);
+        if (waitingList.isEmpty()) {
+            model.addAttribute("waitingList", null);
+        } else {
+            model.addAttribute("waitingList", waitingList);
+        }
     }
 
     @GetMapping("/welcome")
