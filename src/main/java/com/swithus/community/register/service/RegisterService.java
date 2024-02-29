@@ -8,6 +8,7 @@ public interface RegisterService {
     boolean join(UserDTO userDTO);
     boolean isUserIdExists(String userId);
     boolean isUserNicknameExists(String userNickname);
+    boolean isUserEmailExists(String userEmail);
     default User dtoToEntity (UserDTO dto){
         User entity = User.builder()
                 .name(dto.getName())

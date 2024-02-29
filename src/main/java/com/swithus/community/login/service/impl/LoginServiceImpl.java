@@ -104,6 +104,22 @@ public class LoginServiceImpl implements LoginService {
         return Optional.empty();
     }
 
+    @Override
+    public void updatePwd(String userId, String newPwd) {
+        AuthId authId = authIdRepository.findByUserid(userId);
+
+        // 찾은 AuthId가 없으면 예외 처리 또는 다른 방식으로 처리
+        if (authId == null) {
+            log.error("사용자를 찾을 수 없습니다.");
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
+
+        // 새로운 비밀번호로 업데이트
+        authId.setUserpwd(newPwd);
+        authIdRepository.save(authId);
+        log.info("비밀번호가 성공적으로 변경되었습니다.");
+    }
+
     private boolean isEmailVerified(User user) {
         AuthVerification authVerification = authVerificationRepository.findByUser(user);
         return authVerification != null && authVerification.isEmailVerified();
