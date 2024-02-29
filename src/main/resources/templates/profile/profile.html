@@ -134,7 +134,7 @@
             <div><p>이메일 주소</p></div>
             <div>
                 <div th:if="${session.userEmail}">
-                    <p th:text="${session.userEmail}"></p>
+                    <p class="emailaddr" th:text="${session.userEmail}"></p>
                 </div>
             </div>
         </div>
@@ -353,6 +353,20 @@ $(document).ready(function(){
                     $('#editProfileBtn').on('click', function () {
                         // 모달 열기 등의 동작 추가
                         $('#editProfileModal').modal('show');
+
+                        // 이미 있는 값을 가져와서 모달 내부의 필드에 설정
+                        var currentNickname = $('#nickname p').text(); // 현재 닉네임 가져오기
+                        var currentEmail = $('.emailaddr').text(); // 현재 이메일 가져오기
+                        var currentAddress = $('#info2 p:nth-child(1) span').text(); // 현재 주소 가져오기
+                        var currentAddressDetail = $('#info2 p:nth-child(2) span').text(); // 현재 상세주소 가져오기
+                        var currentPost = $('#info2 p:nth-child(3) span').text(); // 현재 우편번호 가져오기
+
+                        // 가져온 값을 모달 내부의 필드에 설정
+                        $('#newNickname').val(currentNickname);
+                        $('#newEmail').val(currentEmail);
+                        $('#newAddress').val(currentAddress);
+                        $('#newAddressDetail').val(currentAddressDetail);
+                        $('#newPost').val(currentPost);
                     });
 
                     // 프로필 수정 폼 제출 시
