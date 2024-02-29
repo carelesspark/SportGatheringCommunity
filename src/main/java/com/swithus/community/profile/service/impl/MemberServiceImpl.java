@@ -1,5 +1,6 @@
 package com.swithus.community.profile.service.impl;
 
+import com.swithus.community.global.exception.DuplicateFormatException;
 import com.swithus.community.profile.repository.MemberRepository;
 import com.swithus.community.profile.service.MemberService;
 import com.swithus.community.register.repository.RegisterRepository;
@@ -29,11 +30,11 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new RuntimeException("ID가 " + userDTO.getId() + "인 사용자를 찾을 수 없습니다."));
 
         if (isUserNicknameExists(userDTO.getNickname())) {
-            throw new DuplicateFormatFlagsException("이미 존재하는 닉네임입니다.");
+            throw new DuplicateFormatException("이미 존재하는 닉네임입니다.");
         }
 
         if (isUserEmailExists(userDTO.getEmail())) {
-            throw new DuplicateFormatFlagsException("이미 존재하는 이메일입니다.");
+            throw new DuplicateFormatException("이미 존재하는 이메일입니다.");
         }
 
         existingUser.setNickname(userDTO.getNickname());

@@ -1,5 +1,6 @@
 package com.swithus.community.profile.controller;
 
+import com.swithus.community.global.exception.DuplicateFormatException;
 import com.swithus.community.profile.service.MemberService;
 import com.swithus.community.register.service.RegisterService;
 import com.swithus.community.user.dto.UserDTO;
@@ -7,10 +8,13 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.DuplicateFormatFlagsException;
 
 @Controller
 @RequestMapping("/profile")
@@ -77,8 +81,27 @@ public class ProfileController {
             // 업데이트 실패 시 메시지를 리다이렉트로 전달
             redirectAttributes.addFlashAttribute("errorMessage", "프로필 업데이트에 실패했습니다. 다시 시도해주세요.");
         }
+//        catch (DuplicateFormatException e) {
+//            // 중복 에러가 발생한 경우 사용자에게 메시지 전달
+//            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+//            return "redirect:/profile/profile";
+//        }
 
         return "redirect:/profile/main";
+    }
+
+    @GetMapping("/checkUserNickname/{userNickname}")
+    @ResponseBody
+    public ResponseEntity<String> checkUserNickname(@PathVariable String userNickname) {
+        boolean isUserNicknameExists = registerService.isUserNicknameExists(userNickname);
+        return ResponseEntity.ok(isUserNicknameExists ? "EXIST" : "AVAILABLE");
+    }
+
+    @GetMapping("/checkUserEmail/{userEmail}")
+    @ResponseBody
+    public ResponseEntity<String> checkUserEmail(@PathVariable String userEmail) {
+        boolean isUserEmailExists = registerService.isUserEmailExists(userEmail);
+        return ResponseEntity.ok(isUserEmailExists ? "EXIST" : "AVAILABLE");
     }
 
 }
