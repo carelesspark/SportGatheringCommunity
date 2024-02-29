@@ -6,15 +6,18 @@
       padding-left: 5rem !important;
     }
   </style>
-  <header class="mx-auto" style="width: 1080px;">
+  <header class="container mx-auto mb-4">
     <nav class="navbar d-flex justify-content-between navbar-light bg-white border-bottom border-primary p-3">
       <a class="navbar-brand text-dark fw-bold fst-italic" href="/swithus/main"><span class="text-primary">S</span>port
         <span class="text-primary">W</span>ith <span class="text-primary">Us</span></a>
-      <form class="d-flex" style="width: 40%;">
+
+      <form action="/club/search" class="d-flex" method="get" style="width: 40%;">
         <div class="d-flex border border-primary rounded" style="width: 100%;">
-          <input aria-label="Search" class="form-control border-0 mr-2" placeholder="검색어를 입력해주세요" style="font-size: 14px;"
-                 type="search">
-          <button class="btn border-0 bg-white" type="submit"><i class="fi fi-rr-search /board/announcementtext-primary"></i></button>
+          <input aria-label="Search" class="form-control border-0 mr-2" placeholder="검색어를 입력해주세요"
+                 style="font-size: 14px;" name="keyword"
+                 type="text">
+          <button class="btn border-0 bg-white" type="submit"><i
+              class="fi fi-rr-search /board/announcementtext-primary"></i></button>
         </div>
       </form>
       <div class="dropdown">
@@ -38,10 +41,14 @@
             </button>
           </li>
           <li th:if="${session.RuserId != null}">
-            <button class="dropdown-item fw-bold" onclick="location.href='/login/logout'" style="font-size: 12px" type="button">로그아웃</button>
+            <button class="dropdown-item fw-bold" onclick="location.href='/login/logout'" style="font-size: 12px"
+                    type="button">로그아웃
+            </button>
           </li>
           <li th:if="${session.userId == 1}">
-            <button class="dropdown-item fw-bold" onclick="location.href='/manager/main'" style="font-size: 12px" type="button">관리자 페이지</button>
+            <button class="dropdown-item fw-bold" onclick="location.href='/manager/main'" style="font-size: 12px"
+                    type="button">관리자 페이지
+            </button>
           </li>
         </ul>
         <p class="mb-0 d-flex justify-content-center" style="font-size: 12px; font-weight: bold"><small>My</small></p>
@@ -52,7 +59,8 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav fw-bold">
             <button aria-controls="collapseExample" aria-expanded="false"
-                    class="btn d-flex flex-row align-items-center justify-content-between" data-bs-target="#collapseExample" data-bs-toggle="collapse"
+                    class="btn d-flex flex-row align-items-center justify-content-between"
+                    data-bs-target="#collapseExample" data-bs-toggle="collapse"
                     type="button">
               <i class="fi fi-rr-menu-burger"></i>
             </button>
@@ -83,8 +91,10 @@
                                                   th:href="@{/club/search(sportsId=5)}">탁구</a></li>
               </ul>
               <ul style="padding-left: 3.6rem;">
-                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/announcement">공지사항</a></li>
-                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/promotion">홍보 게시판</a></li>
+                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark"
+                                                  href="/board/announcement">공지사항</a></li>
+                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/promotion">홍보
+                  게시판</a></li>
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="#">대회모집 게시판</a></li>
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/faq">FAQ</a></li>
               </ul>
@@ -97,7 +107,8 @@
                 <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="#">같이써요</a></li>
               </ul>
               <ul style="padding-left: 9rem;">
-                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/inquiry">1:1 문의</a></li>
+                <li class="list-unstyled py-1"><a class="text-decoration-none text-dark" href="/board/inquiry">1:1
+                  문의</a></li>
               </ul>
             </div>
           </div>

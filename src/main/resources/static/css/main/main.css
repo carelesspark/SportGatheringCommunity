@@ -4,12 +4,6 @@
 html {
 	height: 100%;
 }
-/*body {*/
-/*	height: 100%;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    margin: 0;*/
-/*}*/
 
 main {
     flex: 1;
@@ -22,7 +16,7 @@ p {
 }
 
 #content {
-    width: 1080px;
+    max-width: 1080px;
     height: 1300px;
     display: grid;
     grid-template-rows: 500px 300px 500px;
@@ -31,12 +25,12 @@ p {
 }
 
 #promotion{
-    width: 1080px;
+    max-width: 1080px;
     height: 500px;
 }
 
 .carousel {
-            width: 1080px;
+            max-width: 1080px;
             object-fit: cover;
             border-radius: 10px;
         }
@@ -54,7 +48,7 @@ p {
         }
 
 .carousel-item img {
-            width: 1080px;
+            max-width: 1080px;
             height: 500px;
             border-radius: 10px;
         }
@@ -65,7 +59,7 @@ p {
 }
 
 #title1 {
-    width: 1080px;
+    max-width: 1080px;
     height: 40px;
     font-size: 12pt;
     font-family: 'Inter', sans-serif;
@@ -77,7 +71,7 @@ p {
 }
 
 #post_content {
-    width: 1080px;
+    max-width: 1080px;
     height: 260px;
     display: grid;
     grid-template-columns: 540px 540px;
@@ -161,14 +155,14 @@ table, tr, td {
 }
 
 #club {
-    width: 1080px;
+    max-width: 1080px;
     height: 500px;
     display: grid;
     grid-template-rows: 40px 430px 30px;
 }
 
 #title2 {
-    width: 1080px;
+    max-width: 1080px;
     height: 40px;
     font-size: 12pt;
     font-family: 'Inter', sans-serif;
@@ -180,7 +174,7 @@ table, tr, td {
 }
 
 #best4 {
-    width: 1080px;
+    max-width: 1080px;
     height: 430px;
     display: grid;
     grid-template-columns: 270px 270px 270px 270px;
