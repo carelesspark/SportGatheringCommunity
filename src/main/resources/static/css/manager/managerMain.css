@@ -420,6 +420,11 @@ a:hover {
     font-weight: bold;
 }
 
+tr {
+    height: 50px;
+}
+
+
 .table_tr{
     background-color: #D1D1D1;
     text-align: center;
@@ -680,13 +685,12 @@ textarea {
 }
 
 #post_view {
-    width: 800px;
-    height: 150px;
+    width: 875px;
+    height: 200px;
 }
 
 .pro_table {
-    width: 800px;
-    height: 150px;
+    width: 875px;
     text-align: center;
     font-size: 15pt;
     font-weight: bold;
