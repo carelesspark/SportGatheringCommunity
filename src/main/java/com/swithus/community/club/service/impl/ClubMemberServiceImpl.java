@@ -27,7 +27,7 @@ public class ClubMemberServiceImpl implements ClubMemberService {
 
     @Override
     public PageResultDTO<ClubMemberDTO, Object[]> getMemberPage(MemberPageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
+        Pageable pageable = requestDTO.getPageable(Sort.by("regDate").descending());
         Long clubId = requestDTO.getClubId();
 
         Page<Object[]> memberPage = clubMemberRepository.memberPage(pageable, clubId);

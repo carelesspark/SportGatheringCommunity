@@ -21,12 +21,10 @@ public interface ClubMemberService {
 
     // 이거 UserImage도 넣어서 완성시켜야함
     default ClubMemberDTO entityToClubMemberDTO(ClubMember clubMember, User user) {
-        String temp = "";
-
         ImageDTO imageDTO = ImageDTO.builder()
-                .name(temp)
-                .uuid(temp)
-                .path(temp)
+                .name("circleUser.png")
+                .uuid("uuid")
+                .path("profile")
                 .build();
 
         return ClubMemberDTO.builder()
