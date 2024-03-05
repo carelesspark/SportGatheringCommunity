@@ -24,6 +24,30 @@ p {
     margin: 0 auto 30px auto;
 }
 
+#comment {
+    width: 980px;
+    height: 400px;
+    display: grid;
+    margin: 10px auto 30px auto;
+    border-top: 1px solid #D1D1D1;
+
+}
+
+#comment_textarea {
+    width: 980px;
+    height:100px;
+}
+
+#textarea_size {
+    padding-top: 10px;
+    padding-left: 10px;
+    height: 100px;
+    resize: none;
+    width: 980px;
+}
+
+
+
 #pro_title {
     width: 980px;
     height: 150px;

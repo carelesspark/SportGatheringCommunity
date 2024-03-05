@@ -8,7 +8,7 @@ import com.swithus.community.board.dto.page.PageResultDTO;
 import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.board.entity.QPromotion;
 import com.swithus.community.board.repository.PromotionBoardRepository;
-import com.swithus.community.board.repository.PromotionReplyRepository;
+import com.swithus.community.board.repository.PromotionReviewRepository;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.repository.ClubRepository;
 import com.swithus.community.manager.repository.UserDetailRepository;
@@ -30,7 +30,7 @@ import java.util.function.Function;
 public class PromotionBoardServiceImpl implements PromotionBoardService {
 
     private final PromotionBoardRepository promotionBoardRepository;
-    private final PromotionReplyRepository promotionReplyRepository;
+    private final PromotionReviewRepository promotionReplyRepository;
     private final ClubRepository clubRepository;
     private final UserDetailRepository userDetailRepository;
 
