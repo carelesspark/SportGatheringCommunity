@@ -64,6 +64,11 @@
                 </div>
             </form>
         </div>
+        <div id="comment">
+            <div id="comment_textarea">
+                <textarea id="textarea_size"></textarea>
+            </div>
+        </div>
 
         <!-- 홍보게시글 수정 모달 -->
         <form action="/board/promotion_modify" method="post">
@@ -141,7 +146,7 @@
 
                $(".cancel").click(function(){
                     if(confirm("수정을 취소하시겠습니까?")){
-                        window.location.href = 'http://localhost:8000/board/promotion_info?page=' + page  + '&no=' + no + '&type=' + type + '&search=' + search;
+                        window.location.href = 'http://localhost:3306/board/promotion_info?page=' + page  + '&no=' + no + '&type=' + type + '&search=' + search;
                     }
                });
             });
