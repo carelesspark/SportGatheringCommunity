@@ -24,7 +24,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     private final AnnouncementRepository announcementRepository;
 
-
     @Override
     public AncPageResultDTO<AnnouncementDTO, Announcement> getAnnouncementList(AncPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
