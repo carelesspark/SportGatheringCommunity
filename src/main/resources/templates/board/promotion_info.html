@@ -12,6 +12,10 @@
             <div id="pro_middle">
                 <div id="padding">
                     <p>□ [[${dto.id}]]번 홍보 게시글</p>
+                    <div id="report_promotion">
+                        <button type="button" class="btn btn-outline-danger info_btn" th:if="${nickname != dto.nickname}">신고하기
+                        </button>
+                    </div>
                     <input type="hidden" th:value="${dto.nickname}"/>
                 </div>
                 <div id="info_table">
@@ -64,11 +68,6 @@
                 </div>
             </form>
         </div>
-        <div id="comment">
-            <div id="comment_textarea">
-                <textarea id="textarea_size"></textarea>
-            </div>
-        </div>
 
         <!-- 홍보게시글 수정 모달 -->
         <form action="/board/promotion_modify" method="post">
@@ -101,8 +100,55 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary cancel" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-primary modifyCancel" data-bs-dismiss="modal">취소</button>
                             <button type="button" class="btn btn-success proModify">수정하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- 신고 모달 -->
+        <form action="/board/report_promotion" method="post">
+            <div class="modal fade" id="ReportProModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+
+                        <div class="modal-header">
+                            <p class="modal-title">◇ Report Promotion</p>
+
+                        </div>
+
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="pro_body">
+                                    <input type="hidden" th:value="${nickname}" name="nickname" />
+                                    <input type="hidden" th:value="${dto.id}" name="postId" />
+                                    <div class="faq_ctgr">
+                                        <div class="report_ctgr"><label>신고 카테고리 : </label></div>
+                                        <div><select class="form-select form-select2"
+                                                     aria-label="Default select example" name="ctgrId">
+                                            <option value="0" selected>--- 세부 카테고리 ---</option>
+                                            <option value="1" name="비방 게시글">비방 게시글</option>
+                                            <option value="2" name="부적절한 콘텐츠">부적절한 콘텐츠</option>
+                                            <option value="3" name="개인정보 유출">개인정보 유출</option>
+                                            <option value="4" name="허위 정보">허위 정보</option>
+                                            <option value="5" name="기타">기타</option>
+                                        </select></div>
+                                    </div>
+                                    <div class="report_content">
+                                        <div class="report_reason"><label>신고 사유 : </label></div>
+                                        <div><textarea class="report_content_input" name="reason"></textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary cancel" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-success proReport">신고하기</button>
                         </div>
                     </div>
                 </div>
@@ -124,9 +170,14 @@
                });
 
                 var ModifyProModal = $("#ModifyProModal");
+                var ReportProModal = $("#ReportProModal");
 
                $(".btn-danger").click(function(){
                     ModifyProModal.modal('show');
+               });
+
+               $(".btn-outline-danger").click(function(){
+                    ReportProModal.modal('show');
                });
 
                $(".proModify").click(function(){
@@ -139,12 +190,31 @@
                     form.submit();
                });
 
+               $(".proReport").click(function(){
+                    if($("select[name=ctgrId] option:selected").val() == "0"){
+                        alert("카테고리를 설정해주세요");
+                        return;
+                    }
+
+                    if($(".report_content_input").val() == ""){
+                        alert("신고 사유를 입력하세요.");
+                        return;
+                    }
+
+                    if(!confirm("신고하시겠습니까?")){
+                        return;
+                    }
+
+                    form.attr("action", "/board/promotion_report").attr("method", "post");
+                    form.submit();
+               });
+
                var no = [[${dto.id}]];
                var page = [[${pageRequestDTO.page}]];
                var type = "[[${pageRequestDTO.type}]]";
                var search = "[[${pageRequestDTO.search}]]";
 
-               $(".cancel").click(function(){
+               $(".modifyCancel").click(function(){
                     if(confirm("수정을 취소하시겠습니까?")){
                         window.location.href = 'http://localhost:3306/board/promotion_info?page=' + page  + '&no=' + no + '&type=' + type + '&search=' + search;
                     }

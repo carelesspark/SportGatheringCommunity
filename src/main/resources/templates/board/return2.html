@@ -1,0 +1,22 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        let message = "[[${msg}]]";
+        let session = "[[${nickname}]]";
+        let page = "[[${page}]]";
+        let no = "[[${no}]]";
+        let type = "[[${type}]]";
+        let search = "[[${search}]]";
+        if(message != "") {
+            alert(message);
+            if(session != "") {
+                window.location.href = 'http://localhost:3306/board/promotion_info?page=' + page + '&no=' + no + '&type=' + type + '&search=' + search
+            } else {
+                window.location.href = 'http://localhost:3306/login/login';
+            }
+
+        } else {
+
+        }
+    });
+</script>

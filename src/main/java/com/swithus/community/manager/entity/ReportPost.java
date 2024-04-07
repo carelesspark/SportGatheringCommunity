@@ -26,4 +26,5 @@ public class ReportPost extends BaseEntity {
 
     private String reason;
 
+    private String nickname;
 }
