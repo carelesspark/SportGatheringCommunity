@@ -1,9 +1,11 @@
 package com.swithus.community.board.controller;
 
 import com.swithus.community.board.dto.PromotionBoardDTO;
+import com.swithus.community.board.dto.ReportPostDTO;
 import com.swithus.community.board.dto.page.PageRequestDTO;
 import com.swithus.community.board.entity.Promotion;
 import com.swithus.community.board.service.PromotionBoardService;
+import com.swithus.community.board.service.PromotionReportService;
 import com.swithus.community.club.entity.Club;
 import com.swithus.community.club.repository.ClubRepository;
 import com.swithus.community.club.service.ClubService;
@@ -30,6 +32,7 @@ public class PromotionController {
 
     private final PromotionBoardService promotionBoardService;
     private final ClubService clubService;
+    private final PromotionReportService promotionReportService;
 
     @GetMapping("/promotion")
     public void promotion(PageRequestDTO pageRequestDTO, Model model) {
@@ -90,6 +93,39 @@ public class PromotionController {
         promotionBoardService.modify(dto);
 
         redirectAttributes.addAttribute("no", dto.getId());
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("type", pageRequestDTO.getType());
+        redirectAttributes.addAttribute("search", pageRequestDTO.getSearch());
+
+        return "redirect:/board/promotion_info";
+    }
+
+    @PostMapping("/promotion_report")
+    public String report(ReportPostDTO reportPostDTO, @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes, HttpSession session, Model model){
+        log.info("홍보 게시글 신고");
+
+        String nickname = (String) session.getAttribute("userNickname");
+
+        if (nickname == null){
+            model.addAttribute("msg", "신고 기능은 유저만 가능합니다.");
+            model.addAttribute("nickname", nickname);
+            return "/board/return";
+        }
+
+        Long isReported = promotionReportService.count(reportPostDTO);
+
+        if(isReported > 0){
+            model.addAttribute("msg", "이미 신고하신 게시글입니다.");
+            model.addAttribute("nickname", nickname);
+            model.addAttribute("no", reportPostDTO.getPostId());
+            model.addAttribute("page", pageRequestDTO.getPage());
+            model.addAttribute("type", pageRequestDTO.getType());
+            model.addAttribute("search", pageRequestDTO.getSearch());
+            return "/board/return2";
+        }
+        promotionReportService.report(reportPostDTO);
+
+        redirectAttributes.addAttribute("no", reportPostDTO.getPostId());
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("type", pageRequestDTO.getType());
         redirectAttributes.addAttribute("search", pageRequestDTO.getSearch());
