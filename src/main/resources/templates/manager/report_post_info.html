@@ -15,54 +15,77 @@
                 <table class="table">
                     <tr class="table_tr1">
                         <td class="table_q">No.</td>
-                        <td class="table_a">20</td>
+                        <td class="table_a">[[${dto.id}]]</td>
                         <td class="table_q">신고자</td>
-                        <td class="table_a">sdfsdfa1242</td>
+                        <td class="table_a">[[${dto.nickname}]]</td>
                     </tr>
                     <tr class="table_tr2">
                         <td class="table_q">신고 날짜</td>
-                        <td class="table_a">2024/01/31</td>
+                        <td class="table_a">[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
                         <td class="table_q">신고 카테고리</td>
-                        <td class="table_a">비방 게시글</td>
+                        <td class="table_a">[[${dto.ctgrType}]]</td>
                     </tr>
                     <tr class="table_tr3">
                         <td class="table_q">신고 사유</td>
-                        <td colspan="3" class="table_a"> 비방 댓글을 달았습니다. <br>
-                            확인 부탁드립니다.
-                        </td>
+                        <td colspan="3" class="table_a enter">[[${dto.reason}]]</td>
                     </tr>
                     <tr class="table_tr4">
                         <td class="table_q">게시글 내용</td>
-                        <td class="table_a">
-                            진짜 엄청 멍청하네.
-                        </td>
+                        <td class="table_a enter">[[${dto.postContent}]]</td>
                         <td class="table_q">게시글 내 사진</td>
                         <td class="table_a"></td>
                     </tr>
                     <tr class="table_tr5">
                         <td class="table_q">게시글 작성자</td>
-                        <td class="table_a">sdfsfsdff</td>
+                        <td class="table_a">[[${dto.postWriter}]]</td>
                         <td class="table_q">신고 카운트</td>
-                        <td class="table_a">3번</td>
+                        <td class="table_a">[[${reportedCount}]]</td>
                     </tr>
                 </table>
             </div>
-            <div id="buttons">
-                <div id="btn_padding">
-                    <button type="button" class="btn btn-dark info_btn"
-                            onclick="location.href='/manager/report_post'">돌아가기
-                    </button>
+            <form>
+                <input type="hidden" th:value="${dto.postId}" name="postId" />
+                <input type="hidden" th:value="${dto.id}" name="id" />
+                <div class="buttons" th:if="${dto.isSolved eq false} and ${dto.isSuitabled eq false}">
+                    <div class="btn_padding">
+                        <button type="button" class="btn btn-dark info_btn"
+                                th:onclick="|location.href='@{/manager/report_post(page=${pageRequestDTO.page})}'|">돌아가기
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger info_btn suitabledBtn">신고 부적합</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary info_btn deleteBtn">게시글 삭제</button>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-danger info_btn">신고 부적합</button>
+                <div class="buttons" th:if="${dto.isSolved eq true} and ${dto.isSuitabled eq true}">
+                    <div class="btn_padding">
+
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-dark info_btn"
+                                th:onclick="|location.href='@{/manager/report_post(page=${pageRequestDTO.page})}'|">돌아가기
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary info_btn deleteBtn" disabled>게시글 삭제</button>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-primary info_btn">신고 적합</button>
+                <div class="buttons" th:if="${dto.isSolved eq true} and ${dto.isSuitabled eq false}">
+                    <div class="btn_padding">
+
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-dark info_btn"
+                                th:onclick="|location.href='@{/manager/report_post(page=${pageRequestDTO.page})}'|">돌아가기
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger info_btn suitabledBtn" disabled>신고 부적합</button>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-secondary info_btn">게시글 삭제</button>
-                </div>
-            </div>
+            </form>
         </div>
 
 
@@ -179,6 +202,27 @@
                     $('.icon7').css("fill", "#D6D6D6");
                     $('.icon7').css("transition", "fill 0.3s ease-in-out");
                });
+
+               var form = $("form");
+
+               $(".deleteBtn").click(function(){
+                    if(!confirm("삭제하시겠습니까?")){
+                        return;
+                    }
+                   form.attr("action", "/manager/reported_promotion_delete").attr("method", "post");
+                   form.submit();
+               });
+
+               $(".suitabledBtn").click(function(){
+                    if(!confirm("신고에 부적합한 게시글인가요?")){
+                        return;
+                    }
+                   form.attr("action", "/manager/reported_promotion_isUnsuitabled").attr("method", "post");
+                   form.submit();
+               });
+
+
+
            });
         </script>
 

@@ -129,29 +129,5 @@ public class ManagerController {
         return "redirect:/manager/main_modal";
     }
 
-    @GetMapping("/report_comment")
-    public String report_comment(){
-
-        return "manager/report_comment";
-    }
-
-    @GetMapping("/report_comment_info")
-    public String report_comment_info(){
-
-        return "manager/report_comment_info";
-    }
-
-    @GetMapping("/report_post")
-    public String report_post(){
-
-        return "manager/report_post";
-    }
-
-    @GetMapping("/report_post_info")
-    public String report_post_info(){
-
-        return "manager/report_post_info";
-    }
-
 
 }

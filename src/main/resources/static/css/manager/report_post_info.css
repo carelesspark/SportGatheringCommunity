@@ -153,12 +153,28 @@ p {
     border-top: 1px solid #D1D1D1;
 }
 
-#buttons {
+.buttons {
     width: 700px;
     display: grid;
-    grid-template-columns: 395px 100px 120px 100px;
+    grid-template-columns: 480px 120px 100px;
     place-items: center;
+    padding-left: 5px;
+}
 
+.report_a {
+    background-color: rgb(39, 125, 255);
+}
+
+.icon5 {
+    fill: white;
+}
+
+.icon6 {
+    fill: white;
+}
+
+.enter{
+    white-space: pre-wrap;
 }
 
 .info_btn {
@@ -169,8 +185,8 @@ p {
     height: 28px;
 }
 
-#btn_padding {
-    padding-left: 270px;
+.btn_padding {
+    padding-left: 380px;
 }
 
 
