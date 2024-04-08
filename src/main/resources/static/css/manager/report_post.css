@@ -121,6 +121,18 @@ p {
     color: black;
 }
 
+.report_a {
+    background-color: rgb(39, 125, 255);
+}
+
+.icon5 {
+    fill: white;
+}
+
+.icon6 {
+    fill: white;
+}
+
 .report_info {
     width: 100px;
     height: 30px;
@@ -129,5 +141,9 @@ p {
 }
 
 .report_status {
-    color: #FF0000;
+    color: red;
+}
+
+.report_status2 {
+    color: blue;
 }
