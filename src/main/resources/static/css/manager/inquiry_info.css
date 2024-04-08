@@ -20,6 +20,22 @@ p {
     margin: 0;
 }
 
+#left {
+    width: 180px;
+    height: 1300px;
+    display: grid;
+    grid-template-rows: 70px 70px 1160px;
+    place-items: center;
+    background-color: #4A4A4A;
+}
+
+#menu {
+    width: 180px;
+    height: 1160px;
+    display: grid;
+    grid-template-rows: 70px 70px 70px 70px 70px 140px 670px;
+    place-items: center;
+}
 
 #main_box {
     width: 1080px;
