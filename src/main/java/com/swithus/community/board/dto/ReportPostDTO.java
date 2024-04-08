@@ -20,9 +20,17 @@ public class ReportPostDTO {
 
     private Long ctgrId;
 
+    private String ctgrType;
+
     private String reason;
 
-    private String writer;
+    private String postWriter;
+
+    private boolean isSolved;
+
+    private boolean isSuitabled;
 
     private Long postId;
+
+    private String postContent;
 }
