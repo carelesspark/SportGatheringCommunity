@@ -20,80 +20,30 @@
                         <th><p class="table_tr_p">신고 날짜</p></th>
                         <th><p class="table_tr_p">상태</p></th>
                     </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
+                    <tr class="table_tr2" th:each="dto : ${result.dtoList}">
+                        <td>[[${dto.id}]]</td>
+                        <td><a th:href="@{/manager/report_post_info(page=${result.page}, no=${dto.id})}">[[${dto.reason}]]</a></td>
+                        <td>[[${dto.nickname}]]</td>
+                        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                        <td class="report_status" th:if="${dto.isSolved eq false}">미해결</td>
+                        <td class="report_status2" th:if="${dto.isSolved eq true}">해결</td>
                     </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-                    <tr class="table_tr2">
-                        <td>20</td>
-                        <td><a th:href="@{/manager/report_post_info}">비방 글 신고합...</a></td>
-                        <td>sdfsdf1242</td>
-                        <td>2024/01/31</td>
-                        <td class="report_status">미해결</td>
-                    </tr>
-
                 </table>
             </div>
-            <div></div>
+            <div class="paging">
+                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <li class="page-item" th:if="${result.prev}">
+                        <a class="page-link" th:href="@{/manager/report_post(page=${result.start - 1})}">Prev</a>
+                    </li>
+                    <li th:class=" ' page-item ' + ${result.page == page?'active':''}"
+                        th:each="page: ${result.pageList}">
+                        <a class="page-link" th:href="@{/manager/report_post(page=${page})}">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:if="${result.next}">
+                        <a class="page-link" th:href="@{/manager/report_post(page=${result.end + 1})}">Next</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
 
