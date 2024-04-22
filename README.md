@@ -23,26 +23,19 @@
 
 ```sh
 $ git clone https://github.com/carelesspark/SportGatheringCommunity.git
-
 ```
 
 2. 자바 17 환경을 설치합니다.
 ```sh
 https://www.oracle.com/kr/java/technologies/downloads/#java17
 ```
-3. 아파치 톰캣9를 설치합니다.
+
+3. IntelliJ 설치합니다.
 ```sh
-https://tomcat.apache.org/download-90.cgi
+https://www.jetbrains.com/ko-kr/idea/download/?section=windows
 ```
 
-4. STS3을 설치합니다.
-```sh
-https://github.com/spring-attic/toolsuite-distribution/wiki/Spring-Tool-Suite-3
-```
-
-5. STS3을 실행합니다.
-
-6. 톰캣 서버를 실행합니다.
+4. IntelliJ를 실행합니다.
 
 ## 📗데이터베이스
 ###  MySQL
