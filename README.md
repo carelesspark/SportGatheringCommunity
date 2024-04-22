@@ -40,66 +40,57 @@ https://www.jetbrains.com/ko-kr/idea/download/?section=windows
 ## 📗데이터베이스
 ###  MySQL
  - 데이터베이스
- - [https://github.com/carelesspark/ShoppingMallProject/wiki/DAZZLE-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BF%BC%EB%A6%AC]
+ - [https://github.com/carelesspark/SportGatheringCommunity/wiki/Sport-With-Us-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BF%BC%EB%A6%AC]
  - 해당 SQL 적용
 
 ## ⚡주요 기능
-+ 사용자
++ 유저
   + 회원가입 
   + 로그인
   + 아이디*비밀번호 찾기
-    + 비밀번호 재설정
-  + 회원 정보
-    + 장바구니
-    + 주문목록
-      + 주문 상세
-        + 취소 요청
-        + 환불 요청
-    + 포인트
-    + 리뷰 작성 목록
-    + 문의 사항 작성 목록 
-
-+ 카테고리 별 상품
-  + 구매
-    + 결제 페이지
-      + 주소지 선택 - 추가/수정/삭제  
-  + 리뷰/별점 추가
-  + 상품 문의 사항 추가
-  + 장바구니 추가
-
-+ 관리자
-  + 회원 관리
-    + 회원 목록
-    + 블랙리스트 목록 
-  + 상품 관리
-    + 상품 목록
-      + 상품 상세/삭제
-    + 상품 추가
-  + 주문 관리
-    + 주문 목록
-      + 주문 상세
-        + 주문 정보 수정
-    + 교환/환불 목록
-      + 교환/환불 상세
-        + 승인/거절
-  + FAQ 관리 - 추가/수정/삭제
-  + 공지사항 관리 - 추가/수정/삭제
-  + 게시물 관리 - 수정/삭제
+    + 비밀번호 재설정 
+  + 프로필 수정
 
 + 게시판
-  + FAQ
   + 공지사항
-  + 코디 게시판
-    + 코디 상세
-      + 코디 추가/수정/삭제                 
-      + 댓글 추가/삭제
+  + 소모임 홍보 - 작성/수정/삭제
+  + FAQ
+  + 1대1 문의 작
+
++ 관리자
+  + 메인 이미지 변경
+  + 1대1 문의 답변
+  + 공지사항 CRUD
+  + FAQ CRUD
+  + 유저 관리
+    + 삭제된 유저 관리
+  + 소모임 관리
+    + 삭제된 소모임 관리
+  + 홍보 게시글 신고 관리
+    + 신고 적합/부적합 판단
+
++ 소모임
+  + 가입 처리
+  + 소모임 명단
+  + 소모임 가입인사
+    + 가입인사 작성/수정
+    + 가입인사 좋아요 기능 
+  + 소모임 닉네임 변경
+  + 소모임 일정
+    + 모임 생성
+    + 모임 상세
+      + 모임 수정
+      + 댓글 기능
+  + 소모임 게시판
+    + 게시글 작성
+    + 댓글/좋아요 기능            
+
 
 ## 팀원 소개
 
 | 이름 | 기여한 파트 | 이메일 |
 | --- | --- | --- |
-| 박종혁 | cart, admin, order, product | kiae1234@naver.com |
-| 안병현 | main, header&footer, product | abh4017@naver.com |
-| 김태윤 | admin, sign, user | xodbs97@gmail.com |
-| 김경민 | board | kkm6612@gmail.com |
-| 송민수 | address, admin, faq, order, product | mss5682@naver.com |
+| 박종혁 | 메인, 게시판, 관리자 | kiae1234@naver.com |
+| 나정배 | 헤더&푸터, 유저 | njb07170407@gmail.com |
+| 이대한 | 헤더&푸터, 유저 | daehanl8635@gmail.com |
+| 김태윤 | 메인, 소모임 | xodbs97@gmail.com |
