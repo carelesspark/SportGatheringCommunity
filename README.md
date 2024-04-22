@@ -55,7 +55,7 @@ https://www.jetbrains.com/ko-kr/idea/download/?section=windows
   + 공지사항
   + 소모임 홍보 - 작성/수정/삭제
   + FAQ
-  + 1대1 문의 작
+  + 1대1 문의 작성
 
 + 관리자
   + 메인 이미지 변경
